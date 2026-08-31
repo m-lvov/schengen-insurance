@@ -382,6 +382,10 @@ body {
     font-weight: 700;
 }
 
+.form-field__annual {
+    max-width: 132px;
+}
+
 .form-field__annual-checkbox,
 .form-field__quote-checkbox {
     appearance: none;
@@ -394,7 +398,7 @@ body {
 
 .form-field__annual-checkbox:checked,
 .form-field__quote-checkbox:checked {
-    background: url('../img/checkbox-checked.svg') center/ 12px 9px no-repeat;
+    background: url('../img/anual-checked.svg') center/ 20px 20px no-repeat;
 }
 
 .form-field__annual,
