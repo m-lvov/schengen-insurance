@@ -396,9 +396,12 @@ body {
     cursor: pointer;
 }
 
-.form-field__annual-checkbox:checked,
+.form-field__annual-checkbox:checked {
+    background: url('../img/anual-checked.svg')center/ 20px 20px no-repeat;
+}
+
 .form-field__quote-checkbox:checked {
-    background: url('../img/anual-checked.svg') center/ 20px 20px no-repeat;
+    background: url('../img/checkbox-checked.svg') center/ 12px 9px no-repeat;
 }
 
 .form-field__annual,
