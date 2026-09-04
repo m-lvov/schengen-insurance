@@ -19,7 +19,7 @@
         <div class="container">
             <div class="header__inner">
                 <div class="header__logo">
-                    <a class="header__logo-link" href="#">
+                    <a class="header__logo-link" href="#hero">
                         <img class="header__logo-img" src="img/logo.svg" alt="logo">
                         <p class="header__logo-text">Go Schengen</p>
                     </a>
@@ -27,14 +27,15 @@
                 <nav class="header__nav">
                     <ul class="header__menu">
                         <li class="header__menu-item header__menu-item--active"><a class="header__menu-link"
-                                href="#">Home</a>
+                                href="#hero">Home</a>
                         </li>
-                        <li class="header__menu-item"><a class="header__menu-link" href="#">About Us</a> </li>
-                        <li class="header__menu-item"><a class="header__menu-link" href="#">Reviews</a> </li>
-                        <li class="header__menu-item"><a class="header__menu-link" href="#">Contacts</a> </li>
-                        <li class="header__menu-item"><a class="header__menu-link" href="#">Legal Info</a> </li>
-                        <li class="header__menu-item"><a class="header__menu-link" href="#">Partnership</a> </li>
-                        <li class="header__menu-item"><a class="header__menu-link" href="#">Careers</a> </li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#about">About Us</a> </li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#reviews">Reviews</a> </li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#contact">Contacts</a> </li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#legal">Legal Info</a> </li>
+                        <li class="header__menu-item"><a class="header__menu-link" href="#contact">Partnership</a> </li>
+                        <li class="header__menu-item"><a class="header__menu-link"
+                                href="mailto:support@goschengen.com?subject=Careers">Careers</a> </li>
                     </ul>
                 </nav>
                 <div class="header__actions">
@@ -56,7 +57,7 @@
         </div>
     </header>
     <main class="main">
-        <section class="hero">
+        <section class="hero" id="hero">
             <div class="container">
                 <div class="hero__inner">
                     <div class="hero__rate">
@@ -85,11 +86,11 @@
                                 </button>
                             </div>
                             <ul class="form-field__list">
-                                <li class="form-field__items"><a href="#">Germany</a></li>
-                                <li class="form-field__items"><a href="#">France</a></li>
-                                <li class="form-field__items"><a href="#">Spain</a></li>
-                                <li class="form-field__items"><a href="#">Italy</a></li>
-                                <li class="form-field__items"><a href="#">Greece</a></li>
+                                <li class="form-field__items"><button class="form-field__option" type="button">Germany</button></li>
+                                <li class="form-field__items"><button class="form-field__option" type="button">France</button></li>
+                                <li class="form-field__items"><button class="form-field__option" type="button">Spain</button></li>
+                                <li class="form-field__items"><button class="form-field__option" type="button">Italy</button></li>
+                                <li class="form-field__items"><button class="form-field__option" type="button">Greece</button></li>
                             </ul>
                         </div>
                         <div class="form-field__inner">
@@ -129,7 +130,7 @@
                 </form>
             </div>
         </section>
-        <section class="why-chose">
+        <section class="why-chose" id="why-choose">
             <div class="container">
                 <h2 class="title">Why Choose GoSchengen</h2>
                 <ul class="why-chose__list">
@@ -172,7 +173,7 @@
                 </ul>
             </div>
         </section>
-        <section class="insurance">
+        <section class="insurance" id="insurance">
             <div class="container">
                 <h2 class="title">Medical Health Insurance for a Schengen Visa for Everyone</h2>
                 <p class="section-note section-note--muted-dot insurance__subtitle">Essential coverage tailored for
@@ -212,7 +213,7 @@
                 </div>
             </div>
         </section>
-        <section class="countries">
+        <section class="countries" id="countries">
             <div class="container">
                 <div class="countries__header">
                     <div class="countries__heading">
@@ -267,10 +268,10 @@
                 </div>
             </div>
         </section>
-        <section class="entry-systems">
+        <section class="entry-systems" id="entry-systems">
             <div class="container">
                 <div class="entry-systems__list">
-                    <div class="entry-system">
+                    <div class="entry-system" id="ees">
                         <h2 class="title">EES (Entry/Exit System)</h2>
                         <p class="section-note">
                             The EES is a new EU digital system for recording entries, exits, and refusals of entry for
@@ -313,7 +314,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="entry-system">
+                    <div class="entry-system" id="etias">
                         <h2 class="title">ETIAS</h2>
                         <p class="section-note">
                             ETIAS is a new pre-entry authorization system for the EU intended for citizens of
@@ -352,7 +353,7 @@
                 </div>
             </div>
         </section>
-        <section class="visa-check">
+        <section class="visa-check" id="visa-check">
             <div class="container">
                 <div class="visa-check__inner">
                     <h2 class="title visa-check__title">Find out if you need a Schengen Visa?</h2>
@@ -377,7 +378,7 @@
                 </div>
             </div>
         </section>
-        <section class="visa-types">
+        <section class="visa-types" id="visa-types">
             <div class="container">
                 <div class="visa-types__inner">
                     <div class="visa-types__content">
@@ -478,7 +479,7 @@
                 </div>
             </div>
         </section>
-        <section class="steps">
+        <section class="steps" id="steps">
             <div class="container">
                 <h2 class="title steps__title">How to Buy Schengen Insurance</h2>
                 <p class="section-note section-note--light steps__note">To get your policy, you only need to complete
@@ -511,7 +512,7 @@
                 </ul>
             </div>
         </section>
-        <section class="coverage">
+        <section class="coverage" id="coverage">
             <div class="container">
                 <div class="coverage__wrapper">
                     <div class="coverage__content">
@@ -681,7 +682,7 @@
                 </div>
             </div>
         </section>
-        <section class="exclusions">
+        <section class="exclusions" id="exclusions">
             <div class="container">
                 <div class="exclusions__inner">
                     <div class="exclusions__content">
@@ -720,7 +721,7 @@
                 </div>
             </div>
         </section>
-        <section class="about">
+        <section class="about" id="about">
             <div class="container">
                 <h2 class="title about__title">About GoSchengen</h2>
                 <p class="section-note about__note">A simple and convenient online service for buying travel insurance
@@ -786,7 +787,7 @@
                         <div class="about__card about__card--wide about__card--image">
                             <img class="about__img" src="img/about-2.png" alt="">
                         </div>
-                        <div class="about__card about__card--accent about__card--large">
+                        <div class="about__card about__card--accent about__card--large" id="visa-refusal">
                             <h3 class="about__card-title">Visa Refusal</h3>
                             <p class="about__card-text">Refunds in Case of Visa Refusal: If a visa application is
                                 denied,
@@ -804,7 +805,7 @@
                 </div>
             </div>
         </section>
-        <section class="destinations">
+        <section class="destinations" id="destinations">
             <div class="container">
                 <div class="destinations__inner">
                     <div class="destinations__content">
@@ -905,7 +906,7 @@
                 </div>
             </div>
         </section>
-        <section class="expert">
+        <section class="expert" id="expert">
             <div class="container">
                 <h2 class="title expert__title">Expert Opinion</h2>
                 <p class="section-note expert__note">Clear advice rooted in real experience</p>
@@ -955,7 +956,7 @@
                 </article>
             </div>
         </section>
-        <section class="benefits">
+        <section class="benefits" id="benefits">
             <div class="container">
                 <h2 class="title">Benefits of Working With Us</h2>
                 <p class="section-note benefits__note">
@@ -1006,7 +1007,7 @@
                 </ul>
             </div>
         </section>
-        <section class="documents">
+        <section class="documents" id="documents">
             <div class="container">
                 <h2 class="title documents__title">Universal List of Documents for Obtaining a Schengen Visa</h2>
                 <p class="section-note documents__note">Individual country regulations may require additional forms or
@@ -1050,7 +1051,7 @@
                 </div>
             </div>
         </section>
-        <section class="insurance-terms">
+        <section class="insurance-terms" id="insurance-terms">
             <div class="container">
                 <h2 class="title insurance-terms__title">Schengen Visa Insurance: Prices, Terms, Coverage</h2>
                 <p class="section-note insurance-terms__note">Be sure to read the contract before signing. We offer the
@@ -1127,13 +1128,13 @@
                 <div class="insurance-terms__footer">
                     <p class="insurance-terms__footer-text">You can ask our specialist further questions during the
                         discussion of terms and conditions</p>
-                    <a class="insurance-terms__footer-link" href="#">Contact support
+                    <a class="insurance-terms__footer-link" href="#contact">Contact support
                         <img src="img/terms/headphones.svg" alt="">
                     </a>
                 </div>
             </div>
         </section>
-        <section class="shengen-contries">
+        <section class="shengen-contries" id="schengen-countries">
             <div class="container">
                 <h2 class="title shengen-contries__title">30 countries that are part of the Schengen area</h2>
                 <p class="section-note shengen-contries__note">A brief overview of the unified travel zon</p>
@@ -1261,7 +1262,7 @@
                 </ul>
             </div>
         </section>
-        <section class="reviews">
+        <section class="reviews" id="reviews">
             <div class="container">
                 <h2 class="title reviews__title">Reviews</h2>
                 <p class="section-note reviews__note">Read reviews about GoSchengen</p>
@@ -1645,7 +1646,7 @@
                 <button class="reviews__btn" type="button">See all reviews</button>
             </div>
         </section>
-        <section class="rules">
+        <section class="rules" id="rules">
             <div class="container">
                 <h2 class="title">Schengen area entry rules</h2>
                 <p class="section-note rules__note">Learn more about the rules for entering the Schengen area</p>
@@ -1697,7 +1698,7 @@
                 </ul>
             </div>
         </section>
-        <section class="faq">
+        <section class="faq" id="faq">
             <div class="container">
                 <h2 class="title">Friendly asked questions</h2>
                 <p class="section-note faq__note">Get answers to frequently asked questions from our customers</p>
@@ -1711,7 +1712,7 @@
                         </li>
                         <li class="faq__item">
                             <button class="faq__question" type="button">How to get travel insurance for
-                                Schengen?</button></h3>
+                                Schengen?</button>
                             <p class="faq__answer" hidden>You should use our website to create a contract tailored to
                                 your
                                 needs. Do all the steps online. Include there
@@ -1772,7 +1773,7 @@
                                 coverage, the region, and the duration. Schengen travel
                                 insurance can be expanded with additional options.</p>
                         </li>
-                        <li class="faq__item">
+                        <li class="faq__item faq__item--multiline">
                             <button class="faq__question" type="button">Why does your website
                                 list 30 Schengen
                                 countries when there are only 29?</button>
@@ -1804,7 +1805,7 @@
                 </div>
             </div>
         </section>
-        <section class="contact">
+        <section class="contact" id="contact">
             <div class="container">
                 <h2 class="title contact__title">Any questions left?</h2>
                 <p class="section-note contact__note">If you have any questions or are interested in a partnership,
@@ -1823,6 +1824,109 @@
             </div>
         </section>
     </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__head">
+                <a class="footer__logo-link" href="#hero">
+                    <img class="footer__logo-img" src="img/logo.svg" alt="">
+                    <span class="footer__logo-text">Go Schengen</span>
+                </a>
+                <p class="footer__text">GoSchengen, registered in [Country] No. [00000000], with registered office at
+                    [Address], provides access to travel
+                    insurance and related travel protection services. Insurance services available through this website
+                    are provided in
+                    accordance with applicable laws and regulations and may be underwritten or administered by
+                    third-party insurance
+                    providers. All insurance products are subject to policy terms, conditions, exclusions and applicable
+                    regulatory
+                    requirements.</p>
+                <nav class="footer__wrapper footer__wrapper-site" aria-labelledby="footer-site-title">
+                    <h3 class="footer__title" id="footer-site-title">Site</h3>
+                    <ul class="footer__list">
+                        <li class="footer__item"><a class="footer__item-link" href="#insurance">Visa Insurance</a></li>
+                        <li class="footer__item"><a class="footer__item-link" href="#destinations">Destinations</a></li>
+                        <li class="footer__item"><a class="footer__item-link" href="#rules">Rules of Entry</a></li>
+                        <li class="footer__item"><a class="footer__item-link" href="#visa-types">Types of Schengen Visas</a>
+                        </li>
+                        <li class="footer__item"><a class="footer__item-link" href="#visa-refusal">Schengen Visa Refusal</a></li>
+                        <li class="footer__item"><a class="footer__item-link" href="#ees">EES (Entry/Exit System)</a>
+                        </li>
+                        <li class="footer__item"><a class="footer__item-link" href="#etias">ETIAS</a></li>
+                    </ul>
+                </nav>
+                <nav class="footer__wrapper" aria-labelledby="footer-company-title">
+                    <h3 class="footer__title" id="footer-company-title">Company</h3>
+                    <ul class="footer__list">
+                        <li class="footer__item"><a class="footer__item-link" href="#about">About Us</a></li>
+                        <li class="footer__item"><a class="footer__item-link" href="#contact">Contacts</a></li>
+                        <li class="footer__item"><a class="footer__item-link" href="#reviews">Reviews</a></li>
+                        <li class="footer__item"><a class="footer__item-link" href="#contact">Partnership</a></li>
+                        <li class="footer__item"><a class="footer__item-link"
+                                href="mailto:support@goschengen.com?subject=Careers">Careers</a></li>
+                    </ul>
+                </nav>
+                <nav class="footer__wrapper" id="legal" aria-labelledby="footer-legal-title">
+                    <h3 class="footer__title" id="footer-legal-title">Legal</h3>
+                    <ul class="footer__list">
+                        <li class="footer__item"><a class="footer__item-link" href="">Terms of Service</a></li>
+                        <li class="footer__item"><a class="footer__item-link" href="">Privacy Policy</a></li>
+                        <li class="footer__item"><a class="footer__item-link" href="">Cookie Policy</a></li>
+                        <li class="footer__item"><a class="footer__item-link" href="#documents">Insurance Documents</a></li>
+                    </ul>
+                </nav>
+                <div class="footer__wrapper">
+                    <h3 class="footer__title">Contact</h3>
+                    <ul class="footer__list">
+                        <li class="footer__item"><a class="footer__item-link"
+                                href="mailto:support@goschengen.com">support@goschengen.com</a>
+                        </li>
+                        <li class="footer__item"><a class="footer__item-link" href="tel:+77777777777">+7 (777)
+                                777-77-77</a></li>
+                        <li class="footer__item">
+                            <ul class="footer__contact-icons">
+                                <li class="footer__contact-icon"><a href="#"><img src="img/telegram.svg"
+                                            alt="Telegram"></a>
+                                </li>
+                                <li class="footer__contact-icon"><a href="#"><img src="img/watsap.svg"
+                                            alt="WhatsApp"></a></li>
+                                <li class="footer__contact-icon"><a href="#"><img src="img/mesenger.svg"
+                                            alt="Messenger"></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer__wrapper">
+                    <h3 class="footer__title">Social</h3>
+                    <ul class="footer__list footer__list-social">
+                        <li class="footer__item"><a class="footer__item-link" href="#"><img
+                                    src="img/facebook-footer.svg" alt="Facebook"></a>
+                        </li>
+                        <li class="footer__item"><a class="footer__item-link" href="#"><img src="img/X.svg" alt="X"></a>
+                        </li>
+                        <li class="footer__item"><a class="footer__item-link" href="#"><img src="img/instagramm.svg"
+                                    alt="Instagram"></a>
+                        </li>
+                        <li class="footer__item"><a class="footer__item-link" href="#"><img src="img/in.svg"
+                                    alt="LinkedIn"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="footer__list-logos">
+                <li class="footer__item-logos"><img src="img/apple-pay.svg" alt=""></li>
+                <li class="footer__item-logos"><img src="img/g-pay.svg" alt=""></li>
+                <li class="footer__item-logos"><img src="img/visa.svg" alt=""></li>
+                <li class="footer__item-logos"><img src="img/mastercard.svg" alt=""></li>
+                <li class="footer__item-logos"><img src="img/pay-pal.svg" alt=""></li>
+            </ul>
+            <div class="footer__bottom">
+                <p class="footer__bottom-text">© 2026 GoSchengen Limited. All Rights Reserved.</p>
+                <p class="footer__bottom-text">27 High Street, Oxford, OX1 4RP, United Kingdom</p>
+            </div>
+
+        </div>
+    </footer>
 
     <script src="js/main.js"></script>
 </body>
