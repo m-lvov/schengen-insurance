@@ -1,3 +1,107 @@
+@font-face {
+    font-family: "Avenir Next Cyr";
+    src: url("../fonts/AvenirNextCyr/AvenirNextCyr-Light.woff") format("woff");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Avenir Next Cyr";
+    src: url("../fonts/AvenirNextCyr/AvenirNextCyr-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Avenir Next Cyr";
+    src: url("../fonts/AvenirNextCyr/AvenirNextCyr-Medium.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Avenir Next Cyr";
+    src: url("../fonts/AvenirNextCyr/AvenirNextCyr-Demi.woff") format("woff");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Avenir Next Cyr";
+    src: url("../fonts/AvenirNextCyr/AvenirNextCyr-Bold.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Circular Std";
+    src: url("../fonts/Circular/CircularStd-Book.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Circular Std";
+    src: url("../fonts/Circular/CircularStd-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Circular Std";
+    src: url("../fonts/Circular/CircularStd-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Circular Std";
+    src: url("../fonts/Circular/CircularStd-Black.woff2") format("woff2");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Gilroy";
+    src: url("../fonts/Gilroy/Gilroy-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Gilroy";
+    src: url("../fonts/Gilroy/Gilroy-Medium.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Gilroy";
+    src: url("../fonts/Gilroy/Gilroy-SemiBold.woff") format("woff");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Gilroy";
+    src: url("../fonts/Gilroy/Gilroy-Bold.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -50,6 +154,12 @@ body {
     line-height: normal;
 }
 
+.careers-page {
+    font-family: "Gilroy", sans-serif;
+}
+
+
+
 .container {
     margin: 0 auto;
     padding: 0 20px;
@@ -57,18 +167,18 @@ body {
 }
 
 .title {
-    font-family: "Lufga", 'Monrope', sans-serif;
+    font-family: "Circular Std", sans-serif;
     color: #02063C;
     font-size: 42px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 52px;
 }
 
 .section-note {
     color: #4A516E;
     font-size: 16px;
-    font-weight: 450;
+    font-weight: 500;
     line-height: 20px;
     display: flex;
     align-items: flex-start;
@@ -162,7 +272,7 @@ body {
 .header__menu {
     display: flex;
     gap: 34px;
-    font-weight: 450;
+    font-weight: 500;
     line-height: 20px;
     color: #4A516E;
 }
@@ -186,7 +296,7 @@ body {
 .header__actions {
     display: flex;
     gap: 24px;
-    font-weight: 450;
+    font-weight: 500;
     line-height: 20px;
     color: #4A516E;
 }
@@ -262,7 +372,6 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-family: 'Mulish', sans-serif;
 }
 
 .hero__rate-value {
@@ -276,12 +385,11 @@ body {
 }
 
 .hero__title {
-    font-family: "Lufga", 'Monrope', sans-serif;
+    font-family: "Circular Std", sans-serif;
     margin-top: 10px;
     color: #FFF;
     font-size: 80px;
     font-weight: 500;
-    line-height: normal;
 }
 
 .hero__text {
@@ -317,7 +425,6 @@ body {
     color: #000;
     font-size: 16px;
     font-weight: 700;
-    line-height: normal;
     align-items: center;
     display: flex;
 }
@@ -369,7 +476,6 @@ body {
     border: 1px solid #D3D3D3;
     color: #80839F;
     font-size: 16px;
-    line-height: normal;
 }
 
 .form-field__list {
@@ -377,8 +483,7 @@ body {
     gap: 9px;
     font-size: 14px;
     color: #16653D;
-    font-weight: 450;
-    line-height: normal;
+    font-weight: 500;
 }
 
 .form-field__option {
@@ -394,7 +499,6 @@ body {
     border: 1px solid #D3D3D3;
     color: #80839F;
     font-size: 16px;
-    line-height: normal;
     width: 100%;
     text-align: left;
 }
@@ -624,7 +728,7 @@ body {
     border-radius: 40px;
     background: rgba(255, 255, 255, 0.20);
     font-size: 16px;
-    font-weight: 450;
+    font-weight: 500;
     line-height: 20px;
 }
 
@@ -721,8 +825,7 @@ body {
     background: rgba(255, 255, 255, 0.20);
     color: #FFF;
     font-size: 16px;
-    font-weight: 450;
-    line-height: normal;
+    font-weight: 500;
 }
 
 .visa-check__btn {
@@ -907,10 +1010,8 @@ body {
     align-items: center;
     justify-content: center;
     color: #7EEC10;
-    font-family: "Urbanist", sans-serif;
     font-size: 100px;
     font-weight: 300;
-    line-height: normal;
 }
 
 .steps__item-title {
@@ -1023,14 +1124,13 @@ body {
     border-collapse: collapse;
     table-layout: fixed;
     text-align: left;
-    font-family: "Avenir Next Cyr", sans-serif;
 }
 
 .coverage__table-head {
     background-color: #d5ffb2;
     color: #02063C;
     font-size: 16px;
-    font-weight: 450;
+    font-weight: 500;
     line-height: 20px;
 }
 
@@ -1271,14 +1371,12 @@ body {
 }
 
 .about__card-value {
-    font-family: Lufga;
+    font-family: "Circular Std", sans-serif;
     font-size: 62px;
     font-weight: 300;
-    line-height: normal;
 }
 
 .about__card-title {
-    font-family: "Avenir Next Cyr";
     font-size: 24px;
     font-weight: 700;
     line-height: 30px;
@@ -1348,7 +1446,7 @@ body {
     margin-top: 11px;
     color: #02063C;
     font-size: 16px;
-    font-weight: 450;
+    font-weight: 500;
     line-height: 20px;
 }
 
@@ -1382,7 +1480,7 @@ body {
 .expert__text {
     margin-top: 40px;
     font-size: 36px;
-    font-weight: 450;
+    font-weight: 500;
     line-height: 50px;
 }
 
@@ -1630,7 +1728,7 @@ body {
     text-align: center;
     color: #02063C;
     font-size: 16px;
-    font-weight: 450;
+    font-weight: 500;
     line-height: 20px;
 }
 
@@ -1687,7 +1785,7 @@ body {
 .shengen-contries__card-text {
     color: #02063C;
     font-size: 16px;
-    font-weight: 450;
+    font-weight: 500;
     line-height: 20px;
 }
 
@@ -1736,14 +1834,12 @@ body {
     color: #02063C;
     font-size: 21px;
     font-weight: 700;
-    line-height: normal;
 }
 
 .reviews__location {
     margin-top: 4px;
     color: #4A516E;
-    font-weight: 450;
-    line-height: normal;
+    font-weight: 500;
     display: flex;
     align-items: center;
     gap: 7.5px;
@@ -1985,7 +2081,7 @@ body {
 .contact__select-value {
     color: #FFF;
     font-size: 16px;
-    font-weight: 450;
+    font-weight: 500;
     line-height: 20px;
     display: flex;
     align-items: center;
@@ -2012,7 +2108,7 @@ body {
 .contact__input::placeholder {
     color: #FFF;
     font-size: 16px;
-    font-weight: 450;
+    font-weight: 500;
     line-height: 20px;
 }
 
@@ -2049,7 +2145,6 @@ body {
     align-items: center;
     gap: 6px;
     color: #FFF;
-    font-family: "Avenir Next Cyr";
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -2113,4 +2208,629 @@ body {
     display: flex;
     justify-content: space-between;
     border-top: 1px solid rgba(229, 231, 235, 0.10);
+}
+
+.page-hero {
+    height: 600px;
+    padding: 203px 0;
+    color: #FFF;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.page-hero--careers {
+    background-image: url('../img/carers/carers-bg.png');
+}
+
+.page-hero--about {
+    background-image: url('../img/about-us/about-hero-bg.png');
+}
+
+.page-hero__card {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    padding: 10px 20px 10px 10px;
+    justify-content: space-between;
+    gap: 19px;
+    border-radius: 40px;
+    background: rgba(255, 255, 255, 0.20);
+}
+
+
+.page-hero__avatars {
+    display: flex;
+    align-items: center;
+}
+
+.page-hero__avatar {
+    flex: 0 0 29px;
+    width: 29px;
+    height: 29px;
+    object-fit: cover;
+}
+
+.page-hero__avatar+.page-hero__avatar {
+    margin-left: -14px;
+}
+
+.page-hero__value {
+    font-weight: 500;
+    line-height: 20px;
+    white-space: nowrap;
+}
+
+.page-hero__title {
+    margin-top: 20px;
+    font-family: "Circular Std", sans-serif;
+    font-size: 80px;
+    font-weight: 700;
+}
+
+.page-hero__text {
+    font-size: 18px;
+}
+
+.history {
+    padding: 80px 0;
+}
+
+.history__inner {
+    display: flex;
+    justify-content: space-between;
+}
+
+.history__note {
+    color: #02063C;
+    margin-top: 10px;
+}
+
+.history__note::before {
+    background-color: #02063C;
+}
+
+.history__content {
+    max-width: 973px;
+}
+
+.history__text {
+    color: #02063C;
+    font-family: "Gilroy", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+}
+
+.history__stats {
+    margin-top: 44px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.history__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    max-width: 197px;
+}
+
+.history__stat-value {
+    color: #3E4382;
+    font-family: Lufga;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.history__stat-label {
+    color: #57595F;
+    text-align: center;
+    font-family: "Gilroy", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.policy {
+    padding: 80px 0;
+    background: #272156;
+}
+
+.policy__head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.policy__title {
+    color: #fff;
+}
+
+.policy__note {
+    margin-top: 10px;
+    color: #fff;
+}
+
+.policy__note::before {
+    background-color: #fff;
+}
+
+.policy__buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.policy__button-prev,
+.policy__button-next {
+    display: flex;
+    width: 64px;
+    height: 64px;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 16px;
+    background: #AFE71C;
+}
+
+.policy__grid {
+    margin-top: 44px;
+    display: flex;
+    gap: 24px;
+}
+
+.policy__card {
+    display: flex;
+    padding: 30px 140px 30px 30px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 16px;
+    background: #FAFAFA;
+}
+
+.policy__card-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #F3F5F9;
+}
+
+.policy__card-title {
+    margin-top: 110px;
+    color: #02063C;
+    font-family: "Gilroy", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+.policy__card-text {
+    margin-top: 20px;
+    color: #8E8E8E;
+    font-family: "Gilroy", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+}
+
+.powers {
+    padding: 80px 0;
+}
+
+.powers__note {
+    justify-content: center;
+}
+
+.powers__title {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.powers__cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px 24px;
+}
+
+.powers__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px 30px;
+    border-radius: 16px;
+    background: #FAFAFA;
+
+}
+
+.powers__card--img {
+    padding: 0;
+}
+
+.powers__card--dark {
+    background-color: #272156;
+}
+
+.powers__card--dark .powers__card-title,
+.powers__card--dark .powers__card-text,
+.powers__card--dark .powers__card-link {
+    color: #fff;
+}
+
+.powers__card--dark .powers__card-link:hover {
+    border-color: #fff;
+}
+
+.powers__card--accent {
+    background-color: #F7FFE2;
+}
+
+.powers__card-title {
+    color: #02063C;
+    font-family: "Gilroy", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+.powers__card-text {
+    color: #8E8E8E;
+    font-family: "Gilroy", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    line-height: 22px;
+    margin-bottom: 20px;
+}
+
+.powers__card-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: fit-content;
+    padding: 6px 0;
+    transition: padding 0.6s ease, border-color 0.6s ease;
+    color: #02063C;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 22px;
+    border-radius: 20px;
+    border: 1px solid transparent;
+}
+
+.powers__card-link:hover {
+    padding: 6px 14px;
+    border-color: #02063C;
+}
+
+.team {
+    padding: 80px 0;
+}
+
+.team__note {
+    margin-top: 10px;
+    color: #02063C;
+}
+
+.team__note::before {
+    background-color: #02063C;
+}
+
+.team__list {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+}
+
+.team__item {
+    background-image: url('../img/steps-card-bg.png');
+    padding: 30px 32px 40px;
+}
+
+.team__item-name {
+    margin-top: 24px;
+    color: #02063C;
+    font-family: "Gilroy", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+.team__item-position {
+    margin-top: 20px;
+    color: #57595F;
+    font-family: "Gilroy", sans-serif;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.quote {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.quote__text {
+    color: #02063C;
+    font-family: "Gilroy", sans-serif;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 50px;
+}
+
+.quote__icon-open {
+    margin-bottom: 40px;
+}
+
+.quote__icon-close {
+    margin-left: auto;
+    transform: scaleX(-1);
+}
+
+.company-history {
+    padding: 80px 0;
+}
+
+.company-history__note {
+    margin-top: 10px;
+    color: #02063C;
+}
+
+.company-history__note::before {
+    background-color: #02063C;
+}
+
+.company-history__content {
+    margin-top: 44px;
+    display: flex;
+    justify-content: space-between;
+    max-height: 336px;
+    color: #02063C;
+    font-family: "Gilroy", sans-serif;
+    font-size: 18px;
+}
+
+.company-history__text {
+    max-width: 466px;
+}
+
+.company-history__text,
+.company-history__text-second {
+    color: #02063C;
+    font-family: "Gilroy", sans-serif;
+    font-size: 18px;
+}
+
+.company-history__text-second {
+    max-width: 754px;
+}
+
+.company-history__media {
+    position: relative;
+}
+
+.company-history__badge {
+    top: 31px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    padding-right: 20px;
+    border-radius: 40px;
+    background: rgba(255, 255, 255, 0.20);
+}
+
+.company-history__badge-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    background: #EDECF1;
+
+    img {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+.company-history__badge-text {
+    color: #FFF;
+    font-family: "Gilroy", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.trusted-companies {
+    padding: 80px 0;
+}
+
+.trusted-companies__list {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 20px;
+}
+
+.trusted-companies__item {
+    height: 90px;
+    border-radius: 10px;
+    background: rgba(211, 211, 211, 0.29);
+}
+
+.trusted-companies__item:first-child {
+    background: linear-gradient(90deg, #fff, rgba(211, 211, 211, 0.29));
+}
+
+.trusted-companies__item:last-child {
+    background: linear-gradient(90deg, rgba(211, 211, 211, 0.29), #fff);
+}
+
+.company-about {
+    padding: 80px 0;
+    background-color: #272156;
+}
+
+.company-about__title {
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.company-about__note {
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.company-about__text {
+    max-width: 1212px;
+    margin: 44px auto 0;
+    color: #fff;
+    color: #FFF;
+    text-align: center;
+    font-family: "Gilroy", sans-serif;
+    font-size: 24px;
+    line-height: 32px;
+}
+
+.company-about__stats {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    gap: 200px;
+}
+
+.company-about__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.company-about__stat-value {
+    color: #AFE71C;
+    font-family: "Circular", sans-serif;
+    font-size: 60px;
+    font-weight: 400;
+}
+
+.company-about__stat-label {
+    color: #FFF;
+    font-family: "Gilroy", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.timeline {
+    padding: 80px 0;
+}
+
+.timeline .container {
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline__note {
+    margin-top: 10px;
+    color: #02063C;
+}
+
+.timeline__note::before {
+    background-color: #02063C;
+}
+
+.timeline__inner {
+    margin-top: 60px;
+    display: flex;
+    gap: 200px;
+    /* align-items: center; */
+}
+
+.timeline__previews {
+    max-width: 88px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 16px;
+    background: #E3E3E3;
+}
+
+.timeline__preview-button {
+    width: 64px;
+    height: 64px;
+}
+
+.timeline__controls {
+    display: flex;
+    gap: 8px;
+}
+
+.timeline__control {
+    margin-top: 50px;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    background-color: #E3E3E3;
+    border-radius: 16px;
+}
+
+.timeline__event {
+    margin-top: 112px;
+    max-width: 596px;
+}
+
+
+.timeline__heading {
+    display: flex;
+    align-items: center;
+    gap: 19px;
+}
+
+.timeline__year {
+    color: #02063C;
+    font-family: "Circular Std", sans-serif;
+    font-size: 140px;
+    font-weight: 600;
+}
+
+.timeline__event-title {
+    color: #02063C;
+    font-family: "Circular Std", sans-serif;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.timeline__text {
+    color: #02063C;
+    font-family: "Gilroy", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    line-height: 32px;
+}
+
+.timeline__decor {
+    position: absolute;
+    right: -168px;
+    top: 100px;
+    width: 741px;
+    height: 638px;
+    max-width: none;
+    pointer-events: none;
 }
