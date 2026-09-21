@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Careers</title>
     <link rel="stylesheet" href="css/modern-normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -43,10 +44,6 @@
                         <img class="header__language-flag" src="img/flag.png" alt="">
                         <span class="header__language-value">Eng</span>
                         <img class="header__language-arrow" src="img/header-arrow.svg" alt="">
-                    </button>
-                    <button class="header__burger" type="button">
-                        <span class="header__burger-line"></span>
-                        <span class="header__burger-line"></span>
                     </button>
                 </div>
             </div>
@@ -126,7 +123,8 @@
                                 alt=""></button>
                     </div>
                 </div>
-                <ul class="policy__grid">
+                <div class="swiper policy__slider">
+                    <ul class="policy__grid">
                     <li class="policy__card">
                         <div class="policy__card-img"><img src="img/carers/polici-icon.svg" alt=""></div>
                         <h3 class="policy__card-title">Nullam aliquet </h3>
@@ -151,7 +149,9 @@
                         <p class="policy__card-text">Nullam aliquet tellus ac dui aliquet gravida. Duis laoreet vehicula
                             nulla, eu dictum odio </p>
                     </li>
-                </ul>
+                    </ul>
+                    <div class="swiper-pagination policy__pagination"></div>
+                </div>
             </div>
         </section>
         <section class="powers">
@@ -263,7 +263,8 @@
             <div class="container">
                 <h2 class="title">Our team</h2>
                 <p class="section-note team__note">Lorem ipsum</p>
-                <ul class="team__list">
+                <div class="swiper team__slider">
+                    <ul class="team__list">
                     <li class="team__item">
                         <img class="team__item-img" src="img/carers/team-photo.png" alt="">
                         <h3 class="team__item-name">Anna Shvets</h3>
@@ -284,7 +285,9 @@
                         <h3 class="team__item-name">Anna Shvets</h3>
                         <p class="team__item-position">CEO of the Sales Department</p>
                     </li>
-                </ul>
+                    </ul>
+                    <div class="swiper-pagination team__pagination"></div>
+                </div>
             </div>
         </section>
         <section class="quote">
@@ -499,7 +502,7 @@
                         <li class="footer__item"><a class="footer__item-link" href="index.html#etias">ETIAS</a></li>
                     </ul>
                 </nav>
-                <nav class="footer__wrapper" aria-labelledby="footer-company-title">
+                <nav class="footer__wrapper footer__wrapper-company" aria-labelledby="footer-company-title">
                     <h3 class="footer__title" id="footer-company-title">Company</h3>
                     <ul class="footer__list">
                         <li class="footer__item"><a class="footer__item-link" href="about-us.html">About Us</a></li>
@@ -507,7 +510,7 @@
                         <li class="footer__item"><a class="footer__item-link" href="index.html#reviews">Reviews</a></li>
                         <li class="footer__item"><a class="footer__item-link" href="#contact">Partnership</a></li>
                         <li class="footer__item"><a class="footer__item-link"
-                                href="mailto:support@goschengen.com?subject=Careers">Careers</a></li>
+                                href="mailto:support@.com?subject=Careers">Careers</a></li>
                     </ul>
                 </nav>
                 <nav class="footer__wrapper" id="legal" aria-labelledby="footer-legal-title">
@@ -521,11 +524,11 @@
                         </li>
                     </ul>
                 </nav>
-                <div class="footer__wrapper">
+                <div class="footer__wrapper footer__wrapper-contact">
                     <h3 class="footer__title">Contact</h3>
                     <ul class="footer__list">
                         <li class="footer__item"><a class="footer__item-link"
-                                href="mailto:support@goschengen.com">support@goschengen.com</a>
+                                href="mailto:support@.com">support@.com</a>
                         </li>
                         <li class="footer__item"><a class="footer__item-link" href="tel:+77777777777">+7 (777)
                                 777-77-77</a></li>
@@ -544,7 +547,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="footer__wrapper">
+                <div class="footer__wrapper footer__wrapper-social">
                     <h3 class="footer__title">Social</h3>
                     <ul class="footer__list footer__list-social">
                         <li class="footer__item"><a class="footer__item-link" href="#"><img
@@ -575,6 +578,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 

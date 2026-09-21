@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About us</title>
     <link rel="stylesheet" href="css/modern-normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -43,10 +44,6 @@
                         <img class="header__language-flag" src="img/flag.png" alt="">
                         <span class="header__language-value">Eng</span>
                         <img class="header__language-arrow" src="img/header-arrow.svg" alt="">
-                    </button>
-                    <button class="header__burger" type="button">
-                        <span class="header__burger-line"></span>
-                        <span class="header__burger-line"></span>
                     </button>
                 </div>
             </div>
@@ -122,15 +119,18 @@
         <section class="trusted-companies">
             <div class="container">
                 <h2 class="title">Over 50+ companies trust us</h2>
-                <ul class="trusted-companies__list">
-                    <li class="trusted-companies__item"></li>
-                    <li class="trusted-companies__item"></li>
-                    <li class="trusted-companies__item"></li>
-                    <li class="trusted-companies__item"></li>
-                    <li class="trusted-companies__item"></li>
-                    <li class="trusted-companies__item"></li>
-                    <li class="trusted-companies__item"></li>
-                </ul>
+                <div class="swiper trusted-companies__slider">
+                    <ul class="trusted-companies__list">
+                        <li class="trusted-companies__item"></li>
+                        <li class="trusted-companies__item"></li>
+                        <li class="trusted-companies__item"></li>
+                        <li class="trusted-companies__item"></li>
+                        <li class="trusted-companies__item"></li>
+                        <li class="trusted-companies__item"></li>
+                        <li class="trusted-companies__item"></li>
+                    </ul>
+                    <div class="swiper-pagination trusted-companies__pagination"></div>
+                </div>
             </div>
         </section>
         <section class="company-about">
@@ -233,7 +233,8 @@
             <div class="container">
                 <h2 class="title">Our team</h2>
                 <p class="section-note team__note">Lorem ipsum</p>
-                <ul class="team__list">
+                <div class="swiper team__slider">
+                    <ul class="team__list">
                     <li class="team__item">
                         <img class="team__item-img" src="img/carers/team-photo.png" alt="">
                         <h3 class="team__item-name">Anna Shvets</h3>
@@ -254,7 +255,9 @@
                         <h3 class="team__item-name">Anna Shvets</h3>
                         <p class="team__item-position">CEO of the Sales Department</p>
                     </li>
-                </ul>
+                    </ul>
+                    <div class="swiper-pagination team__pagination"></div>
+                </div>
             </div>
         </section>
         <section class="visa-check" id="visa-check">
@@ -494,7 +497,7 @@
                         <li class="footer__item"><a class="footer__item-link" href="index.html#etias">ETIAS</a></li>
                     </ul>
                 </nav>
-                <nav class="footer__wrapper" aria-labelledby="footer-company-title">
+                <nav class="footer__wrapper footer__wrapper-company" aria-labelledby="footer-company-title">
                     <h3 class="footer__title" id="footer-company-title">Company</h3>
                     <ul class="footer__list">
                         <li class="footer__item"><a class="footer__item-link" href="about-us.html">About Us</a></li>
@@ -515,11 +518,11 @@
                         </li>
                     </ul>
                 </nav>
-                <div class="footer__wrapper">
+                <div class="footer__wrapper footer__wrapper-contact">
                     <h3 class="footer__title">Contact</h3>
                     <ul class="footer__list">
                         <li class="footer__item"><a class="footer__item-link"
-                                href="mailto:support@goschengen.com">support@goschengen.com</a>
+                                href="mailto:support@.com">support@.com</a>
                         </li>
                         <li class="footer__item"><a class="footer__item-link" href="tel:+77777777777">+7 (777)
                                 777-77-77</a></li>
@@ -538,7 +541,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="footer__wrapper">
+                <div class="footer__wrapper footer__wrapper-social">
                     <h3 class="footer__title">Social</h3>
                     <ul class="footer__list footer__list-social">
                         <li class="footer__item"><a class="footer__item-link" href="#"><img
@@ -568,4 +571,8 @@
             </div>
         </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
+
+</html>

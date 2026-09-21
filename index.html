@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Go Schengen</title>
     <link rel="stylesheet" href="css/modern-normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -43,10 +44,6 @@
                         <span class="header__language-value">Eng</span>
                         <img class="header__language-arrow" src="img/header-arrow.svg" alt="">
                     </button>
-                    <button class="header__burger" type="button">
-                        <span class="header__burger-line"></span>
-                        <span class="header__burger-line"></span>
-                    </button>
                 </div>
             </div>
         </div>
@@ -54,13 +51,24 @@
     <main class="main">
         <section class="hero" id="hero">
             <div class="container">
+                <div class="page-hero__card page-hero__card-index">
+                    <div class="page-hero__avatars">
+                        <img class="page-hero__avatar" src="img/page-hero/avatar-1.svg" alt="">
+                        <img class="page-hero__avatar" src="img/page-hero/avatar-2.svg" alt="">
+                        <img class="page-hero__avatar" src="img/page-hero/avatar-3.svg" alt="">
+                    </div>
+                    <p class="page-hero__value">
+                        + 245 880 000 people
+                    </p>
+                </div>
                 <div class="hero__inner">
                     <div class="hero__rate">
                         <img class="hero__rate-stars" src="img/stars.svg" alt="">
                         <p class="hero__rate-value">Top Rated 4.8/5</p>
                     </div>
                     <p class="hero__rev">Over 19,000 Reviews</p>
-                    <h1 class="hero__title">Schengen Travel Insurance</h1>
+                    <h1 class="hero__title">Schengen Travel Insurance<span class="hero__title-mobile"> for Any
+                            Occasion</span></h1>
                     <p class="hero__text">Order Schengen travel insurance for visa to gain access to international
                         travel,
                         work, or a complete relocation to a
@@ -128,89 +136,141 @@
                         </div>
                     </div>
                 </form>
+                <form class="hero-mobile-form" action="">
+                    <div class="hero-mobile-form__tabs" role="group">
+                        <button class="hero-mobile-form__tab hero-mobile-form__tab--active" type="button">Single
+                            trip</button>
+                        <button class="hero-mobile-form__tab" type="button">Annual</button>
+                    </div>
+                    <div class="hero-mobile-form__field-inner">
+                        <button class="hero-mobile-form__field hero-mobile-form__field--select" type="button"><span
+                                class="hero-mobile-form__country-value">Select country</span>
+                            <img src="img/mobile/mobile-form-mark.svg" alt="">
+                        </button>
+                        <ul class="hero-mobile-form__countries">
+                            <li><button type="button">Germany</button></li>
+                            <li><button type="button">France</button></li>
+                            <li><button type="button">Spain</button></li>
+                            <li><button type="button">Italy</button></li>
+                            <li><button type="button">Greece</button></li>
+                        </ul>
+                    </div>
+                    <button class="hero-mobile-form__field hero-mobile-form__field--date" type="button">Select
+                        date
+                        <img src="img/mobile/mobile-form-calendar.svg" alt=""></button>
+                    <div class="hero-mobile-form__travelers">
+                        <button class="hero-mobile-form__field hero-mobile-form__passenger-value" type="button">1
+                            passenger</button>
+                        <div class="hero-mobile-form__counter">
+                            <button class="hero-mobile-form__counter-btn hero-mobile-form__counter-btn--plus"
+                                type="button" aria-label="Add passenger"></button>
+                            <button class="hero-mobile-form__counter-btn hero-mobile-form__counter-btn--minus"
+                                type="button" aria-label="Remove passenger"></button>
+                        </div>
+                    </div>
+                    <label class=" hero-mobile-form__age">
+                        <input class="hero-mobile-form__field hero-mobile-form__age" type="text" inputmode="numeric"
+                            placeholder="Age of travelers">
+                    </label>
+                    <button class="hero-mobile-form__submit" type="button">Passenger details <img
+                            src="img/mobile/mobile-form-arrow.svg" alt=""></button>
+                </form>
             </div>
         </section>
         <section class="why-chose" id="why-choose">
             <div class="container">
-                <h2 class="title">Why Choose GoSchengen</h2>
-                <ul class="why-chose__list">
-                    <li class="why-chose__item">
-                        <div class="why-chose__item-icon">
-                            <img class="why-chose__item-img" src="img/chose1.svg" alt="">
-                        </div>
-                        <p class="why-chose__item-text">Best price</p>
-                    </li>
-                    <li class="why-chose__item">
-                        <div class="why-chose__item-icon">
-                            <img class="why-chose__item-img" src="img/chose2.svg" alt="">
-                        </div>
-                        <p class="why-chose__item-text">No deductible</p>
-                    </li>
-                    <li class="why-chose__item">
-                        <div class="why-chose__item-icon">
-                            <img class="why-chose__item-img" src="img/chose3.svg" alt="">
-                        </div>
-                        <p class="why-chose__item-text">Refund in case of visa refusal</p>
-                    </li>
-                    <li class="why-chose__item">
-                        <div class="why-chose__item-icon">
-                            <img class="why-chose__item-img" src="img/chose4.svg" alt="">
-                        </div>
-                        <p class="why-chose__item-text">98% approval rate for visas</p>
-                    </li>
-                    <li class="why-chose__item">
-                        <div class="why-chose__item-icon">
-                            <img class="why-chose__item-img" src="img/chose5.svg" alt="">
-                        </div>
-                        <p class="why-chose__item-text">Accredited company</p>
-                    </li>
-                    <li class="why-chose__item">
-                        <div class="why-chose__item-icon">
-                            <img class="why-chose__item-img" src="img/chose6.svg" alt="">
-                        </div>
-                        <p class="why-chose__item-text">24/7 assistance</p>
-                    </li>
-                </ul>
+                <h2 class="title"><span class="why-chose__title-desktop">Why Choose GoSchengen</span><span
+                        class="why-chose__title-mobile">Over 50+ companies</span></h2>
+                <div class="swiper why-chose__slider">
+                    <ul class="swiper-wrapper why-chose__list">
+                        <li class="swiper-slide why-chose__item">
+                            <div class="why-chose__item-icon">
+                                <img class="why-chose__item-img" src="img/chose1.svg" alt="">
+                            </div>
+                            <p class="why-chose__item-text">Best price</p>
+                        </li>
+                        <li class="swiper-slide why-chose__item">
+                            <div class="why-chose__item-icon">
+                                <img class="why-chose__item-img" src="img/chose2.svg" alt="">
+                            </div>
+                            <p class="why-chose__item-text">No deductible</p>
+                        </li>
+                        <li class="swiper-slide why-chose__item">
+                            <div class="why-chose__item-icon">
+                                <img class="why-chose__item-img" src="img/chose3.svg" alt="">
+                            </div>
+                            <p class="why-chose__item-text">Refund in case of visa refusal</p>
+                        </li>
+                        <li class="swiper-slide why-chose__item">
+                            <div class="why-chose__item-icon">
+                                <img class="why-chose__item-img" src="img/chose4.svg" alt="">
+                            </div>
+                            <p class="why-chose__item-text">98% approval rate for visas</p>
+                        </li>
+                        <li class="swiper-slide why-chose__item">
+                            <div class="why-chose__item-icon">
+                                <img class="why-chose__item-img" src="img/chose5.svg" alt="">
+                            </div>
+                            <p class="why-chose__item-text">Accredited company</p>
+                        </li>
+                        <li class="swiper-slide why-chose__item">
+                            <div class="why-chose__item-icon">
+                                <img class="why-chose__item-img" src="img/chose6.svg" alt="">
+                            </div>
+                            <p class="why-chose__item-text">24/7 assistance</p>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
         <section class="insurance" id="insurance">
             <div class="container">
-                <h2 class="title">Medical Health Insurance for a Schengen Visa for Everyone</h2>
+                <h2 class="title insurance__title">Medical Health Insurance for a Schengen Visa for Everyone</h2>
                 <p class="section-note section-note--muted-dot insurance__subtitle">Essential coverage tailored for
                     any traveler</p>
-                <div class="insurance__list">
-                    <article class="insurance__card">
-                        <div class="insurance__card-icon"><img src="img/insurance-1.svg" alt=""></div>
-                        <h3 class="insurance__card-title">Multi Trip Insurance with Worldwide Coverage</h3>
-                        <p class="insurance__card-text">We are a company with international experience. Therefore, our
-                            specialists can select and draft customized contracts
-                            covering all your destinations, not just EU countries.</p>
-                    </article>
-                    <article class="insurance__card">
-                        <div class="insurance__card-icon"><img src="img/insurance-2.svg" alt=""></div>
-                        <h3 class="insurance__card-title">Schengen Visa Health Insurance for Any Age</h3>
-                        <p class="insurance__card-text">Our clients range in age. We're happy to help you find the best
-                            medical insurance Schengen countries, whether you're a
-                            child, an adult, or a senior citizen.</p>
-                    </article>
-                    <article class="insurance__card">
-                        <div class="insurance__card-icon"><img src="img/insurance-3.svg" alt=""></div>
-                        <h3 class="insurance__card-title">Schengen Tourist Insurance for any Nationality</h3>
-                        <p class="insurance__card-text">We offer you amazing travel conditions for business or pleasure.
-                            We have no Schengen visa insurance requirements for
-                            your citizenship and are happy to provide services to everyone worldwide. A manager will be
-                            available to speak English
-                            to clarify all the terms and conditions of Schengen area insurance.</p>
-                    </article>
-                    <article class="insurance__card">
-                        <div class="insurance__card-icon"><img src="img/insurance-4.svg" alt=""></div>
-                        <h3 class="insurance__card-title">Schengen Area Travel Insurance for Visas and Embassies</h3>
-                        <p class="insurance__card-text">Our extensive experience allows us to draft contracts quickly
-                            and effectively that are readily accepted by many
-                            government agencies. You can present your Schengen travel insurance to get medical care,
-                            present in embassies, etc.</p>
-                    </article>
+                <div class="swiper insurance__slider">
+                    <div class="swiper-wrapper insurance__list">
+                        <article class="swiper-slide insurance__card">
+                            <div class="insurance__card-icon"><img src="img/insurance-1.svg" alt=""></div>
+                            <h3 class="insurance__card-title">Multi Trip Insurance with Worldwide Coverage</h3>
+                            <p class="insurance__card-text">We are a company with international experience. Therefore,
+                                our
+                                specialists can select and draft customized contracts
+                                covering all your destinations, not just EU countries.</p>
+                        </article>
+                        <article class="swiper-slide insurance__card">
+                            <div class="insurance__card-icon"><img src="img/insurance-2.svg" alt=""></div>
+                            <h3 class="insurance__card-title">Schengen Visa Health Insurance for Any Age</h3>
+                            <p class="insurance__card-text">Our clients range in age. We're happy to help you find the
+                                best
+                                medical insurance Schengen countries, whether you're a
+                                child, an adult, or a senior citizen.</p>
+                        </article>
+                        <article class="swiper-slide insurance__card">
+                            <div class="insurance__card-icon"><img src="img/insurance-3.svg" alt=""></div>
+                            <h3 class="insurance__card-title">Schengen Tourist Insurance for any Nationality</h3>
+                            <p class="insurance__card-text">We offer you amazing travel conditions for business or
+                                pleasure.
+                                We have no Schengen visa insurance requirements for
+                                your citizenship and are happy to provide services to everyone worldwide. A manager will
+                                be
+                                available to speak English
+                                to clarify all the terms and conditions of Schengen area insurance.</p>
+                        </article>
+                        <article class="swiper-slide insurance__card">
+                            <div class="insurance__card-icon"><img src="img/insurance-4.svg" alt=""></div>
+                            <h3 class="insurance__card-title">Schengen Area Travel Insurance for Visas and Embassies
+                            </h3>
+                            <p class="insurance__card-text">Our extensive experience allows us to draft contracts
+                                quickly
+                                and effectively that are readily accepted by many
+                                government agencies. You can present your Schengen travel insurance to get medical care,
+                                present in embassies, etc.</p>
+                        </article>
+                    </div>
+                    <div class="swiper-pagination insurance__pagination"></div>
                 </div>
+
             </div>
         </section>
         <section class="countries" id="countries">
@@ -223,6 +283,35 @@
                             least a basic Schengen visa travel
                             insurance policy. We are happy to provide
                             consultations and help you choose the most suitable option.</p>
+                    </div>
+                    <div class="swiper countries__slider">
+                        <div class="swiper-wrapper countries__list">
+                            <article class="swiper-slide country__card">
+                                <img class="country__card-img" src="img/country-1.png" alt="">
+                                <h3 class="country__card-title">Spain</h3>
+                            </article>
+                            <article class="swiper-slide country__card">
+                                <img class="country__card-img" src="img/country-2.png" alt="">
+                                <h3 class="country__card-title">Germany</h3>
+                            </article>
+                            <article class="swiper-slide country__card">
+                                <img class="country__card-img" src="img/country-3.png" alt="">
+                                <h3 class="country__card-title">France</h3>
+                            </article>
+                            <article class="swiper-slide country__card">
+                                <img class="country__card-img" src="img/country-4.png" alt="">
+                                <h3 class="country__card-title">Italy</h3>
+                            </article>
+                            <article class="swiper-slide country__card">
+                                <img class="country__card-img" src="img/country-5.png" alt="">
+                                <h3 class="country__card-title">Netherlands</h3>
+                            </article>
+                            <article class="swiper-slide country__card">
+                                <img class="country__card-img" src="img/country-6.png" alt="">
+                                <h3 class="country__card-title">Switzerland</h3>
+                            </article>
+                        </div>
+                        <div class="swiper-pagination countries__pagination"></div>
                     </div>
                     <div class="countries__descr">
                         <p>Travel medical insurance for Schengen visas covers only the selected destination. The list of
@@ -239,32 +328,6 @@
                             Sweden, and Estonia.</p>
                         <p>Popular destinations to buy Schengen travel insurance include:</p>
                     </div>
-                </div>
-                <div class="countries__list">
-                    <article class="country__card">
-                        <img class="country__card-img" src="img/country-1.png" alt="">
-                        <h3 class="country__card-title">Spain</h3>
-                    </article>
-                    <article class="country__card">
-                        <img class="country__card-img" src="img/country-2.png" alt="">
-                        <h3 class="country__card-title">Germany</h3>
-                    </article>
-                    <article class="country__card">
-                        <img class="country__card-img" src="img/country-3.png" alt="">
-                        <h3 class="country__card-title">France</h3>
-                    </article>
-                    <article class="country__card">
-                        <img class="country__card-img" src="img/country-4.png" alt="">
-                        <h3 class="country__card-title">Italy</h3>
-                    </article>
-                    <article class="country__card">
-                        <img class="country__card-img" src="img/country-5.png" alt="">
-                        <h3 class="country__card-title">Netherlands</h3>
-                    </article>
-                    <article class="country__card">
-                        <img class="country__card-img" src="img/country-6.png" alt="">
-                        <h3 class="country__card-title">Switzerland</h3>
-                    </article>
                 </div>
             </div>
         </section>
@@ -356,7 +419,10 @@
         <section class="visa-check" id="visa-check">
             <div class="container">
                 <div class="visa-check__inner">
-                    <h2 class="title visa-check__title">Find out if you need a Schengen Visa?</h2>
+                    <h2 class="title visa-check__title">
+                        <span class="visa-check__title-desktop">Find out if you need a Schengen Visa?</span>
+                        <span class="visa-check__title-mobile">Find out if you need a visa?</span>
+                    </h2>
                     <form class="visa-check__form">
                         <div class="visa-select">
                             <button class="visa-select__trigger" type="button">
@@ -375,6 +441,7 @@
                             <img class="visa-check__img" src="img/visa-check-arrow.svg" alt="">
                         </button>
                     </form>
+                    <img class="visa-check__map" src="img/visa-check-bg.png" alt="">
                 </div>
             </div>
         </section>
@@ -387,20 +454,16 @@
                             in the
                             EU.
                             The table helps you understand the main features.</p>
-                        <p class="visa-types__text">Regardless of the document you apply for, you will still need travel
-                            health insurance for your Schengen visa. Your trip
-                            should be comfortable. We recommend including your destination country if you use the EU
-                            only as a transit zone and want
-                            to obtain a Type A visa.</p>
                         <div class="media-notice visa-types__media">
                             <img class="media-notice__image" src="img/visa-type.png" alt="">
                             <div class="media-notice__panel">
                                 <img class="media-notice__icon" src="img/important.svg" alt="">
                                 <div class="media-notice__content">
                                     <h3 class="media-notice__title">Important</h3>
-                                    <p class="media-notice__text">Since 10 April 2026, short-stay travellers to the
-                                        Schengen Area are subject to the EU Entry/Exit System (EES), which
-                                        digitally records entry and exit data instead of passport stamps.</p>
+                                    <p class="media-notice__text">Regardless of the document you apply for, you will
+                                        still need travel health insurance for your Schengen visa. Your trip should be
+                                        comfortable. We recommend including your destination country if you use the EU
+                                        only as a transit zone and want to obtain a Type A visa.</p>
                                 </div>
                             </div>
                         </div>
@@ -481,35 +544,38 @@
         </section>
         <section class="steps" id="steps">
             <div class="container">
-                <h2 class="title steps__title">How to Buy Schengen Insurance</h2>
+                <h2 class="title steps__title">How to Buy Travel Insurance</h2>
                 <p class="section-note section-note--light steps__note">To get your policy, you only need to complete
                     three steps:</p>
-                <ul class="steps__list">
-                    <li class="steps__item">
-                        <div class="steps__item-number"><span>1</span></div>
-                        <p class="steps__item-title">Quick Calculation</p>
-                        <p class="steps__item-text">Make an online calculator and create the document on our website to
-                            receive the cheapest Schengen travel insurance.</p>
-                    </li>
-                    <li class="steps__item">
-                        <div class="steps__item-number"><span>2</span></div>
-                        <p class="steps__item-title">Key Terms</p>
-                        <p class="steps__item-text">Confirm the essential terms of the contract—countries, duration,
-                            maximum coverage amount, and other details.</p>
-                    </li>
-                    <li class="steps__item">
-                        <div class="steps__item-number"><span>3</span></div>
-                        <p class="steps__item-title">Secure Purchase</p>
-                        <p class="steps__item-text">Buy Schengen travel insurance online and pay remotely</p>
-                    </li>
-                    <li class="steps__item">
-                        <div class="steps__item-number"><span>4</span></div>
-                        <p class="steps__item-title">Reliable Readiness</p>
-                        <p class="steps__item-text">You're reliably protected and ready to embark on an exciting trip or
-                            work abroad
-                        </p>
-                    </li>
-                </ul>
+                <div class="swiper steps__slider">
+                    <ul class="swiper-wrapper steps__list">
+                        <li class="swiper-slide steps__item">
+                            <div class="steps__item-number"><span>1</span></div>
+                            <p class="steps__item-title">Quick Calculation</p>
+                            <p class="steps__item-text">Make an online calculator and create the document on our website
+                                to receive the cheapest Schengen travel insurance.</p>
+                        </li>
+                        <li class="swiper-slide steps__item">
+                            <div class="steps__item-number"><span>2</span></div>
+                            <p class="steps__item-title">Key Terms</p>
+                            <p class="steps__item-text">Confirm the essential terms of the contract—countries, duration,
+                                maximum coverage amount, and other details.</p>
+                        </li>
+                        <li class="swiper-slide steps__item">
+                            <div class="steps__item-number"><span>3</span></div>
+                            <p class="steps__item-title">Secure Purchase</p>
+                            <p class="steps__item-text">Buy Schengen travel insurance online and pay remotely</p>
+                        </li>
+                        <li class="swiper-slide steps__item">
+                            <div class="steps__item-number"><span>4</span></div>
+                            <p class="steps__item-title">Reliable Readiness</p>
+                            <p class="steps__item-text">You're reliably protected and ready to embark on an exciting
+                                trip
+                                or work abroad</p>
+                        </li>
+                    </ul>
+                    <div class="swiper-pagination steps__pagination"></div>
+                </div>
             </div>
         </section>
         <section class="coverage" id="coverage">
@@ -809,13 +875,23 @@
             <div class="container">
                 <div class="destinations__inner">
                     <div class="destinations__content">
-                        <h2 class="title destinations__title">Travel Insurance for a Schengen Visa:
-                            Popular Destinations and Who Needs It</h2>
-                        <p class="section-note destinations__note">A simple and convenient online service for buying
+                        <h2 class="title destinations__title">
+                            <span class="destinations__title-desktop">Travel Insurance for a Schengen Visa:
+                                Popular Destinations and Who Needs It</span>
+                            <span class="destinations__title-mobile">About the company</span>
+                        </h2>
+                        <p class="section-note destinations__note destinations__note--desktop">A simple and convenient
+                            online service for buying
                             travel
                             insurance
                             for trips within the Schengen Area or for a Schengen
                             visa application.</p>
+                        <ul class="destinations__note-mobile">
+                            <li>Schengen visa insurance is a mandatory requirement for entering European countries
+                                within the single travel area.</li>
+                            <li>People searching for health insurance Schengen visa most often come from the following
+                                countries:</li>
+                        </ul>
                         <p class="destinations__text">From the USA to South Africa, we are ready to provide
                             high-quality
                             services at an affordable price.</p>
@@ -928,6 +1004,7 @@
                         for your family.
                     </p>
                 </blockquote>
+                <button class="expert__read-more" type="button" aria-expanded="false">Read more</button>
                 <article class="expert__card">
                     <div class="expert__card-wrapper">
                         <img class="expert__card-img" src="img/expert-photo.png" alt="">
@@ -954,6 +1031,14 @@
                         </li>
                     </ul>
                 </article>
+                <div class="expert__controls">
+                    <button class="expert__control" type="button" aria-label="Previous expert">
+                        <img src="img/carers/arrow-prew.svg" alt="">
+                    </button>
+                    <button class="expert__control" type="button" aria-label="Next expert">
+                        <img src="img/carers/arrow-next.svg" alt="">
+                    </button>
+                </div>
             </div>
         </section>
         <section class="benefits" id="benefits">
@@ -962,49 +1047,54 @@
                 <p class="section-note benefits__note">
                     A concise look at what sets our service apart
                 </p>
-                <ul class="benefits__cards">
-                    <li class="benefits__card">
-                        <img class="benefits__card-img" src="img/benefit-1.svg" alt="">
-                        <div class="benefits__card-inner">
-                            <h3 class="benefits__card-title">Available for <br> Everyone</h3>
-                            <p class="benefits__card-text">We are open to everyone, regardless of location, age, <br>
-                                gender,
-                                or
-                                nationality.</p>
-                        </div>
-                    </li>
-                    <li class="benefits__card">
-                        <img class="benefits__card-img" src="img/benefit-2.svg" alt="">
-                        <div class="benefits__card-inner">
-                            <h3 class="benefits__card-title">Guaranteed Quality <br> & Legality</h3>
-                            <p class="benefits__card-text">Guaranteed quality and contract legitimacy</p>
-                        </div>
-                    </li>
-                    <li class="benefits__card">
-                        <img class="benefits__card-img" src="img/benefit-3.svg" alt="">
-                        <div class="benefits__card-inner">
-                            <h3 class="benefits__card-title">Accepted by European Embassies</h3>
-                            <p class="benefits__card-text">Embassies in Europe accept our documents</p>
-                        </div>
-                    </li>
-                    <li class="benefits__card">
-                        <img class="benefits__card-img" src="img/benefit-4.svg" alt="">
-                        <div class="benefits__card-inner">
-                            <h3 class="benefits__card-title">Human Support in Emergencies</h3>
-                            <p class="benefits__card-text">A human approach and support in emergency situations, not
-                                just payments.</p>
-                        </div>
-                    </li>
-                    <li class="benefits__card">
-                        <img class="benefits__card-img" src="img/benefit-5.svg" alt="">
-                        <div class="benefits__card-inner">
-                            <h3 class="benefits__card-title">Best <br>Coverage Terms</h3>
-                            <p class="benefits__card-text">The most favorable terms, considering the list of covered
-                                <br> cases
-                            </p>
-                        </div>
-                    </li>
-                </ul>
+                <div class="swiper benefits__slider">
+                    <ul class="swiper-wrapper benefits__cards">
+                        <li class="swiper-slide benefits__card">
+                            <img class="benefits__card-img" src="img/benefit-1.svg" alt="">
+                            <div class="benefits__card-inner">
+                                <h3 class="benefits__card-title">Available for <br> Everyone</h3>
+                                <p class="benefits__card-text">We are open to everyone, regardless of location, age,
+                                    <br>
+                                    gender,
+                                    or
+                                    nationality.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="swiper-slide benefits__card">
+                            <img class="benefits__card-img" src="img/benefit-2.svg" alt="">
+                            <div class="benefits__card-inner">
+                                <h3 class="benefits__card-title">Guaranteed Quality <br> & Legality</h3>
+                                <p class="benefits__card-text">Guaranteed quality and contract legitimacy</p>
+                            </div>
+                        </li>
+                        <li class="swiper-slide benefits__card">
+                            <img class="benefits__card-img" src="img/benefit-3.svg" alt="">
+                            <div class="benefits__card-inner">
+                                <h3 class="benefits__card-title">Accepted by European Embassies</h3>
+                                <p class="benefits__card-text">Embassies in Europe accept our documents</p>
+                            </div>
+                        </li>
+                        <li class="swiper-slide benefits__card">
+                            <img class="benefits__card-img" src="img/benefit-4.svg" alt="">
+                            <div class="benefits__card-inner">
+                                <h3 class="benefits__card-title">Human Support in Emergencies</h3>
+                                <p class="benefits__card-text">A human approach and support in emergency situations, not
+                                    just payments.</p>
+                            </div>
+                        </li>
+                        <li class="swiper-slide benefits__card">
+                            <img class="benefits__card-img" src="img/benefit-5.svg" alt="">
+                            <div class="benefits__card-inner">
+                                <h3 class="benefits__card-title">Best <br>Coverage Terms</h3>
+                                <p class="benefits__card-text">The most favorable terms, considering the list of covered
+                                    <br> cases
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="swiper-pagination benefits__pagination"></div>
+                </div>
             </div>
         </section>
         <section class="documents" id="documents">
@@ -1057,74 +1147,82 @@
                 <p class="section-note insurance-terms__note">Be sure to read the contract before signing. We offer the
                     following terms for
                     your Schengen visa travel insurance:</p>
-                <ul class="insurance-terms__grid">
-                    <li class="insurance-terms__card">
-                        <div class="insurance-terms__icon">
-                            <img src="img/terms/icon-1.svg" alt="">
-                        </div>
-                        <p class="insurance-terms__text">The insurance coverage starts at 30000 euro or approximately
-                            $35,000. This can be increased if desired.</p>
-                    </li>
-                    <li class="insurance-terms__card">
-                        <div class="insurance-terms__icon">
-                            <img src="img/terms/icon-2.svg" alt="">
-                        </div>
-                        <p class="insurance-terms__text">The basic travel insurance for Schengen countries offers a
-                            minimum daily rate of $1.48</p>
-                    </li>
-                    <li class="insurance-terms__card insurance-terms__card--air">
-                        <p class="insurance-terms__text">You can insure people from 1 to 100 years old.</p>
-                    </li>
-                    <li class="insurance-terms__card">
-                        <div class="insurance-terms__icon">
-                            <img src="img/terms/icon-3.svg" alt="">
-                        </div>
-                        <p class="insurance-terms__text">Policy is valid in all countries, but the list of coverages
-                            will be specified in the contract.</p>
-                    </li>
-                    <li class="insurance-terms__card">
-                        <div class="insurance-terms__icon">
-                            <img src="img/terms/icon-4.svg" alt="">
-                        </div>
-                        <p class="insurance-terms__text">Covered illness services include COVID-19 treatment, acute
-                            viral diseases, injuries, doctor visits, emergency dental
-                            care, and inpatient and outpatient treatment.</p>
-                    </li>
-                    <li class="insurance-terms__card insurance-terms__card--accent">
-                        <div class="insurance-terms__icon">
-                            <img src="img/terms/icon-5.svg" alt="">
-                        </div>
-                        <p class="insurance-terms__text">The standard contract has a $0 deductible and can be expanded
-                            with additional options, such as baggage loss protection,
-                            compensation for flight delays, document loss, and personal liability.</p>
-                    </li>
-                    <li class="insurance-terms__card insurance-terms__card--luggage">
-                        <p class="insurance-terms__text">Our cheap travel insurance to Schengen is suitable for embassy
-                            visa applications.</p>
-                    </li>
-                    <li class="insurance-terms__card">
-                        <div class="insurance-terms__icon">
-                            <img src="img/terms/icon-6.svg" alt="">
-                        </div>
-                        <p class="insurance-terms__text">100% money-back guarantee for cancellation of the agreement if
-                            the client does not activate the policy.</p>
-                    </li>
-                    <li class="insurance-terms__card insurance-terms__card--accent">
-                        <div class="insurance-terms__icon">
-                            <img src="img/terms/icon-7.svg" alt="">
-                        </div>
-                        <p class="insurance-terms__text">The document specifies the validity period for our company's
-                            best Schengen visa travel insurance: from the date
-                            specified during registration, upon customs clearance, etc.</p>
-                    </li>
-                    <li class="insurance-terms__card">
-                        <div class="insurance-terms__icon">
-                            <img src="img/terms/icon-8.svg" alt="">
-                        </div>
-                        <p class="insurance-terms__text">You can expand your policy by adding additional options or
-                            increasing the coverage amount to €1 million</p>
-                    </li>
-                </ul>
+                <div class="swiper insurance-terms__slider">
+                    <ul class="swiper-wrapper insurance-terms__grid">
+                        <li class="swiper-slide insurance-terms__card">
+                            <div class="insurance-terms__icon">
+                                <img src="img/terms/icon-1.svg" alt="">
+                            </div>
+                            <p class="insurance-terms__text">The insurance coverage starts at 30000 euro or
+                                approximately
+                                $35,000. This can be increased if desired.</p>
+                        </li>
+                        <li class="swiper-slide insurance-terms__card">
+                            <div class="insurance-terms__icon">
+                                <img src="img/terms/icon-2.svg" alt="">
+                            </div>
+                            <p class="insurance-terms__text">The basic travel insurance for Schengen countries offers a
+                                minimum daily rate of $1.48</p>
+                        </li>
+                        <li class="swiper-slide insurance-terms__card insurance-terms__card--air">
+                            <p class="insurance-terms__text">You can insure people from 1 to 100 years old.</p>
+                        </li>
+                        <li class="swiper-slide insurance-terms__card">
+                            <div class="insurance-terms__icon">
+                                <img src="img/terms/icon-3.svg" alt="">
+                            </div>
+                            <p class="insurance-terms__text">Policy is valid in all countries, but the list of coverages
+                                will be specified in the contract.</p>
+                        </li>
+                        <li class="swiper-slide insurance-terms__card">
+                            <div class="insurance-terms__icon">
+                                <img src="img/terms/icon-4.svg" alt="">
+                            </div>
+                            <p class="insurance-terms__text">Covered illness services include COVID-19 treatment, acute
+                                viral diseases, injuries, doctor visits, emergency dental
+                                care, and inpatient and outpatient treatment.</p>
+                        </li>
+                        <li class="swiper-slide insurance-terms__card insurance-terms__card--accent">
+                            <div class="insurance-terms__icon">
+                                <img src="img/terms/icon-5.svg" alt="">
+                            </div>
+                            <p class="insurance-terms__text">The standard contract has a $0 deductible and can be
+                                expanded
+                                with additional options, such as baggage loss protection,
+                                compensation for flight delays, document loss, and personal liability.</p>
+                        </li>
+                        <li class="swiper-slide insurance-terms__card insurance-terms__card--luggage">
+                            <p class="insurance-terms__text">Our cheap travel insurance to Schengen is suitable for
+                                embassy
+                                visa applications.</p>
+                        </li>
+                        <li class="swiper-slide insurance-terms__card">
+                            <div class="insurance-terms__icon">
+                                <img src="img/terms/icon-6.svg" alt="">
+                            </div>
+                            <p class="insurance-terms__text">100% money-back guarantee for cancellation of the agreement
+                                if
+                                the client does not activate the policy.</p>
+                        </li>
+                        <li class="swiper-slide insurance-terms__card insurance-terms__card--accent">
+                            <div class="insurance-terms__icon">
+                                <img src="img/terms/icon-7.svg" alt="">
+                            </div>
+                            <p class="insurance-terms__text">The document specifies the validity period for our
+                                company's
+                                best Schengen visa travel insurance: from the date
+                                specified during registration, upon customs clearance, etc.</p>
+                        </li>
+                        <li class="swiper-slide insurance-terms__card">
+                            <div class="insurance-terms__icon">
+                                <img src="img/terms/icon-8.svg" alt="">
+                            </div>
+                            <p class="insurance-terms__text">You can expand your policy by adding additional options or
+                                increasing the coverage amount to €1 million</p>
+                        </li>
+                    </ul>
+                    <div class="swiper-pagination insurance-terms__pagination"></div>
+                </div>
                 <div class="insurance-terms__footer">
                     <p class="insurance-terms__footer-text">You can ask our specialist further questions during the
                         discussion of terms and conditions</p>
@@ -1137,7 +1235,7 @@
         <section class="shengen-contries" id="schengen-countries">
             <div class="container">
                 <h2 class="title shengen-contries__title">30 countries that are part of the Schengen area</h2>
-                <p class="section-note shengen-contries__note">A brief overview of the unified travel zon</p>
+                <p class="section-note shengen-contries__note">A brief overview of the unified travel zone</p>
                 <ul class="shengen-contries__grid">
                     <li class="shengen-contries__card">
                         <img class="shengen-contries__card-img" src="img/flags-30/flag.png" alt="">
@@ -1260,389 +1358,436 @@
                         <p class="shengen-contries__card-text">Switzerland</p>
                     </li>
                 </ul>
+                <button class="shengen-contries__more" type="button" aria-expanded="false">Read more</button>
             </div>
         </section>
         <section class="reviews" id="reviews">
             <div class="container">
                 <h2 class="title reviews__title">Reviews</h2>
                 <p class="section-note reviews__note">Read reviews about GoSchengen</p>
-                <ul class="reviews__list">
-                    <li class="reviews__item">
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/li.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Li Wei</p>
-                                <p class="reviews__location">Singapore</p>
+                <div class="swiper reviews__slider">
+                    <ul class="reviews__list">
+                        <li class="reviews__item">
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/li.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Li Wei</p>
+                                    <p class="reviews__location">Singapore</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">Super convenient online calculator. I compared all the options in about
-                            5 minutes. For my trip to Paris, it was the
-                            perfect service no annoying phone calls, just quick and digital. Exactly what I was looking
-                            for</p>
-                    </li>
-                    <li class="reviews__item">
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/lachlan.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Lachlan Murray</p>
-                                <p class="reviews__location">Australia</p>
+                            <p class="reviews__text">Super convenient online calculator. I compared all the options in
+                                about
+                                5 minutes. For my trip to Paris, it was the
+                                perfect service no annoying phone calls, just quick and digital. Exactly what I was
+                                looking
+                                for</p>
+                        </li>
+                        <li class="reviews__item">
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/lachlan.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Lachlan Murray</p>
+                                    <p class="reviews__location">Australia</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">I picked this policy specifically because of the zero deductible. While
-                            we were in Prague, my kid had a nasty fall and
-                            scraped up their knees—the insurance fully covered the doctor's visit. The best part is that
-                            the zero deductible is
-                            already included in the base plan, so there were no hidden fees</p>
-                    </li>
-                    <li class="reviews__item">
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/sarah.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Sarah Jenkins</p>
-                                <p class="reviews__location">USA</p>
+                            <p class="reviews__text">I picked this policy specifically because of the zero deductible.
+                                While
+                                we were in Prague, my kid had a nasty fall and
+                                scraped up their knees—the insurance fully covered the doctor's visit. The best part is
+                                that
+                                the zero deductible is
+                                already included in the base plan, so there were no hidden fees</p>
+                        </li>
+                        <li class="reviews__item">
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/sarah.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Sarah Jenkins</p>
+                                    <p class="reviews__location">USA</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">Was looking for travel insurance for Rome. I was actually surprised the
-                            base plan comes with €35k coverage instead of
-                            the standard €30k most others offer. Picked it up online in literally 2 minutes. Super
-                            straightforward and everything
-                            worked exactly as expected</p>
-                    </li>
-                    <li class="reviews__item">
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/david.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-4.svg" alt="">
-                                <p class="reviews__name">David Thompson</p>
-                                <p class="reviews__location">Canada</p>
+                            <p class="reviews__text">Was looking for travel insurance for Rome. I was actually surprised
+                                the
+                                base plan comes with €35k coverage instead of
+                                the standard €30k most others offer. Picked it up online in literally 2 minutes. Super
+                                straightforward and everything
+                                worked exactly as expected</p>
+                        </li>
+                        <li class="reviews__item">
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/david.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-4.svg" alt="">
+                                    <p class="reviews__name">David Thompson</p>
+                                    <p class="reviews__location">Canada</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">Had a bit of a headache at checkout my card failed twice with a bank
-                            error. Third time was the charm, though! Once it
-                            went through, everything was smooth, and the policy hit my inbox instantly. Good value
-                            overall.</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/kenji.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Kenji Sato</p>
-                                <p class="reviews__location">Japan</p>
+                            <p class="reviews__text">Had a bit of a headache at checkout my card failed twice with a
+                                bank
+                                error. Third time was the charm, though! Once it
+                                went through, everything was smooth, and the policy hit my inbox instantly. Good value
+                                overall.</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/kenji.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Kenji Sato</p>
+                                    <p class="reviews__location">Japan</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">Travelled to Vienna and had a medical emergency severe food poisoning.
-                            I’m so grateful to the support team. They told me
-                            exactly what to do and guided me through the whole process. Truly professional service</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/oliver.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-4.svg" alt="">
-                                <p class="reviews__name">Oliver Wright</p>
-                                <p class="reviews__location">Britain</p>
+                            <p class="reviews__text">Travelled to Vienna and had a medical emergency severe food
+                                poisoning.
+                                I’m so grateful to the support team. They told me
+                                exactly what to do and guided me through the whole process. Truly professional service
+                            </p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/oliver.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-4.svg" alt="">
+                                    <p class="reviews__name">Oliver Wright</p>
+                                    <p class="reviews__location">Britain</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">Got a policy for Greece from the UK. The site had a bit of a lag when I
-                            was selecting the destination, but it cleared up
-                            after a minute or so. Everything else was spot on. Simple process and got my documents
-                            through straight away. No issues
-                            at all.</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/lucas.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Lucas Rocha</p>
-                                <p class="reviews__location">Brazil</p>
+                            <p class="reviews__text">Got a policy for Greece from the UK. The site had a bit of a lag
+                                when I
+                                was selecting the destination, but it cleared up
+                                after a minute or so. Everything else was spot on. Simple process and got my documents
+                                through straight away. No issues
+                                at all.</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/lucas.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Lucas Rocha</p>
+                                    <p class="reviews__location">Brazil</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">Picked up this insurance for a trip to visit my mum in Italy. The low
-                            price was the main draw, but you actually get way
-                            more options than expected. They even have a 14-day no-questions-asked refund policy if your
-                            plans change. Really solid
-                            deal</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/fatima.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Fatima Mansoori</p>
-                                <p class="reviews__location">UAE</p>
+                            <p class="reviews__text">Picked up this insurance for a trip to visit my mum in Italy. The
+                                low
+                                price was the main draw, but you actually get way
+                                more options than expected. They even have a 14-day no-questions-asked refund policy if
+                                your
+                                plans change. Really solid
+                                deal</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/fatima.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Fatima Mansoori</p>
+                                    <p class="reviews__location">UAE</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">The price for UAE is very low. I had some questions, and they responded
-                            quickly</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/maria.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-4.svg" alt="">
-                                <p class="reviews__name">Maria Theresa</p>
-                                <p class="reviews__location">Philippines</p>
+                            <p class="reviews__text">The price for UAE is very low. I had some questions, and they
+                                responded
+                                quickly</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/maria.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-4.svg" alt="">
+                                    <p class="reviews__name">Maria Theresa</p>
+                                    <p class="reviews__location">Philippines</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">We were planning a big family trip to Europe, and my biggest worry was
-                            finding the right insurance for our grandma. We
-                            ended up getting one policy for the whole family in a single document. The €35,000 coverage
-                            was perfect for the Schengen
-                            visa. A huge thank you for the peace of mind during our vacation!</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/isabella.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Isabella Silva</p>
-                                <p class="reviews__location">Brazil</p>
+                            <p class="reviews__text">We were planning a big family trip to Europe, and my biggest worry
+                                was
+                                finding the right insurance for our grandma. We
+                                ended up getting one policy for the whole family in a single document. The €35,000
+                                coverage
+                                was perfect for the Schengen
+                                visa. A huge thank you for the peace of mind during our vacation!</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/isabella.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Isabella Silva</p>
+                                    <p class="reviews__location">Brazil</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">We traveled to Spain, and unfortunately, there was an issue with our
-                            suitcases. I’m so glad I added the "Premium
-                            Baggage" option when booking. The claim process turned out to be incredibly simple, and the
-                            money arrived much faster
-                            than I expected.</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/james.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">James Wilson</p>
-                                <p class="reviews__location">Canada</p>
+                            <p class="reviews__text">We traveled to Spain, and unfortunately, there was an issue with
+                                our
+                                suitcases. I’m so glad I added the "Premium
+                                Baggage" option when booking. The claim process turned out to be incredibly simple, and
+                                the
+                                money arrived much faster
+                                than I expected.</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/james.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">James Wilson</p>
+                                    <p class="reviews__location">Canada</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">My go-to for every trip. Was heading out to visit my cousin in Cuba
-                            late at night and had a quick question about the
-                            terms. The 24/7 support is the real deal messaged them at 2 AM and got a reply straight
-                            away. Massive thanks to the team</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/emily.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Emily Bennett</p>
-                                <p class="reviews__location">Great Britain</p>
+                            <p class="reviews__text">My go-to for every trip. Was heading out to visit my cousin in Cuba
+                                late at night and had a quick question about the
+                                terms. The 24/7 support is the real deal messaged them at 2 AM and got a reply straight
+                                away. Massive thanks to the team</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/emily.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Emily Bennett</p>
+                                    <p class="reviews__location">Great Britain</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">Flying to see friends in Portugal and my flight got delayed for 6
-                            hours. I remembered seeing something about 'flight
-                            delay' in my policy, so I gave them a call. Turns out, lounge access was already included in
-                            my base plan! Instead of
-                            waiting at the gate, I spent those hours in the business lounge in total comfort</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/tyler.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-4.svg" alt="">
-                                <p class="reviews__name">Tyler Henderson</p>
-                                <p class="reviews__location">USA</p>
+                            <p class="reviews__text">Flying to see friends in Portugal and my flight got delayed for 6
+                                hours. I remembered seeing something about 'flight
+                                delay' in my policy, so I gave them a call. Turns out, lounge access was already
+                                included in
+                                my base plan! Instead of
+                                waiting at the gate, I spent those hours in the business lounge in total comfort</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/tyler.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-4.svg" alt="">
+                                    <p class="reviews__name">Tyler Henderson</p>
+                                    <p class="reviews__location">USA</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">Had a bit of a scare at first because my policy didn't show up in 10
-                            minutes—turns out I'd made a typo in my email
-                            (totally my bad, but still annoying). Hit up support, and a manager fixed it in like sixty
-                            seconds.
-                        </p>
-                        <p class="reviews__text">
-                            The insurance really saved my life in Italy. I caught some crazy infection at the beach with
-                            a 104°F fever. In the
-                            States, a hospital visit like that would cost me a mortgage. I went to an English-speaking
-                            doctor in Amalfi, and the
-                            insurance covered everything—even my prescriptions. For any American used to insane medical
-                            bills, this service is a
-                            total steal for the price
-                        </p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/mason.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-4.svg" alt="">
-                                <p class="reviews__name">Mason Taylor</p>
-                                <p class="reviews__location">Canada</p>
+                            <p class="reviews__text">Had a bit of a scare at first because my policy didn't show up in
+                                10
+                                minutes—turns out I'd made a typo in my email
+                                (totally my bad, but still annoying). Hit up support, and a manager fixed it in like
+                                sixty
+                                seconds.
+                            </p>
+                            <p class="reviews__text">
+                                The insurance really saved my life in Italy. I caught some crazy infection at the beach
+                                with
+                                a 104°F fever. In the
+                                States, a hospital visit like that would cost me a mortgage. I went to an
+                                English-speaking
+                                doctor in Amalfi, and the
+                                insurance covered everything—even my prescriptions. For any American used to insane
+                                medical
+                                bills, this service is a
+                                total steal for the price
+                            </p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/mason.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-4.svg" alt="">
+                                    <p class="reviews__name">Mason Taylor</p>
+                                    <p class="reviews__location">Canada</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">The website was a bit laggy on the mobile version when I tried to enter
-                            date of birth, so I had to switch to my laptop.
-                            But I’ll give the insurance itself a thumbs up. I got it for surfing in Portugal and chose
-                            the evacuation option (just
-                            in case). In the end, a different feature came in handy — the 0 deductible in the base
-                            package. I hit my ear, it got
-                            inflamed, and I went to a clinic in Cascais. I thought they’d overcharge me for the visit as
-                            usual, but the insurance
-                            covered everything completely. For this price, it’s a total steal for Canadians.</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/isham.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Ishaan Sharma</p>
-                                <p class="reviews__location">India</p>
+                            <p class="reviews__text">The website was a bit laggy on the mobile version when I tried to
+                                enter
+                                date of birth, so I had to switch to my laptop.
+                                But I’ll give the insurance itself a thumbs up. I got it for surfing in Portugal and
+                                chose
+                                the evacuation option (just
+                                in case). In the end, a different feature came in handy — the 0 deductible in the base
+                                package. I hit my ear, it got
+                                inflamed, and I went to a clinic in Cascais. I thought they’d overcharge me for the
+                                visit as
+                                usual, but the insurance
+                                covered everything completely. For this price, it’s a total steal for Canadians.</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/isham.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Ishaan Sharma</p>
+                                    <p class="reviews__location">India</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">Got my policy last minute, right before heading to the VFS center in
-                            Delhi. The website is super snappy - received the
-                            PDF in 3 minutes flat. What’s key for us: it covers €35k instead of the standard €30k. The
-                            visa officer didn’t even
-                            double-check the details because the brand is well-known and the coverage exceeds the limit.
-                            For Indians, this is the
-                            fastest way to sort out Schengen insurance</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/zoe.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-4.svg" alt="">
-                                <p class="reviews__name">Zoe Jenkins</p>
-                                <p class="reviews__location">Australia</p>
+                            <p class="reviews__text">Got my policy last minute, right before heading to the VFS center
+                                in
+                                Delhi. The website is super snappy - received the
+                                PDF in 3 minutes flat. What’s key for us: it covers €35k instead of the standard €30k.
+                                The
+                                visa officer didn’t even
+                                double-check the details because the brand is well-known and the coverage exceeds the
+                                limit.
+                                For Indians, this is the
+                                fastest way to sort out Schengen insurance</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/zoe.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-4.svg" alt="">
+                                    <p class="reviews__name">Zoe Jenkins</p>
+                                    <p class="reviews__location">Australia</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">Tried paying three times and it wouldn't go through I was pretty much
-                            ready to chuck it in and look elsewhere. On the
-                            fourth go, it finally worked (could’ve been my bank, not sure). The policy itself is a
-                            beauty, though. Huge plus is the
-                            Worldwide cover with no limits on days abroad. I’m heading to Morocco after Spain and didn't
-                            want the hassle of sorting
-                            a second policy. Plus, the baggage add-on is a lifesaver flying out of Perth with layovers
-                            is always a massive luggage
-                            risk!</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/arjun.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Arjun Sharma</p>
-                                <p class="reviews__location">India</p>
+                            <p class="reviews__text">Tried paying three times and it wouldn't go through I was pretty
+                                much
+                                ready to chuck it in and look elsewhere. On the
+                                fourth go, it finally worked (could’ve been my bank, not sure). The policy itself is a
+                                beauty, though. Huge plus is the
+                                Worldwide cover with no limits on days abroad. I’m heading to Morocco after Spain and
+                                didn't
+                                want the hassle of sorting
+                                a second policy. Plus, the baggage add-on is a lifesaver flying out of Perth with
+                                layovers
+                                is always a massive luggage
+                                risk!</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/arjun.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Arjun Sharma</p>
+                                    <p class="reviews__location">India</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">Applied for my Spain visa and this policy was absolutely spot on. The
-                            €35k coverage is actually higher than the
-                            consulate's minimum requirement, so there were zero issues with my application. Very smooth
-                            process and it’s great value
-                            for money. Definitely a solid choice for Europe</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/aisha.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Aisha Al-Saud</p>
-                                <p class="reviews__location">Saudi Arabia</p>
+                            <p class="reviews__text">Applied for my Spain visa and this policy was absolutely spot on.
+                                The
+                                €35k coverage is actually higher than the
+                                consulate's minimum requirement, so there were zero issues with my application. Very
+                                smooth
+                                process and it’s great value
+                                for money. Definitely a solid choice for Europe</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/aisha.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Aisha Al-Saud</p>
+                                    <p class="reviews__location">Saudi Arabia</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">Brilliant service. I opted for the 'Worldwide' cover since I was
-                            heading to the UK straight after Italy. It was so much
-                            easier than sorting separate policies. No limits on the number of countries, which was a
-                            massive help for my trip.
-                            Everything worked like a charm.</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/chen.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Chen Ming</p>
-                                <p class="reviews__location">China</p>
+                            <p class="reviews__text">Brilliant service. I opted for the 'Worldwide' cover since I was
+                                heading to the UK straight after Italy. It was so much
+                                easier than sorting separate policies. No limits on the number of countries, which was a
+                                massive help for my trip.
+                                Everything worked like a charm.</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/chen.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Chen Ming</p>
+                                    <p class="reviews__location">China</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">Got a bit mixed up with the website options at first, but the support
-                            team cleared it up right away. For a Schengen visa
-                            application, this is exactly what you need. Everything is official and recognized. Great
-                            experience</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/vikram.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Vikram Swaminathan</p>
-                                <p class="reviews__location">India</p>
+                            <p class="reviews__text">Got a bit mixed up with the website options at first, but the
+                                support
+                                team cleared it up right away. For a Schengen visa
+                                application, this is exactly what you need. Everything is official and recognized. Great
+                                experience</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/vikram.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Vikram Swaminathan</p>
+                                    <p class="reviews__location">India</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">I bought this policy purely for the visa because of the price—Indian
-                            insurance companies always seem to have hidden
-                            terms. The website glitched a bit with my long last name and cut off one letter in the
-                            policy, so I had to message
-                            support. They fixed it in 2 minutes flat and sent over a new file. Excellent!</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/chen-long.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Chen Long</p>
-                                <p class="reviews__location">China</p>
+                            <p class="reviews__text">I bought this policy purely for the visa because of the
+                                price—Indian
+                                insurance companies always seem to have hidden
+                                terms. The website glitched a bit with my long last name and cut off one letter in the
+                                policy, so I had to message
+                                support. They fixed it in 2 minutes flat and sent over a new file. Excellent!</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/chen-long.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Chen Long</p>
+                                    <p class="reviews__location">China</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">I’m used to high-tech services in Shanghai, so I can’t stand wasting
-                            time on offline agents. The online calculator on
-                            this site is excellent—I could compare different coverage options and see the price change
-                            in real-time. I chose a plan
-                            for Italy, and the price was surprisingly low, especially considering that a $0 deductible
-                            is included even in the basic
-                            package</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/noura.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Noura Al-Saeed</p>
-                                <p class="reviews__location">Kuwait</p>
+                            <p class="reviews__text">I’m used to high-tech services in Shanghai, so I can’t stand
+                                wasting
+                                time on offline agents. The online calculator on
+                                this site is excellent—I could compare different coverage options and see the price
+                                change
+                                in real-time. I chose a plan
+                                for Italy, and the price was surprisingly low, especially considering that a $0
+                                deductible
+                                is included even in the basic
+                                package</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/noura.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Noura Al-Saeed</p>
+                                    <p class="reviews__location">Kuwait</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">For our summer trip to Marbella, I was looking for a policy that offers
-                            more than just the basics. I usually check
-                            offers at my bank in Kuwait, but their terms are often quite limited. This site was a real
-                            find thanks to its online
-                            calculator tool—I was able to compare every level of coverage myself</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/deepali.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Deepali Singh</p>
-                                <p class="reviews__location">India</p>
+                            <p class="reviews__text">For our summer trip to Marbella, I was looking for a policy that
+                                offers
+                                more than just the basics. I usually check
+                                offers at my bank in Kuwait, but their terms are often quite limited. This site was a
+                                real
+                                find thanks to its online
+                                calculator tool—I was able to compare every level of coverage myself</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/deepali.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Deepali Singh</p>
+                                    <p class="reviews__location">India</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">I travel a lot for leisure and can't stand hidden terms or waiting for
-                            quotes from agents. This site is excellent
-                            because of the online calculator—you can compare all coverage options yourself in just
-                            minutes. I specifically looked
-                            for a plan for Spain and loved that the process was fully automated, with no annoying calls
-                            from managers. The €35,000
-                            base coverage made the visa process so simple. The 10% discount code from the site was a
-                            pleasant bonus!</p>
-                    </li>
-                    <li class="reviews__item" hidden>
-                        <div class="reviews__header">
-                            <img class="reviews__avatar" src="img/reviews/vikram-lyer.png" alt="">
-                            <div class="reviews__author">
-                                <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
-                                <p class="reviews__name">Vikram Iyer</p>
-                                <p class="reviews__location">India</p>
+                            <p class="reviews__text">I travel a lot for leisure and can't stand hidden terms or waiting
+                                for
+                                quotes from agents. This site is excellent
+                                because of the online calculator—you can compare all coverage options yourself in just
+                                minutes. I specifically looked
+                                for a plan for Spain and loved that the process was fully automated, with no annoying
+                                calls
+                                from managers. The €35,000
+                                base coverage made the visa process so simple. The 10% discount code from the site was a
+                                pleasant bonus!</p>
+                        </li>
+                        <li class="reviews__item" hidden>
+                            <div class="reviews__header">
+                                <img class="reviews__avatar" src="img/reviews/vikram-lyer.png" alt="">
+                                <div class="reviews__author">
+                                    <img class="reviews__rating" src="img/reviews/stars-5.svg" alt="">
+                                    <p class="reviews__name">Vikram Iyer</p>
+                                    <p class="reviews__location">India</p>
+                                </div>
                             </div>
-                        </div>
-                        <p class="reviews__text">I spent a lot of time searching for a plan for my summer trip to
-                            Greece. Most Indian insurers have sky-high prices for
-                            Europe, but the pricing here is unbeatable. I was also impressed by their 14-day money-back
-                            guarantee if you change your
-                            mind—it shows great confidence in their product</p>
-                    </li>
-                </ul>
+                            <p class="reviews__text">I spent a lot of time searching for a plan for my summer trip to
+                                Greece. Most Indian insurers have sky-high prices for
+                                Europe, but the pricing here is unbeatable. I was also impressed by their 14-day
+                                money-back
+                                guarantee if you change your
+                                mind—it shows great confidence in their product</p>
+                        </li>
+                    </ul>
+                    <div class="swiper-pagination reviews__pagination"></div>
+                </div>
                 <button class="reviews__btn" type="button">See all reviews</button>
             </div>
         </section>
@@ -1650,52 +1795,59 @@
             <div class="container">
                 <h2 class="title">Schengen area entry rules</h2>
                 <p class="section-note rules__note">Learn more about the rules for entering the Schengen area</p>
-                <ul class="rules__list">
-                    <li class="rules__item">
-                        <img class="rules__img" src="img/rules.png" alt="">
-                        <div class="rules__wrapper">
-                            <h3 class="rules__subtitle">Nullam aliquet</h3>
-                            <p class="rules__text">Nullam aliquet tellus ac dui aliquet gravida. Duis laoreet vehicula
-                                nulla, eu dictum odio molestie id.</p>
-                            <a class="rules__link" href="#">Read more
-                                <img src="img/rules-arrow.svg" alt="">
-                            </a>
-                        </div>
-                    </li>
-                    <li class="rules__item">
-                        <img class="rules__img" src="img/rules.png" alt="">
-                        <div class="rules__wrapper">
-                            <h3 class="rules__subtitle">Nullam aliquet</h3>
-                            <p class="rules__text">Nullam aliquet tellus ac dui aliquet gravida. Duis laoreet vehicula
-                                nulla, eu dictum odio molestie id.</p>
-                            <a class="rules__link" href="#">Read more
-                                <img src="img/rules-arrow.svg" alt="">
-                            </a>
-                        </div>
-                    </li>
-                    <li class="rules__item">
-                        <img class="rules__img" src="img/rules.png" alt="">
-                        <div class="rules__wrapper">
-                            <h3 class="rules__subtitle">Nullam aliquet</h3>
-                            <p class="rules__text">Nullam aliquet tellus ac dui aliquet gravida. Duis laoreet vehicula
-                                nulla, eu dictum odio molestie id.</p>
-                            <a class="rules__link" href="#">Read more
-                                <img src="img/rules-arrow.svg" alt="">
-                            </a>
-                        </div>
-                    </li>
-                    <li class="rules__item">
-                        <img class="rules__img" src="img/rules.png" alt="">
-                        <div class="rules__wrapper">
-                            <h3 class="rules__subtitle">Nullam aliquet</h3>
-                            <p class="rules__text">Nullam aliquet tellus ac dui aliquet gravida. Duis laoreet vehicula
-                                nulla, eu dictum odio molestie id.</p>
-                            <a class="rules__link" href="#">Read more
-                                <img src="img/rules-arrow.svg" alt="">
-                            </a>
-                        </div>
-                    </li>
-                </ul>
+                <div class="swiper rules__slider">
+                    <ul class="rules__list">
+                        <li class="rules__item">
+                            <img class="rules__img" src="img/rules.png" alt="">
+                            <div class="rules__wrapper">
+                                <h3 class="rules__subtitle">Nullam aliquet</h3>
+                                <p class="rules__text">Nullam aliquet tellus ac dui aliquet gravida. Duis laoreet
+                                    vehicula
+                                    nulla, eu dictum odio molestie id.</p>
+                                <a class="rules__link" href="#">Read more
+                                    <img src="img/rules-arrow.svg" alt="">
+                                </a>
+                            </div>
+                        </li>
+                        <li class="rules__item">
+                            <img class="rules__img" src="img/rules.png" alt="">
+                            <div class="rules__wrapper">
+                                <h3 class="rules__subtitle">Nullam aliquet</h3>
+                                <p class="rules__text">Nullam aliquet tellus ac dui aliquet gravida. Duis laoreet
+                                    vehicula
+                                    nulla, eu dictum odio molestie id.</p>
+                                <a class="rules__link" href="#">Read more
+                                    <img src="img/rules-arrow.svg" alt="">
+                                </a>
+                            </div>
+                        </li>
+                        <li class="rules__item">
+                            <img class="rules__img" src="img/rules.png" alt="">
+                            <div class="rules__wrapper">
+                                <h3 class="rules__subtitle">Nullam aliquet</h3>
+                                <p class="rules__text">Nullam aliquet tellus ac dui aliquet gravida. Duis laoreet
+                                    vehicula
+                                    nulla, eu dictum odio molestie id.</p>
+                                <a class="rules__link" href="#">Read more
+                                    <img src="img/rules-arrow.svg" alt="">
+                                </a>
+                            </div>
+                        </li>
+                        <li class="rules__item">
+                            <img class="rules__img" src="img/rules.png" alt="">
+                            <div class="rules__wrapper">
+                                <h3 class="rules__subtitle">Nullam aliquet</h3>
+                                <p class="rules__text">Nullam aliquet tellus ac dui aliquet gravida. Duis laoreet
+                                    vehicula
+                                    nulla, eu dictum odio molestie id.</p>
+                                <a class="rules__link" href="#">Read more
+                                    <img src="img/rules-arrow.svg" alt="">
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="swiper-pagination rules__pagination"></div>
+                </div>
             </div>
         </section>
         <section class="faq" id="faq">
@@ -1856,7 +2008,7 @@
                         <li class="footer__item"><a class="footer__item-link" href="#etias">ETIAS</a></li>
                     </ul>
                 </nav>
-                <nav class="footer__wrapper" aria-labelledby="footer-company-title">
+                <nav class="footer__wrapper footer__wrapper-company" aria-labelledby="footer-company-title">
                     <h3 class="footer__title" id="footer-company-title">Company</h3>
                     <ul class="footer__list">
                         <li class="footer__item"><a class="footer__item-link" href="about-us.html">About Us</a></li>
@@ -1876,11 +2028,11 @@
                         </li>
                     </ul>
                 </nav>
-                <div class="footer__wrapper">
+                <div class="footer__wrapper footer__wrapper-contact">
                     <h3 class="footer__title">Contact</h3>
                     <ul class="footer__list">
                         <li class="footer__item"><a class="footer__item-link"
-                                href="mailto:support@goschengen.com">support@goschengen.com</a>
+                                href="mailto:support@.com">support@.com</a>
                         </li>
                         <li class="footer__item"><a class="footer__item-link" href="tel:+77777777777">+7 (777)
                                 777-77-77</a></li>
@@ -1898,7 +2050,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="footer__wrapper">
+                <div class="footer__wrapper footer__wrapper-social">
                     <h3 class="footer__title">Social</h3>
                     <ul class="footer__list footer__list-social">
                         <li class="footer__item"><a class="footer__item-link" href="#"><img
@@ -1929,6 +2081,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 
