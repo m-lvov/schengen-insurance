@@ -44,9 +44,706 @@
                         <span class="header__language-value">Eng</span>
                         <img class="header__language-arrow" src="img/header-arrow.svg" alt="">
                     </button>
+                    <button class="header__burger" type="button">
+                        <span class="header__burger-line"></span>
+                        <span class="header__burger-line"></span>
+                    </button>
                 </div>
             </div>
         </div>
+        <div class="burger-menu" id="burger-menu" hidden>
+            <div class="burger-menu__overlay"></div>
+            <div class="container burger-menu__container">
+                <div class="burger-menu__dialog">
+                    <div class="burger-menu__body">
+                        <nav class="burger-menu__navigation">
+                            <div class="burger-menu__tabs">
+                                <button class="burger-menu__tab" type="button" data-menu-tab="destinations">
+                                    Destinations
+                                    <img src="img/mega-menu/arrow.svg" alt="">
+                                </button>
+                                <button class="burger-menu__tab" type="button" data-menu-tab="insurance">
+                                    Schengen Visa Insurance
+                                    <img src="img/mega-menu/arrow.svg" alt="">
+                                </button>
+                                <button class="burger-menu__tab" type="button" data-menu-tab="entry-rules">
+                                    Rules of Entry
+                                    <img src="img/mega-menu/arrow.svg" alt="">
+                                </button>
+                                <button class="burger-menu__tab" type="button" data-menu-tab="visa-types">
+                                    Types Schengen Visas
+                                    <img src="img/mega-menu/arrow.svg" alt="">
+                                </button>
+                                <button class="burger-menu__tab" type="button" data-menu-tab="visa-refusal">
+                                    Schengen Visas Refusal
+                                    <img src="img/mega-menu/arrow.svg" alt="">
+                                </button>
+                                <button class="burger-menu__tab" type="button" data-menu-tab="ees">
+                                    EES (Entry/Exit System)
+                                    <img src="img/mega-menu/arrow.svg" alt="">
+                                </button>
+                                <button class="burger-menu__tab" type="button" data-menu-tab="etias">
+                                    ETIAS
+                                    <img src="img/mega-menu/arrow.svg" alt="">
+                                </button>
+                            </div>
+                        </nav>
+                        <div class="burger-menu__content">
+                            <div class="burger-menu__panel" data-menu-panel="destinations" hidden>
+                                <div class="menu-countries__card">
+                                    <ul class="menu-countries">
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag.png" alt="">
+                                                <span>Austria</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-1.png" alt="">
+                                                <span>Belgium</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-2.png" alt="">
+                                                <span>Bulgaria</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-3.png" alt="">
+                                                <span>Croatia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-4.png" alt="">
+                                                <span>Cyprus</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-5.png" alt="">
+                                                <span>Czech Republic</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-6.png" alt="">
+                                                <span>Denmark</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-7.png" alt="">
+                                                <span>Estonia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-8.png" alt="">
+                                                <span>Finland</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-9.png" alt="">
+                                                <span>France</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-10.png" alt="">
+                                                <span>Germany</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-11.png" alt="">
+                                                <span>Greece</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-12.png" alt="">
+                                                <span>Hungary</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-13.png" alt="">
+                                                <span>Iceland</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-14.png" alt="">
+                                                <span>Italy</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-15.png" alt="">
+                                                <span>Latvia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-17.png" alt="">
+                                                <span>Liechtenstein</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-16.png" alt="">
+                                                <span>Lithuania</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-18.png" alt="">
+                                                <span>Luxembourg</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-19.png" alt="">
+                                                <span>Malta</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-20.png" alt="">
+                                                <span>Netherlands</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-21.png" alt="">
+                                                <span>Norway</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-22.png" alt="">
+                                                <span>Poland</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-23.png" alt="">
+                                                <span>Portugal</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-29.png" alt="">
+                                                <span>Romania</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-24.png" alt="">
+                                                <span>Slovakia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-25.png" alt="">
+                                                <span>Slovenia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-26.png" alt="">
+                                                <span>Spain</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-27.png" alt="">
+                                                <span>Sweden</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#destinations">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-28.png" alt="">
+                                                <span>Switzerland</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="menu-countries__actions">
+                                    <button class="menu-countries__action" type="button">
+                                        <img class="menu-countries__action-icon" src="img/mega-menu/worldwide.svg"
+                                            alt="">
+                                        <span class="menu-countries__action-text">Worldwide</span>
+                                        <img class="menu-countries__action-arrow" src="img/mega-menu/arrow-btn.svg"
+                                            alt="">
+                                    </button>
+                                    <button class="menu-countries__action" type="button">
+                                        <img class="menu-countries__action-icon" src="img/mega-menu/allshengen.svg"
+                                            alt="">
+                                        <span class="menu-countries__action-text">All Schengen</span>
+                                        <img class="menu-countries__action-arrow" src="img/mega-menu/arrow-btn.svg"
+                                            alt="">
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="burger-menu__panel" data-menu-panel="insurance" hidden>
+                                <div class="menu-countries__card">
+                                    <ul class="menu-countries">
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag.png" alt="">
+                                                <span>Austria</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-1.png" alt="">
+                                                <span>Belgium</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-2.png" alt="">
+                                                <span>Bulgaria</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-3.png" alt="">
+                                                <span>Croatia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-4.png" alt="">
+                                                <span>Cyprus</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-5.png" alt="">
+                                                <span>Czech Republic</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-6.png" alt="">
+                                                <span>Denmark</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-7.png" alt="">
+                                                <span>Estonia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-8.png" alt="">
+                                                <span>Finland</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-9.png" alt="">
+                                                <span>France</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-10.png" alt="">
+                                                <span>Germany</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-11.png" alt="">
+                                                <span>Greece</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-12.png" alt="">
+                                                <span>Hungary</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-13.png" alt="">
+                                                <span>Iceland</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-14.png" alt="">
+                                                <span>Italy</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-15.png" alt="">
+                                                <span>Latvia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-17.png" alt="">
+                                                <span>Liechtenstein</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-16.png" alt="">
+                                                <span>Lithuania</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-18.png" alt="">
+                                                <span>Luxembourg</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-19.png" alt="">
+                                                <span>Malta</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-20.png" alt="">
+                                                <span>Netherlands</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-21.png" alt="">
+                                                <span>Norway</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-22.png" alt="">
+                                                <span>Poland</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-23.png" alt="">
+                                                <span>Portugal</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-29.png" alt="">
+                                                <span>Romania</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-24.png" alt="">
+                                                <span>Slovakia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-25.png" alt="">
+                                                <span>Slovenia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-26.png" alt="">
+                                                <span>Spain</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-27.png" alt="">
+                                                <span>Sweden</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#insurance">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-28.png" alt="">
+                                                <span>Switzerland</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="menu-countries__actions">
+                                        <button class="menu-countries__action" type="button">
+                                            <img class="menu-countries__action-icon" src="img/mega-menu/allshengen.svg"
+                                                alt="">
+                                            <span class="menu-countries__action-text">All Schengen</span>
+                                            <img class="menu-countries__action-arrow" src="img/mega-menu/arrow-btn.svg"
+                                                alt="">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="burger-menu__panel" data-menu-panel="entry-rules" hidden>
+                                <div class="menu-countries__card">
+                                    <ul class="menu-countries">
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag.png" alt="">
+                                                <span>Austria</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-1.png" alt="">
+                                                <span>Belgium</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-2.png" alt="">
+                                                <span>Bulgaria</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-3.png" alt="">
+                                                <span>Croatia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-4.png" alt="">
+                                                <span>Cyprus</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-5.png" alt="">
+                                                <span>Czech Republic</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-6.png" alt="">
+                                                <span>Denmark</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-7.png" alt="">
+                                                <span>Estonia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-8.png" alt="">
+                                                <span>Finland</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-9.png" alt="">
+                                                <span>France</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-10.png" alt="">
+                                                <span>Germany</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-11.png" alt="">
+                                                <span>Greece</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-12.png" alt="">
+                                                <span>Hungary</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-13.png" alt="">
+                                                <span>Iceland</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-14.png" alt="">
+                                                <span>Italy</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-15.png" alt="">
+                                                <span>Latvia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-17.png" alt="">
+                                                <span>Liechtenstein</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-16.png" alt="">
+                                                <span>Lithuania</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-18.png" alt="">
+                                                <span>Luxembourg</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-19.png" alt="">
+                                                <span>Malta</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-20.png" alt="">
+                                                <span>Netherlands</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-21.png" alt="">
+                                                <span>Norway</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-22.png" alt="">
+                                                <span>Poland</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-23.png" alt="">
+                                                <span>Portugal</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-29.png" alt="">
+                                                <span>Romania</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-24.png" alt="">
+                                                <span>Slovakia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-25.png" alt="">
+                                                <span>Slovenia</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-26.png" alt="">
+                                                <span>Spain</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-27.png" alt="">
+                                                <span>Sweden</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-countries__item">
+                                            <a class="menu-countries__link" href="#rules">
+                                                <img class="menu-countries__flag" src="img/flags-30/flag-28.png" alt="">
+                                                <span>Switzerland</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="menu-countries__actions">
+                                        <button class="menu-countries__action" type="button">
+                                            <img class="menu-countries__action-icon" src="img/mega-menu/allshengen.svg"
+                                                alt="">
+                                            <span class="menu-countries__action-text">All Entry Rules</span>
+                                            <img class="menu-countries__action-arrow" src="img/mega-menu/arrow-btn.svg"
+                                                alt="">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="burger-menu__panel" data-menu-panel="visa-types" hidden>
+                                <ul class="menu-types__list">
+                                    <li class="menu-types__item"><a class="menu-types__link" href="#">All Types of
+                                            Visas</a>
+                                    </li>
+                                    <li class="menu-types__item"><a class="menu-types__link" href="#">Type A</a></li>
+                                    <li class="menu-types__item"><a class="menu-types__link" href="#">Type B</a></li>
+                                    <li class="menu-types__item"><a class="menu-types__link" href="#">Type D</a></li>
+                                    <li class="menu-types__item"><a class="menu-types__link" href="#">Type C</a></li>
+                                    <li class="menu-types__item"><a class="menu-types__link" href="#">LTV (Limited
+                                            Territorial Validity visa)</a></li>
+                                </ul>
+                            </div>
+                            <div class="burger-menu__panel" data-menu-panel="visa-refusal" hidden>
+                                <a class="burger-menu__link" href="#visa-refusal">Schengen Visas Refusal</a>
+                            </div>
+                            <div class="burger-menu__panel" data-menu-panel="ees" hidden>
+                                <a class="burger-menu__link" href="#ees">EES (Entry/Exit System)</a>
+                            </div>
+                            <div class="burger-menu__panel" data-menu-panel="etias" hidden>
+                                <a class="burger-menu__link" href="#etias">ETIAS</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="burger-menu__contacts">
+                        <button class="burger-menu__contacts-btn" type="button">
+                            <img src="img/mega-menu/question.svg" alt="">
+                            <span>
+                                Contact Us
+                            </span>
+                        </button>
+                        <ul class="burger-menu__contacts-list">
+                            <li class="burger-menu__contacts-item">
+                                <a class="burger-menu__contacts-link" href="tel:+203440403030">
+                                    <img src="img/mega-menu/phone.svg" alt="">
+                                    <span>+2034 4040 3030</span>
+                                </a>
+                            </li>
+                            <li class="burger-menu__contacts-item">
+                                <a class="burger-menu__contacts-link" href="mailto:support@.com">
+                                    <img src="img/mega-menu/email.svg" alt="">
+                                    <span>support@.com</span>
+                                </a>
+
+                            </li>
+                            <li class="burger-menu__contacts-item">
+                                <a class="burger-menu__contacts-link" href="#">
+                                    <img src="img/mega-menu/location.svg" alt="">
+                                    <span>545 Mavis Island</span>
+                                </a>
+                            </li>
+                            <li class="burger-menu__contacts-item">
+                                <a class="burger-menu__contacts-link" href="#">
+                                    <img src="img/mega-menu/time.svg" alt="">
+                                    <span>Lorem ipsum</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </header>
     <main class="main">
         <section class="hero" id="hero">
@@ -1856,10 +2553,10 @@
                 <p class="section-note faq__note">Get answers to frequently asked questions from our customers</p>
                 <div class="faq__columns">
                     <ul class="faq__list">
-                        <li class="faq__item faq__item--open">
+                        <li class="faq__item">
                             <button class="faq__question" type="button">How much is the travel insurance for a
                                 Schengen?</button>
-                            <p class="faq__answer">When choosing a standard contract, the daily cost starts from
+                            <p class="faq__answer" hidden>When choosing a standard contract, the daily cost starts from
                                 $1.50.</p>
                         </li>
                         <li class="faq__item">
@@ -1902,11 +2599,11 @@
                         </li>
                     </ul>
                     <ul class="faq__list">
-                        <li class="faq__item faq__item--open">
+                        <li class="faq__item">
                             <button class="faq__question" type="button">Where can I buy travel
                                 insurance for a
                                 Schengen?</button>
-                            <p class="faq__answer">You can apply directly on our website or call us.</p>
+                            <p class="faq__answer" hidden>You can apply directly on our website or call us.</p>
                         </li>
                         <li class="faq__item">
                             <button class="faq__question" type="button">Can we get family

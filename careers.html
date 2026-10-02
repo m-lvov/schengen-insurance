@@ -45,6 +45,10 @@
                         <span class="header__language-value">Eng</span>
                         <img class="header__language-arrow" src="img/header-arrow.svg" alt="">
                     </button>
+                    <button class="header__burger" type="button">
+                        <span class="header__burger-line"></span>
+                        <span class="header__burger-line"></span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -158,7 +162,8 @@
             <div class="container">
                 <p class="section-note powers__note">Lorem ipsum</p>
                 <h2 class="title powers__title">Policy powers</h2>
-                <ul class="powers__cards">
+                <div class="powers__slider swiper">
+                    <ul class="powers__cards">
                     <li class="powers__card powers__card--img">
                         <img class="powers__img" src="img/carers/powers-1.png" alt="">
                     </li>
@@ -231,7 +236,9 @@
                             </a>
                         </div>
                     </li>
-                </ul>
+                    </ul>
+                    <div class="swiper-pagination powers__pagination"></div>
+                </div>
             </div>
         </section>
         <section class="visa-check" id="visa-check">

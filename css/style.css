@@ -246,6 +246,9 @@ body {
 
 .header {
     padding: 13.5px 0;
+    position: relative;
+    z-index: 100;
+    background-color: #fff;
 }
 
 .header__inner {
@@ -334,6 +337,281 @@ body {
 .header__language-flag {
     width: 23px;
     height: 13px;
+}
+
+.header__burger {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    padding: 8px;
+}
+
+.header__burger-line {
+    width: 16px;
+    height: 2px;
+    min-height: 2px;
+    flex-shrink: 0;
+    border-radius: 0.5px;
+    background-color: #02063C;
+    transition: transform .2s ease-out;
+}
+
+.header__burger--active .header__burger-line:first-child {
+    transform: translateY(4px) rotate(45deg);
+}
+
+.header__burger--active .header__burger-line:last-child {
+    transform: translateY(-4px) rotate(-45deg);
+}
+
+.burger-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    min-height: calc(100vh - 64px);
+    padding-top: 10px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition:
+        opacity 200ms ease-out,
+        visibility 0s linear;
+}
+
+.burger-menu[hidden] {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity 200ms ease-out,
+        visibility 0s linear 200ms;
+}
+
+.burger-menu__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(62, 67, 130, 0.60);
+    backdrop-filter: blur(5px);
+}
+
+.burger-menu__container {
+    position: relative;
+    z-index: 1;
+}
+
+.burger-menu__dialog {
+    display: flex;
+    flex-direction: column;
+    min-height: 615px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 16px;
+    transform: translateY(0);
+    transition: transform 200ms ease-out;
+}
+
+.burger-menu[hidden] .burger-menu__dialog {
+    transform: translateY(-10px);
+}
+
+.burger-menu__body {
+    display: flex;
+    flex-grow: 1;
+    padding: 30px 30px 10px;
+}
+
+.burger-menu__navigation {
+    flex: 0 0 246px;
+    min-width: 0;
+}
+
+.burger-menu__tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.burger-menu__tab {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    width: 100%;
+    padding: 20px 24px;
+    border-radius: 60px 0 0 60px;
+    color: #000;
+    font-family: "Gilroy", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: left;
+    transition: background-color 180ms ease-out;
+    white-space: nowrap;
+}
+
+.burger-menu__tab:nth-child(2) {
+    position: relative;
+    padding: 20px 24px 20px 18px;
+    white-space: nowrap;
+}
+
+.burger-menu__tab:nth-child(2)>img {
+    position: absolute;
+    right: 6px;
+}
+
+.burger-menu__tab>img {
+    width: 7px;
+    height: 12px;
+    flex-shrink: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 180ms ease-out;
+}
+
+.burger-menu__tab:hover,
+.burger-menu__tab--active {
+    background-color: #DDFFBE;
+    font-weight: 700;
+}
+
+.burger-menu__tab:hover>img,
+.burger-menu__tab--active>img {
+    opacity: 1;
+    visibility: visible;
+}
+
+.burger-menu__content {
+    flex: 1;
+    min-width: 0;
+}
+
+.burger-menu__panel {
+    height: 100%;
+}
+
+.menu-countries__card {
+    overflow: hidden;
+    background-color: #DDFFBE;
+    border-radius: 0 16px 16px 16px;
+}
+
+.menu-countries {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: repeat(5, minmax(0, 1fr));
+    grid-auto-flow: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.menu-countries__item {
+    min-width: 0;
+    padding: 0px;
+}
+
+.menu-countries__link {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    padding: 10px 20px;
+    white-space: nowrap;
+    color: #000;
+    font-family: "Gilroy", sans-serif;
+    font-size: 16px;
+    line-height: 18px;
+    transform: scale(1);
+    transform-origin: center;
+    transition: transform 180ms ease-out;
+}
+
+.menu-countries__link:hover {
+    z-index: 2;
+    transform: scale(1.2);
+}
+
+.menu-countries__flag {
+    width: 22px;
+    height: 14px;
+    flex-shrink: 0;
+    object-fit: cover;
+    transition: filter 180ms ease-out;
+}
+
+.menu-countries__link:hover .menu-countries__flag {
+    filter: brightness(1.05);
+}
+
+.menu-countries__actions {
+    display: flex;
+    flex-direction: column;
+    width: calc((100% - 70px) / 6);
+    margin-right: 10px;
+    margin-left: auto;
+    background-color: #fff;
+}
+
+.menu-countries__action {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 48px;
+    padding: 10px 20px;
+    color: #000;
+    font-family: "Gilroy", sans-serif;
+    font-size: 16px;
+    line-height: 18px;
+    text-align: left;
+}
+
+.menu-countries__action-arrow {
+    margin-left: auto;
+}
+
+.menu-types__list {}
+
+.menu-types__item {}
+
+.menu-types__link {}
+
+.burger-menu__link {}
+
+.burger-menu__contacts {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    padding: 10px 30px;
+    gap: 46px;
+}
+
+.burger-menu__contacts-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.burger-menu__contacts-list {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.burger-menu__contacts-link {
+    width: 355px;
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    border-radius: 17px;
+    background: #F3F5F9;
 }
 
 .hero {
@@ -713,14 +991,13 @@ body {
 
 .why-chose__list {
     margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 20px;
 }
 
 .why-chose__item {
-    width: 263px;
+    width: 100%;
     height: 213px;
     flex-shrink: 0;
     padding: 25px;
@@ -760,7 +1037,7 @@ body {
 .insurance__list {
     margin-top: 60px;
     display: grid;
-    grid-template-columns: repeat(4, 405px);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 20px;
 }
 
@@ -1758,19 +2035,18 @@ body {
 }
 
 .benefits__cards {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     justify-content: center;
     gap: 20px;
 }
 
 .benefits__card {
-    width: 320px;
-    flex: 0 0 320px;
+    width: 100%;
     padding: 30px;
     border-radius: 16px;
     background-color: #F7F7F9;
-    max-width: 320px;
+    max-width: none;
     height: 368px;
     display: flex;
     justify-content: space-between;
@@ -2062,6 +2338,14 @@ body {
 .reviews__header {
     display: flex;
     gap: 14px;
+}
+
+.reviews__avatar {
+    width: 80px;
+    height: 80px;
+    flex: 0 0 80px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .reviews__name {
@@ -2712,6 +2996,10 @@ body {
     gap: 20px 24px;
 }
 
+.powers__pagination {
+    display: none;
+}
+
 .powers__card {
     display: flex;
     flex-direction: column;
@@ -3143,8 +3431,8 @@ body {
     }
 
     .destinations__media {
-        width: min(42%, 708px);
-        flex: 0 1 708px;
+        width: 708px;
+        flex: 0 0 708px;
     }
 
     .documents__inner {
@@ -3190,22 +3478,48 @@ body {
     }
 
     .insurance__list {
-        grid-template-columns: repeat(3, 405px);
-        grid-template-rows: repeat(2, 408px);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         justify-content: center;
 
     }
+}
 
-    .insurance__card:last-child {
+@media (min-width: 1301px) and (max-width: 1725px) {
+    .insurance-terms__card:nth-child(9) {
         grid-column: 2;
+    }
+
+    .insurance-terms__card:nth-child(10) {
+        grid-column: 3;
+    }
+}
+
+@media (min-width: 1600px) and (max-width: 1725px) {
+    .destinations__list {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1301px) and (max-width: 1599px) {
+    .destinations__media {
+        align-self: center;
     }
 }
 
 @media(max-width: 1300px) {
 
     .insurance-terms__grid {
-        grid-template-columns: repeat(3, 318px);
+        grid-template-columns: repeat(2, 318px);
         justify-content: center;
+    }
+
+    .why-chose__list {
+        grid-template-columns: repeat(3, minmax(0, 263px));
+        justify-content: center;
+    }
+
+    .benefits__cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .title {
@@ -3219,7 +3533,7 @@ body {
     }
 
     .insurance__list {
-        grid-template-columns: repeat(2, 405px);
+        grid-template-columns: repeat(2, minmax(0, 405px));
     }
 
     .countries__header {
@@ -3260,18 +3574,20 @@ body {
     }
 
     .reviews__list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 20px;
     }
 
     .rules__list {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 406px));
+        justify-content: center;
         gap: 20px;
     }
 
     .rules__item {
-        max-width: none;
+        width: 100%;
+        max-width: 406px;
     }
 
     .visa-types__inner {
@@ -3432,6 +3748,7 @@ body {
     .destinations__media {
         width: 100%;
         max-width: 708px;
+        flex: none;
     }
 
     .expert__quote,
@@ -3492,6 +3809,16 @@ body {
 }
 
 @media(max-width: 1100px) {
+    .reviews__list {
+        grid-template-columns: repeat(2, minmax(0, 406px));
+        justify-content: center;
+    }
+
+    .reviews__item {
+        width: 100%;
+        max-width: 406px;
+    }
+
     .shengen-contries__grid {
         grid-template-columns: repeat(4, minmax(0, 148px));
     }
@@ -3750,9 +4077,8 @@ body {
     }
 
     .benefits__card {
-        width: 280px;
+        width: 100%;
         height: 300px;
-        flex-basis: 280px;
         padding: 24px;
     }
 
@@ -3783,8 +4109,9 @@ body {
 
     .insurance-terms__card {
         width: 280px;
-        height: 280px;
-        padding: 20px;
+        height: auto;
+        aspect-ratio: 318 / 324;
+        padding: 24px;
     }
 
     .insurance-terms__icon {
@@ -3801,9 +4128,12 @@ body {
         grid-template-columns: repeat(3, minmax(0, 148px));
     }
 
-    .reviews__list,
+    .reviews__list {
+        grid-template-columns: repeat(2, minmax(0, 406px));
+    }
+
     .rules__list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 406px));
     }
 
     .faq__columns {
@@ -3928,6 +4258,7 @@ body {
     }
 
     .why-chose__list {
+        display: flex;
         flex-wrap: nowrap;
         justify-content: initial;
         gap: 0;
@@ -4627,7 +4958,7 @@ body {
     .destinations__media {
         width: 100%;
         max-width: 280px;
-        height: 440px;
+        height: 407px;
         margin: 0 auto;
     }
 
@@ -4795,6 +5126,7 @@ body {
     }
 
     .benefits__cards {
+        display: flex;
         flex-wrap: nowrap;
         justify-content: flex-start;
         gap: 0;
@@ -5071,6 +5403,7 @@ body {
     .reviews__slider {
         width: 100%;
         max-width: 280px;
+        min-height: calc(var(--reviews-card-height, 0px) + 32px);
         margin: 32px auto 0;
         padding-bottom: 32px;
         overflow: hidden;
@@ -5079,8 +5412,10 @@ body {
     .reviews__list {
         display: flex;
         grid-template-columns: none;
+        justify-content: flex-start;
         gap: 0;
         align-items: flex-start;
+        height: auto;
         overflow: visible;
     }
 
@@ -5092,6 +5427,10 @@ body {
         flex: 0 0 100%;
         padding: 18px;
         border-radius: 16px;
+    }
+
+    .reviews__item--mobile {
+        max-width: none;
     }
 
     .reviews__avatar {
@@ -5440,7 +5779,10 @@ body {
         margin-top: 60px;
     }
 
-    .powers__cards,
+    .powers__cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .team__list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -5560,11 +5902,12 @@ body {
     }
 
     .powers__cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         margin-top: 40px;
     }
 
     .trusted-companies__list {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 16px;
     }
 
@@ -5727,6 +6070,7 @@ body {
     }
 
     .policy__slider,
+    .powers__slider,
     .team__slider,
     .trusted-companies__slider {
         width: 100%;
@@ -5736,11 +6080,13 @@ body {
     }
 
     .policy__slider .policy__grid,
+    .powers__slider .powers__cards,
     .team__slider .team__list,
     .trusted-companies__slider .trusted-companies__list {
         margin-top: 0;
     }
 
+    .powers__slider.swiper-initialized .powers__cards,
     .team__slider.swiper-initialized .team__list,
     .trusted-companies__slider.swiper-initialized .trusted-companies__list {
         display: flex;
@@ -5748,6 +6094,7 @@ body {
         gap: 0;
     }
 
+    .powers__slider.swiper-initialized .powers__card,
     .team__slider.swiper-initialized .team__item,
     .trusted-companies__slider.swiper-initialized .trusted-companies__item {
         flex: 0 0 auto;
@@ -5755,6 +6102,7 @@ body {
     }
 
     .policy__pagination,
+    .powers__pagination,
     .team__pagination,
     .trusted-companies__pagination {
         position: absolute;
@@ -5764,6 +6112,7 @@ body {
     }
 
     .policy__pagination .swiper-pagination-bullet,
+    .powers__pagination .swiper-pagination-bullet,
     .team__pagination .swiper-pagination-bullet,
     .trusted-companies__pagination .swiper-pagination-bullet {
         width: 8px;
@@ -5774,6 +6123,7 @@ body {
     }
 
     .policy__pagination .swiper-pagination-bullet-active,
+    .powers__pagination .swiper-pagination-bullet-active,
     .team__pagination .swiper-pagination-bullet-active,
     .trusted-companies__pagination .swiper-pagination-bullet-active {
         background: #7EEC10;
@@ -5808,6 +6158,23 @@ body {
     .powers__card--img {
         height: 280px;
         padding: 0;
+    }
+
+    .powers__slider.swiper-initialized .powers__card {
+        width: 280px;
+        min-height: 280px;
+        height: 280px;
+        flex-basis: 280px;
+    }
+
+    .powers__slider.swiper-initialized .powers__card--img {
+        height: 280px;
+    }
+
+    .powers__slider {
+        max-width: 280px;
+        margin-right: auto;
+        margin-left: auto;
     }
 
     .powers__note {
@@ -5911,5 +6278,39 @@ body {
 @media(max-width: 500px) {
     .header__language {
         display: none;
+    }
+}
+
+@media (min-width: 649px) and (max-width: 1300px) {
+    .benefits__cards {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .benefits__card {
+        grid-column: span 2;
+    }
+
+    .benefits__card:nth-child(4) {
+        grid-column: 2 / span 2;
+    }
+
+    .trusted-companies__list {
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
+
+    .trusted-companies__item {
+        grid-column: span 2;
+    }
+
+    .trusted-companies__item:nth-child(5) {
+        grid-column: 2 / span 2;
+    }
+
+    .trusted-companies__item:nth-child(6) {
+        grid-column: 4 / span 2;
+    }
+
+    .trusted-companies__item:nth-child(7) {
+        grid-column: 6 / span 2;
     }
 }
