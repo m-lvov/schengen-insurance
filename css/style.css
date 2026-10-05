@@ -429,6 +429,7 @@ body {
 }
 
 .burger-menu__tabs {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -498,6 +499,11 @@ body {
     overflow: hidden;
     background-color: #DDFFBE;
     border-radius: 0 16px 16px 16px;
+}
+
+.burger-menu__panel[data-menu-panel="insurance"] .menu-countries__card,
+.burger-menu__panel[data-menu-panel="entry-rules"] .menu-countries__card {
+    border-radius: 16px;
 }
 
 .menu-countries {
@@ -576,13 +582,54 @@ body {
     margin-left: auto;
 }
 
-.menu-types__list {}
+.burger-menu__panel[data-menu-panel="visa-refusal"],
+.burger-menu__panel[data-menu-panel="ees"],
+.burger-menu__panel[data-menu-panel="etias"] {
+    height: auto;
+    min-height: var(--panel-min-height, 0);
+    padding: 20px 30px;
+    background-color: #DDFFBE;
+    border-radius: 16px 16px 16px 0;
+}
 
-.menu-types__item {}
+.menu-types__list {
+    padding: 20px 30px;
+    background-color: #DDFFBE;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 16px;
+}
 
-.menu-types__link {}
+.menu-types__item {
+    width: fit-content;
+}
 
-.burger-menu__link {}
+.menu-types__link,
+.burger-menu__link {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 20px;
+    color: #000;
+    font-family: "Gilroy", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18px;
+    white-space: nowrap;
+    transform: scale(1);
+    transform-origin: center;
+    transition: transform 180ms ease-out;
+}
+
+.menu-types__link:hover,
+.burger-menu__link:hover {
+    z-index: 2;
+    transform: scale(1.2);
+}
 
 .burger-menu__contacts {
     display: flex;
@@ -601,17 +648,283 @@ body {
 .burger-menu__contacts-list {
     display: flex;
     align-items: center;
+    flex: 1;
+    min-width: 0;
     gap: 10px;
 }
 
+.burger-menu__contacts-item {
+    flex: 1;
+    min-width: 0;
+}
+
 .burger-menu__contacts-link {
-    width: 355px;
+    width: 100%;
+    min-width: 0;
     padding: 20px 32px;
     display: flex;
     align-items: center;
     gap: 25px;
     border-radius: 17px;
     background: #F3F5F9;
+}
+
+.route-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    min-height: calc(100vh - 64px);
+    padding-top: 10px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition:
+        opacity 200ms ease-out,
+        visibility 0s linear;
+}
+
+.route-menu[hidden] {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity 200ms ease-out,
+        visibility 0s linear 200ms;
+}
+
+.route-menu__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(62, 67, 130, 0.60);
+    backdrop-filter: blur(5px);
+}
+
+.route-menu__container {
+    position: relative;
+    z-index: 1;
+}
+
+.route-menu__dialog {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 16px;
+    transform: translateY(0);
+    transition: transform 200ms ease-out;
+}
+
+.route-menu[hidden] .route-menu__dialog {
+    transform: translateY(-10px);
+}
+
+.route-menu__body {
+    display: flex;
+    align-items: flex-start;
+    padding: 30px;
+}
+
+.route-menu__navigation {
+    flex: 0 0 246px;
+    min-width: 0;
+}
+
+.route-menu__tab,
+.route-menu__option {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    width: 100%;
+    min-height: 42px;
+    padding: 11px 18px;
+    color: #000;
+    font-family: "Gilroy", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+    white-space: nowrap;
+    transition: background-color 180ms ease-out;
+}
+
+.route-menu__tab {
+    border-radius: 60px 0 0 60px;
+}
+
+.route-menu__tab>img,
+.route-menu__option>img {
+    width: 7px;
+    height: 12px;
+    flex-shrink: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 180ms ease-out;
+}
+
+.route-menu__tab:hover,
+.route-menu__tab--active,
+.route-menu__option:hover,
+.route-menu__option--active {
+    background-color: #DDFFBE;
+    font-weight: 700;
+}
+
+.route-menu__tab:hover>img,
+.route-menu__tab--active>img,
+.route-menu__option:hover>img,
+.route-menu__option--active>img {
+    opacity: 1;
+    visibility: visible;
+}
+
+.route-menu__content {
+    flex: 1;
+    min-width: 0;
+}
+
+.route-menu__panel {
+    width: 100%;
+}
+
+.route-menu__panel[data-route-panel="departure"] {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(180px, 1fr))
+        minmax(0, 4fr);
+    align-items: start;
+}
+
+.route-menu__panel[hidden],
+.route-menu__subregions[hidden],
+.route-menu__subregion-panel[hidden],
+.route-menu__countries[hidden],
+.route-menu__countries-list[hidden] {
+    display: none;
+}
+
+.route-menu__subregion-panel:not([hidden]),
+.route-menu__countries-list:not([hidden]) {
+    animation: route-menu-column-in 180ms ease-out both;
+}
+
+@keyframes route-menu-column-in {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.route-menu__regions,
+.route-menu__subregions {
+    min-width: 0;
+    background-color: #EFFFE2;
+}
+
+.route-menu__subregions,
+.route-menu__countries {
+    align-self: stretch;
+}
+
+.route-menu__regions {
+    overflow: hidden;
+    border-radius: 0 0 0 16px;
+}
+
+.route-menu__subregion-panel {
+    min-width: 0;
+}
+
+.route-menu__countries {
+    min-width: 0;
+}
+
+.route-menu__countries-list {
+    --route-country-rows: 5;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(var(--route-country-rows), 40px);
+    grid-auto-flow: column;
+    min-width: 0;
+    padding: 10px;
+    border-radius: 0 16px 16px 0;
+    background-color: #DDFFBE;
+}
+
+.route-menu__countries-list[data-countries-panel="caribbean"] {
+    --route-country-rows: 7;
+}
+
+.route-menu__countries-list[data-countries-panel="central-america"],
+.route-menu__countries-list[data-countries-panel="north-america"] {
+    --route-country-rows: 4;
+}
+
+.route-menu__countries-list[data-countries-panel="western-europe"] {
+    --route-country-rows: 1;
+}
+
+.route-menu__country {
+    min-width: 0;
+}
+
+.route-menu__country-btn {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    padding: 10px 20px;
+    color: #000;
+    font-family: "Gilroy", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    white-space: nowrap;
+    transform: scale(1);
+    transform-origin: center;
+    transition: transform 180ms ease-out;
+}
+
+.route-menu__country-btn:hover {
+    z-index: 2;
+    transform: scale(1.2);
+}
+
+.route-menu__flag {
+    width: 22px;
+    height: 14px;
+    flex-shrink: 0;
+    object-fit: cover;
+    transition: filter 180ms ease-out;
+}
+
+.route-menu__country-btn:hover .route-menu__flag {
+    filter: brightness(1.05);
+}
+
+.route-menu__schengen-card {
+    overflow: hidden;
+    border-radius: 16px;
+    background-color: #DDFFBE;
+}
+
+.route-menu__contacts {
+    padding-top: 10px;
 }
 
 .hero {
@@ -2594,6 +2907,10 @@ body {
     gap: 12px;
 }
 
+.contact__select {
+    position: relative;
+}
+
 .contact__select-trigger {
     height: 52px;
     padding: 10px 14px;
@@ -2606,6 +2923,8 @@ body {
 }
 
 .contact__select-value {
+    width: 100%;
+    min-width: 0;
     color: #FFF;
     font-size: 16px;
     font-weight: 500;
@@ -2615,12 +2934,87 @@ body {
     gap: 14px;
 }
 
+.contact__select-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .contact__select-value::after {
     content: '';
     flex-shrink: 0;
     width: 10px;
     height: 10px;
+    margin-left: auto;
     background: url('../img/contact-arrow.svg')center center/ contain no-repeat;
+    transition: transform 180ms ease-out;
+}
+
+.contact__select--open .contact__select-value::after {
+    transform: rotate(180deg);
+}
+
+.contact__select-list {
+    position: absolute;
+    z-index: 10;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    background-color: #65699B;
+    box-shadow: 0 12px 30px rgba(2, 6, 60, 0.24);
+    transform-origin: top;
+    animation: contact-select-open 180ms ease-out;
+}
+
+.contact__select-list[hidden] {
+    display: none;
+}
+
+.contact__select-item+.contact__select-item {
+    margin-top: 2px;
+}
+
+.contact__select-option {
+    width: 100%;
+    min-height: 40px;
+    padding: 9px 10px;
+    border-radius: 7px;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 125%;
+    text-align: left;
+    transition:
+        color 180ms ease-out,
+        background-color 180ms ease-out;
+}
+
+.contact__select-option:hover,
+.contact__select-option:focus-visible {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+.contact__select-option--selected {
+    color: #7EEC10;
+    background-color: rgba(126, 236, 16, 0.12);
+}
+
+@keyframes contact-select-open {
+    from {
+        opacity: 0;
+        transform: translateY(-4px) scaleY(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+    }
 }
 
 .contact__input {
@@ -6312,5 +6706,406 @@ body {
 
     .trusted-companies__item:nth-child(7) {
         grid-column: 6 / span 2;
+    }
+}
+
+/* Header menus: tablet and mobile layout */
+body.menu-sheet-open {
+    overflow: hidden;
+}
+
+@media(max-width: 1100px) {
+
+    .burger-menu,
+    .route-menu {
+        position: fixed;
+        top: 64px;
+        bottom: 0;
+        min-height: 0;
+        height: auto;
+        padding-top: 8px;
+        overflow: hidden;
+    }
+
+    .burger-menu__container,
+    .route-menu__container {
+        height: 100%;
+        max-width: none;
+        padding: 0 12px;
+    }
+
+    .burger-menu__dialog,
+    .route-menu__dialog {
+        height: 100%;
+        min-height: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        border-radius: 16px 16px 0 0;
+        scrollbar-width: thin;
+    }
+
+    .burger-menu__mobile-header {
+        display: grid;
+        gap: 10px;
+        padding: 12px 12px 0;
+    }
+
+    .burger-menu__mobile-header[hidden] {
+        display: none;
+    }
+
+    .burger-menu__mobile-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .burger-menu__mobile-actions .header__route {
+        display: flex;
+        justify-content: center;
+        flex: 1;
+        min-height: 44px;
+        padding: 12px 18px;
+        border-radius: 12px;
+        background-color: #7EEC10;
+        color: #02063C;
+        font-weight: 700;
+    }
+
+    .burger-menu__mobile-actions .header__language {
+        min-height: 44px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        background-color: #F3F5F9;
+    }
+
+    .burger-menu__body,
+    .route-menu__body {
+        display: block;
+        flex-grow: 0;
+        padding: 12px;
+    }
+
+    .burger-menu__navigation,
+    .route-menu__navigation {
+        width: 100%;
+        min-width: 0;
+        flex: none;
+    }
+
+    .burger-menu__tabs,
+    .route-menu__navigation {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 2px;
+        scrollbar-width: none;
+        scroll-snap-type: x proximity;
+    }
+
+    .burger-menu__tabs::-webkit-scrollbar,
+    .route-menu__navigation::-webkit-scrollbar {
+        display: none;
+    }
+
+    .burger-menu__tab,
+    .burger-menu__tab:nth-child(2),
+    .route-menu__tab {
+        position: relative;
+        width: auto;
+        min-height: 44px;
+        flex: 0 0 auto;
+        padding: 12px 16px;
+        border-radius: 999px;
+        background-color: #F3F5F9;
+        font-size: 16px;
+        line-height: 20px;
+        scroll-snap-align: start;
+    }
+
+    .burger-menu__tab:nth-child(2)>img {
+        position: static;
+    }
+
+    .burger-menu__tab>img,
+    .route-menu__tab>img {
+        margin-left: 4px;
+    }
+
+    .burger-menu__content,
+    .route-menu__content {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .burger-menu__panel {
+        height: auto;
+    }
+
+    .menu-countries__card,
+    .burger-menu__panel[data-menu-panel="insurance"] .menu-countries__card,
+    .burger-menu__panel[data-menu-panel="entry-rules"] .menu-countries__card {
+        border-radius: 14px;
+    }
+
+    .menu-countries {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: none;
+        grid-auto-flow: row;
+        gap: 4px;
+        padding: 8px;
+    }
+
+    .menu-countries__link,
+    .route-menu__country-btn {
+        min-height: 44px;
+        padding: 10px 12px;
+        font-size: 14px;
+        white-space: normal;
+    }
+
+    .menu-countries__actions {
+        width: 100%;
+        margin: 8px 0 0;
+    }
+
+    .menu-countries__action {
+        min-height: 44px;
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+
+    .menu-types__list {
+        gap: 4px;
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .menu-types__item {
+        width: 100%;
+    }
+
+    .menu-types__link,
+    .burger-menu__link {
+        display: flex;
+        width: 100%;
+        min-height: 44px;
+        padding: 10px 12px;
+        font-size: 14px;
+        white-space: normal;
+    }
+
+    .burger-menu__panel[data-menu-panel="visa-refusal"],
+    .burger-menu__panel[data-menu-panel="ees"],
+    .burger-menu__panel[data-menu-panel="etias"] {
+        min-height: 0;
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .burger-menu__contacts {
+        display: block;
+        padding: 12px;
+    }
+
+    .burger-menu__contacts-btn {
+        min-height: 40px;
+        padding: 6px 8px;
+    }
+
+    .burger-menu__contacts-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .burger-menu__contacts-item {
+        min-width: 0;
+    }
+
+    .burger-menu__contacts-link {
+        width: 100%;
+        height: 100%;
+        min-height: 52px;
+        padding: 12px 14px;
+        gap: 10px;
+        border-radius: 12px;
+    }
+
+    .burger-menu__contacts-link span {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .route-menu__panel[data-route-panel="departure"]:not([hidden]) {
+        display: block;
+    }
+
+    .route-menu__regions,
+    .route-menu__subregions,
+    .route-menu__countries,
+    .route-menu__countries-list,
+    .route-menu__schengen-card {
+        width: 100%;
+        border-radius: 14px;
+    }
+
+    .route-menu__subregions,
+    .route-menu__countries {
+        margin-top: 8px;
+    }
+
+    .route-menu__option {
+        min-height: 44px;
+        padding: 11px 14px;
+        border-radius: 10px;
+    }
+
+    .route-menu__option>img {
+        margin-left: auto;
+    }
+
+    .route-menu__countries-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: none;
+        grid-auto-flow: row;
+        grid-auto-rows: minmax(44px, auto);
+        gap: 4px;
+        padding: 8px;
+    }
+
+    .route-menu__contacts {
+        padding-top: 0;
+    }
+}
+
+@media(max-width: 968px) {
+    .burger-menu__mobile-navigation .header__nav {
+        display: block;
+    }
+
+    .burger-menu__mobile-navigation .header__menu {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+        color: #02063C;
+    }
+
+    .burger-menu__mobile-navigation .header__menu-item {
+        min-width: 0;
+    }
+
+    .burger-menu__mobile-navigation .header__menu-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        background-color: #F3F5F9;
+        text-align: center;
+        transition: background-color 180ms ease-out;
+    }
+
+    .burger-menu__mobile-navigation .header__menu-item--active::after {
+        display: none;
+    }
+
+    .burger-menu__mobile-navigation .header__menu-item--active .header__menu-link {
+        background-color: #DDFFBE;
+        font-weight: 700;
+    }
+}
+
+@media(max-width: 648px) {
+
+    .header__inner,
+    .header__actions {
+        gap: 8px;
+    }
+
+    .burger-menu,
+    .route-menu {
+        padding-top: 0;
+    }
+
+    .burger-menu__container,
+    .route-menu__container {
+        padding: 0;
+    }
+
+    .burger-menu__dialog,
+    .route-menu__dialog {
+        border-radius: 0;
+    }
+
+    .burger-menu__mobile-header {
+        padding: 12px 12px 0;
+    }
+
+    .burger-menu__mobile-navigation .header__menu {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .menu-countries,
+    .route-menu__countries-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .burger-menu__tab,
+    .burger-menu__tab:nth-child(2),
+    .route-menu__tab {
+        padding: 11px 14px;
+        font-size: 14px;
+    }
+
+    .burger-menu__contacts-link {
+        font-size: 14px;
+    }
+}
+
+@media(max-width: 500px) {
+    .burger-menu__mobile-actions .header__language {
+        display: flex;
+    }
+}
+
+@media(max-width: 420px) {
+
+    .menu-countries,
+    .route-menu__countries-list,
+    .burger-menu__contacts-list {
+        grid-template-columns: 1fr;
+    }
+
+    .header__logo-text {
+        display: none;
+    }
+}
+
+@media (hover: none), (pointer: coarse) {
+
+    .menu-countries__link:hover,
+    .route-menu__country-btn:hover,
+    .menu-types__link:hover,
+    .burger-menu__link:hover {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .burger-menu,
+    .burger-menu__dialog,
+    .route-menu,
+    .route-menu__dialog,
+    .route-menu__subregion-panel:not([hidden]),
+    .route-menu__countries-list:not([hidden]) {
+        transition: none;
+        animation: none;
     }
 }

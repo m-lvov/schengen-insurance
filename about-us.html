@@ -25,7 +25,7 @@
                         <li class="header__menu-item"><a class="header__menu-link" href="index.html">Home</a>
                         </li>
                         <li class="header__menu-item header__menu-item--active"><a class="header__menu-link"
-                                href="index.html#about">About Us</a>
+                                href="about-us.html">About Us</a>
                         </li>
                         <li class="header__menu-item"><a class="header__menu-link" href="index.html#reviews">Reviews</a>
                         </li>
@@ -239,26 +239,26 @@
                 <p class="section-note team__note">Lorem ipsum</p>
                 <div class="swiper team__slider">
                     <ul class="team__list">
-                    <li class="team__item">
-                        <img class="team__item-img" src="img/carers/team-photo.png" alt="">
-                        <h3 class="team__item-name">Anna Shvets</h3>
-                        <p class="team__item-position">CEO of the Sales Department</p>
-                    </li>
-                    <li class="team__item">
-                        <img class="team__item-img" src="img/carers/team-photo.png" alt="">
-                        <h3 class="team__item-name">Anna Shvets</h3>
-                        <p class="team__item-position">CEO of the Sales Department</p>
-                    </li>
-                    <li class="team__item">
-                        <img class="team__item-img" src="img/carers/team-photo.png" alt="">
-                        <h3 class="team__item-name">Anna Shvets</h3>
-                        <p class="team__item-position">CEO of the Sales Department</p>
-                    </li>
-                    <li class="team__item">
-                        <img class="team__item-img" src="img/carers/team-photo.png" alt="">
-                        <h3 class="team__item-name">Anna Shvets</h3>
-                        <p class="team__item-position">CEO of the Sales Department</p>
-                    </li>
+                        <li class="team__item">
+                            <img class="team__item-img" src="img/carers/team-photo.png" alt="">
+                            <h3 class="team__item-name">Anna Shvets</h3>
+                            <p class="team__item-position">CEO of the Sales Department</p>
+                        </li>
+                        <li class="team__item">
+                            <img class="team__item-img" src="img/carers/team-photo.png" alt="">
+                            <h3 class="team__item-name">Anna Shvets</h3>
+                            <p class="team__item-position">CEO of the Sales Department</p>
+                        </li>
+                        <li class="team__item">
+                            <img class="team__item-img" src="img/carers/team-photo.png" alt="">
+                            <h3 class="team__item-name">Anna Shvets</h3>
+                            <p class="team__item-position">CEO of the Sales Department</p>
+                        </li>
+                        <li class="team__item">
+                            <img class="team__item-img" src="img/carers/team-photo.png" alt="">
+                            <h3 class="team__item-name">Anna Shvets</h3>
+                            <p class="team__item-position">CEO of the Sales Department</p>
+                        </li>
                     </ul>
                     <div class="swiper-pagination team__pagination"></div>
                 </div>
@@ -267,7 +267,10 @@
         <section class="visa-check" id="visa-check">
             <div class="container">
                 <div class="visa-check__inner">
-                    <h2 class="title visa-check__title">Find out if you need a Schengen Visa?</h2>
+                    <h2 class="title visa-check__title">
+                        <span class="visa-check__title-desktop">Find out if you need a Schengen Visa?</span>
+                        <span class="visa-check__title-mobile">Find out if you need a visa?</span>
+                    </h2>
                     <form class="visa-check__form">
                         <div class="visa-select">
                             <button class="visa-select__trigger" type="button">
@@ -286,6 +289,7 @@
                             <img class="visa-check__img" src="img/visa-check-arrow.svg" alt="">
                         </button>
                     </form>
+                    <img class="visa-check__map" src="img/visa-check-bg.png" alt="">
                 </div>
             </div>
         </section>
@@ -309,10 +313,11 @@
                 <p class="section-note faq__note">Lorem ipsum</p>
                 <div class="faq__columns">
                     <ul class="faq__list">
-                        <li class="faq__item faq__item--open">
+                        <li class="faq__item">
                             <button class="faq__question" type="button">Phasellus imperdiet facilisis augue iaculis
                                 porttitor?</button>
-                            <p class="faq__answer">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia
+                            <p class="faq__answer" hidden>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
+                                lacinia
                                 ipsum vel tristique ornare. Nullam hendrerit arcu
                                 vel tellus imperdiet facilisis. Nam vitae luctus ligula. Cras vestibulum mauris nec nunc
                                 sodales scelerisque. Mauris
@@ -376,10 +381,11 @@
                         </li>
                     </ul>
                     <ul class="faq__list">
-                        <li class="faq__item faq__item--open">
+                        <li class="faq__item">
                             <button class="faq__question" type="button">Phasellus imperdiet facilisis augue iaculis
                                 porttitor?</button>
-                            <p class="faq__answer">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia
+                            <p class="faq__answer" hidden>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
+                                lacinia
                                 ipsum vel tristique ornare. Nullam hendrerit arcu
                                 vel tellus imperdiet facilisis. Nam vitae luctus ligula. Cras vestibulum mauris nec nunc
                                 sodales scelerisque. Mauris
@@ -450,10 +456,40 @@
                 <p class="section-note contact__note">If you have any questions or are interested in a partnership,
                     please fill out the form below</p>
                 <form class="contact__form">
-                    <div class="contact__select">
+                    <div class="contact__select" data-contact-select>
                         <button class="contact__select-trigger" type="button">
-                            <span class="contact__select-value">Type of question</span>
+                            <span class="contact__select-value">
+                                <span class="contact__select-text">Type of question</span>
+                            </span>
                         </button>
+                        <input class="contact__select-input" type="hidden" name="questionType" value="">
+                        <ul class="contact__select-list" hidden>
+                            <li class="contact__select-item">
+                                <button class="contact__select-option" type="button" data-value="choosing-insurance">
+                                    Which insurance plan is right for my trip?
+                                </button>
+                            </li>
+                            <li class="contact__select-item">
+                                <button class="contact__select-option" type="button" data-value="insurance-requirement">
+                                    Do I need insurance for my visa or destination?
+                                </button>
+                            </li>
+                            <li class="contact__select-item">
+                                <button class="contact__select-option" type="button" data-value="policy-coverage">
+                                    What does my insurance policy cover?
+                                </button>
+                            </li>
+                            <li class="contact__select-item">
+                                <button class="contact__select-option" type="button" data-value="visa-refusal-refund">
+                                    How can I get a refund if my visa is refused?
+                                </button>
+                            </li>
+                            <li class="contact__select-item">
+                                <button class="contact__select-option" type="button" data-value="partnership">
+                                    How can I become a GoSchengen partner?
+                                </button>
+                            </li>
+                        </ul>
                     </div>
                     <input class="contact__input" type="text" name="name" placeholder="Name">
                     <input class="contact__input" type="tel" name="phone" placeholder="Phone">
@@ -576,6 +612,7 @@
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script src="js/shared-menus.js"></script>
     <script src="js/main.js"></script>
 </body>
 

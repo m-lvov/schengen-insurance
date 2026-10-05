@@ -1,16 +1,396 @@
-let burgerButton = document.querySelector('.header__burger');
-let burgerMenu = document.querySelector('.burger-menu');
+function initHeaderMenus() {
+let header = document.querySelector('.header');
+
+if (!header || header.dataset.menusInitialized === 'true') return;
+
+header.dataset.menusInitialized = 'true';
+
+let burgerButton = header.querySelector('.header__burger');
+let burgerMenu = header.querySelector('.burger-menu');
+let routeButton = header.querySelector('.header__route');
+let routeMenu = header.querySelector('.route-menu');
+let headerNav = header.querySelector('.header__nav');
+let languageButton = header.querySelector('.header__language');
+let burgerDialog = burgerMenu?.querySelector('.burger-menu__dialog');
+let sheetMenuMedia = window.matchMedia('(max-width: 1100px)');
+let headerNavMedia = window.matchMedia('(max-width: 968px)');
+let languageMedia = window.matchMedia('(max-width: 500px)');
+let finePointerMedia = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+function createMoveAnchor(element, name) {
+    if (!element?.parentNode) return null;
+
+    let anchor = document.createComment(name);
+    element.parentNode.insertBefore(anchor, element);
+
+    return anchor;
+}
+
+function restoreAfterAnchor(element, anchor) {
+    if (!element || !anchor?.parentNode) return;
+
+    anchor.parentNode.insertBefore(element, anchor.nextSibling);
+}
+
+let headerNavAnchor = createMoveAnchor(headerNav, 'header navigation');
+let routeButtonAnchor = createMoveAnchor(routeButton, 'header route');
+let languageButtonAnchor = createMoveAnchor(languageButton, 'header language');
+let mobileHeader = null;
+let mobileActions = null;
+let mobileNavigation = null;
+
+if (burgerDialog) {
+    mobileHeader = document.createElement('div');
+    mobileHeader.className = 'burger-menu__mobile-header';
+    mobileHeader.hidden = true;
+
+    mobileActions = document.createElement('div');
+    mobileActions.className = 'burger-menu__mobile-actions';
+
+    mobileNavigation = document.createElement('div');
+    mobileNavigation.className = 'burger-menu__mobile-navigation';
+
+    mobileHeader.append(mobileActions, mobileNavigation);
+    burgerDialog.prepend(mobileHeader);
+}
+
+function syncMobileHeader() {
+    if (!mobileHeader || !mobileActions || !mobileNavigation) return;
+
+    if (sheetMenuMedia.matches && routeButton) {
+        mobileActions.append(routeButton);
+    } else {
+        restoreAfterAnchor(routeButton, routeButtonAnchor);
+    }
+
+    if (headerNavMedia.matches && headerNav) {
+        mobileNavigation.append(headerNav);
+    } else {
+        restoreAfterAnchor(headerNav, headerNavAnchor);
+    }
+
+    if (languageMedia.matches && languageButton) {
+        mobileActions.append(languageButton);
+    } else {
+        restoreAfterAnchor(languageButton, languageButtonAnchor);
+    }
+
+    mobileHeader.hidden = !mobileActions.children.length && !mobileNavigation.children.length;
+}
+
+function syncMenuScrollLock() {
+    let hasOpenSheet = sheetMenuMedia.matches && (
+        (burgerMenu && !burgerMenu.hidden) ||
+        (routeMenu && !routeMenu.hidden)
+    );
+
+    document.body.classList.toggle('menu-sheet-open', Boolean(hasOpenSheet));
+}
+
+function closeBurgerMenu() {
+    if (!burgerMenu || !burgerButton) return;
+
+    burgerMenu.hidden = true;
+    burgerButton.classList.remove('header__burger--active');
+    syncMenuScrollLock();
+}
+
+function closeRouteMenu() {
+    if (!routeMenu || !routeButton) return;
+
+    routeMenu.hidden = true;
+    routeButton.classList.remove('header__route--active');
+    syncMenuScrollLock();
+}
+
+syncMobileHeader();
 
 if (burgerButton && burgerMenu) {
     burgerButton.addEventListener('click', () => {
         let willOpen = burgerMenu.hidden;
+
+        if (willOpen) closeRouteMenu();
+
         burgerMenu.hidden = !willOpen;
-        burgerButton.classList.toggle('header__burger--active')
+        burgerButton.classList.toggle('header__burger--active', willOpen);
+        syncMenuScrollLock();
+    });
+
+    let burgerOverlay = burgerMenu.querySelector('.burger-menu__overlay');
+
+    if (burgerOverlay) {
+        burgerOverlay.addEventListener('click', closeBurgerMenu);
+    }
+
+    burgerMenu.addEventListener('click', (event) => {
+        if (event.target.closest('a')) closeBurgerMenu();
     });
 }
 
+if (routeButton && routeMenu) {
+    routeButton.addEventListener('click', () => {
+        let willOpen = routeMenu.hidden;
+
+        if (willOpen) {
+            closeBurgerMenu();
+            resetRouteCascade();
+        }
+
+        routeMenu.hidden = !willOpen;
+        routeButton.classList.toggle('header__route--active', willOpen);
+        syncMenuScrollLock();
+    });
+
+    let routeOverlay = routeMenu.querySelector('.route-menu__overlay');
+
+    if (routeOverlay) {
+        routeOverlay.addEventListener('click', closeRouteMenu);
+    }
+}
+
+let routeTabs = document.querySelectorAll('.route-menu__tab');
+let routePanels = document.querySelectorAll('.route-menu__panel');
+let routeRegionTabs = document.querySelectorAll('[data-region-tab]');
+let routeRegionPanels = document.querySelectorAll('[data-region-panel]');
+let routeCountryTabs = document.querySelectorAll('[data-countries-tab]');
+let routeCountryPanels = document.querySelectorAll('[data-countries-panel]');
+let routeRegionsColumn = document.querySelector('.route-menu__regions');
+let routeSubregionsColumn = document.querySelector('.route-menu__subregions');
+let routeCountriesColumn = document.querySelector('.route-menu__countries');
+const routeHoverDelay = 180;
+let routeRegionHoverTimer = null;
+let routeCountryHoverTimer = null;
+
+function clearRegionHoverTimer() {
+    if (!routeRegionHoverTimer) return;
+
+    clearTimeout(routeRegionHoverTimer);
+    routeRegionHoverTimer = null;
+}
+
+function clearCountryHoverTimer() {
+    if (!routeCountryHoverTimer) return;
+
+    clearTimeout(routeCountryHoverTimer);
+    routeCountryHoverTimer = null;
+}
+
+function resetCountryLevel() {
+    clearCountryHoverTimer();
+
+    routeCountryTabs.forEach((tab) => {
+        tab.classList.remove('route-menu__option--active');
+    });
+
+    routeCountryPanels.forEach((panel) => {
+        panel.hidden = true;
+    });
+
+    if (routeCountriesColumn) routeCountriesColumn.hidden = true;
+}
+
+function resetRegionLevel() {
+    clearRegionHoverTimer();
+    resetCountryLevel();
+
+    routeRegionTabs.forEach((tab) => {
+        tab.classList.remove('route-menu__option--active');
+    });
+
+    routeRegionPanels.forEach((panel) => {
+        panel.hidden = true;
+    });
+
+    if (routeSubregionsColumn) routeSubregionsColumn.hidden = true;
+}
+
+function resetRouteCascade() {
+    resetRegionLevel();
+}
+
+function isInsideColumn(column, target) {
+    return column && target instanceof Node && column.contains(target);
+}
+
+function activateRouteTab(activeTab) {
+    let activePanelName = activeTab.dataset.routeTab;
+
+    resetRouteCascade();
+
+    routeTabs.forEach((tab) => {
+        tab.classList.toggle('route-menu__tab--active', tab === activeTab);
+    });
+
+    routePanels.forEach((panel) => {
+        panel.hidden = panel.dataset.routePanel !== activePanelName;
+    });
+}
+
+function activateCountryGroup(activeTab) {
+    clearCountryHoverTimer();
+
+    let activePanelName = activeTab.dataset.countriesTab;
+
+    routeCountryTabs.forEach((tab) => {
+        tab.classList.toggle('route-menu__option--active', tab === activeTab);
+    });
+
+    routeCountryPanels.forEach((panel) => {
+        panel.hidden = panel.dataset.countriesPanel !== activePanelName;
+    });
+
+    if (routeCountriesColumn) routeCountriesColumn.hidden = false;
+}
+
+function activateRegion(activeTab) {
+    clearRegionHoverTimer();
+
+    let activePanelName = activeTab.dataset.regionTab;
+
+    resetCountryLevel();
+
+    routeRegionTabs.forEach((tab) => {
+        tab.classList.toggle('route-menu__option--active', tab === activeTab);
+    });
+
+    routeRegionPanels.forEach((panel) => {
+        panel.hidden = panel.dataset.regionPanel !== activePanelName;
+    });
+
+    if (routeSubregionsColumn) routeSubregionsColumn.hidden = false;
+}
+
+function scheduleRegionActivation(tab) {
+    let activeTab = document.querySelector('[data-region-tab].route-menu__option--active');
+
+    if (!activeTab) {
+        activateRegion(tab);
+        return;
+    }
+
+    if (activeTab === tab) return;
+
+    clearRegionHoverTimer();
+    routeRegionHoverTimer = setTimeout(() => {
+        activateRegion(tab);
+    }, routeHoverDelay);
+}
+
+function scheduleCountryActivation(tab) {
+    let activeTab = document.querySelector('[data-countries-tab].route-menu__option--active');
+
+    if (!activeTab) {
+        activateCountryGroup(tab);
+        return;
+    }
+
+    if (activeTab === tab) return;
+
+    clearCountryHoverTimer();
+    routeCountryHoverTimer = setTimeout(() => {
+        activateCountryGroup(tab);
+    }, routeHoverDelay);
+}
+
+routeTabs.forEach((tab) => {
+    tab.addEventListener('mouseenter', () => {
+        if (finePointerMedia.matches) activateRouteTab(tab);
+    });
+    tab.addEventListener('click', () => activateRouteTab(tab));
+});
+
+routeRegionTabs.forEach((tab) => {
+    tab.addEventListener('mouseenter', () => {
+        if (finePointerMedia.matches) scheduleRegionActivation(tab);
+    });
+    tab.addEventListener('mouseleave', () => {
+        if (finePointerMedia.matches) clearRegionHoverTimer();
+    });
+    tab.addEventListener('click', () => activateRegion(tab));
+});
+
+routeCountryTabs.forEach((tab) => {
+    tab.addEventListener('mouseenter', () => {
+        if (finePointerMedia.matches) scheduleCountryActivation(tab);
+    });
+    tab.addEventListener('mouseleave', () => {
+        if (finePointerMedia.matches) clearCountryHoverTimer();
+    });
+    tab.addEventListener('click', () => activateCountryGroup(tab));
+});
+
+if (routeRegionsColumn) {
+    routeRegionsColumn.addEventListener('mouseleave', (event) => {
+        if (!finePointerMedia.matches) return;
+
+        if (
+            isInsideColumn(routeSubregionsColumn, event.relatedTarget) ||
+            isInsideColumn(routeCountriesColumn, event.relatedTarget)
+        ) return;
+
+        resetRegionLevel();
+    });
+}
+
+if (routeSubregionsColumn) {
+    routeSubregionsColumn.addEventListener('mouseenter', () => {
+        if (finePointerMedia.matches) clearRegionHoverTimer();
+    });
+    routeSubregionsColumn.addEventListener('mouseleave', (event) => {
+        if (!finePointerMedia.matches) return;
+
+        if (isInsideColumn(routeCountriesColumn, event.relatedTarget)) return;
+
+        resetRegionLevel();
+    });
+}
+
+if (routeCountriesColumn) {
+    routeCountriesColumn.addEventListener('mouseenter', () => {
+        if (!finePointerMedia.matches) return;
+
+        clearRegionHoverTimer();
+        clearCountryHoverTimer();
+    });
+    routeCountriesColumn.addEventListener('mouseleave', () => {
+        if (finePointerMedia.matches) resetCountryLevel();
+    });
+}
+
+document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+
+    closeBurgerMenu();
+    closeRouteMenu();
+});
+
+let routeMenuBreakpoint = window.matchMedia('(max-width: 1100px)');
+
+routeMenuBreakpoint.addEventListener('change', (event) => {
+    if (event.matches) closeRouteMenu();
+});
+
+[sheetMenuMedia, headerNavMedia, languageMedia].forEach((media) => {
+    media.addEventListener('change', () => {
+        syncMobileHeader();
+        syncMenuScrollLock();
+    });
+});
+
 let burgerTabs = document.querySelectorAll('.burger-menu__tab');
+let burgerTabsList = document.querySelector('.burger-menu__tabs');
 let burgerPanels = document.querySelectorAll('.burger-menu__panel');
+
+
+function updateMenuPanelHeight(activeTab, activePanel) {
+    let panelHeight = activeTab.offsetTop + activeTab.offsetHeight;
+
+    activePanel.style.setProperty(
+        '--panel-min-height',
+        `${panelHeight}px`
+    );
+}
+
 
 function activateBurgerTab(activeTab) {
     let activePanelName = activeTab.dataset.menuTab;
@@ -25,13 +405,33 @@ function activateBurgerTab(activeTab) {
     burgerPanels.forEach((panel) => {
         panel.hidden = panel.dataset.menuPanel !== activePanelName;
     });
+
+    let activePanel = document.querySelector(`[data-menu-panel="${activePanelName}"]`);
+
+    if (!activePanel) return;
+
+    updateMenuPanelHeight(activeTab, activePanel);
 }
 
 burgerTabs.forEach((tab) => {
     tab.addEventListener('mouseenter', () => {
-        activateBurgerTab(tab);
+        if (finePointerMedia.matches) activateBurgerTab(tab);
     });
+    tab.addEventListener('click', () => activateBurgerTab(tab));
 });
+
+}
+
+if (window.sharedMenusReady) {
+    window.sharedMenusReady
+        .then(initHeaderMenus)
+        .catch((error) => {
+            console.error(error);
+            initHeaderMenus();
+        });
+} else {
+    initHeaderMenus();
+}
 
 
 
@@ -810,3 +1210,54 @@ document.querySelectorAll('.faq__question').forEach((question) => {
     });
 });
 
+
+document.querySelectorAll('[data-contact-select]').forEach((select) => {
+    let trigger = select.querySelector('.contact__select-trigger');
+    let list = select.querySelector('.contact__select-list');
+    let value = select.querySelector('.contact__select-text');
+    let input = select.querySelector('.contact__select-input');
+    let options = select.querySelectorAll('.contact__select-option');
+
+    function closeContactSelect() {
+        list.hidden = true;
+        select.classList.remove('contact__select--open');
+    }
+
+    function openContactSelect() {
+        list.hidden = false;
+        select.classList.add('contact__select--open');
+    }
+
+    trigger.addEventListener('click', () => {
+        if (list.hidden) {
+            openContactSelect();
+        } else {
+            closeContactSelect();
+        }
+    });
+
+    options.forEach((option) => {
+        option.addEventListener('click', () => {
+            value.textContent = option.textContent.trim();
+            input.value = option.dataset.value;
+
+            options.forEach((item) => {
+                item.classList.remove('contact__select-option--selected');
+            });
+
+            option.classList.add('contact__select-option--selected');
+            closeContactSelect();
+        });
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!select.contains(event.target)) closeContactSelect();
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape' || list.hidden) return;
+
+        closeContactSelect();
+        trigger.focus();
+    });
+});
