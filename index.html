@@ -743,7 +743,6 @@
                 </div>
             </div>
         </div>
-
         <div class="route-menu" hidden>
             <div class="route-menu__overlay"></div>
             <div class="container route-menu__container">
@@ -786,8 +785,7 @@
                                 </div>
                                 <div class="route-menu__subregions" hidden>
                                     <div class="route-menu__subregion-panel" data-region-panel="america" hidden>
-                                        <button class="route-menu__option" type="button"
-                                            data-countries-tab="caribbean">
+                                        <button class="route-menu__option" type="button" data-countries-tab="caribbean">
                                             Caribbean
                                             <img src="img/mega-menu/arrow.svg" alt="">
                                         </button>
@@ -2758,13 +2756,43 @@
                 </div>
                 <form class="hero__form" action="">
                     <div class="form-field">
-                        <div class="form-field__inner">
-                            <span class="form-field__label form-field__label-form" id="country-label">From</span>
-                            <div class="custom-select">
-                                <button class="form-field__btn custom-select__trigger" type="button">
-                                    <span class="custom-select__value">Select a country</span>
-                                    <img class="custom-select__arrow" src="img/form-arrow.svg" alt="">
-                                </button>
+                        <div class="form-field__inner form-country">
+                            <div class="form-country__panel">
+                                <span class="form-field__label form-field__label-form" id="country-label">From</span>
+                                <div class="custom-select">
+                                    <div class="form-field__btn form-country__field">
+                                        <input class="form-country__search" type="text" placeholder="Select a country"
+                                            autocomplete="off" aria-labelledby="country-label">
+                                        <button class="form-country__toggle" type="button"
+                                            aria-label="Open country list" aria-controls="country-dropdown"
+                                            aria-expanded="false">
+                                            <img class="custom-select__arrow" src="img/form-arrow.svg" alt="">
+                                        </button>
+                                    </div>
+                                    <div class="form-country__dropdown" id="country-dropdown" hidden>
+                                        <div class="form-country__selection" hidden>
+                                            <button class="form-country__done" type="button">
+                                                Done
+                                            </button>
+                                            <ul class="form-country__tags"></ul>
+                                        </div>
+                                        <div class="form-country__scroll">
+                                            <span class="form-country__caption">
+                                                Popular Destinations
+                                            </span>
+                                            <ul class="form-country__options form-country__options--popular">
+
+                                            </ul>
+                                            <span class="form-country__caption form-country__caption--all">
+                                                All Destinations
+                                            </span>
+                                            <ul class="form-country__options form-country__options--all">
+
+                                            </ul>
+                                            <p class="form-country__empty" hidden>No countries found</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <ul class="form-field__list">
                                 <li class="form-field__items"><button class="form-field__option"
@@ -2778,28 +2806,102 @@
                                 <li class="form-field__items"><button class="form-field__option"
                                         type="button">Greece</button></li>
                             </ul>
+
                         </div>
-                        <div class="form-field__inner">
-                            <span class="form-field__label form-field__label-date" id="date-label">Date</span>
-                            <button class="form-field__btn-date" type="button">
-                                <span class="form-field__value">
-                                    13.10.2025 - 17.10.2025
-                                </span>
-                            </button>
+
+                        <div class="form-field__inner form-date">
+                            <div class="form-date__panel">
+                                <span class="form-field__label form-field__label-date" id="date-label">Date</span>
+                                <button class="form-field__btn-date" type="button"
+                                    aria-labelledby="date-label date-value" aria-expanded="false"
+                                    aria-controls="trip-calendar">
+                                    <span class="form-field__value" id="date-value">
+                                        <span class="form-date__range">
+                                            <span class="form-date__start">13.10.2026</span>
+                                            <span aria-hidden="true"> - </span>
+                                            <span class="form-date__end">17.10.2026</span>
+                                        </span>
+                                        <span class="form-date__annual-value" hidden>
+                                            <span class="form-date__annual-caption">Choose your annual policy start date</span>
+                                            <span class="form-date__annual-date"></span>
+                                        </span>
+                                    </span>
+                                </button>
+                                <div class="form-date__error" id="date-error" role="alert" hidden>
+                                    <img class="form-date__error-icon" src="img/form/error.svg" alt="">
+                                    <p>
+                                        Please select the end date of your trip
+                                    </p>
+                                </div>
+                                <div class="calendar" id="trip-calendar" role="group" aria-label="Select trip dates"
+                                    hidden>
+                                    <div class="calendar__months">
+                                        <section class="calendar__month" aria-labelledby="calendar-month-first">
+                                            <div class="calendar__header">
+                                                <button class="calendar__nav calendar__nav--prev" type="button"
+                                                    aria-label="Previous month"></button>
+                                                <h3 class="calendar__title" id="calendar-month-first"
+                                                    aria-live="polite"></h3>
+                                            </div>
+                                            <div class="calendar__weekdays" aria-hidden="true">
+                                                <span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span>
+                                            </div>
+                                            <div class="calendar__days"></div>
+                                        </section>
+                                        <section class="calendar__month" aria-labelledby="calendar-month-second">
+                                            <div class="calendar__header">
+                                                <h3 class="calendar__title" id="calendar-month-second"
+                                                    aria-live="polite"></h3>
+                                                <button class="calendar__nav calendar__nav--next" type="button"
+                                                    aria-label="Next month"></button>
+                                            </div>
+                                            <div class="calendar__weekdays" aria-hidden="true">
+                                                <span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span>
+                                            </div>
+                                            <div class="calendar__days"></div>
+                                        </section>
+                                    </div>
+                                    <button class="calendar__confirm" type="button" hidden>
+                                        <span>Confirm</span>
+                                        <img class="calendar__confirm-arrow" src="img/form-btn-arrow.svg" alt="">
+                                    </button>
+                                </div>
+                            </div>
                             <label class="form-field__annual">
                                 <input class="form-field__annual-checkbox" type="checkbox" name="annual">
                                 <span class="form-field__annual-title">Annual insurance</span>
                             </label>
                         </div>
-                        <div class="form-field__inner">
+                        <div class="form-field__inner form-travelers">
                             <span class="form-field__label form-field__label-travelers"
                                 id="travelers-label">Travelers</span>
-                            <button class="form-field__btn" type="button">
-                                <span class="form-field__value">
-                                    Insurance for <span class="form-field__value-bold">1 person</span>
+                            <button class="form-field__btn form-travelers__toggle" type="button"
+                                aria-labelledby="travelers-label travelers-value" aria-expanded="false"
+                                aria-controls="travelers-dropdown">
+                                <span class="form-field__value" id="travelers-value">
+                                    Insurance for <span class="form-field__value-bold form-travelers__value">1 person</span>
                                 </span>
                                 <img class="custom-select__arrow" src="img/form-arrow.svg" alt="">
                             </button>
+                            <div class="form-travelers__dropdown" id="travelers-dropdown" role="group"
+                                aria-labelledby="travelers-title" hidden>
+                                <div class="form-travelers__intro">
+                                    <h3 class="form-travelers__title" id="travelers-title">Number of travels</h3>
+                                    <p class="form-travelers__description">How many people are going on the trip?</p>
+                                </div>
+                                <div class="form-travelers__counter">
+                                    <button class="form-travelers__step form-travelers__step--minus" type="button"
+                                        aria-label="Decrease number of travelers" disabled>−</button>
+                                    <output class="form-travelers__count" aria-live="polite"
+                                        aria-label="Number of travelers">1</output>
+                                    <button class="form-travelers__step form-travelers__step--plus" type="button"
+                                        aria-label="Increase number of travelers">+</button>
+                                </div>
+                                <button class="form-travelers__confirm" type="button">
+                                    <span>Confirm</span>
+                                    <img class="form-travelers__confirm-arrow" src="img/form-btn-arrow.svg" alt="">
+                                </button>
+                            </div>
                         </div>
                         <div class="form-field__inner form-field__inner-quote">
                             <button class="form-field__btn-quote" type="button">
@@ -3418,9 +3520,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="coverage__scrollbar">
-                            <div class="coverage__scrollbar-thumb"></div>
                         </div>
                     </div>
                 </div>
