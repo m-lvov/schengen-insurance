@@ -985,7 +985,7 @@ body {
 
 .form-field {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 20px;
 }
 
@@ -995,6 +995,7 @@ body {
     gap: 8px;
     max-width: 394px;
     flex: 1;
+    min-width: 0;
 }
 
 .form-field__label {
@@ -1335,6 +1336,7 @@ body {
 
 .form-field__list {
     display: flex;
+    flex-wrap: wrap;
     gap: 9px;
     font-size: 14px;
     color: #16653D;
@@ -1854,6 +1856,7 @@ body {
     flex-direction: column;
     font-size: 14px;
     gap: 10px;
+    color: #02063C;
 }
 
 .hero-mobile-form__tabs {
@@ -1870,7 +1873,7 @@ body {
     font-style: normal;
     font-weight: 700;
     line-height: 157.143%;
-    height: 38px;
+    min-height: 44px;
     padding: 10px 16px;
 }
 
@@ -1881,6 +1884,8 @@ body {
 
 .hero-mobile-form__field {
     width: 100%;
+    min-width: 0;
+    min-height: 44px;
     padding: 10px 14px;
     color: #80839F;
     font-family: "Avenir Next Cyr", sans-serif;
@@ -1904,6 +1909,7 @@ body {
     margin-top: 6px;
     display: flex;
     gap: 9px;
+    flex-wrap: wrap;
 
     button {
         color: #5A46FC;
@@ -1946,6 +1952,8 @@ body {
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
+    width: 44px;
+    min-height: 44px;
 }
 
 .hero-mobile-form__counter-btn+.hero-mobile-form__counter-btn {
@@ -1975,7 +1983,6 @@ body {
 
 .hero-mobile-form__submit {
     margin-top: 10px;
-    max-width: 256px;
     padding: 10px;
     display: flex;
     justify-content: center;
@@ -1984,7 +1991,7 @@ body {
     align-self: stretch;
     border-radius: 10px;
     background: #7EEC10;
-    max-width: 256px;
+    min-height: 44px;
     color: #02063C;
     font-size: 14px;
     font-style: normal;
@@ -1992,6 +1999,343 @@ body {
     line-height: 142.857%;
     align-self: center;
     width: 100%;
+}
+
+.hero-mobile-form [hidden] {
+    display: none;
+}
+
+.hero-mobile-form__country,
+.hero-mobile-form__date {
+    position: relative;
+    min-width: 0;
+}
+
+.hero-mobile-form__country--open,
+.hero-mobile-form__date--open {
+    z-index: 5;
+}
+
+.hero-mobile-form__country-value,
+.hero-mobile-form__date-value {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hero-mobile-form__field--select,
+.hero-mobile-form__field--date {
+    gap: 12px;
+    text-align: left;
+}
+
+.hero-mobile-form__field img {
+    flex-shrink: 0;
+}
+
+.hero-mobile-form__field--select img {
+    transition: transform 0.5s ease;
+}
+
+.hero-mobile-form__country--open .hero-mobile-form__field--select img {
+    transform: rotate(180deg);
+}
+
+.hero-mobile-form__country-dropdown {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    padding: 8px;
+    border: 1px solid #D3D3D3;
+    border-radius: 12px;
+    background: #FFF;
+    box-shadow: 0 4px 10px rgba(62, 67, 130, 0.14);
+}
+
+.hero-mobile-form__country-search {
+    padding-left: 34px;
+    background: url('../img/form/loupe.svg') 12px center / 16px 16px no-repeat;
+}
+
+.hero-mobile-form__country-options {
+    margin-top: 8px;
+    max-height: min(176px, 35dvh);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #80839F #EEF5F8;
+}
+
+.hero-mobile-form__country-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    overflow-wrap: anywhere;
+}
+
+.hero-mobile-form__country-option:has(input:checked) {
+    background: #E1FFC7;
+}
+
+.hero-mobile-form__country-option img {
+    width: 20px;
+    height: 14px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.hero-mobile-form__country-option input {
+    flex-shrink: 0;
+    accent-color: #7EEC10;
+}
+
+.hero-mobile-form__country-done {
+    width: 100%;
+    min-height: 44px;
+    margin-top: 8px;
+    border-radius: 8px;
+    background: #E1FFC7;
+    color: #02063C;
+    font-weight: 600;
+}
+
+.hero-mobile-form__country-empty {
+    padding: 16px 8px;
+    color: #4A516E;
+}
+
+.hero-mobile-form .hero-mobile-form__calendar {
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 5;
+    width: min(360px, 100%);
+    max-width: 100%;
+    max-height: 70dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #EDECF1;
+    box-shadow: 0 4px 10px rgba(62, 67, 130, 0.14);
+}
+
+.hero-mobile-form__calendar .calendar__month {
+    padding: 0;
+}
+
+.hero-mobile-form__calendar .calendar__header {
+    min-height: 44px;
+    padding: 0 44px 8px;
+    margin-bottom: 8px;
+    justify-content: center;
+}
+
+.hero-mobile-form__calendar .calendar__nav {
+    top: -4px;
+    width: 44px;
+    height: 44px;
+}
+
+.hero-mobile-form__calendar .calendar__nav--prev {
+    left: 0;
+}
+
+.hero-mobile-form__calendar .calendar__nav--next {
+    right: 0;
+}
+
+.hero-mobile-form__calendar .calendar__weekdays {
+    margin-bottom: 4px;
+}
+
+.hero-mobile-form__calendar .calendar__days {
+    row-gap: 0;
+}
+
+.hero-mobile-form__calendar .calendar__day {
+    height: 44px;
+    font-size: 14px;
+}
+
+.hero-mobile-form__calendar .calendar__confirm {
+    width: 100%;
+    min-height: 44px;
+    margin: 8px 0 0;
+}
+
+.hero-mobile-form__field--selected {
+    color: #02063C;
+    font-weight: 500;
+}
+
+.hero-mobile-form__date-value:has(.form-date__annual-caption) {
+    white-space: normal;
+    font-size: 14px;
+}
+
+.hero-mobile-form__date-value .form-date__annual-caption {
+    display: block;
+    font-size: 12px;
+}
+
+.hero-mobile-form__field--date {
+    font-size: 14px;
+}
+
+.hero-mobile-form__passenger-value {
+    color: #02063C;
+    appearance: textfield;
+}
+
+.hero-mobile-form__passenger-value::-webkit-inner-spin-button,
+.hero-mobile-form__passenger-value::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+}
+
+.hero-mobile-form__counter-btn:hover:not(:disabled),
+.hero-mobile-form__country-done:hover {
+    background: #E1FFC7;
+}
+
+.hero-mobile-form__counter-btn:active:not(:disabled) {
+    background: #7EEC10;
+}
+
+.hero-mobile-form__counter-btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.hero-mobile-form__field[aria-invalid="true"] {
+    border-color: #F33;
+}
+
+.hero-mobile-form__error {
+    margin-top: 4px;
+    color: #D92323;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.hero-mobile-form__hint,
+.hero-mobile-form__status {
+    color: #4A516E;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.hero-mobile-form button:focus-visible,
+.hero-mobile-form input:focus-visible {
+    outline: 2px solid #80839F;
+    outline-offset: 2px;
+}
+
+@media (min-width: 649px) and (max-width: 1320px) {
+    .hero__form {
+        width: 100%;
+        padding: 24px;
+    }
+
+    .form-field {
+        column-gap: 16px;
+    }
+
+    .form-field__btn,
+    .form-field__btn-date {
+        font-size: 14px;
+    }
+
+    .form-field__btn-quote {
+        padding: 10px 16px;
+    }
+}
+
+@media (min-width: 649px) and (max-width: 1200px) {
+    .hero__form .form-field {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+    }
+
+    .hero__form .form-field__inner {
+        max-width: none;
+    }
+
+    .form-date>.form-date__panel>.calendar {
+        right: -14px;
+        left: auto;
+        max-width: calc(100vw - 64px);
+        border-radius: 12px 0 12px 12px;
+        max-height: calc(100dvh - 32px);
+        overflow-y: auto;
+    }
+
+    .form-date--open .form-date__panel::after {
+        right: auto;
+        left: -26px;
+        background: radial-gradient(circle at top left, transparent 12px, #FFF 12px);
+    }
+
+    .hero__form .calendar__day {
+        height: 44px;
+    }
+
+    .hero__form .calendar__days {
+        row-gap: 0;
+    }
+
+    .hero__form .calendar__nav {
+        width: 44px;
+        height: 44px;
+        top: -12px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .hero .calendar__day--in-range {
+        background: none;
+    }
+
+    .hero .calendar__day--in-range::after {
+        content: '';
+        position: absolute;
+        z-index: -2;
+        left: 0;
+        right: 0;
+        top: 50%;
+        height: 28px;
+        transform: translateY(-50%);
+        background: #E1FFC7;
+    }
+
+    .hero .calendar__day--start::after {
+        left: 50%;
+    }
+
+    .hero .calendar__day--end::after {
+        right: 50%;
+    }
+
+    .hero .calendar__day--start.calendar__day--end::after {
+        display: none;
+    }
+}
+
+@media (max-width: 648px) {
+    .hero .hero-mobile-form {
+        max-width: 480px;
+        margin-inline: auto;
+    }
+
+    .hero-mobile-form input {
+        font-size: 16px;
+    }
 }
 
 .why-chose {
@@ -2600,6 +2944,72 @@ body {
     display: none;
     width: 0;
     height: 0;
+}
+
+/* Keep the native scrolling area; only replace its visual scrollbar. */
+.coverage__table-box--custom-scroll .coverage__table-wrapper {
+    padding-right: 8px;
+    scrollbar-width: none;
+}
+
+.coverage__table-box--custom-scroll .coverage__table-wrapper::-webkit-scrollbar {
+    width: 0;
+}
+
+.coverage__table-box--custom-scroll::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
+    width: 8px;
+    height: var(--coverage-scrollbar-top, 62px);
+    background: #d5ffb2;
+    pointer-events: none;
+}
+
+.coverage__scrollbar {
+    position: absolute;
+    top: var(--coverage-scrollbar-top, 62px);
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    width: 8px;
+    border-radius: 10px;
+    background: #EDECF1;
+    cursor: pointer;
+    touch-action: none;
+}
+
+.coverage__scrollbar[hidden] {
+    display: none;
+}
+
+.coverage__scrollbar::before,
+.coverage__scrollbar-thumb::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 0 -12px;
+}
+
+.coverage__scrollbar-thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 72px;
+    border-radius: 10px;
+    background: #65E70F;
+    cursor: grab;
+}
+
+.coverage__scrollbar--dragging .coverage__scrollbar-thumb {
+    cursor: grabbing;
+}
+
+.coverage__scrollbar:focus-visible {
+    outline: 2px solid #80839F;
+    outline-offset: -2px;
 }
 
 .coverage__table {
@@ -4497,6 +4907,462 @@ body {
     pointer-events: none;
 }
 
+.quote-page>.container {
+    position: relative;
+}
+
+
+.quote-page {
+    padding-top: 60px;
+    background: url('../img/quote/quote-bg.png') center / cover no-repeat;
+    background-color: #FDFBF3;
+    min-height: calc(100dvh - 64px);
+    padding-bottom: 32px;
+}
+
+.quote-page__back {
+    position: absolute;
+    top: -19px;
+    left: 20px;
+    display: flex;
+    padding: 10px 18px;
+    align-items: center;
+    gap: 12px;
+    border-radius: 100px;
+    background: #FFF;
+}
+
+.quote-page__inner {
+    max-width: 636px;
+    margin: 0 auto;
+}
+
+.quote-page__progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.quote-page__steps {
+
+    display: flex;
+    gap: 4px;
+}
+
+.quote-page__step {
+    width: 158px;
+    height: 6px;
+    border-radius: 100px;
+    background: var(--Default-40, #D3D3D3);
+
+
+}
+
+.quote-page__step--active {
+    background: var(--Additional-Light-blue, #5A46FC);
+
+}
+
+.quote-page__step-text {
+    color: #02063C;
+    font-family: "Avenir Next Cyr";
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.quote-page__summary {
+    margin-top: 21px;
+    background-color: #fff;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    border-radius: 100px;
+}
+
+.quote-page__summary-item {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    color: #02063C;
+    font-family: "Avenir Next Cyr";
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.quote-page__card {
+    margin-top: 12px;
+    padding: 30px 40px;
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 0 4px 40px 0 rgba(85, 84, 84, 0.15);
+}
+
+.quote-page__title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--Main-colors-Black, #02063C);
+    font-family: "Avenir Next Cyr";
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 22px;
+
+}
+
+.quote-page__coverage {
+    margin-top: 21px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.quote-page__coverage-btn {
+    padding: 16px;
+    border-radius: 10px;
+    color: var(--Main-colors-Black, #02063C);
+    font-family: "Avenir Next Cyr";
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    background: var(--Main-colors-Grey, #F7F7F9);
+}
+
+.quote-page__coverage-btn--active {
+    background: var(--Main-colors-Light-Green, #DDFFBE);
+}
+
+.quote-page__trip {
+    position: relative;
+    padding: 32px 0;
+}
+
+.quote-page__trip-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+}
+
+.quote-page__trip--open {
+    min-height: 158px;
+}
+
+.quote-page__trip--open .quote-page__trip-panel {
+    position: absolute;
+    top: 22px;
+    left: -14px;
+    right: -14px;
+    z-index: 20;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: #FFF;
+    box-shadow:
+        0 4px 15px 0 rgba(0, 0, 0, 0.08),
+        8px -2px 20px 0 rgba(150, 150, 150, 0.11);
+}
+
+.quote-page__label {
+    color: var(--Main-colors-Black, #02063C);
+    font-family: "Avenir Next Cyr";
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 22px;
+}
+
+.quote-page__select {
+    width: 100%;
+    display: flex;
+    height: 52px;
+    padding: 10px 14px;
+    justify-content: space-between;
+    align-items: center;
+    flex: none;
+    border-radius: 10px;
+    border: 1px solid #D3D3D3;
+
+}
+
+.quote-page__select-value {
+    color: var(--Main-colors-Black, #02063C);
+    font-family: "Avenir Next Cyr";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.quote-page__select-arrow {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.quote-page__trip--open .quote-page__select-arrow {
+    transform: rotate(180deg);
+}
+
+.quote-page__options {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.quote-page__options[hidden],
+.quote-page__tooltip[hidden] {
+    display: none;
+}
+
+.quote-page__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    padding: 0 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.quote-page__item:has(.quote-page__radio:checked),
+.quote-page__item:focus-within {
+    background: #EFFFE2;
+}
+
+@media (hover: hover) {
+    .quote-page__item:hover {
+        background: #EFFFE2;
+    }
+}
+
+.quote-page__option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 52px;
+    min-width: 0;
+    cursor: pointer;
+}
+
+.quote-page__radio {
+    appearance: none;
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #80839F;
+    border-radius: 4px;
+    background: #FFF;
+    cursor: pointer;
+}
+
+.quote-page__radio:checked {
+    border-color: transparent;
+    background: url('../img/form/checkbox-checked.svg') center / 16px 16px no-repeat;
+}
+
+.quote-page__name {
+    color: #02063C;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+.quote-page__info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 28px;
+    width: 28px;
+    height: 44px;
+    border-radius: 4px;
+}
+
+.quote-page__info img {
+    width: 18px;
+    height: 18px;
+}
+
+.quote-page__select:focus-visible,
+.quote-page__radio:focus-visible,
+.quote-page__info:focus-visible {
+    outline: 2px solid #80839F;
+    outline-offset: 3px;
+}
+
+.quote-page__tooltip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% - 6px);
+    z-index: 2;
+    width: 280px;
+    max-width: 100%;
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: #E4EEF5;
+    color: #02063C;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.45;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.quote-page__info:hover+.quote-page__tooltip:not(:empty),
+.quote-page__info:focus+.quote-page__tooltip:not(:empty),
+.quote-page__tooltip:not(:empty):hover {
+    display: block;
+}
+
+.quote-page__tooltip--standard {
+    left: 144px;
+}
+
+.quote-page__tooltip--study {
+    left: 174px;
+}
+
+.quote-page__tooltip--work {
+    left: 171px;
+}
+
+.quote-page__tooltip--cruise {
+    left: 87px;
+}
+
+.quote-page__tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: var(--tooltip-arrow, 20px);
+    border: 6px solid transparent;
+    border-top-color: #E4EEF5;
+    transform: translateX(-50%);
+}
+
+@media (max-width: 648px) {
+    .quote-page__name {
+        font-size: 16px;
+    }
+
+    .quote-page__info {
+        flex-basis: 44px;
+        width: 44px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .quote-page__select-arrow,
+    .quote-page__item {
+        transition: none;
+    }
+}
+
+
+
+.quote-page__benefits {
+    border-bottom: 1px solid #EDECF1;
+    padding: 21px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+}
+
+.quote-page__trip+.quote-page__benefits {
+    border-top: 1px solid #EDECF1;
+    padding-top: 32px;
+}
+
+.quote-page__benefits:last-of-type {
+    padding-bottom: 32px;
+}
+
+.quote-page__benefit {
+    color: var(--Main-colors-Black, #02063C);
+    font-family: "Avenir Next Cyr";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quote-page__benefit::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: url('../img/quote/mark.svg');
+}
+
+.quote-page__footer {
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quote-page__total {}
+
+.quote-page__price {
+    color: var(--Main-colors-Black, #02063C);
+    font-family: "Circular", sans-serif;
+    font-size: 50px;
+    line-height: 52px;
+
+    span {
+        font-size: 21px;
+    }
+}
+
+.quote-page__price-text {
+    color: var(--Default-60, #4A516E);
+    font-family: "Avenir Next Cyr";
+    font-weight: 500;
+    line-height: 18px;
+
+    span {
+        color: var(--Main-colors-Black, #02063C);
+        font-weight: 700;
+    }
+}
+
+.quote-page__submit {
+    display: flex;
+    height: 52px;
+    padding: 16px 61px;
+    align-items: center;
+    gap: 10px;
+    color: var(--Main-colors-Black, #02063C);
+    font-family: "Avenir Next Cyr";
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    border-radius: 10px;
+    background: var(--Main-colors-Green, #7EEC10);
+}
+
+.quote-page__full-coverage {
+    margin: 0 auto;
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    color: #02063C;
+    font-family: "Avenir Next Cyr";
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+    padding: 16px 24px;
+    border-radius: 100px;
+    background: #FFF;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+}
+
+
+
+
 @media (max-width:1725px) {
     .entry-system {
         flex: 1 1 0;
@@ -5338,7 +6204,7 @@ body {
     }
 
     .why-chose {
-        padding-top: clamp(238px, calc(378px - 21.6vw), 310px);
+        padding-top: var(--hero-form-clearance, clamp(238px, calc(378px - 21.6vw), 310px));
         padding-bottom: 40px;
         background-color: #fff;
         overflow: hidden;

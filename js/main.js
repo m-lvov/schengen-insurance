@@ -1,3 +1,37 @@
+window.sharedMenusReady = (async () => {
+    let header = document.querySelector('.header');
+
+    if (!header || header.querySelector('.burger-menu')) return;
+
+    let response = await fetch('index.html');
+
+    if (!response.ok) {
+        throw new Error(`Unable to load shared menus: ${response.status}`);
+    }
+
+    let html = await response.text();
+    let sourceDocument = new DOMParser().parseFromString(html, 'text/html');
+    let fragment = document.createDocumentFragment();
+
+    ['.burger-menu', '.route-menu'].forEach((selector) => {
+        let menu = sourceDocument.querySelector(selector);
+
+        if (!menu) {
+            throw new Error(`Shared menu not found: ${selector}`);
+        }
+
+        menu.querySelectorAll('a[href^="#"]').forEach((link) => {
+            let target = link.getAttribute('href');
+
+            if (target.length > 1) link.setAttribute('href', `index.html${target}`);
+        });
+
+        fragment.append(menu);
+    });
+
+    header.append(fragment);
+})();
+
 function initHeaderMenus() {
     let header = document.querySelector('.header');
 
@@ -459,50 +493,26 @@ if (whyChoseSlider) {
 }
 
 
+// Both layouts use the same countries, dates and traveler count.
+let mobileForm = document.querySelector('.hero-mobile-form');
 let mobileTripTabs = document.querySelectorAll('.hero-mobile-form__tab');
-
-mobileTripTabs.forEach((tab) => {
-    tab.setAttribute(
-        'aria-pressed',
-        String(tab.classList.contains('hero-mobile-form__tab--active'))
-    );
-
-    tab.addEventListener('click', () => {
-        mobileTripTabs.forEach((item) => {
-            let isActive = item === tab;
-
-            item.classList.toggle('hero-mobile-form__tab--active', isActive);
-            item.setAttribute('aria-pressed', String(isActive));
-        });
-    });
-});
-
-let mobileCountryValue = document.querySelector('.hero-mobile-form__country-value');
-
-document.querySelectorAll('.hero-mobile-form__countries button').forEach((option) => {
-    option.addEventListener('click', () => {
-        if (mobileCountryValue) mobileCountryValue.textContent = option.textContent.trim();
-    });
-});
-
-let passengerValue = document.querySelector('.hero-mobile-form__passenger-value');
-let passengerCount = 1;
-
-function renderPassengerCount() {
-    if (!passengerValue) return;
-
-    passengerValue.textContent = `${passengerCount} ${passengerCount === 1 ? 'passenger' : 'passengers'}`;
-}
-
-document.querySelector('.hero-mobile-form__counter-btn--plus')?.addEventListener('click', () => {
-    passengerCount += 1;
-    renderPassengerCount();
-});
-
-document.querySelector('.hero-mobile-form__counter-btn--minus')?.addEventListener('click', () => {
-    passengerCount = Math.max(1, passengerCount - 1);
-    renderPassengerCount();
-});
+let mobileCountry = mobileForm?.querySelector('.hero-mobile-form__country');
+let mobileCountryToggle = mobileForm?.querySelector('.hero-mobile-form__field--select');
+let mobileCountryValue = mobileForm?.querySelector('.hero-mobile-form__country-value');
+let mobileCountryDropdown = mobileForm?.querySelector('.hero-mobile-form__country-dropdown');
+let mobileCountrySearch = mobileForm?.querySelector('.hero-mobile-form__country-search');
+let mobileCountryOptions = mobileForm?.querySelector('.hero-mobile-form__country-options');
+let mobileCountryEmpty = mobileForm?.querySelector('.hero-mobile-form__country-empty');
+let mobileDate = mobileForm?.querySelector('.hero-mobile-form__date');
+let mobileDateButton = mobileForm?.querySelector('.hero-mobile-form__field--date');
+let mobileDateValue = mobileForm?.querySelector('.hero-mobile-form__date-value');
+let mobileCalendar = mobileForm?.querySelector('.hero-mobile-form__calendar');
+let mobileMonth = mobileCalendar?.querySelector('.calendar__month');
+let passengerValue = mobileForm?.querySelector('.hero-mobile-form__passenger-value');
+let mobileMinus = mobileForm?.querySelector('.hero-mobile-form__counter-btn--minus');
+let mobileAge = mobileForm?.querySelector('.hero-mobile-form__age');
+let mobileStatus = mobileForm?.querySelector('.hero-mobile-form__status');
+let mobileFormSubmitted = false;
 
 
 let insuranceSlider = document.querySelector('.insurance__slider');
@@ -1306,6 +1316,10 @@ let selectedCountries = [];
 function openCountryMenu() {
     if (country.classList.contains('form-country--open')) return;
 
+    closeMobileCountry();
+    closeMobileCalendar();
+    closeCalendar();
+    closeTravelers();
     countrySearch.value = '';
     filterCountries();
     country.classList.add('form-country--open');
@@ -1372,6 +1386,7 @@ function updateCountrySelection() {
         countryTags.append(item);
     });
     countrySelection.hidden = selectedCountries.length === 0;
+    syncMobileCountries();
 }
 
 countrySearch.addEventListener('focus', openCountryMenu);
@@ -1451,6 +1466,7 @@ let currentMonth = today.getMonth();
 let months = calendar.querySelectorAll('.calendar__month');
 let startDate = null;
 let endDate = null;
+let datesConfirmed = false;
 
 
 
@@ -1476,6 +1492,10 @@ function renderMonth(year, month, monthElement) {
         dayButton.className = 'calendar__day';
         dayButton.textContent = day;
         let dayDate = new Date(year, month, day);
+        dayButton.dataset.date = `${dayDate.getFullYear()}-${String(dayDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        dayButton.setAttribute('aria-label', dayDate.toLocaleDateString('en', {
+            weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+        }));
         dayButton.disabled = dayDate < today;
         if (startDate !== null && dayDate.getTime() === startDate.getTime()) {
             dayButton.classList.add('calendar__day--start');
@@ -1483,11 +1503,16 @@ function renderMonth(year, month, monthElement) {
         if (endDate !== null && dayDate.getTime() === endDate.getTime()) {
             dayButton.classList.add('calendar__day--end');
         }
+        dayButton.setAttribute('aria-pressed', String(
+            (startDate !== null && dayDate.getTime() === startDate.getTime()) ||
+            (endDate !== null && dayDate.getTime() === endDate.getTime())
+        ));
         if (startDate !== null && endDate !== null && dayDate >= startDate && dayDate <= endDate) {
             dayButton.classList.add('calendar__day--in-range');
         }
 
         dayButton.addEventListener('click', () => {
+            datesConfirmed = false;
             if (annualCheckbox.checked) {
                 startDate = dayDate;
                 endDate = null;
@@ -1502,6 +1527,7 @@ function renderMonth(year, month, monthElement) {
                 }
             }
             renderCalendar();
+            monthElement.querySelector(`[data-date="${dayButton.dataset.date}"]`)?.focus({ preventScroll: true });
         });
         dayList.append(dayButton);
     }
@@ -1512,6 +1538,9 @@ function renderCalendar() {
     let visibleMonth = new Date(currentYear, currentMonth, 1);
     let earliestMonth = new Date(today.getFullYear(), today.getMonth(), 1);
     prevButton.disabled = visibleMonth <= earliestMonth;
+    rangeValue.hidden = annualCheckbox.checked;
+    rangeValue.querySelector('[aria-hidden]').hidden = startDate === null;
+    annualValue.hidden = !annualCheckbox.checked;
     if (annualCheckbox.checked) {
         confirmButton.hidden = startDate === null;
         annualCaption.textContent = startDate === null
@@ -1524,7 +1553,11 @@ function renderCalendar() {
     } else {
         confirmButton.hidden = startDate === null || endDate === null;
     }
-    if (startDate !== null) {
+    if (startDate === null) {
+        startValue.textContent = 'Select date';
+        endValue.textContent = '';
+        dateField.classList.remove('form-date--selected');
+    } else {
         startValue.textContent = formatDate(startDate);
         dateField.classList.add('form-date--selected');
         if (endDate !== null) {
@@ -1535,6 +1568,7 @@ function renderCalendar() {
             endValue.textContent = '00.00.0000'
         }
     }
+    renderMobileCalendar();
 }
 renderCalendar();
 
@@ -1552,6 +1586,14 @@ function closeCalendar() {
     dateButton.ariaExpanded = 'false';
 }
 dateButton.addEventListener('click', () => {
+    if (!calendar.hidden) {
+        closeCalendar();
+        return;
+    }
+    closeCountryMenu();
+    closeTravelers();
+    closeMobileCountry();
+    closeMobileCalendar();
     dateField.classList.add('form-date--open');
     calendar.hidden = false;
     dateButton.setAttribute('aria-expanded', 'true');
@@ -1568,6 +1610,7 @@ prevButton.addEventListener('click', () => {
 });
 
 confirmButton.addEventListener('click', () => {
+    datesConfirmed = true;
     closeCalendar()
     dateButton.focus();
 });
@@ -1583,12 +1626,7 @@ document.addEventListener('click', (event) => {
 });
 
 annualCheckbox.addEventListener('change', () => {
-    rangeValue.hidden = annualCheckbox.checked;
-    annualValue.hidden = !annualCheckbox.checked;
-    endDate = null;
-    dateError.hidden = true;
-    dateField.classList.remove('form-date--error');
-    renderCalendar()
+    setTripType(annualCheckbox.checked);
 });
 
 
@@ -1615,9 +1653,26 @@ function updateTravelers() {
         ? '1 person'
         : `${travelersNumber} persons`;
     travelersMinus.disabled = travelersNumber <= 1;
+    if (passengerValue) {
+        passengerValue.value = travelersNumber;
+        mobileMinus.disabled = travelersNumber <= 1;
+        mobileForm.querySelector('#mobile-age-hint').hidden = travelersNumber === 1;
+        mobileAge.inputMode = travelersNumber === 1 ? 'numeric' : 'text';
+        clearMobileError(passengerValue, 'mobile-travelers-error');
+        if (mobileFormSubmitted) validateMobileAge();
+        clearMobileStatus();
+    }
 }
 
 travelersToggle.addEventListener('click', () => {
+    if (!travelersDropdown.hidden) {
+        closeTravelers();
+        return;
+    }
+    closeCountryMenu();
+    closeCalendar();
+    closeMobileCountry();
+    closeMobileCalendar();
     travelers.classList.add('form-travelers--open');
     travelersDropdown.hidden = false;
     travelersToggle.setAttribute('aria-expanded', 'true');
@@ -1643,4 +1698,434 @@ travelersMinus.addEventListener('click', () => {
     travelersNumber--;
     travelersCount.textContent = travelersNumber;
     updateTravelers()
+});
+
+
+function clearMobileStatus() {
+    if (mobileStatus) mobileStatus.hidden = true;
+}
+
+function clearMobileError(field, errorId) {
+    if (!mobileForm || !field) return;
+    field.removeAttribute('aria-invalid');
+    mobileForm.querySelector(`#${errorId}`).hidden = true;
+}
+
+function showMobileError(field, errorId, message) {
+    field.setAttribute('aria-invalid', 'true');
+    let error = mobileForm.querySelector(`#${errorId}`);
+    if (message) error.textContent = message;
+    error.hidden = false;
+}
+
+function closeMobileCountry() {
+    if (!mobileCountry) return;
+    mobileCountryDropdown.hidden = true;
+    mobileCountry.classList.remove('hero-mobile-form__country--open');
+    mobileCountryToggle.setAttribute('aria-expanded', 'false');
+}
+
+function closeMobileCalendar() {
+    if (!mobileDate) return;
+    mobileCalendar.hidden = true;
+    mobileDate.classList.remove('hero-mobile-form__date--open');
+    mobileDateButton.setAttribute('aria-expanded', 'false');
+}
+
+function syncMobileCountries() {
+    if (!mobileCountry) return;
+    mobileCountryValue.textContent = selectedCountries.join(', ') || 'Select country';
+    mobileCountryToggle.title = selectedCountries.join(', ');
+    mobileCountryToggle.classList.toggle('hero-mobile-form__field--selected', selectedCountries.length > 0);
+    mobileCountryOptions.querySelectorAll('input').forEach((checkbox) => {
+        checkbox.checked = selectedCountries.includes(checkbox.value);
+    });
+    if (selectedCountries.length) clearMobileError(mobileCountryToggle, 'mobile-country-error');
+    clearMobileStatus();
+}
+
+function filterMobileCountries() {
+    let query = mobileCountrySearch.value.trim().toLowerCase();
+    let found = 0;
+    [...mobileCountryOptions.children].forEach((item) => {
+        item.hidden = !item.dataset.name.startsWith(query);
+        if (!item.hidden) found++;
+    });
+    mobileCountryEmpty.hidden = found > 0;
+    mobileCountryOptions.scrollTop = 0;
+}
+
+function openMobileCountry() {
+    closeCountryMenu();
+    closeCalendar();
+    closeTravelers();
+    closeMobileCalendar();
+    mobileCountrySearch.value = '';
+    filterMobileCountries();
+    mobileCountryDropdown.hidden = false;
+    mobileCountry.classList.add('hero-mobile-form__country--open');
+    mobileCountryToggle.setAttribute('aria-expanded', 'true');
+    mobileCountrySearch.focus({ preventScroll: true });
+    mobileCountryDropdown.scrollIntoView({ block: 'nearest' });
+}
+
+function renderMobileCalendar() {
+    if (!mobileCalendar) return;
+    renderMonth(currentYear, currentMonth, mobileMonth);
+    mobileCalendar.querySelector('.calendar__nav--prev').disabled =
+        new Date(currentYear, currentMonth, 1) <= new Date(today.getFullYear(), today.getMonth(), 1);
+    let complete = startDate !== null && (annualCheckbox.checked || endDate !== null);
+    mobileCalendar.querySelector('.calendar__confirm').hidden = !complete;
+    mobileDateValue.textContent = startDate === null
+        ? (annualCheckbox.checked ? 'Choose your annual policy start date' : 'Select date')
+        : annualCheckbox.checked ? `Annual policy start date: ${formatDate(startDate)}`
+            : `${formatDate(startDate)} - ${endDate === null ? '00.00.0000' : formatDate(endDate)}`;
+    mobileDateButton.classList.toggle('hero-mobile-form__field--selected', startDate !== null);
+    mobileDateButton.title = mobileDateValue.textContent;
+    if (annualCheckbox.checked && startDate !== null) {
+        let caption = document.createElement('span');
+        caption.className = 'form-date__annual-caption';
+        caption.textContent = 'Annual policy start date: ';
+        let value = document.createElement('span');
+        value.className = 'form-date__annual-date';
+        value.textContent = formatDate(startDate);
+        mobileDateValue.replaceChildren(caption, value);
+    }
+    if (complete) clearMobileError(mobileDateButton, 'mobile-date-error');
+    clearMobileStatus();
+}
+
+function openMobileCalendar() {
+    closeCountryMenu();
+    closeCalendar();
+    closeTravelers();
+    closeMobileCountry();
+    renderCalendar();
+    mobileCalendar.hidden = false;
+    mobileDate.classList.add('hero-mobile-form__date--open');
+    mobileDateButton.setAttribute('aria-expanded', 'true');
+    mobileCalendar.scrollIntoView({ block: 'nearest' });
+}
+
+function setTripType(annual) {
+    annualCheckbox.checked = annual;
+    datesConfirmed = false;
+    endDate = null;
+    dateError.hidden = true;
+    dateField.classList.remove('form-date--error');
+    clearMobileError(mobileDateButton, 'mobile-date-error');
+    mobileTripTabs.forEach((tab) => {
+        let active = (tab.dataset.trip === 'annual') === annual;
+        tab.classList.toggle('hero-mobile-form__tab--active', active);
+        tab.setAttribute('aria-pressed', String(active));
+    });
+    closeCalendar();
+    closeMobileCalendar();
+    renderCalendar();
+}
+
+function validateMobileAge() {
+    let entries = mobileAge.value.trim().split(',').map((age) => age.trim());
+    let valid = entries.length === travelersNumber && entries.every((age) => /^\d+$/.test(age));
+    if (valid) clearMobileError(mobileAge, 'mobile-age-error');
+    else showMobileError(mobileAge, 'mobile-age-error',
+        travelersNumber === 1 ? 'Please enter the age of the traveler' : 'Please enter one age per traveler, separated by commas');
+    return valid;
+}
+
+if (mobileForm) {
+    let countryFlags = new Map();
+    document.querySelectorAll('.route-menu__country-btn, .menu-countries__link').forEach((link) => {
+        let name = link.querySelector('span')?.textContent.trim();
+        let image = link.querySelector('img');
+        if (name && image) countryFlags.set(name, image.getAttribute('src'));
+    });
+    allCountries.forEach((name) => {
+        let item = document.createElement('li');
+        item.dataset.name = name.toLowerCase();
+        let label = document.createElement('label');
+        label.className = 'hero-mobile-form__country-option';
+        let checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.value = name;
+        let caption = document.createElement('span');
+        caption.textContent = name;
+        label.append(checkbox);
+        if (countryFlags.has(name)) {
+            let flag = document.createElement('img');
+            flag.src = countryFlags.get(name);
+            flag.alt = '';
+            label.append(flag);
+        }
+        label.append(caption);
+        item.append(label);
+        mobileCountryOptions.append(item);
+    });
+    syncMobileCountries();
+    updateTravelers();
+
+    mobileCountryToggle.addEventListener('click', () => {
+        if (mobileCountryDropdown.hidden) openMobileCountry();
+        else closeMobileCountry();
+    });
+    mobileCountrySearch.addEventListener('input', filterMobileCountries);
+    mobileCountryOptions.addEventListener('change', (event) => {
+        let checkbox = event.target;
+        if (!checkbox.matches('input[type="checkbox"]')) return;
+        if (checkbox.checked && !selectedCountries.includes(checkbox.value)) selectedCountries.push(checkbox.value);
+        if (!checkbox.checked) selectedCountries = selectedCountries.filter((name) => name !== checkbox.value);
+        updateCountrySelection();
+        closeCountryMenu();
+    });
+    mobileCountry.querySelector('.hero-mobile-form__country-done').addEventListener('click', () => {
+        closeMobileCountry();
+        mobileCountryToggle.focus();
+    });
+    mobileForm.querySelectorAll('.hero-mobile-form__countries button').forEach((button) => {
+        button.addEventListener('click', () => {
+            let name = button.textContent.trim();
+            if (!selectedCountries.includes(name)) selectedCountries.push(name);
+            updateCountrySelection();
+            closeCountryMenu();
+            closeMobileCountry();
+        });
+    });
+    mobileTripTabs.forEach((tab) => tab.addEventListener('click', () => {
+        let annual = tab.dataset.trip === 'annual';
+        if (annual !== annualCheckbox.checked) setTripType(annual);
+    }));
+    mobileDateButton.addEventListener('click', () => {
+        if (mobileCalendar.hidden) openMobileCalendar();
+        else closeMobileCalendar();
+    });
+    mobileCalendar.querySelector('.calendar__nav--next').addEventListener('click', () => {
+        currentMonth++;
+        renderCalendar();
+    });
+    mobileCalendar.querySelector('.calendar__nav--prev').addEventListener('click', () => {
+        currentMonth--;
+        renderCalendar();
+    });
+    mobileCalendar.querySelector('.calendar__confirm').addEventListener('click', () => {
+        datesConfirmed = true;
+        closeMobileCalendar();
+        mobileDateButton.focus();
+    });
+    mobileForm.querySelector('.hero-mobile-form__counter-btn--plus').addEventListener('click', () => {
+        travelersNumber++;
+        updateTravelers();
+    });
+    mobileMinus.addEventListener('click', () => {
+        if (travelersNumber <= 1) return;
+        travelersNumber--;
+        updateTravelers();
+    });
+    passengerValue.addEventListener('input', () => {
+        let value = Number(passengerValue.value);
+        if (Number.isSafeInteger(value) && value >= 1) {
+            travelersNumber = value;
+            updateTravelers();
+        }
+        clearMobileStatus();
+    });
+    passengerValue.addEventListener('change', () => {
+        let value = Number(passengerValue.value);
+        if (!Number.isSafeInteger(value) || value < 1) {
+            passengerValue.value = travelersNumber;
+            showMobileError(passengerValue, 'mobile-travelers-error');
+        }
+    });
+    mobileAge.addEventListener('input', () => {
+        clearMobileStatus();
+        if (mobileFormSubmitted) validateMobileAge();
+    });
+    mobileForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        mobileFormSubmitted = true;
+        let invalid = [];
+        if (!selectedCountries.length) {
+            showMobileError(mobileCountryToggle, 'mobile-country-error');
+            invalid.push(mobileCountryToggle);
+        }
+        if (startDate === null || (!annualCheckbox.checked && endDate === null)) {
+            showMobileError(mobileDateButton, 'mobile-date-error', startDate !== null
+                ? 'Please select the end date of your trip' : 'Please select your trip dates');
+            invalid.push(mobileDateButton);
+        } else if (!datesConfirmed) {
+            showMobileError(mobileDateButton, 'mobile-date-error', 'Please confirm your trip dates');
+            invalid.push(mobileDateButton);
+        }
+        let count = Number(passengerValue.value);
+        if (!Number.isSafeInteger(count) || count < 1) {
+            showMobileError(passengerValue, 'mobile-travelers-error');
+            invalid.push(passengerValue);
+        }
+        if (!validateMobileAge()) invalid.push(mobileAge);
+        if (invalid.length) {
+            invalid[0].focus();
+            return;
+        }
+        closeMobileCountry();
+        closeMobileCalendar();
+
+
+        let continuation = new CustomEvent('insurance:continue', {
+            bubbles: true, cancelable: true, detail: {
+                countries: [...selectedCountries], startDate: formatDate(startDate),
+                endDate: endDate === null ? null : formatDate(endDate), annual: annualCheckbox.checked,
+                travelers: travelersNumber, ages: mobileAge.value.split(',').map(Number)
+            }
+        });
+        if (mobileForm.dispatchEvent(continuation)) {
+            mobileStatus.textContent = 'Trip details are ready.';
+            mobileStatus.hidden = false;
+        }
+    });
+    document.addEventListener('click', (event) => {
+        let path = event.composedPath();
+        if (!path.includes(mobileCountry)) closeMobileCountry();
+        if (!path.includes(mobileDate) && !mobileCalendar.hidden) {
+            if (!annualCheckbox.checked && startDate !== null && endDate === null) {
+                showMobileError(mobileDateButton, 'mobile-date-error', 'Please select the end date of your trip');
+            } else closeMobileCalendar();
+        }
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        if (!mobileCountryDropdown.hidden) {
+            closeMobileCountry();
+            mobileCountryToggle.focus();
+        } else if (!mobileCalendar.hidden) {
+            closeMobileCalendar();
+            mobileDateButton.focus();
+        } else if (!calendar.hidden) {
+            closeCalendar();
+            dateButton.focus();
+        } else if (!travelersDropdown.hidden) {
+            closeTravelers();
+            travelersToggle.focus();
+        }
+    });
+    window.matchMedia('(max-width: 648px)').addEventListener('change', () => {
+        closeCountryMenu();
+        closeCalendar();
+        closeTravelers();
+        closeMobileCountry();
+        closeMobileCalendar();
+    });
+
+
+    let heroSection = mobileForm.closest('.hero');
+    let followingSection = document.querySelector('.why-chose');
+    function updateMobileFormClearance() {
+        if (!window.matchMedia('(max-width: 648px)').matches) return;
+        let overlap = mobileForm.getBoundingClientRect().bottom - heroSection.getBoundingClientRect().bottom;
+        followingSection.style.setProperty('--hero-form-clearance', `${Math.ceil(Math.max(0, overlap) + 32)}px`);
+    }
+    let formResizeObserver = new ResizeObserver(updateMobileFormClearance);
+    formResizeObserver.observe(mobileForm);
+    formResizeObserver.observe(heroSection.querySelector('.hero__inner'));
+    window.addEventListener('resize', updateMobileFormClearance);
+    updateMobileFormClearance();
+}
+
+
+document.querySelectorAll('.coverage__table-box').forEach((box, index) => {
+    let viewport = box.querySelector('.coverage__table-wrapper');
+    let table = box.querySelector('.coverage__table');
+    if (!viewport || !table) return;
+
+    let scrollbar = document.createElement('div');
+    scrollbar.className = 'coverage__scrollbar';
+    scrollbar.hidden = true;
+    scrollbar.tabIndex = 0;
+    scrollbar.setAttribute('role', 'scrollbar');
+    scrollbar.setAttribute('aria-label', 'Scroll coverage table');
+    scrollbar.setAttribute('aria-orientation', 'vertical');
+    scrollbar.setAttribute('aria-valuemin', '0');
+    scrollbar.setAttribute('aria-valuemax', '100');
+    if (!viewport.id) viewport.id = `coverage-scroll-viewport-${index + 1}`;
+    scrollbar.setAttribute('aria-controls', viewport.id);
+
+    let thumb = document.createElement('span');
+    thumb.className = 'coverage__scrollbar-thumb';
+    scrollbar.append(thumb);
+    box.append(scrollbar);
+
+    let travel = 0;
+    let inset = 0;
+    let maxScroll = 0;
+    let drag = null;
+    function updateScrollbar() {
+        let active = getComputedStyle(viewport).overflowY === 'auto'
+            && viewport.scrollHeight > viewport.clientHeight + 1;
+        box.classList.toggle('coverage__table-box--custom-scroll', active);
+        scrollbar.hidden = !active;
+        if (!active) return;
+
+        let headerHeight = table.tHead?.getBoundingClientRect().height || 0;
+        box.style.setProperty('--coverage-scrollbar-top', `${headerHeight}px`);
+        let thumbHeight = Math.min(72, scrollbar.clientHeight);
+        thumb.style.height = `${thumbHeight}px`;
+        inset = Math.min(24, Math.max(0, (scrollbar.clientHeight - thumbHeight) / 2));
+        travel = Math.max(0, scrollbar.clientHeight - thumbHeight - inset * 2);
+        maxScroll = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
+        let progress = maxScroll > 0 ? viewport.scrollTop / maxScroll : 0;
+        thumb.style.transform = `translateY(${inset + Math.max(0, Math.min(1, progress)) * travel}px)`;
+        scrollbar.setAttribute('aria-valuenow', String(Math.round(progress * 100)));
+    }
+
+    viewport.addEventListener('scroll', updateScrollbar, { passive: true });
+    let observer = new ResizeObserver(updateScrollbar);
+    observer.observe(box);
+    observer.observe(table);
+    window.addEventListener('resize', updateScrollbar);
+
+    scrollbar.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0 || travel === 0) return;
+        event.preventDefault();
+        scrollbar.focus({ preventScroll: true });
+        if (event.target !== thumb) {
+            let offset = event.clientY - scrollbar.getBoundingClientRect().top - inset - thumb.clientHeight / 2;
+            viewport.scrollTop = Math.max(0, Math.min(1, offset / travel)) * maxScroll;
+        }
+        drag = { pointerId: event.pointerId, y: event.clientY, scrollTop: viewport.scrollTop };
+        scrollbar.setPointerCapture(event.pointerId);
+        scrollbar.classList.add('coverage__scrollbar--dragging');
+    });
+    scrollbar.addEventListener('pointermove', (event) => {
+        if (!drag || event.pointerId !== drag.pointerId || travel === 0) return;
+        viewport.scrollTop = drag.scrollTop + (event.clientY - drag.y) / travel * maxScroll;
+    });
+    function endDrag(event) {
+        if (!drag || event.pointerId !== drag.pointerId) return;
+        drag = null;
+        scrollbar.classList.remove('coverage__scrollbar--dragging');
+        if (scrollbar.hasPointerCapture(event.pointerId)) scrollbar.releasePointerCapture(event.pointerId);
+    }
+    scrollbar.addEventListener('pointerup', endDrag);
+    scrollbar.addEventListener('pointercancel', endDrag);
+    scrollbar.addEventListener('lostpointercapture', endDrag);
+
+    scrollbar.addEventListener('wheel', (event) => {
+        let previous = viewport.scrollTop;
+        let scale = event.deltaMode === 1 ? 20 : event.deltaMode === 2 ? viewport.clientHeight : 1;
+        viewport.scrollTop += event.deltaY * scale;
+        if (viewport.scrollTop !== previous) event.preventDefault();
+    }, { passive: false });
+    scrollbar.addEventListener('keydown', (event) => {
+        let pageSize = viewport.clientHeight - (table.tHead?.offsetHeight || 0);
+        let actions = {
+            ArrowDown: viewport.scrollTop + 40,
+            ArrowUp: viewport.scrollTop - 40,
+            PageDown: viewport.scrollTop + pageSize,
+            PageUp: viewport.scrollTop - pageSize,
+            Home: 0,
+            End: maxScroll
+        };
+        if (!(event.key in actions)) return;
+        event.preventDefault();
+        viewport.scrollTop = actions[event.key];
+    });
+    updateScrollbar();
 });
