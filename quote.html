@@ -2746,12 +2746,12 @@
                         <p class="quote-page__step-text">Step <span class="quote-page__step-text-swap">2</span> of 4</p>
                     </div>
                     <div class="quote-page__summary">
-                        <div class="quote-page__summary-item">
+                        <div class="quote-page__summary-item quote-page__summary-item--country">
                             <img src="img/quote/map.svg" alt="">
                             <span class="quote-page__summary-item__country">
                                 Germany
                             </span>
-
+                            <span class="quote-page__country-tooltip" hidden></span>
                         </div>
                         <div class="quote-page__summary-item">
                             <img src="img/quote/calendar.svg" alt="">
@@ -2781,24 +2781,28 @@
                             Insurance coverage
                         </h1>
                         <div class="quote-page__coverage">
-                            <button class="quote-page__coverage-btn quote-page__coverage-btn--active" type="button">€
+                            <button class="quote-page__coverage-btn quote-page__coverage-btn--active" type="button"
+                                data-coverage="35000">€
                                 35,000</button>
-                            <button class="quote-page__coverage-btn" type="button">€ 100,000</button>
-                            <button class="quote-page__coverage-btn" type="button">€ 500,000</button>
-                            <button class="quote-page__coverage-btn" type="button">€ 1,000,000</button>
+                            <button class="quote-page__coverage-btn" type="button" data-coverage="100000">€
+                                100,000</button>
+                            <button class="quote-page__coverage-btn" type="button" data-coverage="500000">€
+                                500,000</button>
+                            <button class="quote-page__coverage-btn" type="button" data-coverage="1000000">€
+                                1,000,000</button>
                         </div>
-                        <div class="quote-page__trip quote-page__trip--open">
+                        <div class="quote-page__trip">
                             <div class="quote-page__trip-panel">
                                 <p class="quote-page__label">Trip type</p>
                                 <button class="quote-page__select" type="button">
                                     <span class="quote-page__select-value">Standard Trip</span>
                                     <img class="quote-page__select-arrow" src="img/form-arrow.svg" alt="">
                                 </button>
-                                <ul class="quote-page__options">
+                                <ul class="quote-page__options" hidden>
                                     <li class="quote-page__item">
                                         <label class="quote-page__option">
-                                            <input class="quote-page__radio" type="radio" name="tripType"
-                                                value="standard" checked>
+                                            <input class="quote-page__radio" type="radio" name="tripType" checked
+                                                value="standard">
                                             <span class="quote-page__name">Standard Trip</span>
                                         </label>
                                         <button class="quote-page__info" type="button">
@@ -2912,531 +2916,659 @@
             </div>
         </section>
         <div class="quote-details">
-            <div class="container">
-                <div class="quote-details__inner">
-                    <div class="quote-details__content">
-                        <section class="addons">
-                            <h2 class="title addons__title">Add-ons</h2>
-                            <div class="addons__content">
-                                <ul class="addons__list">
-                                    <li class="addons__item">
-                                        <div class="addons__image">
-                                            <span class="addons__badge">We recommend</span>
-                                            <img class="addons__icon" src="img/quote/icons/Frame 1618873270.png" alt="">
-                                        </div>
-                                        <div class="addons__details">
-                                            <div class="addons__heading">
-                                                <h3 class="addons__name">Visa Cancellation</h3>
-                                                <button class="addons__info" type="button">
-                                                    <img src="img/quote/info-1.svg" alt="">
-                                                </button>
-                                                <div class="addons__tooltip addons__tooltip--visa">Refund of the official fee
-                                                    you paid to the embassy for visa processing, provided you have official
-                                                    confirmation from the
-                                                    embassy that the visa has been canceled.</div>
-                                            </div>
-                                            <p class="addons__description">
-                                                Refund of consular service fees in the event of a visa denial.
-                                            </p>
-                                            <p class="addons__price">$ 49,00</p>
-                                        </div>
-                                        <button class="addons__button" type="button">
-                                            <span>Add</span>
-                                            <span>+</span>
-                                        </button>
-                                    </li>
-                                    <li class="addons__item">
-                                        <div class="addons__image">
-                                            <img class="addons__icon" src="img/quote/icons/Frame 1618873270-1.png" alt="">
-                                        </div>
-                                        <div class="addons__details">
-                                            <div class="addons__heading">
-                                                <h3 class="addons__name">Trip Cancellation</h3>
-                                                <button class="addons__info" type="button">
-                                                    <img src="img/quote/info-1.svg" alt="">
-                                                </button>
-                                                <div class="addons__tooltip addons__tooltip--trip">A serious injury or sudden
-                                                    illness that renders you unable to travel (as certified by a licensed
-                                                    physician). Death (of
-                                                    yourself or a travel companion) or the death of a family member who is not
-                                                    traveling with you. Strikes or adverse
-                                                    weather conditions that make it impossible to provide travel services.
-                                                    Sudden natural disasters in your home country or
-                                                    in your destination country that render these locations uninhabitable. Legal
-                                                    obligations (such as being summoned to
-                                                    serve on a jury or receiving a court order or subpoena)</div>
-                                            </div>
-                                            <p class="addons__description">We’ll cover your expenses in the event of illness
-                                                (excluding pre-existing conditions), injury, weather conditions that
-                                                make travel impossible, natural disasters in your destination country, and legal
-                                                obligations that prevent you from
-                                                traveling.</p>
-                                            <p class="addons__price">$ 49,00</p>
-                                        </div>
-                                        <button class="addons__button" type="button">
-                                            <span>Add</span>
-                                            <span>+</span>
-                                        </button>
-                                    </li>
-                                    <li class="addons__item">
-                                        <div class="addons__image">
-                                            <img class="addons__icon" src="img/quote/icons/Frame 1618873270-2.png" alt="">
-                                        </div>
-                                        <div class="addons__details">
-                                            <div class="addons__heading">
-                                                <h3 class="addons__name">Alcohol Intoxication</h3>
-                                                <button class="addons__info" type="button">
-                                                    <img src="img/quote/info-1.svg" alt="">
-                                                </button>
-                                                <div class="addons__tooltip addons__tooltip--alcohol">Waiver of payment
-                                                    restrictions if the insured person was intoxicated.</div>
-                                            </div>
-                                            <p class="addons__description">Reimbursement of medical expenses if the injury was
-                                                sustained while under the influence of alcohol.</p>
-                                            <p class="addons__price">$ 5,00</p>
-                                        </div>
-                                        <button class="addons__button" type="button">
-                                            <span>Add</span>
-                                            <span>+</span>
-                                        </button>
-                                    </li>
-                                    <li class="addons__item">
-                                        <div class="addons__image">
-                                            <img class="addons__icon" src="img/quote/icons/Frame 1618873270-3.png" alt="">
-                                        </div>
-                                        <div class="addons__details">
-                                            <div class="addons__heading">
-                                                <h3 class="addons__name">Lost Luggage – Premium Plan</h3>
-                                                <button class="addons__info" type="button">
-                                                    <img src="img/quote/info-1.svg" alt="">
-                                                </button>
-                                                <div class="addons__tooltip addons__tooltip--luggage">A payment of $1,000 within
-                                                    48 hours in the event of lost or delayed luggage.</div>
-                                            </div>
-                                            <p class="addons__description">A payment of $1,000</p>
-                                            <p class="addons__price">$ 25,00</p>
-                                        </div>
-                                        <button class="addons__button" type="button">
-                                            <span>Add</span>
-                                            <span>+</span>
-                                        </button>
-                                    </li>
-                                    <li class="addons__item">
-                                        <div class="addons__image">
-                                            <img class="addons__icon" src="img/quote/icons/Frame 1618873270-4.png" alt="">
-                                        </div>
-                                        <div class="addons__details">
-                                            <div class="addons__heading">
-                                                <h3 class="addons__name">Property Protection</h3>
-                                                <button class="addons__info" type="button">
-                                                    <img src="img/quote/info-1.svg" alt="">
-                                                </button>
-                                                <div class="addons__tooltip addons__tooltip--property">Compensation for
-                                                    financial losses in the event of a fire, flood, or natural disaster
-                                                    affecting your property while you
-                                                    are abroad.</div>
-                                            </div>
-                                            <p class="addons__description">Insurance coverage of up to $500,000 in case
-                                                something happens to your apartment or house while you are abroad.</p>
-                                            <p class="addons__price">$ 32,00</p>
-                                        </div>
-                                        <button class="addons__button" type="button">
-                                            <span>Add</span>
-                                            <span>+</span>
-                                        </button>
-                                    </li>
-                                    <li class="addons__item">
-                                        <div class="addons__image">
-                                            <img class="addons__icon" src="img/quote/icons/Frame 1618873270-5.png" alt="">
-                                        </div>
-                                        <div class="addons__details">
-                                            <div class="addons__heading">
-                                                <h3 class="addons__name">Active Recreation</h3>
-                                                <button class="addons__info" type="button">
-                                                    <img src="img/quote/info-1.svg" alt="">
-                                                </button>
-                                                <div class="addons__tooltip addons__tooltip--recreation">
-                                                    <h4>General fitness and low-impact activities</h4>
-                                                    <ul>
-                                                        <li>Running and walking;</li>
-                                                        <li>Fitness, yoga and pilates;</li>
-                                                        <li>Aerobics and aqua aerobic;</li>
-                                                        <li>Weightlifting and bodybuilding;</li>
-                                                        <li>Sports and ballroom dancing;</li>
-                                                        <li>Frisbee;</li>
-                                                        <li>Croquet;</li>
-                                                        <li>Darts;</li>
-                                                        <li>Billiards and bowling.</li>
-                                                    </ul>
-                                                    <h4>Team and ball sports</h4>
-                                                    <ul>
-                                                        <li>Ball games (basketball, football, American football, volleyball, rugby and others);</li>
-                                                        <li>Tennis (any);</li>
-                                                        <li>Golf.</li>
-                                                    </ul>
-                                                    <h4>Cycling, skating, and wheeled activities</h4>
-                                                    <ul>
-                                                        <li>Cycling (except cycling motocross, road cycling, cycling track, mountain biking cycling triathlon);</li>
-                                                        <li>Roller skating (except rollerblading), scooters, segways (and other self-balancing personal transporter devices);</li>
-                                                        <li>Ice skating (except figure skating), sledding (except tobogganing, bobsledding, and skeleton), tubing, snow skates;</li>
-                                                        <li>Karting.</li>
-                                                    </ul>
-                                                    <h4>Water and beach activities</h4>
-                                                    <ul>
-                                                        <li>Swimming (except diving);</li>
-                                                        <li>Snorkeling;</li>
-                                                        <li>Water skiing, water motorcycles (aquabike), water tourism including yachting and participation in regattas;</li>
-                                                        <li>Water activities (except for those specifically listed under the higher-risk options), including the use of water bicycles (except aquabikes and jet skis), towed inflatables and parachutes (parasailing), boats and watercraft;</li>
-                                                        <li>Surfing (including wakesurfing, windsurfing, except skysurfing);</li>
-                                                        <li>Sailing;</li>
-                                                        <li>Fishing (except underwater fishing).</li>
-                                                    </ul>
-                                                    <h4>Winter sports</h4>
-                                                    <ul>
-                                                        <li>Skiing and snowboarding on specially equipped or marked tracks (except freestyle);</li>
-                                                        <li>Curling.</li>
-                                                    </ul>
-                                                    <h4>Outdoor and adventure activities</h4>
-                                                    <ul>
-                                                        <li>Trekking (hiking without mountaineering equipment) up to 3000 meters;</li>
-                                                        <li>Descent into the cave with an excursion;</li>
-                                                        <li>Jeep safari;</li>
-                                                        <li>Digging;</li>
-                                                        <li>Paintball;</li>
-                                                        <li>Recreational organized shooting at specially equipped sites (including archery);</li>
-                                                        <li>Military and historical reenactments.</li>
-                                                    </ul>
-                                                    <h4>Animal riding activities</h4>
-                                                    <ul>
-                                                        <li>Organized animal riding tours;</li>
-                                                        <li>Unaccompanied animal riding (including horseback riding).</li>
-                                                    </ul>
-                                                    <h4>Transport and motor activities</h4>
-                                                    <ul>
-                                                        <li>Driver or passenger on ATVs, scooters, mopeds and motorcycles, snowmobiles.</li>
-                                                    </ul>
-                                                    <h4>Tourism and leisure attractions</h4>
-                                                    <ul>
-                                                        <li>Visiting water parks, amusement parks, jumping on a trampoline;</li>
-                                                        <li>Aerotube.</li>
-                                                    </ul>
-                                                    <h4>Other sports</h4>
-                                                    <ul>
-                                                        <li>Rowing (kayaking and canoeing);</li>
-                                                        <li>Fencing;</li>
-                                                        <li>Sandboarding;</li>
-                                                        <li>Triathlon.</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <p class="addons__description">Provides coverage for injuries sustained abroad
-                                                during recreational activities, such as skiing on groomed trails</p>
-                                            <p class="addons__price">$ 89,00</p>
-                                        </div>
-                                        <button class="addons__button" type="button">
-                                            <span>Add</span>
-                                            <span>+</span>
-                                        </button>
-                                    </li>
-                                    <li class="addons__item">
-                                        <div class="addons__image">
-                                            <img class="addons__icon" src="img/quote/icons/Frame 1618873270-6.png" alt="">
-                                        </div>
-                                        <div class="addons__details">
-                                            <div class="addons__heading">
-                                                <h3 class="addons__name">Extreme Adventures & Professional Sports</h3>
-                                                <button class="addons__info" type="button">
-                                                    <img src="img/quote/info-1.svg" alt="">
-                                                </button>
-                                                <div class="addons__tooltip addons__tooltip--extreme">
-                                                    <h4>Winter and mountain sports</h4>
-                                                    <ul>
-                                                        <li>Alpine skiing and snowboarding (including freeride and heliskiing);</li>
-                                                        <li>Freestyle (skiing and snowboarding);</li>
-                                                        <li>Bobsleigh and luge;</li>
-                                                        <li>Figure skating;</li>
-                                                        <li>Street sled racing;</li>
-                                                        <li>Mountaineering (mountain hiking, rock climbing, mountain biking, trekking (ascents) in mountains above 3,000 meters);</li>
-                                                        <li>Rock climbing and ice climbing.</li>
-                                                    </ul>
-                                                    <h4>Cycling and wheeled extreme activities</h4>
-                                                    <ul>
-                                                        <li>Cycling (including motocross, road cycling, BMX, track cycling, mountain biking, and trials);</li>
-                                                        <li>Mountainboarding;</li>
-                                                        <li>Rollerblading;</li>
-                                                        <li>Parkour and freerunning;</li>
-                                                        <li>Booking;</li>
-                                                        <li>Zorbing.</li>
-                                                    </ul>
-                                                    <h4>Water sports and underwater activities</h4>
-                                                    <ul>
-                                                        <li>Wakeboarding;</li>
-                                                        <li>Rafting;</li>
-                                                        <li>Flyboarding;</li>
-                                                        <li>Kiting (including kitesurfing and snowkiting);</li>
-                                                        <li>Scuba diving;</li>
-                                                        <li>Snorkeling;</li>
-                                                        <li>Underwater fishing.</li>
-                                                    </ul>
-                                                    <h4>Air sports and aerial high-risk activities</h4>
-                                                    <ul>
-                                                        <li>Paragliding;</li>
-                                                        <li>Hang gliding;</li>
-                                                        <li>Hot air ballooning;</li>
-                                                        <li>Parachuting;</li>
-                                                        <li>Participation in any flights or parachute jumps;</li>
-                                                        <li>Wingsuit flying.</li>
-                                                    </ul>
-                                                    <h4>Jumping and height-related extreme activities</h4>
-                                                    <ul>
-                                                        <li>Bungee jumping, rope jumping, base jumping, and other types of bungee jumping;</li>
-                                                        <li>Cliff jumping;</li>
-                                                        <li>Zip-lining;</li>
-                                                        <li>Trampoline jumping.</li>
-                                                    </ul>
-                                                    <h4>Motor and track-based activities</h4>
-                                                    <ul>
-                                                        <li>Motor sports on special tracks.</li>
-                                                    </ul>
-                                                    <h4>Combat and strength sports</h4>
-                                                    <ul>
-                                                        <li>Martial arts (including all types of boxing and wrestling: boxing, MMA, Muay Thai, kickboxing, and others);</li>
-                                                        <li>Arm wrestling.</li>
-                                                    </ul>
-                                                    <h4>Adventure and exploration activities</h4>
-                                                    <ul>
-                                                        <li>Caving;</li>
-                                                        <li>Hunting using any type of weapon;</li>
-                                                        <li>Rodeo (bull riding).</li>
-                                                    </ul>
-                                                    <h4>Professional sports</h4>
-                                                    <ul>
-                                                        <li>sports competitions</li>
-                                                        <li>training sessions</li>
-                                                    </ul>
-                                                    <p><strong>This also includes all activities listed under the “Active Recreation” section</strong></p>
-                                                </div>
-                                            </div>
-                                            <p class="addons__description">Provides insurance coverage for injuries sustained
-                                                abroad while participating in extreme sports, such as off-piste
-                                                skiing, as well as while participating in professional sports and attending
-                                                training sessions abroad.</p>
-                                            <p class="addons__price">$ 89,00</p>
-                                        </div>
-                                        <button class="addons__button" type="button">
-                                            <span>Add</span>
-                                            <span>+</span>
-                                        </button>
-                                    </li>
-                                </ul>
+            <section class="addons">
+                <div class="container">
+                    <h2 class="title addons__title">Add-ons</h2>
+                    <ul class="addons__list">
+                        <li class="addons__item">
+                            <div class="addons__image">
+                                <span class="addons__badge">We recommend</span>
+                                <img class="addons__icon" src="img/quote/icons/Frame 1618873270.png" alt="">
                             </div>
-                        </section>
-                        <section class="quote-coverage" id="coverage">
-                            <h2 class="title quote-coverage__title">What’s covered</h2>
-                            <table class="quote-coverage__table">
-                                <thead class="quote-coverage__head">
-                                    <tr class="quote-coverage__row">
-                                        <th class="quote-coverage__heading" scope="col">
-                                            <img src="img/table-type.svg" alt="">
-                                            <span>Coverage option</span>
-                                        </th>
-                                        <th class="quote-coverage__heading" scope="col">
-                                            <img src="img/table-basic.svg" alt="">
-                                            <span>Coverage detail</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="quote-coverage__body">
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Medical coverage</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">Schengen medical travel insurance covers emergency medical assistance, treatment due to injury, medication provision, calling a doctor, doctor's consultation (examination), emergency dental care, exacerbation of chronic diseases, acute respiratory and viral infections, outpatient treatment and inpatient treatment.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Medical transport</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">Schengen insurance includes medical transportation services, emergency ambulance call, independent taxi call to the hospital in the event of an insured event, as well as medical air transportation.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Outpatient treatment</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">Coverage of expenses directly related to the diagnosis and treatment of a specific patient's illness during outpatient treatment.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Inpatient treatment</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">Coverage of expenses directly related to the diagnosis and treatment of a specific patient's illness during inpatient treatment.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Viral and infections</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">Schengen insurance coverage of costs for the treatment of COVID-19 and other viral and (or) infectious diseases includes outpatient treatment, inpatient treatment, medical care, and mandatory observation for up to 15 days.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Pregnancy</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">Schengen insurance for pregnant women includes obstetric care up to the 27th week of pregnancy.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Repatriation</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">Expenses are paid for repatriation of the body to the country of birth and (or) burial in place.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Accidents</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">Schengen insurance provides compensation in case of accidental injury. The payment depends on the insured sum selected in the policy.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Liability</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">Schengen insurance for students includes financial compensation for liability to third parties resulting from harm to life, health, or emotional distress, as well as damage to the property of third parties.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Loss of baggage</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">If your luggage is lost and you are denied compensation from the air carrier, insurance compensation is up to 1,000 EUR. Compensation can be issued only to PIR confirmed.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Flight delay</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">If the flight is delayed more than 4 hours, the insurance company pays for the following hours of waiting in the business lounge.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Loss of documents</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">Compensation of expenses to receive new documents to return to the home country in case original documents were lost during the trip.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Legal assistance</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">Payment for lawyer services abroad during an insured event.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Translation assistance</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">Payment for interpreter services abroad during an insured event.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Deductible</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">Schengen medical insurance has a deductible of 0 EUR.</td>
-                                    </tr>
-                                    <tr class="quote-coverage__row">
-                                        <td class="quote-coverage__cell quote-coverage__cell--name">
-                                            <span class="quote-coverage__name">Activation</span>
-                                        </td>
-                                        <td class="quote-coverage__cell">Schengen insurance becomes effective (activated) after crossing the border or 48 hours from the moment of purchase.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </section>
-                    </div>
-                    <aside class="addons__summary order-summary">
+                            <div class="addons__details">
+                                <div class="addons__heading">
+                                    <h3 class="addons__name">Visa Cancellation</h3>
+                                    <button class="addons__info" type="button">
+                                        <img class="addons__info-icon" src="img/quote/info-1.svg" alt="">
+                                    </button>
+                                    <div class="addons__tooltip addons__tooltip--visa">Refund of the
+                                        official fee
+                                        you paid to the embassy for visa processing, provided you have
+                                        official
+                                        confirmation from the
+                                        embassy that the visa has been canceled.</div>
+                                </div>
+                                <p class="addons__description">
+                                    Refund of consular service fees in the event of a visa denial.
+                                </p>
+                                <p class="addons__price">$ 50,00</p>
+                            </div>
+                            <button class="addons__button" type="button" data-price="50">
+                                <span class="addons__button-text">Add</span>
+                                <span class="addons__button-icon">+</span>
+                            </button>
+                        </li>
+                        <li class="addons__item">
+                            <div class="addons__image">
+                                <img class="addons__icon" src="img/quote/icons/Frame 1618873270-1.png" alt="">
+                            </div>
+                            <div class="addons__details">
+                                <div class="addons__heading">
+                                    <h3 class="addons__name">Trip Cancellation</h3>
+                                    <button class="addons__info" type="button">
+                                        <img class="addons__info-icon" src="img/quote/info-1.svg" alt="">
+                                    </button>
+                                    <div class="addons__tooltip addons__tooltip--trip">A serious injury or
+                                        sudden
+                                        illness that renders you unable to travel (as certified by a
+                                        licensed
+                                        physician). Death (of
+                                        yourself or a travel companion) or the death of a family member who
+                                        is not
+                                        traveling with you. Strikes or adverse
+                                        weather conditions that make it impossible to provide travel
+                                        services.
+                                        Sudden natural disasters in your home country or
+                                        in your destination country that render these locations
+                                        uninhabitable. Legal
+                                        obligations (such as being summoned to
+                                        serve on a jury or receiving a court order or subpoena)</div>
+                                </div>
+                                <p class="addons__description">We’ll cover your expenses in the event of
+                                    illness
+                                    (excluding pre-existing conditions), injury, weather conditions that
+                                    make travel impossible, natural disasters in your destination country,
+                                    and legal
+                                    obligations that prevent you from
+                                    traveling.</p>
+                                <p class="addons__price">$ 50,00</p>
+                            </div>
+                            <button class="addons__button" type="button" data-price="50">
+                                <span class="addons__button-text">Add</span>
+                                <span class="addons__button-icon">+</span>
+                            </button>
+                        </li>
+                        <li class="addons__item">
+                            <div class="addons__image">
+                                <img class="addons__icon" src="img/quote/icons/Frame 1618873270-2.png" alt="">
+                            </div>
+                            <div class="addons__details">
+                                <div class="addons__heading">
+                                    <h3 class="addons__name">Alcohol Intoxication</h3>
+                                    <button class="addons__info" type="button">
+                                        <img class="addons__info-icon" src="img/quote/info-1.svg" alt="">
+                                    </button>
+                                    <div class="addons__tooltip addons__tooltip--alcohol">Waiver of payment
+                                        restrictions if the insured person was intoxicated.</div>
+                                </div>
+                                <p class="addons__description">Reimbursement of medical expenses if the
+                                    injury was
+                                    sustained while under the influence of alcohol.</p>
+                                <p class="addons__price">$ 5,00</p>
+                            </div>
+                            <button class="addons__button" type="button" data-price="5">
+                                <span class="addons__button-text">Add</span>
+                                <span class="addons__button-icon">+</span>
+                            </button>
+                        </li>
+                        <li class="addons__item">
+                            <div class="addons__image">
+                                <img class="addons__icon" src="img/quote/icons/Frame 1618873270-3.png" alt="">
+                            </div>
+                            <div class="addons__details">
+                                <div class="addons__heading">
+                                    <h3 class="addons__name">Lost Luggage – Premium Plan</h3>
+                                    <button class="addons__info" type="button">
+                                        <img class="addons__info-icon" src="img/quote/info-1.svg" alt="">
+                                    </button>
+                                    <div class="addons__tooltip addons__tooltip--luggage">A payment of
+                                        $1,000 within
+                                        48 hours in the event of lost or delayed luggage.</div>
+                                </div>
+                                <p class="addons__description">A payment of $1,000</p>
+                                <p class="addons__price">$ 25,00</p>
+                            </div>
+                            <button class="addons__button" type="button" data-price="25">
+                                <span class="addons__button-text">Add</span>
+                                <span class="addons__button-icon">+</span>
+                            </button>
+                        </li>
+                        <li class="addons__item">
+                            <div class="addons__image">
+                                <img class="addons__icon" src="img/quote/icons/Frame 1618873270-4.png" alt="">
+                            </div>
+                            <div class="addons__details">
+                                <div class="addons__heading">
+                                    <h3 class="addons__name">Property Protection</h3>
+                                    <button class="addons__info" type="button">
+                                        <img class="addons__info-icon" src="img/quote/info-1.svg" alt="">
+                                    </button>
+                                    <div class="addons__tooltip addons__tooltip--property">Compensation for
+                                        financial losses in the event of a fire, flood, or natural disaster
+                                        affecting your property while you
+                                        are abroad.</div>
+                                </div>
+                                <p class="addons__description">Insurance coverage of up to $500,000 in case
+                                    something happens to your apartment or house while you are abroad.</p>
+                                <p class="addons__price">$ 30,00</p>
+                            </div>
+                            <button class="addons__button" type="button" data-price="30">
+                                <span class="addons__button-text">Add</span>
+                                <span class="addons__button-icon">+</span>
+                            </button>
+                        </li>
+                        <li class="addons__item" hidden>
+                            <div class="addons__image">
+                                <img class="addons__icon" src="img/quote/icons/Frame 1618873270-5.png" alt="">
+                            </div>
+                            <div class="addons__details">
+                                <div class="addons__heading">
+                                    <h3 class="addons__name">Active Recreation</h3>
+                                    <button class="addons__info" type="button">
+                                        <img class="addons__info-icon" src="img/quote/info-1.svg" alt="">
+                                    </button>
+                                    <div class="addons__tooltip addons__tooltip--recreation">
+                                        <h4 class="addons__tooltip-title">General fitness and low-impact activities</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Running and walking;</li>
+                                            <li class="addons__tooltip-item">Fitness, yoga and pilates;</li>
+                                            <li class="addons__tooltip-item">Aerobics and aqua aerobic;</li>
+                                            <li class="addons__tooltip-item">Weightlifting and bodybuilding;</li>
+                                            <li class="addons__tooltip-item">Sports and ballroom dancing;</li>
+                                            <li class="addons__tooltip-item">Frisbee;</li>
+                                            <li class="addons__tooltip-item">Croquet;</li>
+                                            <li class="addons__tooltip-item">Darts;</li>
+                                            <li class="addons__tooltip-item">Billiards and bowling.</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Team and ball sports</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Ball games (basketball, football, American
+                                                football,
+                                                volleyball, rugby and others);</li>
+                                            <li class="addons__tooltip-item">Tennis (any);</li>
+                                            <li class="addons__tooltip-item">Golf.</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Cycling, skating, and wheeled activities</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Cycling (except cycling motocross, road
+                                                cycling, cycling
+                                                track, mountain biking cycling triathlon);</li>
+                                            <li class="addons__tooltip-item">Roller skating (except rollerblading),
+                                                scooters, segways
+                                                (and other self-balancing personal transporter devices);
+                                            </li>
+                                            <li class="addons__tooltip-item">Ice skating (except figure skating),
+                                                sledding
+                                                (except
+                                                tobogganing, bobsledding, and skeleton), tubing, snow
+                                                skates;</li>
+                                            <li class="addons__tooltip-item">Karting.</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Water and beach activities</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Swimming (except diving);</li>
+                                            <li class="addons__tooltip-item">Snorkeling;</li>
+                                            <li class="addons__tooltip-item">Water skiing, water motorcycles (aquabike),
+                                                water tourism
+                                                including yachting and participation in regattas;</li>
+                                            <li class="addons__tooltip-item">Water activities (except for those
+                                                specifically
+                                                listed under
+                                                the higher-risk options), including the use of water
+                                                bicycles (except aquabikes and jet skis), towed inflatables
+                                                and parachutes (parasailing), boats and watercraft;</li>
+                                            <li class="addons__tooltip-item">Surfing (including wakesurfing,
+                                                windsurfing,
+                                                except
+                                                skysurfing);</li>
+                                            <li class="addons__tooltip-item">Sailing;</li>
+                                            <li class="addons__tooltip-item">Fishing (except underwater fishing).</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Winter sports</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Skiing and snowboarding on specially
+                                                equipped
+                                                or marked
+                                                tracks (except freestyle);</li>
+                                            <li class="addons__tooltip-item">Curling.</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Outdoor and adventure activities</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Trekking (hiking without mountaineering
+                                                equipment) up to
+                                                3000 meters;</li>
+                                            <li class="addons__tooltip-item">Descent into the cave with an excursion;
+                                            </li>
+                                            <li class="addons__tooltip-item">Jeep safari;</li>
+                                            <li class="addons__tooltip-item">Digging;</li>
+                                            <li class="addons__tooltip-item">Paintball;</li>
+                                            <li class="addons__tooltip-item">Recreational organized shooting at
+                                                specially
+                                                equipped sites
+                                                (including archery);</li>
+                                            <li class="addons__tooltip-item">Military and historical reenactments.</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Animal riding activities</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Organized animal riding tours;</li>
+                                            <li class="addons__tooltip-item">Unaccompanied animal riding (including
+                                                horseback riding).
+                                            </li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Transport and motor activities</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Driver or passenger on ATVs, scooters,
+                                                mopeds
+                                                and
+                                                motorcycles, snowmobiles.</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Tourism and leisure attractions</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Visiting water parks, amusement parks,
+                                                jumping
+                                                on a
+                                                trampoline;</li>
+                                            <li class="addons__tooltip-item">Aerotube.</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Other sports</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Rowing (kayaking and canoeing);</li>
+                                            <li class="addons__tooltip-item">Fencing;</li>
+                                            <li class="addons__tooltip-item">Sandboarding;</li>
+                                            <li class="addons__tooltip-item">Triathlon.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="addons__description">Provides coverage for injuries sustained
+                                    abroad
+                                    during recreational activities, such as skiing on groomed trails</p>
+                                <p class="addons__price">$ 90,00</p>
+                            </div>
+                            <button class="addons__button" type="button" data-price="90">
+                                <span class="addons__button-text">Add</span>
+                                <span class="addons__button-icon">+</span>
+                            </button>
+                        </li>
+                        <li class="addons__item" hidden>
+                            <div class="addons__image">
+                                <img class="addons__icon" src="img/quote/icons/Frame 1618873270-6.png" alt="">
+                            </div>
+                            <div class="addons__details">
+                                <div class="addons__heading">
+                                    <h3 class="addons__name">Extreme Adventures & Professional Sports</h3>
+                                    <button class="addons__info" type="button">
+                                        <img class="addons__info-icon" src="img/quote/info-1.svg" alt="">
+                                    </button>
+                                    <div class="addons__tooltip addons__tooltip--extreme">
+                                        <h4 class="addons__tooltip-title">Winter and mountain sports</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Alpine skiing and snowboarding (including
+                                                freeride and
+                                                heliskiing);</li>
+                                            <li class="addons__tooltip-item">Freestyle (skiing and snowboarding);</li>
+                                            <li class="addons__tooltip-item">Bobsleigh and luge;</li>
+                                            <li class="addons__tooltip-item">Figure skating;</li>
+                                            <li class="addons__tooltip-item">Street sled racing;</li>
+                                            <li class="addons__tooltip-item">Mountaineering (mountain hiking, rock
+                                                climbing,
+                                                mountain
+                                                biking, trekking (ascents) in mountains above 3,000 meters);
+                                            </li>
+                                            <li class="addons__tooltip-item">Rock climbing and ice climbing.</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Cycling and wheeled extreme activities</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Cycling (including motocross, road cycling,
+                                                BMX, track
+                                                cycling, mountain biking, and trials);</li>
+                                            <li class="addons__tooltip-item">Mountainboarding;</li>
+                                            <li class="addons__tooltip-item">Rollerblading;</li>
+                                            <li class="addons__tooltip-item">Parkour and freerunning;</li>
+                                            <li class="addons__tooltip-item">Booking;</li>
+                                            <li class="addons__tooltip-item">Zorbing.</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Water sports and underwater activities</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Wakeboarding;</li>
+                                            <li class="addons__tooltip-item">Rafting;</li>
+                                            <li class="addons__tooltip-item">Flyboarding;</li>
+                                            <li class="addons__tooltip-item">Kiting (including kitesurfing and
+                                                snowkiting);
+                                            </li>
+                                            <li class="addons__tooltip-item">Scuba diving;</li>
+                                            <li class="addons__tooltip-item">Snorkeling;</li>
+                                            <li class="addons__tooltip-item">Underwater fishing.</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Air sports and aerial high-risk activities
+                                        </h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Paragliding;</li>
+                                            <li class="addons__tooltip-item">Hang gliding;</li>
+                                            <li class="addons__tooltip-item">Hot air ballooning;</li>
+                                            <li class="addons__tooltip-item">Parachuting;</li>
+                                            <li class="addons__tooltip-item">Participation in any flights or parachute
+                                                jumps;</li>
+                                            <li class="addons__tooltip-item">Wingsuit flying.</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Jumping and height-related extreme activities
+                                        </h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Bungee jumping, rope jumping, base jumping,
+                                                and
+                                                other types
+                                                of bungee jumping;</li>
+                                            <li class="addons__tooltip-item">Cliff jumping;</li>
+                                            <li class="addons__tooltip-item">Zip-lining;</li>
+                                            <li class="addons__tooltip-item">Trampoline jumping.</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Motor and track-based activities</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Motor sports on special tracks.</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Combat and strength sports</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Martial arts (including all types of boxing
+                                                and
+                                                wrestling:
+                                                boxing, MMA, Muay Thai, kickboxing, and others);</li>
+                                            <li class="addons__tooltip-item">Arm wrestling.</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Adventure and exploration activities</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">Caving;</li>
+                                            <li class="addons__tooltip-item">Hunting using any type of weapon;</li>
+                                            <li class="addons__tooltip-item">Rodeo (bull riding).</li>
+                                        </ul>
+                                        <h4 class="addons__tooltip-title">Professional sports</h4>
+                                        <ul class="addons__tooltip-list">
+                                            <li class="addons__tooltip-item">sports competitions</li>
+                                            <li class="addons__tooltip-item">training sessions</li>
+                                        </ul>
+                                        <p class="addons__tooltip-note"><strong class="addons__tooltip-emphasis">This
+                                                also
+                                                includes all activities listed under the
+                                                “Active Recreation” section</strong></p>
+                                    </div>
+                                </div>
+                                <p class="addons__description">Provides insurance coverage for injuries
+                                    sustained
+                                    abroad while participating in extreme sports, such as off-piste
+                                    skiing, as well as while participating in professional sports and
+                                    attending
+                                    training sessions abroad.</p>
+                                <p class="addons__price">$ 90,00</p>
+                            </div>
+                            <button class="addons__button" type="button" data-price="90">
+                                <span class="addons__button-text">Add</span>
+                                <span class="addons__button-icon">+</span>
+                            </button>
+                        </li>
+                    </ul>
+                    <button class="addons__button-full">
+                        <span>
+                            See full Add-ons
+                        </span>
+                        <img src="img/quote/more-arrow.svg" alt="">
+                    </button>
+                </div>
+            </section>
+            <section class="quote-coverage" id="coverage">
+                <div class="container">
+                    <h2 class="title quote-coverage__title">What’s covered</h2>
+                    <table class="quote-coverage__table">
+                        <thead class="quote-coverage__head">
+                            <tr class="quote-coverage__row">
+                                <th class="quote-coverage__heading" scope="col">
+                                    <img class="quote-coverage__heading-icon" src="img/table-type.svg" alt="">
+                                    Coverage option
+                                </th>
+                                <th class="quote-coverage__heading" scope="col">
+                                    <img class="quote-coverage__heading-icon" src="img/table-basic.svg" alt="">
+                                    Coverage detail
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="quote-coverage__body">
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Medical coverage
+                                </td>
+                                <td class="quote-coverage__cell">Schengen medical travel insurance covers
+                                    emergency medical assistance, treatment due to injury, medication provision,
+                                    calling a doctor, doctor's consultation (examination), emergency dental
+                                    care, exacerbation of chronic diseases, acute respiratory and viral
+                                    infections, outpatient treatment and inpatient treatment.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Medical transport
+                                </td>
+                                <td class="quote-coverage__cell">Schengen insurance includes medical
+                                    transportation services, emergency ambulance call, independent taxi call to
+                                    the hospital in the event of an insured event, as well as medical air
+                                    transportation.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Outpatient treatment
+                                </td>
+                                <td class="quote-coverage__cell">Coverage of expenses directly related to the
+                                    diagnosis and treatment of a specific patient's illness during outpatient
+                                    treatment.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Inpatient treatment
+                                </td>
+                                <td class="quote-coverage__cell">Coverage of expenses directly related to the
+                                    diagnosis and treatment of a specific patient's illness during inpatient
+                                    treatment.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Viral and infections
+                                </td>
+                                <td class="quote-coverage__cell">Schengen insurance coverage of costs for the
+                                    treatment of COVID-19 and other viral and (or) infectious diseases includes
+                                    outpatient treatment, inpatient treatment, medical care, and mandatory
+                                    observation for up to 15 days.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Pregnancy
+                                </td>
+                                <td class="quote-coverage__cell">Schengen insurance for pregnant women includes
+                                    obstetric care up to the 27th week of pregnancy.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Repatriation
+                                </td>
+                                <td class="quote-coverage__cell">Expenses are paid for repatriation of the body
+                                    to the country of birth and (or) burial in place.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Accidents
+                                </td>
+                                <td class="quote-coverage__cell">Schengen insurance provides compensation in
+                                    case of accidental injury. The payment depends on the insured sum selected
+                                    in the policy.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Liability
+                                </td>
+                                <td class="quote-coverage__cell">Schengen insurance for students includes
+                                    financial compensation for liability to third parties resulting from harm to
+                                    life, health, or emotional distress, as well as damage to the property of
+                                    third parties.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Loss of baggage
+                                </td>
+                                <td class="quote-coverage__cell">If your luggage is lost and you are denied
+                                    compensation from the air carrier, insurance compensation is up to 1,000
+                                    EUR. Compensation can be issued only to PIR confirmed.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Flight delay
+                                </td>
+                                <td class="quote-coverage__cell">If the flight is delayed more than 4 hours, the
+                                    insurance company pays for the following hours of waiting in the business
+                                    lounge.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Loss of documents
+                                </td>
+                                <td class="quote-coverage__cell">Compensation of expenses to receive new
+                                    documents to return to the home country in case original documents were lost
+                                    during the trip.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Legal assistance
+                                </td>
+                                <td class="quote-coverage__cell">Payment for lawyer services abroad during an
+                                    insured event.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Translation assistance
+                                </td>
+                                <td class="quote-coverage__cell">Payment for interpreter services abroad during
+                                    an insured event.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Deductible
+                                </td>
+                                <td class="quote-coverage__cell">Schengen medical insurance has a deductible of
+                                    0 EUR.</td>
+                            </tr>
+                            <tr class="quote-coverage__row">
+                                <td class="quote-coverage__cell quote-coverage__cell--name">
+                                    Activation
+                                </td>
+                                <td class="quote-coverage__cell">Schengen insurance becomes effective
+                                    (activated) after crossing the border or 48 hours from the moment of
+                                    purchase.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <div class="order-summary-slot order-summary-slot--addons">
+                <aside class="addons__summary order-summary">
+                    <div class="container">
                         <div class="addons__trip">
-                            <div class="addons__trip-item">
-                                <img src="img/quote/map.svg" alt="">
+                            <div class="addons__trip-item addons__trip-item--country">
+                                <img class="addons__trip-icon" src="img/quote/map.svg" alt="">
                                 <span class="addons__country">Germany</span>
+                                <span class="addons__country-tooltip" hidden></span>
                             </div>
+                            <div class="addons__trip-item addons__trip-item--dot"></div>
                             <div class="addons__trip-item">
-                                <img src="img/quote/time.svg" alt="">
+                                <img class="addons__trip-icon" src="img/quote/time.svg" alt="">
                                 <span class="addons__days">4 days</span>
                             </div>
-                            <div class="addons__trip-item">
-                                <img src="img/quote/people.svg" alt="">
+                            <div class="addons__trip-item addons__trip-item--dot"></div>
+                            <div class="addons__trip-item addons__trip-item--travelers">
+                                <img class="addons__trip-icon" src="img/quote/people.svg" alt="">
                                 <span class="addons__travelers">1 traveler</span>
+                                <div class="addons__travelers-tooltip" hidden></div>
                             </div>
                         </div>
                         <ul class="addons__benefits">
-                            <li class="addons__benefit">Medical Expenses <span class="addons__medical">35,000 EUR</span></li>
+                            <li class="addons__benefit">Medical Expenses <span class="addons__medical">35,000 EUR</span>
+                            </li>
                             <li class="addons__benefit">Ambulance <span class="addons__ambulance">100,00 EUR</span></li>
                             <li class="addons__benefit">Accident <span class="addons__accident">2,500 EUR</span></li>
                         </ul>
                         <ul class="addons__benefits">
-                            <li class="addons__benefit">Medical return to country of residence <span class="addons__medical-return">500,00 EUR</span></li>
-                            <li class="addons__benefit">Return ticket <span class="addons__return-ticket">50,00 EUR</span></li>
+                            <li class="addons__benefit">Medical return to country of residence <span
+                                    class="addons__medical-return">500,00 EUR</span></li>
+                            <li class="addons__benefit">Return ticket <span class="addons__return-ticket">50,00
+                                    EUR</span></li>
                         </ul>
                         <ul class="addons__benefits">
-                            <li class="addons__benefit">Repatriation of the deceased <span class="addons__repatriation">3,000 EUR</span></li>
-                            <li class="addons__benefit">Personal liability <span class="addons__liability">500,00 EUR</span></li>
+                            <li class="addons__benefit">Repatriation of the deceased <span
+                                    class="addons__repatriation">3,000
+                                    EUR</span></li>
+                            <li class="addons__benefit">Personal liability <span class="addons__liability">500,00
+                                    EUR</span></li>
                         </ul>
                         <div class="addons__footer">
                             <div class="addons__total">
-                                <p class="addons__total-price">$21<span>,75</span></p>
-                                <p class="addons__price-text"><span>Total price</span> for your trip</p>
+                                <p class="addons__total-price">$21<span class="addons__price-fraction">,75</span></p>
+                                <p class="addons__price-text"><span class="addons__price-emphasis">Total price</span> for
+                                    your
+                                    trip</p>
                             </div>
                             <button class="addons__submit" type="button">
-                                <span>Get Covered</span>
-                                <img src="img/form-btn-arrow.svg" alt="">
+                                Get Covered
+                                <img class="addons__submit-icon" src="img/form-btn-arrow.svg" alt="">
                             </button>
                         </div>
-                    </aside>
-                </div>
+                        <ul class="addons__selected"></ul>
+                    </div>
+                </aside>
             </div>
-            <div class="quote-coverage__bar">
-                <div class="container">
-                    <div class="quote-coverage__bar-inner">
-                        <div class="quote-coverage__trip">
-                            <div class="quote-coverage__summary">
-                                <div class="quote-coverage__summary-item">
-                                    <img src="img/quote/map.svg" alt="">
-                                    <span>Germany</span>
-                                </div>
-                                <div class="quote-coverage__summary-item">
-                                    <img src="img/quote/calendar.svg" alt="">
-                                    <span>Mar 26 - Mar 31, 2026</span>
-                                </div>
-                                <div class="quote-coverage__summary-item">
-                                    <img src="img/quote/time.svg" alt="">
-                                    <span>4 days</span>
-                                </div>
-                                <div class="quote-coverage__summary-item">
-                                    <img src="img/quote/people.svg" alt="">
-                                    <span>1 traveler</span>
-                                </div>
+            <div class="order-summary-slot order-summary-slot--coverage"></div>
+        </div>
+        <div class="quote-coverage__bar">
+            <div class="container">
+                <div class="quote-coverage__bar-inner">
+                    <div class="quote-coverage__trip">
+                        <div class="quote-coverage__summary">
+                            <div class="quote-coverage__summary-item">
+                                <img class="quote-coverage__summary-icon" src="img/quote/map.svg" alt="">
+                                <span class="quote-coverage__country">Germany</span>
                             </div>
-                            <div class="quote-coverage__cost">
-                                <p class="quote-coverage__cost-label">
-                                    <img src="img/quote/info-1.svg" alt="">
-                                    <span>Set trip cost</span>
-                                </p>
-                                <div class="quote-coverage__cost-controls">
-                                    <button class="quote-coverage__cost-button quote-coverage__cost-button--minus" type="button">−</button>
-                                    <span class="quote-coverage__cost-value">$ 35,000</span>
-                                    <button class="quote-coverage__cost-button quote-coverage__cost-button--plus" type="button">+</button>
-                                </div>
+                            <div class="quote-coverage__summary-item">
+                                <img class="quote-coverage__summary-icon" src="img/quote/calendar.svg" alt="">
+                                <span class="quote-coverage__date">Mar 26 - Mar 31, 2026</span>
+                            </div>
+                            <div class="quote-coverage__summary-item">
+                                <img class="quote-coverage__summary-icon" src="img/quote/time.svg" alt="">
+                                <span class="quote-coverage__days">4 days</span>
+                            </div>
+                            <div class="quote-coverage__summary-item">
+                                <img class="quote-coverage__summary-icon" src="img/quote/people.svg" alt="">
+                                <span class="quote-coverage__travelers">1 traveler</span>
                             </div>
                         </div>
-                        <div class="quote-coverage__checkout">
-                            <div class="quote-coverage__total">
-                                <p class="quote-coverage__price">$21<span>,75</span></p>
-                                <p class="quote-coverage__price-text"><span>Total price</span> for your trip</p>
-                            </div>
-                            <button class="quote-coverage__submit" type="button">
-                                <span>Get Covered</span>
-                                <img src="img/form-btn-arrow.svg" alt="">
-                            </button>
+                        <div class="quote-coverage__cost">
+                            <p class="quote-coverage__cost-label">
+                                <img class="quote-coverage__cost-icon" src="img/quote/info-1.svg" alt="">
+                                Set trip cost
+                            </p>
+                            <button class="quote-coverage__cost-button quote-coverage__cost-button--minus"
+                                type="button">−</button>
+                            <span class="quote-coverage__cost-value">$ 35,000</span>
+                            <button class="quote-coverage__cost-button quote-coverage__cost-button--plus"
+                                type="button">+</button>
                         </div>
                     </div>
+                    <div class="quote-coverage__total">
+                        <p class="quote-coverage__price">$21<span class="quote-coverage__price-fraction">,75</span></p>
+                        <p class="quote-coverage__price-text"><span class="quote-coverage__price-emphasis">Total
+                                price</span> for your trip</p>
+                    </div>
+                    <button class="quote-coverage__submit" type="button">
+                        Get Covered
+                        <img class="quote-coverage__submit-icon" src="img/form-btn-arrow.svg" alt="">
+                    </button>
                 </div>
             </div>
         </div>
+
     </main>
+
+    <script src="js/main.js"></script>
 </body>
 
 </html>
