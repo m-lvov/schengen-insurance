@@ -1635,6 +1635,21 @@ if (document.querySelector('.hero__form')) {
 
 
 
+    function openQuote(ages) {
+        let tripData = {
+            countries: [...selectedCountries],
+            startDate: startDate.getTime(),
+            endDate: endDate === null ? null : endDate.getTime(),
+            annual: annualCheckbox.checked,
+            travelers: travelersNumber
+        };
+        if (ages) tripData.ages = ages;
+
+        sessionStorage.removeItem('insuranceQuote');
+        sessionStorage.setItem('insuranceTrip', JSON.stringify(tripData));
+        window.location.href = 'quote.html';
+    }
+
     quoteButton.addEventListener('click', (event) => {
         event.stopPropagation()
         if (selectedCountries.length === 0) {
@@ -1657,17 +1672,7 @@ if (document.querySelector('.hero__form')) {
         if (!quoteConsent.reportValidity()) {
             return;
         }
-        let tripData = {
-            countries: [...selectedCountries],
-            startDate: startDate.getTime(),
-            endDate: endDate === null ? null : endDate.getTime(),
-            annual: annualCheckbox.checked,
-            travelers: travelersNumber
-        };
-        sessionStorage.removeItem('insuranceQuote');
-        sessionStorage.setItem('insuranceTrip', JSON.stringify(tripData));
-
-        window.location.href = 'quote.html';
+        openQuote();
     });
 
     let travelers = document.querySelector('.form-travelers');
@@ -2009,17 +2014,7 @@ if (document.querySelector('.hero__form')) {
             closeMobileCalendar();
 
 
-            let continuation = new CustomEvent('insurance:continue', {
-                bubbles: true, cancelable: true, detail: {
-                    countries: [...selectedCountries], startDate: formatDate(startDate),
-                    endDate: endDate === null ? null : formatDate(endDate), annual: annualCheckbox.checked,
-                    travelers: travelersNumber, ages: mobileAge.value.split(',').map(Number)
-                }
-            });
-            if (mobileForm.dispatchEvent(continuation)) {
-                mobileStatus.textContent = 'Trip details are ready.';
-                mobileStatus.hidden = false;
-            }
+            openQuote(mobileAge.value.split(',').map(Number));
         });
         document.addEventListener('click', (event) => {
             let path = event.composedPath();
@@ -2711,67 +2706,191 @@ if (quotePage) {
     });
 
     fullCoverageButton.addEventListener('click', () => {
-        coverageSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
+        showQuoteScreen(2);
     });
 
-
+    let quoteMain = document.querySelector('.quote-main');
+    let quoteDetails = document.querySelector('.quote-details');
+    let addonsSection = document.querySelector('.addons');
+    let priceBar = document.querySelector('.quote-coverage__bar');
+    let priceBarSlot = document.querySelector('.quote-coverage__bar-slot');
+    let quoteHeader = document.querySelector('.header');
     let orderSummary = document.querySelector('.order-summary');
     let addonsSummarySlot = document.querySelector('.order-summary-slot--addons');
     let coverageSummarySlot = document.querySelector('.order-summary-slot--coverage');
-    let summaryMoving = false;
-    let nextSummarySlot;
+    let quoteScreens = [quotePage, addonsSection, coverageSection];
+    let screenNames = ['quote', 'addons', 'coverage'];
+    let currentScreen = 0;
+    let screenChanging = false;
+    let lastWheelTime = -Infinity;
+    history.scrollRestoration = 'manual';
 
-    function updateSummaryHeight() {
-        let height = `${orderSummary.offsetHeight}px`;
-        addonsSummarySlot.style.minHeight = height;
-        coverageSummarySlot.style.minHeight = height;
+    function updateQuoteSizes() {
+        quoteMain.style.setProperty('--quote-header-height', `${quoteHeader.offsetHeight}px`);
+
+        let title = quoteScreens[currentScreen].querySelector('.title');
+
+        if (title && title.offsetHeight) {
+            let offset = title.offsetHeight + parseFloat(getComputedStyle(title).marginBottom);
+            quoteMain.style.setProperty('--quote-title-offset', `${offset}px`);
+        }
     }
 
-    let summaryObserver = new ResizeObserver(updateSummaryHeight);
+    function revealPriceBar() {
+        if (currentScreen !== 2 || quoteMain.classList.contains('quote-main--switching')) return;
 
-    summaryObserver.observe(orderSummary);
-    updateSummaryHeight()
+        let position = priceBarSlot.getBoundingClientRect();
 
-    function updateSummaryLocation(animate = true) {
-        let coverageTop = coverageSection.getBoundingClientRect().top;
+        if (position.top < window.innerHeight - 24 && position.bottom > 0) {
+            priceBar.classList.add('quote-coverage__bar--visible');
+            priceBar.inert = false;
+        }
+    }
 
-        nextSummarySlot = coverageTop <= window.innerHeight / 2
-            ? coverageSummarySlot
-            : addonsSummarySlot;
+    function showQuoteScreen(index, direction = 1, animate = true) {
+        if (screenChanging || index < 0 || index >= quoteScreens.length) return;
+        if (animate && index === currentScreen) return;
 
-        if (summaryMoving || orderSummary.parentElement === nextSummarySlot) return;
+        let reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let moveFocus = quoteScreens[currentScreen].contains(document.activeElement);
+        screenChanging = true;
+        quoteMain.inert = true;
+        quoteMain.style.setProperty('--quote-transition-offset', `${-direction * 12}px`);
+        quoteMain.classList.add('quote-main--switching');
 
-        if (!animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            nextSummarySlot.append(orderSummary);
+        function applyScreen() {
+            currentScreen = index;
+            quoteMain.dataset.screen = screenNames[index];
+            quotePage.hidden = index !== 0;
+            quoteDetails.hidden = index === 0;
+            addonsSection.hidden = index !== 1;
+            coverageSection.hidden = index !== 2;
+            addonsSummarySlot.hidden = index !== 1;
+            coverageSummarySlot.hidden = index !== 2;
+            priceBarSlot.hidden = index !== 2;
+            priceBar.classList.remove('quote-coverage__bar--visible');
+            priceBar.inert = true;
+
+            if (index > 0) {
+                let slot = index === 1 ? addonsSummarySlot : coverageSummarySlot;
+                slot.append(orderSummary);
+            }
+
+            closeTripMenu();
+            updateQuoteSizes();
+            window.scrollTo({
+                top: direction < 0 ? document.documentElement.scrollHeight : 0,
+                behavior: 'instant'
+            });
+            quoteMain.style.setProperty('--quote-transition-offset', `${direction * 12}px`);
+
+            function finishScreen() {
+                quoteMain.inert = false;
+                quoteMain.classList.remove('quote-main--switching');
+                revealPriceBar();
+
+                if (moveFocus) quoteScreens[index].focus({ preventScroll: true });
+
+                if (animate && !reducedMotion) {
+                    setTimeout(() => { screenChanging = false; }, 200);
+                } else {
+                    screenChanging = false;
+                }
+            }
+
+            if (animate && !reducedMotion) {
+                requestAnimationFrame(() => requestAnimationFrame(finishScreen));
+            } else {
+                finishScreen();
+            }
+        }
+
+        if (animate && !reducedMotion) {
+            setTimeout(applyScreen, 180);
+        } else {
+            applyScreen();
+        }
+    }
+
+    function quoteScrollBoundary(direction) {
+        if (direction < 0) return window.scrollY <= 2;
+
+        return window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+    }
+
+    function quoteHasLocalScroll(target, direction) {
+        for (let element = target; element && element !== document.body; element = element.parentElement) {
+            let overflow = getComputedStyle(element).overflowY;
+
+            if (!['auto', 'scroll'].includes(overflow)) continue;
+            if (direction < 0 && element.scrollTop > 0) return true;
+            if (direction > 0 && element.scrollTop + element.clientHeight < element.scrollHeight - 1) return true;
+        }
+
+        return false;
+    }
+
+    function quoteMenuOpen() {
+        return document.querySelector('.burger-menu:not([hidden]), .route-menu:not([hidden])') !== null;
+    }
+
+    window.addEventListener('wheel', (event) => {
+        if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY) || !event.deltaY) return;
+
+        let direction = Math.sign(event.deltaY);
+        let now = performance.now();
+        let newGesture = now - lastWheelTime > 240;
+        lastWheelTime = now;
+
+        if (quoteMenuOpen() || quoteHasLocalScroll(event.target, direction)) return;
+
+        if (screenChanging) {
+            event.preventDefault();
             return;
         }
 
-        summaryMoving = true;
-        orderSummary.classList.add('order-summary--switching');
+        let next = currentScreen + direction;
 
-        setTimeout(() => {
-            nextSummarySlot.append(orderSummary);
+        if (next < 0 || next >= quoteScreens.length || !quoteScrollBoundary(direction)) return;
 
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    orderSummary.classList.remove('order-summary--switching')
+        event.preventDefault();
 
-                    setTimeout(() => {
-                        summaryMoving = false;
-                        updateSummaryLocation();
-                    }, 200)
-                });
-            });
-        }, 150);
-    }
+        if (newGesture) showQuoteScreen(next, direction);
+    }, { passive: false });
 
-    window.addEventListener('scroll', () => updateSummaryLocation(), { passive: true });
-    window.addEventListener('resize', () => updateSummaryLocation());
+    document.addEventListener('keydown', (event) => {
+        if (event.defaultPrevented || event.ctrlKey || event.altKey || event.metaKey || quoteMenuOpen()) return;
+        if (event.target.closest('input, textarea, select, button, a, [contenteditable="true"]')) return;
 
+        let direction;
 
-    updateSummaryLocation(false);
+        if (event.key === 'ArrowDown' || event.key === 'PageDown' || (event.key === ' ' && !event.shiftKey)) direction = 1;
+        if (event.key === 'ArrowUp' || event.key === 'PageUp' || (event.key === ' ' && event.shiftKey)) direction = -1;
+        if (!direction) return;
+
+        if (screenChanging) {
+            event.preventDefault();
+            return;
+        }
+
+        let next = currentScreen + direction;
+
+        if (next < 0 || next >= quoteScreens.length || !quoteScrollBoundary(direction)) return;
+
+        event.preventDefault();
+
+        if (!event.repeat) showQuoteScreen(next, direction);
+    });
+
+    let quoteSizeObserver = new ResizeObserver(updateQuoteSizes);
+    quoteSizeObserver.observe(quoteHeader);
+    let priceBarObserver = new IntersectionObserver(revealPriceBar, {
+        rootMargin: '0px 0px -24px 0px'
+    });
+    priceBarObserver.observe(priceBarSlot);
+    window.addEventListener('resize', updateQuoteSizes);
+    document.fonts.ready.then(updateQuoteSizes);
+
+    showQuoteScreen(window.location.hash === '#coverage' ? 2 : 0, 1, false);
 }
 

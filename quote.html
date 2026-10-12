@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="quote-document">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose insurance coverage | Go Schengen</title>
+    <link rel="icon" type="image/svg+xml" sizes="any" href="img/quote/favicon.svg">
     <link rel="stylesheet" href="css/modern-normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -2728,8 +2729,8 @@
             </div>
         </div>
     </header>
-    <main class="quote-main">
-        <section class="quote-page">
+    <main class="quote-main" data-screen="quote">
+        <section class="quote-page" tabindex="-1">
             <div class="container">
                 <button class="quote-page__back" type="button">
                     <img src="img/quote/back-arrow.svg" alt="">
@@ -2740,12 +2741,12 @@
                         <div class="quote-page__steps">
                             <span class="quote-page__step quote-page__step--active"></span>
                             <span class="quote-page__step quote-page__step--active"></span>
-                            <span class="quote-page__step"></span>
-                            <span class="quote-page__step"></span>
+                            <span class="quote-page__step quote-page__step--active"></span>
+                            <span class="quote-page__step quote-page__step--active"></span>
                         </div>
-                        <p class="quote-page__step-text">Step <span class="quote-page__step-text-swap">2</span> of 4</p>
+                        <p class="quote-page__step-text">Step <span class="quote-page__step-text-swap">4</span> of 4</p>
                     </div>
-                    <div class="quote-page__summary">
+                    <div class="quote-page__summary" hidden>
                         <div class="quote-page__summary-item quote-page__summary-item--country">
                             <img src="img/quote/map.svg" alt="">
                             <span class="quote-page__summary-item__country">
@@ -2775,7 +2776,284 @@
 
                         </div>
                     </div>
-                    <div class="quote-page__card">
+                    <form class="tourists-form" hidden>
+                        <h1 class="tourists-form__title">Who's coming?</h1>
+                        <div class="tourists-form__list">
+                            <div class="tourist">
+                                <div class="tourist__fields">
+                                    <label class="tourist__field">
+                                        <span class="tourist__label">First name</span>
+                                        <input class="tourist__input" type="text" name="tourists[0][firstName]"
+                                            placeholder="Anna" autocomplete="given-name" required>
+                                        <span class="tourist__error" hidden>Enter your First name</span>
+                                    </label>
+
+                                    <label class="tourist__field">
+                                        <span class="tourist__label">Last name</span>
+                                        <input class="tourist__input" type="text" name="tourists[0][lastName]"
+                                            placeholder="Karol" autocomplete="family-name" required>
+                                        <span class="tourist__error" hidden>Enter your Last name</span>
+                                    </label>
+
+                                    <label class="tourist__field">
+                                        <span class="tourist__label">Passport Number</span>
+                                        <input class="tourist__input" type="text" name="tourists[0][passport]"
+                                            placeholder="AA5759484" required>
+                                        <span class="tourist__error" hidden>Enter your Passport number</span>
+                                    </label>
+
+                                    <fieldset class="tourist__birth">
+                                        <legend class="tourist__label">Date of birth</legend>
+
+                                        <div class="tourist__birth-inputs">
+                                            <input class="tourist__input" type="text" name="tourists[0][month]"
+                                                placeholder="MM" inputmode="numeric" maxlength="2"
+                                                autocomplete="bday-month" required>
+
+                                            <input class="tourist__input" type="text" name="tourists[0][day]"
+                                                placeholder="DD" inputmode="numeric" maxlength="2"
+                                                autocomplete="bday-day" required>
+
+                                            <input class="tourist__input" type="text" name="tourists[0][year]"
+                                                placeholder="YYYY" inputmode="numeric" maxlength="4"
+                                                autocomplete="bday-year" required>
+                                        </div>
+                                        <p class="tourist__error" hidden>Enter your Date of birth</p>
+                                    </fieldset>
+
+                                    <label class="tourist__field">
+                                        <span class="tourist__label">Your Email</span>
+                                        <input class="tourist__input" type="email" name="email"
+                                            placeholder="example@gmail.com" autocomplete="email" required>
+                                        <span class="tourist__error" hidden>Enter your Email</span>
+                                    </label>
+
+                                    <label class="tourist__field">
+                                        <span class="tourist__label">Your Phone</span>
+                                        <input class="tourist__input" type="tel" name="phone"
+                                            placeholder="+380 99 777 77 77" autocomplete="tel" required>
+                                        <span class="tourist__error" hidden>Enter your Phone</span>
+                                    </label>
+                                </div>
+
+                                <p class="tourists-form__privacy">
+                                    We keep your data confidential
+                                </p>
+                            </div>
+                            <div class="tourist-template">
+                                <div class="tourist">
+                                    <div class="tourist__header">
+                                        <button class="tourist__remove" type="button" title="Remove tourist">
+                                            <img class="tourist__remove-icon" src="img/quote/remove-buttonsvg.svg" alt="">
+                                        </button>
+                                        <h2 class="tourist__title">Tourist <span class="tourist__number">2</span></h2>
+                                    </div>
+
+                                    <div class="tourist__fields">
+                                        <label class="tourist__field">
+                                            <span class="tourist__label">First name</span>
+                                            <input class="tourist__input" type="text" data-field="firstName"
+                                                placeholder="Anna" required>
+                                            <span class="tourist__error" hidden>Enter your First name</span>
+                                        </label>
+
+                                        <label class="tourist__field">
+                                            <span class="tourist__label">Last name</span>
+                                            <input class="tourist__input" type="text" data-field="lastName"
+                                                placeholder="Karol" required>
+                                            <span class="tourist__error" hidden>Enter your Last name</span>
+                                        </label>
+
+                                        <label class="tourist__field">
+                                            <span class="tourist__label">Passport Number</span>
+                                            <input class="tourist__input" type="text" data-field="passport"
+                                                placeholder="AA5759484" required>
+                                            <span class="tourist__error" hidden>Enter your Passport number</span>
+                                        </label>
+
+                                        <fieldset class="tourist__birth">
+                                            <legend class="tourist__label">Date of birth</legend>
+
+                                            <div class="tourist__birth-inputs">
+                                                <input class="tourist__input" type="text" data-field="month"
+                                                    placeholder="MM" inputmode="numeric" maxlength="2" required>
+
+                                                <input class="tourist__input" type="text" data-field="day"
+                                                    placeholder="DD" inputmode="numeric" maxlength="2" required>
+
+                                                <input class="tourist__input" type="text" data-field="year"
+                                                    placeholder="YYYY" inputmode="numeric" maxlength="4" required>
+                                            </div>
+
+                                            <p class="tourist__error" hidden>Enter your Date of birth</p>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="tourists-form__add" type="button">
+                            Add a tourist
+                            <span class="tourists-form__add-inner">
+                                <img class="tourists-form__add-icon" src="img/quote/plus.svg" alt="">
+                            </span>
+                        </button>
+
+                        <div class="tourists-form__footer">
+                            <button class="tourists-form__submit" type="submit">
+                                Get Covered
+                                <img class="tourists-form__submit-icon" src="img/form-btn-arrow.svg" alt="">
+                            </button>
+
+                            <label class="tourists-form__consent">
+                                <input class="tourists-form__checkbox" type="checkbox" name="consent" checked required>
+                                <span class="tourists-form__consent-text">
+                                    By continuing I agree to the <span class="tourists-form__policy">Terms &amp;
+                                        Conditions</span>
+                                    and <span class="tourists-form__policy">Privacy Policy</span>
+                                </span>
+                            </label>
+                        </div>
+                    </form>
+                    <div class="payment">
+                        <h1 class="payment__title">Payment of insurance</h1>
+
+                        <div class="payment__panel">
+                            <!-- Layout preview only. Real card fields will be provided by the payment provider. -->
+                            <form class="payment-form" method="post" autocomplete="off">
+                                <h2 class="payment-form__title">Enter your payment information</h2>
+
+                                <label class="payment-form__field">
+                                    <span class="payment-form__label">Select the payment type</span>
+                                    <span class="payment-form__select-wrap">
+                                        <img class="payment-form__type-icon" src="img/quote/famicons_card.svg" alt="">
+                                        <select class="payment-form__select">
+                                            <option class="payment-form__option" value="card">Card</option>
+                                        </select>
+                                    </span>
+                                </label>
+
+                                <label class="payment-form__field">
+                                    <span class="payment-form__label">Card number</span>
+                                    <span class="payment-form__number-wrap">
+                                        <img class="payment-form__brand" src="img/quote/mastercard.svg" alt="Mastercard">
+                                        <input class="payment-form__input payment-form__input--number" type="text"
+                                            inputmode="numeric" maxlength="23" placeholder="0000 · 0000 · 0000 · 0000"
+                                            required>
+                                        <span class="payment-form__valid" hidden></span>
+                                    </span>
+                                    <span class="payment-form__error" hidden>Please enter a valid card number.</span>
+                                </label>
+
+                                <fieldset class="payment-form__expiry">
+                                    <legend class="payment-form__label">Expiry Date</legend>
+                                    <div class="payment-form__row">
+                                        <span class="payment-form__hint">Enter card expiry</span>
+                                        <div class="payment-form__expiry-inputs">
+                                            <input class="payment-form__input payment-form__input--month" type="text"
+                                                inputmode="numeric" maxlength="2" placeholder="00"
+                                                title="Expiry month" required>
+                                            <span class="payment-form__expiry-divider">/</span>
+                                            <input class="payment-form__input payment-form__input--year" type="text"
+                                                inputmode="numeric" maxlength="2" placeholder="00"
+                                                title="Expiry year" required>
+                                        </div>
+                                    </div>
+                                    <p class="payment-form__error" hidden>Please enter a valid date.</p>
+                                </fieldset>
+
+                                <label class="payment-form__field payment-form__field--cvv">
+                                    <span class="payment-form__label">CVV Number</span>
+                                    <span class="payment-form__row">
+                                        <span class="payment-form__hint">Please enter 3 or 4 digits</span>
+                                        <input class="payment-form__input payment-form__input--cvv" type="text"
+                                            inputmode="numeric" maxlength="4" placeholder="000" required>
+                                    </span>
+                                    <span class="payment-form__error" hidden>Please enter a valid CVV.</span>
+                                </label>
+
+                                <div class="payment-form__footer">
+                                    <p class="payment-form__privacy">
+                                        <img class="payment-form__lock" src="img/quote/lock.svg" alt="">
+                                        We keep your data confidential
+                                    </p>
+                                    <button class="payment-form__submit" type="button">
+                                        Pay Now
+                                        <img class="payment-form__submit-icon" src="img/form-btn-arrow.svg" alt="">
+                                    </button>
+                                </div>
+                            </form>
+
+                            <div class="payment-receipt">
+                                <div class="payment-card payment-card--dark">
+                                    <div class="payment-card__inner">
+                                        <div class="payment-card__front">
+                                            <img class="payment-card__background" src="img/quote/card-first.png" alt="">
+                                            <p class="payment-card__label">Your card</p>
+                                            <img class="payment-card__chip" src="img/quote/chip.svg" alt="">
+                                            <img class="payment-card__contactless" src="img/quote/radio-line-first.svg" alt="">
+                                            <p class="payment-card__number">0000 · 0000 · 0000 · 0000</p>
+                                            <p class="payment-card__expiry">
+                                                Exp. <span class="payment-card__expiry-value">00/00</span>
+                                            </p>
+                                            <img class="payment-card__brand" src="img/quote/mastercard.svg" alt="Mastercard"
+                                                hidden>
+                                        </div>
+
+                                        <div class="payment-card__back">
+                                            <img class="payment-card__background" src="img/quote/card-second.png" alt="">
+                                            <div class="payment-card__stripe">
+                                                <img class="payment-card__chip payment-card__chip--back"
+                                                    src="img/quote/chip.svg" alt="">
+                                            </div>
+                                            <img class="payment-card__contactless payment-card__contactless--back"
+                                                src="img/quote/radio-line.svg" alt="">
+                                            <p class="payment-card__number payment-card__number--back">
+                                                0000 · 0000 · 0000 · 0000
+                                            </p>
+                                            <div class="payment-card__details">
+                                                <div class="payment-card__detail">
+                                                    <p class="payment-card__detail-label">Expiry Date</p>
+                                                    <p class="payment-card__expiry">
+                                                        Exp. <span class="payment-card__expiry-value">00/00</span>
+                                                    </p>
+                                                </div>
+                                                <div class="payment-card__detail">
+                                                    <p class="payment-card__detail-label">CVV</p>
+                                                    <p class="payment-card__cvv">000</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <dl class="payment-receipt__details">
+                                    <div class="payment-receipt__row">
+                                        <dt class="payment-receipt__label">Company</dt>
+                                        <dd class="payment-receipt__value payment-receipt__value--company">-</dd>
+                                    </div>
+                                    <div class="payment-receipt__row">
+                                        <dt class="payment-receipt__label">Order Number</dt>
+                                        <dd class="payment-receipt__value payment-receipt__value--order">-</dd>
+                                    </div>
+                                    <div class="payment-receipt__row">
+                                        <dt class="payment-receipt__label">Insurance policy</dt>
+                                        <dd class="payment-receipt__value payment-receipt__value--policy">-</dd>
+                                    </div>
+                                </dl>
+
+                                <div class="payment-receipt__total">
+                                    <p class="payment-receipt__total-label">You have to Pay:</p>
+                                    <div class="payment-receipt__prices">
+                                        <p class="payment-receipt__price">$21<span class="payment-receipt__fraction">,75</span></p>
+                                        <del class="payment-receipt__old-price" hidden></del>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quote-page__card" hidden>
                         <h1 class="quote-page__title">
                             <img src="img/quote/info-1.svg" alt="">
                             Insurance coverage
@@ -2908,15 +3186,15 @@
                             </button>
                         </div>
                     </div>
-                    <button class="quote-page__full-coverage" type="button">
+                    <button class="quote-page__full-coverage" type="button" hidden>
                         <span>See full coverage</span>
                         <img src="img/quote/more-arrow.svg" alt="">
                     </button>
                 </div>
             </div>
         </section>
-        <div class="quote-details">
-            <section class="addons">
+        <div class="quote-details" hidden>
+            <section class="addons" tabindex="-1">
                 <div class="container">
                     <h2 class="title addons__title">Add-ons</h2>
                     <ul class="addons__list">
@@ -2941,9 +3219,9 @@
                                 <p class="addons__description">
                                     Refund of consular service fees in the event of a visa denial.
                                 </p>
-                                <p class="addons__price">$ 50,00</p>
+                                <p class="addons__price">$ 49,00</p>
                             </div>
-                            <button class="addons__button" type="button" data-price="50">
+                            <button class="addons__button" type="button" data-price="49">
                                 <span class="addons__button-text">Add</span>
                                 <span class="addons__button-icon">+</span>
                             </button>
@@ -2981,9 +3259,9 @@
                                     and legal
                                     obligations that prevent you from
                                     traveling.</p>
-                                <p class="addons__price">$ 50,00</p>
+                                <p class="addons__price">$ 49,00</p>
                             </div>
-                            <button class="addons__button" type="button" data-price="50">
+                            <button class="addons__button" type="button" data-price="49">
                                 <span class="addons__button-text">Add</span>
                                 <span class="addons__button-icon">+</span>
                             </button>
@@ -3050,9 +3328,9 @@
                                 </div>
                                 <p class="addons__description">Insurance coverage of up to $500,000 in case
                                     something happens to your apartment or house while you are abroad.</p>
-                                <p class="addons__price">$ 30,00</p>
+                                <p class="addons__price">$ 32,00</p>
                             </div>
-                            <button class="addons__button" type="button" data-price="30">
+                            <button class="addons__button" type="button" data-price="32">
                                 <span class="addons__button-text">Add</span>
                                 <span class="addons__button-icon">+</span>
                             </button>
@@ -3182,9 +3460,9 @@
                                 <p class="addons__description">Provides coverage for injuries sustained
                                     abroad
                                     during recreational activities, such as skiing on groomed trails</p>
-                                <p class="addons__price">$ 90,00</p>
+                                <p class="addons__price">$ 89,00</p>
                             </div>
-                            <button class="addons__button" type="button" data-price="90">
+                            <button class="addons__button" type="button" data-price="89">
                                 <span class="addons__button-text">Add</span>
                                 <span class="addons__button-icon">+</span>
                             </button>
@@ -3296,9 +3574,9 @@
                                     skiing, as well as while participating in professional sports and
                                     attending
                                     training sessions abroad.</p>
-                                <p class="addons__price">$ 90,00</p>
+                                <p class="addons__price">$ 89,00</p>
                             </div>
-                            <button class="addons__button" type="button" data-price="90">
+                            <button class="addons__button" type="button" data-price="89">
                                 <span class="addons__button-text">Add</span>
                                 <span class="addons__button-icon">+</span>
                             </button>
@@ -3312,7 +3590,7 @@
                     </button>
                 </div>
             </section>
-            <section class="quote-coverage" id="coverage">
+            <section class="quote-coverage" id="coverage" tabindex="-1" hidden>
                 <div class="container">
                     <h2 class="title quote-coverage__title">What’s covered</h2>
                     <table class="quote-coverage__table">
@@ -3504,7 +3782,8 @@
                         <div class="addons__footer">
                             <div class="addons__total">
                                 <p class="addons__total-price">$21<span class="addons__price-fraction">,75</span></p>
-                                <p class="addons__price-text"><span class="addons__price-emphasis">Total price</span> for
+                                <p class="addons__price-text"><span class="addons__price-emphasis">Total price</span>
+                                    for
                                     your
                                     trip</p>
                             </div>
@@ -3517,56 +3796,109 @@
                     </div>
                 </aside>
             </div>
-            <div class="order-summary-slot order-summary-slot--coverage"></div>
+            <div class="order-summary-slot order-summary-slot--coverage" hidden></div>
         </div>
-        <div class="quote-coverage__bar">
-            <div class="container">
-                <div class="quote-coverage__bar-inner">
-                    <div class="quote-coverage__trip">
-                        <div class="quote-coverage__summary">
-                            <div class="quote-coverage__summary-item">
-                                <img class="quote-coverage__summary-icon" src="img/quote/map.svg" alt="">
-                                <span class="quote-coverage__country">Germany</span>
+        <div class="quote-coverage__bar-slot" hidden>
+            <div class="quote-coverage__bar" inert>
+                <div class="container">
+                    <div class="quote-coverage__bar-inner">
+                        <div class="quote-coverage__trip">
+                            <div class="quote-coverage__summary">
+                                <div class="quote-coverage__summary-item">
+                                    <img class="quote-coverage__summary-icon" src="img/quote/map.svg" alt="">
+                                    <span class="quote-coverage__country">Germany</span>
+                                </div>
+                                <div class="quote-coverage__summary-item">
+                                    <img class="quote-coverage__summary-icon" src="img/quote/calendar.svg" alt="">
+                                    <span class="quote-coverage__date">Mar 26 - Mar 31, 2026</span>
+                                </div>
+                                <div class="quote-coverage__summary-item">
+                                    <img class="quote-coverage__summary-icon" src="img/quote/time.svg" alt="">
+                                    <span class="quote-coverage__days">4 days</span>
+                                </div>
+                                <div class="quote-coverage__summary-item">
+                                    <img class="quote-coverage__summary-icon" src="img/quote/people.svg" alt="">
+                                    <span class="quote-coverage__travelers">1 traveler</span>
+                                </div>
                             </div>
-                            <div class="quote-coverage__summary-item">
-                                <img class="quote-coverage__summary-icon" src="img/quote/calendar.svg" alt="">
-                                <span class="quote-coverage__date">Mar 26 - Mar 31, 2026</span>
-                            </div>
-                            <div class="quote-coverage__summary-item">
-                                <img class="quote-coverage__summary-icon" src="img/quote/time.svg" alt="">
-                                <span class="quote-coverage__days">4 days</span>
-                            </div>
-                            <div class="quote-coverage__summary-item">
-                                <img class="quote-coverage__summary-icon" src="img/quote/people.svg" alt="">
-                                <span class="quote-coverage__travelers">1 traveler</span>
+                            <div class="quote-coverage__cost">
+                                <p class="quote-coverage__cost-label">
+                                    <img class="quote-coverage__cost-icon" src="img/quote/info-1.svg" alt="">
+                                    Set trip cost
+                                </p>
+                                <button class="quote-coverage__cost-button quote-coverage__cost-button--minus"
+                                    type="button">−</button>
+                                <span class="quote-coverage__cost-value">$ 35,000</span>
+                                <button class="quote-coverage__cost-button quote-coverage__cost-button--plus"
+                                    type="button">+</button>
                             </div>
                         </div>
-                        <div class="quote-coverage__cost">
-                            <p class="quote-coverage__cost-label">
-                                <img class="quote-coverage__cost-icon" src="img/quote/info-1.svg" alt="">
-                                Set trip cost
+                        <div class="quote-coverage__total">
+                            <p class="quote-coverage__price">$21<span class="quote-coverage__price-fraction">,75</span>
                             </p>
-                            <button class="quote-coverage__cost-button quote-coverage__cost-button--minus"
-                                type="button">−</button>
-                            <span class="quote-coverage__cost-value">$ 35,000</span>
-                            <button class="quote-coverage__cost-button quote-coverage__cost-button--plus"
-                                type="button">+</button>
+                            <p class="quote-coverage__price-text"><span class="quote-coverage__price-emphasis">Total
+                                    price</span> for your trip</p>
                         </div>
+                        <button class="quote-coverage__submit" type="button">
+                            Get Covered
+                            <img class="quote-coverage__submit-icon" src="img/form-btn-arrow.svg" alt="">
+                        </button>
                     </div>
-                    <div class="quote-coverage__total">
-                        <p class="quote-coverage__price">$21<span class="quote-coverage__price-fraction">,75</span></p>
-                        <p class="quote-coverage__price-text"><span class="quote-coverage__price-emphasis">Total
-                                price</span> for your trip</p>
-                    </div>
-                    <button class="quote-coverage__submit" type="button">
-                        Get Covered
-                        <img class="quote-coverage__submit-icon" src="img/form-btn-arrow.svg" alt="">
-                    </button>
                 </div>
             </div>
-        </div>
 
+        </div>
     </main>
+
+    <div class="language-menu" id="language-menu" hidden>
+        <div class="language-menu__panel" role="dialog" aria-modal="true" aria-labelledby="language-menu-title">
+            <div class="language-menu__header">
+                <h2 class="language-menu__title" id="language-menu-title">Select language</h2>
+                <p class="language-menu__description">Nullam aliquet tellus ac dui aliquet gravida.</p>
+            </div>
+
+            <div class="language-menu__body">
+                <div class="language-menu__regions">
+                    <button class="language-menu__region" type="button" data-region="america">America</button>
+                    <button class="language-menu__region" type="button" data-region="europe">Europe</button>
+                    <button class="language-menu__region" type="button" data-region="africa">Africa</button>
+                    <button class="language-menu__region" type="button" data-region="asia">Asia</button>
+                    <button class="language-menu__region" type="button" data-region="oceania">Oceania</button>
+                </div>
+
+                <div class="language-menu__search">
+                    <label class="language-menu__field">
+                        <span class="language-menu__search-icon" aria-hidden="true"></span>
+                        <input class="language-menu__input" type="search" placeholder="Find a language"
+                            aria-label="Find a language" autocomplete="off">
+                    </label>
+                    <ul class="language-menu__list" hidden>
+                        <li class="language-menu__item">
+                            <button class="language-menu__option language-menu__option--selected" type="button"
+                                data-language="en">English</button>
+                        </li>
+                        <li class="language-menu__item">
+                            <button class="language-menu__option" type="button" data-language="de">German</button>
+                        </li>
+                        <li class="language-menu__item">
+                            <button class="language-menu__option" type="button" data-language="fr">French</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="language-menu__footer">
+                <div class="language-menu__logo">
+                    <img class="language-menu__logo-icon" src="img/logo.svg" alt="">
+                    <span class="language-menu__logo-text">Go Schengen</span>
+                </div>
+                <button class="language-menu__submit" type="button">
+                    Choose language
+                    <span class="language-menu__submit-arrow" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script src="js/main.js"></script>
 </body>

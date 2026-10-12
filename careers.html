@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Careers</title>
+    <link rel="icon" type="image/svg+xml" sizes="any" href="img/quote/favicon.svg">
     <link rel="stylesheet" href="css/modern-normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -624,6 +625,56 @@
             </div>
         </div>
     </footer>
+
+    <div class="language-menu" id="language-menu" hidden>
+        <div class="language-menu__panel" role="dialog" aria-modal="true" aria-labelledby="language-menu-title">
+            <div class="language-menu__header">
+                <h2 class="language-menu__title" id="language-menu-title">Select language</h2>
+                <p class="language-menu__description">Nullam aliquet tellus ac dui aliquet gravida.</p>
+            </div>
+
+            <div class="language-menu__body">
+                <div class="language-menu__regions">
+                    <button class="language-menu__region" type="button" data-region="america">America</button>
+                    <button class="language-menu__region" type="button" data-region="europe">Europe</button>
+                    <button class="language-menu__region" type="button" data-region="africa">Africa</button>
+                    <button class="language-menu__region" type="button" data-region="asia">Asia</button>
+                    <button class="language-menu__region" type="button" data-region="oceania">Oceania</button>
+                </div>
+
+                <div class="language-menu__search">
+                    <label class="language-menu__field">
+                        <span class="language-menu__search-icon" aria-hidden="true"></span>
+                        <input class="language-menu__input" type="search" placeholder="Find a language"
+                            aria-label="Find a language" autocomplete="off">
+                    </label>
+                    <ul class="language-menu__list" hidden>
+                        <li class="language-menu__item">
+                            <button class="language-menu__option language-menu__option--selected" type="button"
+                                data-language="en">English</button>
+                        </li>
+                        <li class="language-menu__item">
+                            <button class="language-menu__option" type="button" data-language="de">German</button>
+                        </li>
+                        <li class="language-menu__item">
+                            <button class="language-menu__option" type="button" data-language="fr">French</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="language-menu__footer">
+                <div class="language-menu__logo">
+                    <img class="language-menu__logo-icon" src="img/logo.svg" alt="">
+                    <span class="language-menu__logo-text">Go Schengen</span>
+                </div>
+                <button class="language-menu__submit" type="button">
+                    Choose language
+                    <span class="language-menu__submit-arrow" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <script src="js/main.js"></script>
