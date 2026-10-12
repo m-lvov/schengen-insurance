@@ -1635,7 +1635,7 @@ if (document.querySelector('.hero__form')) {
 
 
 
-    function openQuote(ages) {
+    function openQuote(applicantAge) {
         let tripData = {
             countries: [...selectedCountries],
             startDate: startDate.getTime(),
@@ -1643,7 +1643,7 @@ if (document.querySelector('.hero__form')) {
             annual: annualCheckbox.checked,
             travelers: travelersNumber
         };
-        if (ages) tripData.ages = ages;
+        if (applicantAge !== undefined) tripData.applicantAge = applicantAge;
 
         sessionStorage.removeItem('insuranceQuote');
         sessionStorage.setItem('insuranceTrip', JSON.stringify(tripData));
@@ -1701,10 +1701,7 @@ if (document.querySelector('.hero__form')) {
         if (passengerValue) {
             passengerValue.value = travelersNumber;
             mobileMinus.disabled = travelersNumber <= 1;
-            mobileForm.querySelector('#mobile-age-hint').hidden = travelersNumber === 1;
-            mobileAge.inputMode = travelersNumber === 1 ? 'numeric' : 'text';
             clearMobileError(passengerValue, 'mobile-travelers-error');
-            if (mobileFormSubmitted) validateMobileAge();
             clearMobileStatus();
         }
     }
@@ -1870,11 +1867,10 @@ if (document.querySelector('.hero__form')) {
     }
 
     function validateMobileAge() {
-        let entries = mobileAge.value.trim().split(',').map((age) => age.trim());
-        let valid = entries.length === travelersNumber && entries.every((age) => /^\d+$/.test(age));
+        let age = mobileAge.value.trim();
+        let valid = /^\d+$/.test(age) && Number.isSafeInteger(Number(age));
         if (valid) clearMobileError(mobileAge, 'mobile-age-error');
-        else showMobileError(mobileAge, 'mobile-age-error',
-            travelersNumber === 1 ? 'Please enter the age of the traveler' : 'Please enter one age per traveler, separated by commas');
+        else showMobileError(mobileAge, 'mobile-age-error', 'Please enter your age as a whole number');
         return valid;
     }
 
@@ -2014,7 +2010,7 @@ if (document.querySelector('.hero__form')) {
             closeMobileCalendar();
 
 
-            openQuote(mobileAge.value.split(',').map(Number));
+            openQuote(Number(mobileAge.value.trim()));
         });
         document.addEventListener('click', (event) => {
             let path = event.composedPath();
