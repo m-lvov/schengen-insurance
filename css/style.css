@@ -496,7 +496,7 @@ body {
     border-top: 1px solid #D3D3D3;
 }
 
-.language-menu__item + .language-menu__item {
+.language-menu__item+.language-menu__item {
     border-top: 1px solid #E5E5E5;
 }
 
@@ -660,6 +660,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .language-menu__region,
     .language-menu__option,
     .language-menu__submit {
@@ -2570,6 +2571,137 @@ body {
     outline-offset: 2px;
 }
 
+.insurance-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    display: flex;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 24px;
+    color: #02063C;
+    font-family: "Avenir Next Cyr", sans-serif;
+}
+
+.insurance-popup[hidden] {
+    display: none;
+}
+
+body:has(.insurance-popup:not([hidden])) {
+    overflow: hidden;
+}
+
+.insurance-popup__overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 6, 60, 0.55);
+    backdrop-filter: blur(4px);
+}
+
+.insurance-popup__panel {
+    position: relative;
+    z-index: 1;
+    width: 420px;
+    max-width: 100%;
+    min-width: 0;
+    margin: auto;
+    padding: 36px 24px 24px;
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 0 4px 40px rgba(2, 6, 60, 0.15);
+    animation: insurance-popup-in 200ms ease-out;
+}
+
+.insurance-popup__close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    transition: background-color 180ms ease;
+}
+
+.insurance-popup__close img {
+    width: 24px;
+    height: 24px;
+}
+
+.insurance-popup__close:hover {
+    background: #EFF5F9;
+}
+
+.insurance-popup__close:active {
+    background: #E1FFC7;
+}
+
+.insurance-popup__close:focus-visible {
+    outline: 2px solid #5A46FC;
+    outline-offset: 2px;
+}
+
+.insurance-popup__title {
+    margin-bottom: 20px;
+    font-family: "Circular Std", sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.25;
+    text-align: center;
+}
+
+.insurance-popup__form {
+    width: 100%;
+    min-width: 0;
+}
+
+.insurance-popup__form .hero-mobile-form {
+    position: relative;
+    display: flex;
+    width: 100%;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+@keyframes insurance-popup-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 648px) {
+    .insurance-popup {
+        padding: 16px;
+    }
+
+    .insurance-popup__panel {
+        padding: 36px 20px 20px;
+    }
+
+    .insurance-popup__title {
+        font-size: 26px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .insurance-popup__panel {
+        animation: none;
+    }
+
+    .insurance-popup__close {
+        transition: none;
+    }
+}
+
 @media (min-width: 649px) and (max-width: 1320px) {
     .hero__form {
         width: 100%;
@@ -2929,6 +3061,7 @@ body {
 .visa-check__inner {
     width: 100%;
     height: 332px;
+    border-radius: 20px;
     background: url('../img/Visa-bg.png') center center/ cover no-repeat;
     padding: 90px 60px 93px;
 }
@@ -2951,8 +3084,51 @@ body {
     gap: 16px;
 }
 
+.visa-check__start[hidden],
+.visa-check__result[hidden] {
+    display: none;
+}
+
+.visa-check__inner:has(>.visa-check__result:not([hidden])) {
+    height: auto;
+    min-height: 332px;
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.visa-check__result {
+    max-width: 760px;
+}
+
+.visa-check__result-text {
+    max-width: 620px;
+    margin-top: 10px;
+    color: var(--Main-colors-White, #FFF);
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.visa-check__discount {
+    color: var(--Main-colors-Green, #7EEC10);
+    font-weight: 750;
+}
+
+.visa-check__apply {
+    margin-top: 35px;
+}
+
 .visa-select {
+    position: relative;
     width: 305px;
+    min-width: 0;
+}
+
+.visa-select [hidden] {
+    display: none;
+}
+
+.visa-select:has(>.visa-select__dropdown:not([hidden])) {
+    z-index: 10;
 }
 
 .visa-select__trigger {
@@ -2962,12 +3138,180 @@ body {
     padding: 10px 14px;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
     flex: 1 0 0;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.20);
     color: #FFF;
     font-size: 16px;
     font-weight: 500;
+    border: 1px solid transparent;
+    text-align: left;
+    transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.visa-select__trigger:hover,
+.visa-select__trigger[aria-expanded="true"] {
+    background: rgba(255, 255, 255, 0.26);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.visa-select__trigger[aria-invalid="true"] {
+    border-color: #FF9B9B;
+}
+
+.visa-select__value {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.visa-select__arrow {
+    flex-shrink: 0;
+    transition: transform 180ms ease;
+}
+
+.visa-select__trigger[aria-expanded="true"] .visa-select__arrow {
+    transform: rotate(180deg);
+}
+
+.visa-select__dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: #272156;
+    color: #FFF;
+    box-shadow: 0 12px 32px rgba(2, 6, 60, 0.3);
+    animation: visa-select-in 160ms ease-out;
+}
+
+.visa-select__search {
+    width: 100%;
+    min-width: 0;
+    height: 44px;
+    padding: 10px 12px 10px 38px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08) url('../img/form/loupe.svg') 12px center / 16px 16px no-repeat;
+    color: #FFF;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 20px;
+    appearance: none;
+}
+
+.visa-select__search::placeholder {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.visa-select__search::-webkit-search-cancel-button {
+    appearance: none;
+}
+
+.visa-select__list {
+    margin-top: 8px;
+    max-height: min(240px, 40dvh);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #80839F #272156;
+}
+
+.visa-select__option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px;
+    border-radius: 6px;
+    color: #FFF;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: left;
+    transition: background-color 160ms ease, color 160ms ease;
+}
+
+.visa-select__option:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.visa-select__option:active,
+.visa-select__option[aria-pressed="true"] {
+    background: #E1FFC7;
+    color: #02063C;
+}
+
+.visa-select__option[aria-pressed="true"]::after {
+    content: '✓';
+    flex-shrink: 0;
+    color: #176C43;
+}
+
+.visa-select__flag {
+    width: 22px;
+    height: 14px;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.visa-select__name {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.visa-select__empty {
+    padding: 20px 8px 12px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.visa-select__error {
+    margin-top: 6px;
+    color: #FF9B9B;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.visa-select__trigger:focus-visible,
+.visa-select__search:focus-visible,
+.visa-select__option:focus-visible {
+    outline: 2px solid #7EEC10;
+    outline-offset: 2px;
+}
+
+@keyframes visa-select-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .visa-select__dropdown {
+        animation: none;
+    }
+
+    .visa-select__trigger,
+    .visa-select__arrow,
+    .visa-select__option {
+        transition: none;
+    }
 }
 
 .visa-check__btn {
@@ -6558,6 +6902,7 @@ body {
     line-height: normal;
     color: #02063C;
     background: #FFF;
+    transition: border-color 150ms ease, box-shadow 150ms ease, outline-color 150ms ease;
 }
 
 .tourist__input::placeholder {
@@ -6565,13 +6910,34 @@ body {
     font-weight: 400;
 }
 
+.tourist__input--filled {
+    border-color: #8183A3;
+}
+
+.tourist__input:focus {
+    border-color: #5A46FC;
+    box-shadow: 0 0 0 3px rgba(90, 70, 252, 0.12);
+}
+
 .tourist__input:focus-visible {
-    outline: 2px solid #80839F;
+    outline: 2px solid #5A46FC;
     outline-offset: 2px;
 }
 
 .tourist__input--error {
     border-color: #DB1E1E;
+}
+
+.tourist__input--error:focus {
+    border-color: #DB1E1E;
+    box-shadow: 0 0 0 3px rgba(219, 30, 30, 0.12);
+    outline-color: #DB1E1E;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tourist__input {
+        transition: none;
+    }
 }
 
 .tourist__birth {
@@ -6741,7 +7107,9 @@ body {
 
 }
 
-.tourist__error {
+.tourist__error,
+.form-field__quote-error,
+.tourists-form__consent-error {
     display: flex;
     align-items: flex-start;
     gap: 4px;
@@ -6755,7 +7123,9 @@ body {
     margin-top: 8px;
 }
 
-.tourist__error::before {
+.tourist__error::before,
+.form-field__quote-error::before,
+.tourists-form__consent-error::before {
     content: '';
     flex-shrink: 0;
     width: 11px;
@@ -6764,8 +7134,243 @@ body {
     background: url('../img/form/error.svg') center / contain no-repeat;
 }
 
+.form-field__quote-error,
+.tourists-form__consent-error {
+    margin-top: 6px;
+}
+
+.form-field__quote-error[hidden],
+.tourists-form__consent-error[hidden] {
+    display: none;
+}
+
+.form-field__quote-checkbox[aria-invalid="true"],
+.tourists-form__checkbox[aria-invalid="true"] {
+    border-color: #DB1E1E;
+    outline-color: #DB1E1E;
+}
+
 .quote-page__inner:has(>.payment:not([hidden])) {
     max-width: 1064px;
+}
+
+.payment-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 52px;
+    width: 100%;
+    max-width: 636px;
+    margin: 24px auto 0;
+    padding: 40px;
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 0 4px 40px rgba(85, 84, 84, 0.15);
+    animation: payment-modal-open 180ms ease;
+}
+
+.payment-modal[hidden] {
+    display: none;
+}
+
+.payment-modal:focus {
+    outline: none;
+}
+
+.payment-modal__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.payment-modal__icon {
+    flex-shrink: 0;
+    width: 41px;
+    height: 41px;
+}
+
+.payment-modal--failed .payment-modal__icon {
+    width: 34px;
+    height: 34px;
+}
+
+.payment-modal__title {
+    color: #02063C;
+    font-family: "Circular Std", sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 46px;
+    text-align: center;
+}
+
+.payment-modal__text {
+    max-width: 520px;
+    color: #4A516E;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+}
+
+.payment-modal__footer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 52px;
+    border-top: 1px solid #EDECF1;
+}
+
+.payment-modal__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.payment-modal__logo-icon {
+    flex-shrink: 0;
+    width: 38px;
+    height: 37px;
+}
+
+.payment-modal__logo-text {
+    color: #02063C;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    white-space: nowrap;
+}
+
+.payment-modal__retry {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 52px;
+    padding: 16px 24px;
+    border-radius: 8px;
+    background: #02063C;
+    color: #FFF;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    transition: background-color 180ms ease;
+}
+
+.payment-modal__retry:hover {
+    background: #151A57;
+}
+
+.payment-modal__retry:active {
+    background: #010329;
+}
+
+.payment-modal__retry-icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.65;
+}
+
+.payment-modal__contacts {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.payment-modal__contact-item {
+    min-width: 0;
+}
+
+.payment-modal__contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #02063C;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    transition: opacity 150ms ease;
+}
+
+.payment-modal__contact:hover {
+    opacity: 0.75;
+}
+
+.payment-modal__contact:active {
+    opacity: 0.6;
+}
+
+.payment-modal__contact-icon {
+    width: 45px;
+    height: 45px;
+}
+
+.payment-modal__contact-label {
+    white-space: nowrap;
+}
+
+.payment-modal__retry:focus-visible,
+.payment-modal__contact:focus-visible,
+.payment-modal__logo:focus-visible {
+    outline: 2px solid #5A46FC;
+    outline-offset: 4px;
+}
+
+@keyframes payment-modal-open {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 648px) {
+    .payment-modal {
+        gap: 32px;
+        padding: 32px 24px;
+    }
+
+    .payment-modal__title {
+        font-size: 28px;
+        line-height: 34px;
+    }
+
+    .payment-modal__text {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .payment-modal__footer {
+        padding-top: 32px;
+    }
+
+    .payment-modal__contacts {
+        gap: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .payment-modal {
+        animation: none;
+    }
+
+    .payment-modal__retry,
+    .payment-modal__contact {
+        transition: none;
+    }
 }
 
 .payment {
@@ -6852,14 +7457,109 @@ body {
 }
 
 .payment-form__select {
-    appearance: none;
+    display: flex;
+    align-items: center;
     padding-left: 44px;
     padding-right: 44px;
-    background-image: url('../img/form-arrow.svg');
-    background-position: right 16px center;
-    background-size: 10px 5px;
-    background-repeat: no-repeat;
+    text-align: left;
     cursor: pointer;
+}
+
+.payment-form__select[aria-expanded="true"] {
+    border-color: #5A46FC;
+    box-shadow: 0 0 0 3px rgba(90, 70, 252, 0.12);
+}
+
+.payment-form__select-arrow {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    width: 10px;
+    height: 5px;
+    transform: translateY(-50%);
+    transition: transform 150ms ease;
+}
+
+.payment-form__select[aria-expanded="true"] .payment-form__select-arrow {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.payment-form__options {
+    position: absolute;
+    z-index: 5;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    max-height: 240px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 8px;
+    border: 1px solid #D3D3D3;
+    border-radius: 8px;
+    background: #FFF;
+    box-shadow: 0 4px 20px rgba(2, 6, 60, 0.1);
+    list-style: none;
+    animation: payment-options-open 150ms ease;
+}
+
+.payment-form__options[hidden] {
+    display: none;
+}
+
+.payment-form__option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 36px 10px 12px;
+    border-radius: 6px;
+    color: #02063C;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    transition: background-color 150ms ease;
+}
+
+.payment-form__option[aria-selected="true"],
+.payment-form__option:hover {
+    background: #E1FFC7;
+}
+
+.payment-form__option[aria-selected="true"]::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    width: 12px;
+    height: 9px;
+    background: url('../img/checkbox-checked.svg') center / contain no-repeat;
+    transform: translateY(-50%);
+}
+
+.payment-form__option:focus-visible {
+    outline: 2px solid #5A46FC;
+    outline-offset: -2px;
+}
+
+.payment-form__option-icon {
+    flex-shrink: 0;
+    width: 21px;
+    height: 21px;
+}
+
+@keyframes payment-options-open {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .payment-form__type-icon,
@@ -7228,6 +7928,18 @@ body {
     line-height: 18px;
 }
 
+.payment-card__digits {
+    color: inherit;
+    transition: color 150ms ease;
+}
+
+.payment:has(.payment-form__input--number:focus) .payment-card__digits--number,
+.payment:has(.payment-form__input--month:focus) .payment-card__digits--month,
+.payment:has(.payment-form__input--year:focus) .payment-card__digits--year,
+.payment:has(.payment-form__input--cvv:focus) .payment-card__digits--cvv {
+    color: #7EEC10;
+}
+
 .payment-receipt__details {
     display: flex;
     flex-direction: column;
@@ -7328,16 +8040,25 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .payment-card__inner,
     .payment-form__input,
     .payment-form__select,
+    .payment-form__select-arrow,
+    .payment-form__option,
+    .payment-card__digits,
     .payment-form__submit {
         transition: none;
+    }
+
+    .payment-form__options {
+        animation: none;
     }
 }
 
 .form-field__btn-quote,
 .hero-mobile-form__submit,
+.visa-check__btn,
 .quote-page__submit,
 .addons__submit,
 .quote-coverage__submit,
@@ -7350,6 +8071,7 @@ body {
 
 .form-field__btn-quote::before,
 .hero-mobile-form__submit::before,
+.visa-check__btn::before,
 .quote-page__submit::before,
 .addons__submit::before,
 .quote-coverage__submit::before,
@@ -7366,8 +8088,10 @@ body {
 }
 
 @media (hover: hover) and (pointer: fine) {
+
     .form-field__btn-quote:hover:not(:disabled)::before,
     .hero-mobile-form__submit:hover:not(:disabled)::before,
+    .visa-check__btn:hover:not(:disabled)::before,
     .quote-page__submit:hover:not(:disabled)::before,
     .addons__submit:hover:not(:disabled)::before,
     .quote-coverage__submit:hover:not(:disabled)::before,
@@ -7378,6 +8102,7 @@ body {
 
 .form-field__btn-quote:active:not(:disabled),
 .hero-mobile-form__submit:active:not(:disabled),
+.visa-check__btn:active:not(:disabled),
 .quote-page__submit:active:not(:disabled),
 .addons__submit:active:not(:disabled),
 .quote-coverage__submit:active:not(:disabled),
@@ -7388,6 +8113,7 @@ body {
 
 .form-field__btn-quote:active:not(:disabled)::before,
 .hero-mobile-form__submit:active:not(:disabled)::before,
+.visa-check__btn:active:not(:disabled)::before,
 .quote-page__submit:active:not(:disabled)::before,
 .addons__submit:active:not(:disabled)::before,
 .quote-coverage__submit:active:not(:disabled)::before,
@@ -7397,14 +8123,17 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .form-field__btn-quote,
     .hero-mobile-form__submit,
+    .visa-check__btn,
     .quote-page__submit,
     .addons__submit,
     .quote-coverage__submit,
     .tourists-form__submit,
     .form-field__btn-quote::before,
     .hero-mobile-form__submit::before,
+    .visa-check__btn::before,
     .quote-page__submit::before,
     .addons__submit::before,
     .quote-coverage__submit::before,
@@ -8552,6 +9281,8 @@ body {
         background: none;
     }
 
+    .visa-check { border-radius: 20px; }
+
     .visa-check__title {
         max-width: 280px;
     }
@@ -8583,15 +9314,33 @@ body {
         line-height: 143%;
     }
 
+    .visa-select__search {
+        font-size: 16px;
+    }
+
     .visa-check__btn {
         margin-top: 10px;
     }
 
+    .visa-check__inner:has(>.visa-check__result:not([hidden])) {
+        min-height: 0;
+        padding: 0;
+    }
+
+    .visa-check__result-text {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .visa-check__apply {
+        margin-top: 24px;
+    }
+
     .visa-check__map {
         display: block;
-        width: 320px;
+        width: calc(100% + 40px);
         max-width: none;
-        height: 236px;
+        height: auto;
         margin-top: 50px;
         margin-left: 50%;
         transform: translateX(-50%);
@@ -10335,6 +11084,42 @@ body {
     }
 }
 
+@media (min-width: 1920px) {
+    .route-menu__countries-list {
+        --route-country-rows: 1;
+        display: grid;
+        columns: auto;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-rows: repeat(var(--route-country-rows), minmax(50px, auto));
+        grid-auto-flow: column;
+        align-content: start;
+    }
+
+    .route-menu__countries-list:has(> :nth-child(5)) {
+        --route-country-rows: 2;
+    }
+
+    .route-menu__countries-list:has(> :nth-child(9)) {
+        --route-country-rows: 3;
+    }
+
+    .route-menu__countries-list:has(> :nth-child(13)) {
+        --route-country-rows: 4;
+    }
+
+    .route-menu__countries-list:has(> :nth-child(17)) {
+        --route-country-rows: 5;
+    }
+
+    .route-menu__countries-list:has(> :nth-child(21)) {
+        --route-country-rows: 6;
+    }
+
+    .route-menu__countries-list:has(> :nth-child(25)) {
+        --route-country-rows: 7;
+    }
+}
+
 @media (min-width: 1401px) and (max-width: 1600px) {
     .menu-countries {
         grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -10747,6 +11532,551 @@ body.menu-sheet-open {
     .menu-types__link:hover,
     .burger-menu__link:hover {
         transform: none;
+    }
+}
+
+/* Quote checkout: fluid layouts, touch navigation and readable small screens. */
+.quote-navigation {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: none;
+    padding: 12px 0;
+    background: rgba(253, 251, 243, .92);
+    backdrop-filter: blur(12px);
+}
+
+.quote-navigation__inner {
+    display: flex;
+    gap: 6px;
+    max-width: 636px;
+    margin: 0 auto;
+    padding: 6px;
+    border: 1px solid rgba(129, 131, 163, .12);
+    border-radius: 16px;
+    background: #FFF;
+    box-shadow: 0 4px 20px rgba(2, 6, 60, .04);
+}
+
+.quote-navigation__button {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 8px;
+    border-radius: 11px;
+    color: #4A516E;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    transition: background-color 180ms ease, color 180ms ease;
+}
+
+.quote-navigation__button:hover { background: #F7F7F9; }
+.quote-navigation__button--active,
+.quote-navigation__button--active:hover { color: #02063C; background: #DDFFBE; }
+.quote-navigation__button:focus-visible { outline: 2px solid #5A46FC; outline-offset: 2px; }
+
+.quote-page__steps { width: 100%; max-width: 644px; }
+.quote-page__step { flex: 1 1 0; width: auto; min-width: 0; }
+.quote-page__benefit::before { flex-shrink: 0; background-size: contain; }
+.quote-page__info[aria-expanded="true"] + .quote-page__tooltip,
+.addons__info[aria-expanded="true"] + .addons__tooltip { display: block; }
+.quote-page__price,
+.addons__total-price,
+.quote-coverage__price { overflow-wrap: anywhere; }
+
+.quote-page__summary-item--country:focus-visible,
+.addons__trip-item--country:focus-visible,
+.addons__trip-item--travelers:focus-visible,
+.quote-coverage__summary-item--country:focus-visible {
+    outline: 2px solid #5A46FC;
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+.quote-coverage__summary-item--country,
+.addons__trip-item--travelers { position: relative; }
+
+.quote-coverage__country-tooltip,
+.addons__travelers-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    z-index: 30;
+    width: max-content;
+    max-width: min(360px, calc(100vw - 48px));
+    padding: 12px;
+    border-radius: 10px;
+    background: #E4EEF5;
+    color: #02063C;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate(-50%, 4px);
+    transition: opacity 180ms ease, transform 180ms ease, visibility 180ms;
+}
+
+.quote-page__summary-item--country:is(:focus-within, .quote-summary-tooltip--open) .quote-page__country-tooltip,
+.addons__trip-item--country:is(:focus-within, .quote-summary-tooltip--open) .addons__country-tooltip,
+.addons__trip-item--travelers:is(:hover, :focus-within, .quote-summary-tooltip--open) .addons__travelers-tooltip,
+.quote-coverage__summary-item--country:is(:hover, :focus-within, .quote-summary-tooltip--open) .quote-coverage__country-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+@media (max-width: 1440px) {
+    .quote-details {
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 360px);
+        column-gap: 28px;
+    }
+    .addons__list { padding: 28px; gap: 28px; }
+    .addons__image { flex-basis: 96px; height: 96px; }
+    .addons__icon { width: 64px; height: 64px; }
+    .addons__button { flex-basis: 104px; padding-inline: 16px; }
+    .addons__badge { left: 4px; right: 4px; font-size: 9px; padding-inline: 2px; }
+    .addons__trip { flex-wrap: wrap; justify-content: flex-start; gap: 10px 12px; }
+    .addons__trip-item { font-size: 14px; line-height: 20px; }
+    .addons__total-price, .quote-coverage__price { font-size: 42px; line-height: 48px; }
+    .quote-coverage__bar-inner { gap: 24px; }
+    .quote-coverage__summary { gap: 12px 20px; }
+}
+
+@media (max-width: 1180px) {
+    .payment__panel { grid-template-columns: minmax(0, 1fr) 340px; gap: 32px; padding: 32px; }
+    .payment-card { width: 312px; height: 198px; }
+    .payment-card__label { top: 20px; left: 22px; font-size: 12px; }
+    .payment-card__chip { top: 48px; left: 22px; width: 42px; height: 31px; }
+    .payment-card__contactless { top: 22px; right: 22px; width: 30px; height: 24px; }
+    .payment-card__number { bottom: 45px; left: 22px; font-size: 16px; line-height: 22px; }
+    .payment-card__expiry { bottom: 20px; left: 22px; font-size: 12px; }
+    .payment-card__brand { right: 22px; bottom: 18px; width: 34px; height: 21px; }
+    .payment-card__stripe { top: 28px; height: 40px; }
+    .payment-card__chip--back { top: 4px; }
+    .payment-card__number--back { top: 85px; bottom: auto; font-size: 14px; line-height: 20px; }
+    .payment-card__contactless--back { top: 82px; width: 18px; height: 24px; }
+    .payment-card__details { right: 22px; bottom: 20px; left: 22px; gap: 16px; }
+    .payment-card__detail-label { font-size: 10px; line-height: 14px; }
+    .payment-card__cvv { font-size: 12px; line-height: 18px; }
+    .payment-receipt__details { margin-top: 72px; padding-inline: 22px; }
+    .payment-form__title { font-size: 22px; line-height: 28px; padding-bottom: 24px; }
+    .payment-form__expiry-inputs { grid-template-columns: 88px 8px 88px; gap: 6px; }
+    .payment-form__input--cvv { width: 88px; }
+    .payment-form__expiry > .payment-form__error { width: 196px; }
+    .payment-form__hint { max-width: 140px; font-size: 12px; line-height: 18px; }
+}
+
+@media (max-width: 1100px) {
+    .quote-document { scrollbar-gutter: auto; }
+    .quote-navigation {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        display: block;
+        padding: 12px 0;
+        background: rgba(253, 251, 243, .92);
+        backdrop-filter: blur(12px);
+    }
+    .quote-main { background-attachment: scroll; }
+    .quote-page { padding-top: 28px; padding-bottom: 48px; }
+    .quote-page__back { position: static; width: fit-content; min-height: 44px; margin-bottom: 24px; }
+    .quote-details {
+        max-width: 900px;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas: "addons" "addons-summary";
+        gap: 28px;
+        padding: 28px 24px 48px;
+    }
+    .quote-details > .addons > .container,
+    .quote-details > .quote-coverage > .container,
+    .order-summary > .container { max-width: none; padding-inline: 0; }
+    .quote-main[data-screen="coverage"] .quote-details {
+        grid-template-areas: "coverage" "coverage-summary";
+    }
+    .order-summary-slot { margin-top: 0; width: 100%; max-width: 636px; justify-self: center; }
+    .quote-main[data-screen="coverage"] .order-summary-slot--coverage { display: none; }
+    .addons__title, .quote-coverage__title { margin-bottom: 24px; font-size: 32px; line-height: 1.15; }
+    .addons__tooltip { left: 0; width: min(520px, 100%); max-width: 100%; }
+    .quote-coverage__heading, .quote-coverage__cell { padding: 18px; }
+    .quote-coverage__cell--name { padding-left: 42px; }
+    .quote-coverage__cell--name::before { left: 18px; }
+    .quote-coverage__bar { padding: 24px 0; }
+    .quote-coverage__bar-inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; }
+    .quote-coverage__trip { grid-column: 1 / -1; width: 100%; margin-right: 0; }
+    .quote-coverage__summary { justify-content: center; }
+    .quote-coverage__cost { justify-content: center; }
+    .quote-coverage__submit { min-width: 220px; }
+    .quote-page__summary { max-width: 100%; gap: 18px; }
+    .quote-page__summary-item { font-size: 15px; }
+}
+
+@media (max-width: 900px) {
+    .quote-page__inner:has(>.payment:not([hidden])) { max-width: 636px; }
+    .payment__panel { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .payment-form__expiry-inputs { grid-template-columns: 104px 10px 104px; gap: 8px; }
+    .payment-form__input--cvv { width: 104px; }
+    .payment-form__expiry > .payment-form__error { width: 234px; }
+    .payment-receipt { width: 100%; max-width: 460px; justify-self: center; }
+    .payment-receipt { order: -1; }
+    .payment-form { padding-top: 28px; border-top: 1px solid #EDECF1; }
+    .payment-receipt__details { margin-top: 32px; gap: 16px; }
+    .payment-receipt::before { top: 70px; }
+    .payment-receipt__total { margin-top: 24px; padding: 20px 22px; }
+    .payment-receipt__price { font-size: 40px; line-height: 48px; }
+}
+
+@media (max-width: 700px) {
+    .quote-page__summary {
+        position: static;
+        left: auto;
+        width: 100%;
+        transform: none;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 16px;
+        padding: 16px;
+        border-radius: 16px;
+    }
+    .quote-page__summary-item { min-width: 0; flex-shrink: 1; white-space: normal; line-height: 20px; }
+    .quote-page__summary-item > img { flex: 0 0 16px; width: 16px; height: 16px; }
+    .quote-page__summary-item > span:not([class$="tooltip"]) { min-width: 0; overflow-wrap: anywhere; }
+    .quote-page__country-tooltip { left: 0; max-width: min(320px, calc(100vw - 64px)); transform: translateY(4px); }
+    .quote-page__summary-item--country:is(:hover, :focus-within, .quote-summary-tooltip--open) .quote-page__country-tooltip { transform: translateY(0); }
+    .quote-page__country-tooltip::after { left: 20px; }
+    .quote-page__card, .tourists-form { padding: 28px; }
+    .quote-page__coverage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .quote-page__coverage-btn { padding: 14px 10px; }
+    .quote-page__footer { flex-wrap: wrap; gap: 20px; }
+    .quote-page__submit { flex: 1 1 200px; justify-content: center; padding-inline: 24px; }
+    .quote-page__price { font-size: 44px; line-height: 50px; }
+    .quote-page__benefit { font-size: 16px; line-height: 23px; align-items: flex-start; }
+    .quote-page__benefit::before { margin-top: 3px; }
+    .order-summary { padding: 24px; }
+    .order-summary .addons__benefits { display: none; }
+    .addons__trip { justify-content: center; padding-bottom: 20px; }
+    .addons__footer { margin-top: 20px; }
+    .addons__selected-item { max-width: 100%; overflow-wrap: anywhere; }
+    .addons__country-tooltip { left: 0; max-width: min(320px, calc(100vw - 80px)); transform: translateY(4px); }
+    .addons__trip-item--country:is(:hover, :focus-within, .quote-summary-tooltip--open) .addons__country-tooltip { transform: translateY(0); }
+    .addons__country-tooltip::after { left: 20px; }
+}
+
+@media (max-width: 600px) {
+    .quote-page > .container, .quote-navigation > .container, .quote-coverage__bar > .container { padding-inline: 16px; }
+    .quote-navigation { padding: 10px 0; }
+    .quote-details { padding: 24px 16px 40px; }
+    .quote-page { padding-top: 20px; padding-bottom: 40px; }
+    .quote-page__back { margin-bottom: 20px; font-size: 14px; }
+    .quote-page__progress { gap: 10px; }
+    .quote-page__step { height: 5px; }
+    .quote-page__step-text { font-size: 14px; line-height: 20px; }
+    .quote-page__summary { margin-top: 20px; }
+    .quote-page__summary-item { font-size: 14px; }
+    .quote-page__card, .tourists-form, .payment__panel { padding: 24px 20px; border-radius: 18px; }
+    .quote-page__coverage-btn { padding: 14px 8px; font-size: 16px; white-space: nowrap; }
+    .quote-page__title, .quote-page__label { font-size: 18px; line-height: 24px; }
+    .quote-page__trip { padding-block: 24px; }
+    .quote-page__trip--open .quote-page__trip-panel { top: 14px; left: -8px; right: -8px; padding: 10px 8px; }
+    .quote-page__item { padding-inline: 10px; }
+    .quote-page__option { flex: 1; gap: 8px; }
+    .quote-page__name { font-size: 15px; line-height: 21px; }
+    .quote-page__tooltip { top: calc(100% + 4px); bottom: auto; left: 0; width: 100%; max-width: 100%; z-index: 30; }
+    .quote-page__tooltip::after { top: auto; bottom: 100%; left: 50%; border-top-color: transparent; border-bottom-color: #E4EEF5; }
+    .quote-page__benefits { gap: 16px; padding-block: 20px; }
+    .quote-page__trip + .quote-page__benefits { padding-top: 24px; }
+    .quote-page__benefits:last-of-type { padding-bottom: 24px; }
+    .quote-page__footer { margin-top: 24px; }
+    .quote-page__full-coverage { width: 100%; justify-content: center; font-size: 15px; padding: 14px 20px; }
+    .addons__title, .quote-coverage__title { font-size: 28px; }
+    .addons__list { padding: 20px; gap: 24px; border-radius: 18px; }
+    .addons__item { display: grid; grid-template-columns: 72px minmax(0, 1fr) 44px; gap: 12px 16px; align-items: start; }
+    .addons__image { width: 72px; height: 80px; grid-row: 1; }
+    .addons__icon { width: 54px; height: 54px; }
+    .addons__badge { top: 4px; font-size: 8px; line-height: 10px; }
+    .addons__details { display: contents; }
+    .addons__heading { display: contents; }
+    .addons__name { grid-column: 2; grid-row: 1; align-self: center; min-width: 0; font-size: 16px; line-height: 22px; }
+    .addons__info { grid-column: 3; grid-row: 1; align-self: center; width: 44px; height: 44px; margin: 0; }
+    .addons__description { grid-column: 1 / -1; font-size: 14px; line-height: 21px; }
+    .addons__price { grid-column: 1; align-self: center; margin-top: 0; white-space: nowrap; }
+    .addons__button { grid-column: 2 / -1; justify-self: end; width: 112px; height: 44px; font-size: 14px; }
+    .addons__tooltip,
+    .addons__item:nth-child(-n + 5) .addons__tooltip,
+    .addons__tooltip--recreation,
+    .addons__tooltip--extreme {
+        position: static;
+        grid-column: 1 / -1;
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
+        padding: 12px;
+        margin: 6px 0;
+        line-height: 18px;
+        overflow-wrap: anywhere;
+        box-shadow: none;
+    }
+    .addons__tooltip::before, .addons__tooltip::after { display: none; }
+    .addons__button-full { max-width: 100%; min-height: 48px; padding: 12px 20px; font-size: 14px; }
+    .addons__selected { gap: 6px; }
+    .addons__selected-item { font-size: 11px; line-height: 16px; padding: 6px 9px; }
+    .quote-coverage__table, .quote-coverage__table tbody { display: block; width: 100%; }
+    .quote-coverage__head { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .quote-coverage__row { display: block; padding: 18px 20px; }
+    .quote-coverage__row:not(:last-child) { border-bottom: 1px solid #EDECF1; }
+    .quote-coverage__cell { display: block; width: 100%; padding: 12px 0 0; font-size: 14px; line-height: 21px; }
+    .quote-coverage__row:not(:last-child) .quote-coverage__cell { border-bottom: 0; }
+    .quote-coverage__cell--name { padding: 0 0 0 24px; font-size: 16px; font-weight: 600; line-height: 22px; }
+    .quote-coverage__cell--name::before { left: 0; }
+    .quote-coverage__bar { padding-block: 24px max(24px, env(safe-area-inset-bottom)); }
+    .quote-coverage__bar-inner { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .quote-coverage__summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; justify-content: start; padding-bottom: 16px; }
+    .quote-coverage__summary-item { min-width: 0; font-size: 13px; line-height: 20px; }
+    .quote-coverage__summary-item > span { min-width: 0; overflow-wrap: anywhere; }
+    .quote-coverage__cost { flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .quote-coverage__cost-label { flex-basis: 100%; justify-content: center; margin-right: 0; font-size: 14px; }
+    .quote-coverage__cost-value { padding-inline: 14px; font-size: 16px; }
+    .quote-coverage__total { justify-self: center; text-align: center; }
+    .quote-coverage__submit { width: 100%; min-width: 0; }
+    .quote-coverage__country-tooltip { left: 0; transform: translateY(4px); max-width: calc(100vw - 64px); }
+    .quote-coverage__summary-item--country:is(:hover, :focus-within, .quote-summary-tooltip--open) .quote-coverage__country-tooltip { transform: translateY(0); }
+    .tourist__fields { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .tourist__input { min-height: 48px; padding: 12px; font-size: 16px; line-height: 22px; }
+    .tourist__label { font-size: 14px; line-height: 20px; }
+    .tourist__birth-inputs { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.3fr); }
+    .tourists-form__title { font-size: 24px; line-height: 30px; padding-bottom: 24px; }
+    .tourists-form__list { margin-top: 24px; }
+    .tourist + .tourist { margin-top: 24px; padding-top: 24px; }
+    .tourist__header { margin-bottom: 20px; gap: 10px; }
+    .tourist__remove { width: 44px; height: 44px; }
+    .tourists-form__privacy { align-items: flex-start; font-size: 12px; line-height: 18px; }
+    .tourists-form__privacy::before { margin-top: 2px; }
+    .tourists-form__add { width: 100%; min-height: 48px; margin-top: 24px; justify-content: center; }
+    .tourists-form__footer { margin-top: 24px; padding-top: 24px; }
+    .tourists-form__submit { min-height: 52px; }
+    .tourists-form__consent { gap: 10px; align-items: center; min-height: 44px; }
+    .tourists-form__checkbox { width: 20px; height: 20px; }
+    .tourists-form__consent-text { font-size: 12px; line-height: 18px; }
+    .payment__title { font-size: 22px; line-height: 28px; }
+    .payment-form__title { font-size: 20px; line-height: 26px; }
+    .payment-form__field, .payment-form__expiry { margin-top: 24px; }
+    .payment-form__title + .payment-form__field { margin-top: 24px; }
+    .payment-form__label { font-size: 14px; line-height: 20px; }
+    .payment-form__expiry .payment-form__row { display: flex; flex-direction: column; gap: 10px; }
+    .payment-form__expiry-inputs { position: static; width: 100%; grid-template-columns: minmax(0, 1fr) 12px minmax(0, 1fr); }
+    .payment-form__input--month, .payment-form__input--year { text-align: center; }
+    .payment-form__field--cvv .payment-form__row { display: flex; flex-direction: column; gap: 10px; }
+    .payment-form__input--cvv { position: static; width: 100%; }
+    .payment-form__hint { max-width: none; }
+    .payment-form__expiry > .payment-form__error { width: 100%; margin-left: 0; }
+    .payment-form__footer { margin-top: 24px; }
+    .payment-form__submit { margin-top: 20px; }
+    .payment-card { width: 100%; max-width: 312px; height: auto; aspect-ratio: 384 / 244; }
+    .payment-card__front, .payment-card__back { border-radius: 14px; }
+    .payment-receipt__details { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 24px; padding-inline: 16px; gap: 12px; font-size: 14px; }
+    .payment-receipt__row { display: block; font-size: 12px; line-height: 18px; }
+    .payment-receipt__label { display: block; min-height: 36px; }
+    .payment-receipt__value { margin-top: 4px; font-size: 13px; text-align: left; }
+    .payment-receipt__total { padding: 20px 16px; gap: 10px; }
+    .payment-receipt__total-label { font-size: 14px; }
+    .payment-receipt__price { font-size: 36px; line-height: 44px; }
+    .payment-modal { padding: 28px 20px; gap: 28px; border-radius: 18px; }
+    .payment-modal__title { font-size: 28px; line-height: 34px; overflow-wrap: anywhere; }
+    .payment-modal__footer { padding-top: 28px; }
+    .payment-modal__contact { min-width: 64px; min-height: 68px; }
+}
+
+@media (max-width: 420px) {
+    .quote-page__summary-item:nth-child(1), .quote-page__summary-item:nth-child(2) { grid-column: 1 / -1; }
+    .quote-page__card, .tourists-form, .payment__panel { padding: 24px 16px; }
+    .quote-page__coverage-btn { font-size: 15px; }
+    .quote-page__footer { flex-direction: column; align-items: stretch; }
+    .quote-page__submit { flex: none; width: 100%; }
+    .quote-page__total { text-align: center; }
+    .addons__list { padding: 16px; }
+    .addons__item { grid-template-columns: 64px minmax(0, 1fr) 44px; gap: 12px; }
+    .addons__image { width: 64px; height: 76px; }
+    .addons__icon { width: 48px; height: 48px; }
+    .addons__badge { left: 2px; right: 2px; font-size: 8px; }
+    .addons__info { height: 44px; }
+    .order-summary { padding: 20px; }
+    .addons__trip-item--dot { display: none; }
+    .addons__trip-item--country { flex-basis: 100%; justify-content: center; }
+    .addons__footer { flex-direction: column; align-items: stretch; gap: 16px; }
+    .addons__total { text-align: center; }
+    .addons__submit { flex: none; width: 100%; max-width: none; margin-left: 0; }
+    .payment-form__input--number { padding-left: 40px; padding-right: 24px; font-size: 16px; letter-spacing: -.65px; }
+    .payment-form__brand { left: 12px; width: 22px; }
+    .payment-form__valid { right: 10px; width: 12px; height: 12px; }
+    .payment-card__number { left: 16px; bottom: 40px; font-size: 14px; line-height: 20px; }
+    .payment-card__label { top: 16px; left: 16px; }
+    .payment-card__chip { top: 44px; left: 16px; width: 36px; height: 26px; }
+    .payment-card__contactless { top: 18px; right: 16px; width: 26px; height: 21px; }
+    .payment-card__expiry { left: 16px; bottom: 16px; }
+    .payment-card__brand { right: 16px; bottom: 14px; width: 30px; }
+    .payment-card__number--back { top: 78px; bottom: auto; font-size: 12px; }
+    .payment-card__stripe { top: 24px; height: 36px; }
+    .payment-card__chip--back { top: 5px; }
+    .payment-card__contactless--back { top: 76px; width: 15px; height: 20px; }
+    .payment-card__details { left: 16px; right: 16px; bottom: 14px; gap: 12px; }
+    .payment-card__detail-label { font-size: 9px; line-height: 12px; }
+    .payment-modal__title { font-size: 26px; line-height: 32px; }
+    .payment-modal__contacts { gap: 12px; }
+}
+
+@media (max-height: 600px) and (min-width: 601px) and (max-width: 1100px) {
+    .quote-navigation { position: static; }
+    .quote-page { padding-top: 20px; }
+    .quote-page__back { margin-bottom: 16px; }
+    .quote-details { padding-top: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .quote-navigation__button, .quote-coverage__country-tooltip, .addons__travelers-tooltip { transition: none; }
+}
+
+@media (hover: none) {
+    .addons__info { flex-basis: 44px; min-height: 44px; }
+    .quote-page__info[aria-expanded="false"] + .quote-page__tooltip,
+    .addons__info[aria-expanded="false"] + .addons__tooltip { display: none; }
+
+    .quote-page__summary-item--country:not(:focus-within):not(.quote-summary-tooltip--open):hover .quote-page__country-tooltip,
+    .addons__trip-item--country:not(:focus-within):not(.quote-summary-tooltip--open):hover .addons__country-tooltip,
+    .quote-coverage__summary-item--country:not(:focus-within):not(.quote-summary-tooltip--open):hover .quote-coverage__country-tooltip {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) and (min-width: 1101px) {
+    .quote-navigation { display: block; }
+    .quote-page { padding-top: 40px; }
+}
+
+/* Interactive states for the existing Figma components. */
+.payment-form__demo {
+    margin: 16px 0;
+    color: #8183A3;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.payment-form__demo summary {
+    cursor: pointer;
+    color: #02063C;
+}
+
+.payment-form__demo p { margin-top: 8px; }
+
+.payment-modal__demo {
+    color: #8183A3;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.payment-form__submit:disabled {
+    opacity: .65;
+    cursor: wait;
+}
+
+.language-menu__panel { position: relative; }
+
+.language-menu__close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    width: 28px;
+    height: 28px;
+    color: #8183A3;
+    font-size: 24px;
+}
+
+.language-menu__empty {
+    padding: 20px;
+    color: #8183A3;
+}
+
+.language-menu__item[hidden],
+.language-menu__empty[hidden],
+.hero-mobile-form__country-options > li[hidden],
+.visa-select__item[hidden] { display: none; }
+
+.language-menu__region[aria-pressed="true"] {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+.visa-check__result-title:focus { outline: none; }
+
+.contact__error {
+    color: #FF9B9B;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.contact__status {
+    color: #FFF;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.contact__error[hidden],
+.contact__status[hidden] { display: none; }
+
+.contact__input[aria-invalid="true"],
+.contact__select-trigger[aria-invalid="true"] {
+    outline: 1px solid #FF9B9B;
+    outline-offset: -1px;
+}
+
+.contact__input { color: #FFF; }
+
+body:has(>.language-menu:not([hidden])),
+body:has(>.insurance-popup:not([hidden])) { overflow: hidden; }
+
+/* Index: interactive forms and open menus on small screens. */
+@media (max-width: 968px) {
+    .index-page .visa-types__table-wrapper,
+    .index-page .coverage__table-wrapper {
+        overscroll-behavior-x: contain;
+    }
+
+    .index-page .visa-select__dropdown {
+        max-height: min(360px, 60dvh);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+}
+
+@media (max-width: 648px) {
+    .index-page .hero-mobile-form input,
+    .index-page .contact__input {
+        font-size: 16px;
+    }
+
+    .index-page .language-menu,
+    .index-page .insurance-popup {
+        padding: 12px;
+    }
+
+    .index-page .language-menu__panel {
+        gap: 24px;
+    }
+
+    .index-page .contact__select-option {
+        min-height: 44px;
+        overflow-wrap: anywhere;
+    }
+
+}
+
+@media (max-width: 420px) {
+    .index-page .insurance-popup__panel {
+        padding: 32px 16px 20px;
     }
 }
 

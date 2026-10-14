@@ -2730,6 +2730,16 @@
         </div>
     </header>
     <main class="quote-main" data-screen="quote">
+        <nav class="quote-navigation" aria-label="Insurance quote sections">
+            <div class="container">
+                <div class="quote-navigation__inner">
+                    <button class="quote-navigation__button quote-navigation__button--active" type="button"
+                        data-quote-screen="0" aria-current="page">Insurance</button>
+                    <button class="quote-navigation__button" type="button" data-quote-screen="1">Add-ons</button>
+                    <button class="quote-navigation__button" type="button" data-quote-screen="2">Coverage</button>
+                </div>
+            </div>
+        </nav>
         <section class="quote-page" tabindex="-1">
             <div class="container">
                 <button class="quote-page__back" type="button">
@@ -2741,18 +2751,19 @@
                         <div class="quote-page__steps">
                             <span class="quote-page__step quote-page__step--active"></span>
                             <span class="quote-page__step quote-page__step--active"></span>
-                            <span class="quote-page__step quote-page__step--active"></span>
-                            <span class="quote-page__step quote-page__step--active"></span>
+                            <span class="quote-page__step"></span>
+                            <span class="quote-page__step"></span>
                         </div>
-                        <p class="quote-page__step-text">Step <span class="quote-page__step-text-swap">4</span> of 4</p>
+                        <p class="quote-page__step-text">Step <span class="quote-page__step-text-swap">2</span> of 4</p>
                     </div>
-                    <div class="quote-page__summary" hidden>
-                        <div class="quote-page__summary-item quote-page__summary-item--country">
+                    <div class="quote-page__summary">
+                        <div class="quote-page__summary-item quote-page__summary-item--country" tabindex="0"
+                            aria-describedby="quote-country-tooltip">
                             <img src="img/quote/map.svg" alt="">
                             <span class="quote-page__summary-item__country">
                                 Germany
                             </span>
-                            <span class="quote-page__country-tooltip" hidden></span>
+                            <span class="quote-page__country-tooltip" id="quote-country-tooltip" role="tooltip" hidden></span>
                         </div>
                         <div class="quote-page__summary-item">
                             <img src="img/quote/calendar.svg" alt="">
@@ -2776,284 +2787,8 @@
 
                         </div>
                     </div>
-                    <form class="tourists-form" hidden>
-                        <h1 class="tourists-form__title">Who's coming?</h1>
-                        <div class="tourists-form__list">
-                            <div class="tourist">
-                                <div class="tourist__fields">
-                                    <label class="tourist__field">
-                                        <span class="tourist__label">First name</span>
-                                        <input class="tourist__input" type="text" name="tourists[0][firstName]"
-                                            placeholder="Anna" autocomplete="given-name" required>
-                                        <span class="tourist__error" hidden>Enter your First name</span>
-                                    </label>
-
-                                    <label class="tourist__field">
-                                        <span class="tourist__label">Last name</span>
-                                        <input class="tourist__input" type="text" name="tourists[0][lastName]"
-                                            placeholder="Karol" autocomplete="family-name" required>
-                                        <span class="tourist__error" hidden>Enter your Last name</span>
-                                    </label>
-
-                                    <label class="tourist__field">
-                                        <span class="tourist__label">Passport Number</span>
-                                        <input class="tourist__input" type="text" name="tourists[0][passport]"
-                                            placeholder="AA5759484" required>
-                                        <span class="tourist__error" hidden>Enter your Passport number</span>
-                                    </label>
-
-                                    <fieldset class="tourist__birth">
-                                        <legend class="tourist__label">Date of birth</legend>
-
-                                        <div class="tourist__birth-inputs">
-                                            <input class="tourist__input" type="text" name="tourists[0][month]"
-                                                placeholder="MM" inputmode="numeric" maxlength="2"
-                                                autocomplete="bday-month" required>
-
-                                            <input class="tourist__input" type="text" name="tourists[0][day]"
-                                                placeholder="DD" inputmode="numeric" maxlength="2"
-                                                autocomplete="bday-day" required>
-
-                                            <input class="tourist__input" type="text" name="tourists[0][year]"
-                                                placeholder="YYYY" inputmode="numeric" maxlength="4"
-                                                autocomplete="bday-year" required>
-                                        </div>
-                                        <p class="tourist__error" hidden>Enter your Date of birth</p>
-                                    </fieldset>
-
-                                    <label class="tourist__field">
-                                        <span class="tourist__label">Your Email</span>
-                                        <input class="tourist__input" type="email" name="email"
-                                            placeholder="example@gmail.com" autocomplete="email" required>
-                                        <span class="tourist__error" hidden>Enter your Email</span>
-                                    </label>
-
-                                    <label class="tourist__field">
-                                        <span class="tourist__label">Your Phone</span>
-                                        <input class="tourist__input" type="tel" name="phone"
-                                            placeholder="+380 99 777 77 77" autocomplete="tel" required>
-                                        <span class="tourist__error" hidden>Enter your Phone</span>
-                                    </label>
-                                </div>
-
-                                <p class="tourists-form__privacy">
-                                    We keep your data confidential
-                                </p>
-                            </div>
-                            <div class="tourist-template">
-                                <div class="tourist">
-                                    <div class="tourist__header">
-                                        <button class="tourist__remove" type="button" title="Remove tourist">
-                                            <img class="tourist__remove-icon" src="img/quote/remove-buttonsvg.svg" alt="">
-                                        </button>
-                                        <h2 class="tourist__title">Tourist <span class="tourist__number">2</span></h2>
-                                    </div>
-
-                                    <div class="tourist__fields">
-                                        <label class="tourist__field">
-                                            <span class="tourist__label">First name</span>
-                                            <input class="tourist__input" type="text" data-field="firstName"
-                                                placeholder="Anna" required>
-                                            <span class="tourist__error" hidden>Enter your First name</span>
-                                        </label>
-
-                                        <label class="tourist__field">
-                                            <span class="tourist__label">Last name</span>
-                                            <input class="tourist__input" type="text" data-field="lastName"
-                                                placeholder="Karol" required>
-                                            <span class="tourist__error" hidden>Enter your Last name</span>
-                                        </label>
-
-                                        <label class="tourist__field">
-                                            <span class="tourist__label">Passport Number</span>
-                                            <input class="tourist__input" type="text" data-field="passport"
-                                                placeholder="AA5759484" required>
-                                            <span class="tourist__error" hidden>Enter your Passport number</span>
-                                        </label>
-
-                                        <fieldset class="tourist__birth">
-                                            <legend class="tourist__label">Date of birth</legend>
-
-                                            <div class="tourist__birth-inputs">
-                                                <input class="tourist__input" type="text" data-field="month"
-                                                    placeholder="MM" inputmode="numeric" maxlength="2" required>
-
-                                                <input class="tourist__input" type="text" data-field="day"
-                                                    placeholder="DD" inputmode="numeric" maxlength="2" required>
-
-                                                <input class="tourist__input" type="text" data-field="year"
-                                                    placeholder="YYYY" inputmode="numeric" maxlength="4" required>
-                                            </div>
-
-                                            <p class="tourist__error" hidden>Enter your Date of birth</p>
-                                        </fieldset>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button class="tourists-form__add" type="button">
-                            Add a tourist
-                            <span class="tourists-form__add-inner">
-                                <img class="tourists-form__add-icon" src="img/quote/plus.svg" alt="">
-                            </span>
-                        </button>
-
-                        <div class="tourists-form__footer">
-                            <button class="tourists-form__submit" type="submit">
-                                Get Covered
-                                <img class="tourists-form__submit-icon" src="img/form-btn-arrow.svg" alt="">
-                            </button>
-
-                            <label class="tourists-form__consent">
-                                <input class="tourists-form__checkbox" type="checkbox" name="consent" checked required>
-                                <span class="tourists-form__consent-text">
-                                    By continuing I agree to the <span class="tourists-form__policy">Terms &amp;
-                                        Conditions</span>
-                                    and <span class="tourists-form__policy">Privacy Policy</span>
-                                </span>
-                            </label>
-                        </div>
-                    </form>
-                    <div class="payment">
-                        <h1 class="payment__title">Payment of insurance</h1>
-
-                        <div class="payment__panel">
-                            <!-- Layout preview only. Real card fields will be provided by the payment provider. -->
-                            <form class="payment-form" method="post" autocomplete="off">
-                                <h2 class="payment-form__title">Enter your payment information</h2>
-
-                                <label class="payment-form__field">
-                                    <span class="payment-form__label">Select the payment type</span>
-                                    <span class="payment-form__select-wrap">
-                                        <img class="payment-form__type-icon" src="img/quote/famicons_card.svg" alt="">
-                                        <select class="payment-form__select">
-                                            <option class="payment-form__option" value="card">Card</option>
-                                        </select>
-                                    </span>
-                                </label>
-
-                                <label class="payment-form__field">
-                                    <span class="payment-form__label">Card number</span>
-                                    <span class="payment-form__number-wrap">
-                                        <img class="payment-form__brand" src="img/quote/mastercard.svg" alt="Mastercard">
-                                        <input class="payment-form__input payment-form__input--number" type="text"
-                                            inputmode="numeric" maxlength="23" placeholder="0000 · 0000 · 0000 · 0000"
-                                            required>
-                                        <span class="payment-form__valid" hidden></span>
-                                    </span>
-                                    <span class="payment-form__error" hidden>Please enter a valid card number.</span>
-                                </label>
-
-                                <fieldset class="payment-form__expiry">
-                                    <legend class="payment-form__label">Expiry Date</legend>
-                                    <div class="payment-form__row">
-                                        <span class="payment-form__hint">Enter card expiry</span>
-                                        <div class="payment-form__expiry-inputs">
-                                            <input class="payment-form__input payment-form__input--month" type="text"
-                                                inputmode="numeric" maxlength="2" placeholder="00"
-                                                title="Expiry month" required>
-                                            <span class="payment-form__expiry-divider">/</span>
-                                            <input class="payment-form__input payment-form__input--year" type="text"
-                                                inputmode="numeric" maxlength="2" placeholder="00"
-                                                title="Expiry year" required>
-                                        </div>
-                                    </div>
-                                    <p class="payment-form__error" hidden>Please enter a valid date.</p>
-                                </fieldset>
-
-                                <label class="payment-form__field payment-form__field--cvv">
-                                    <span class="payment-form__label">CVV Number</span>
-                                    <span class="payment-form__row">
-                                        <span class="payment-form__hint">Please enter 3 or 4 digits</span>
-                                        <input class="payment-form__input payment-form__input--cvv" type="text"
-                                            inputmode="numeric" maxlength="4" placeholder="000" required>
-                                    </span>
-                                    <span class="payment-form__error" hidden>Please enter a valid CVV.</span>
-                                </label>
-
-                                <div class="payment-form__footer">
-                                    <p class="payment-form__privacy">
-                                        <img class="payment-form__lock" src="img/quote/lock.svg" alt="">
-                                        We keep your data confidential
-                                    </p>
-                                    <button class="payment-form__submit" type="button">
-                                        Pay Now
-                                        <img class="payment-form__submit-icon" src="img/form-btn-arrow.svg" alt="">
-                                    </button>
-                                </div>
-                            </form>
-
-                            <div class="payment-receipt">
-                                <div class="payment-card payment-card--dark">
-                                    <div class="payment-card__inner">
-                                        <div class="payment-card__front">
-                                            <img class="payment-card__background" src="img/quote/card-first.png" alt="">
-                                            <p class="payment-card__label">Your card</p>
-                                            <img class="payment-card__chip" src="img/quote/chip.svg" alt="">
-                                            <img class="payment-card__contactless" src="img/quote/radio-line-first.svg" alt="">
-                                            <p class="payment-card__number">0000 · 0000 · 0000 · 0000</p>
-                                            <p class="payment-card__expiry">
-                                                Exp. <span class="payment-card__expiry-value">00/00</span>
-                                            </p>
-                                            <img class="payment-card__brand" src="img/quote/mastercard.svg" alt="Mastercard"
-                                                hidden>
-                                        </div>
-
-                                        <div class="payment-card__back">
-                                            <img class="payment-card__background" src="img/quote/card-second.png" alt="">
-                                            <div class="payment-card__stripe">
-                                                <img class="payment-card__chip payment-card__chip--back"
-                                                    src="img/quote/chip.svg" alt="">
-                                            </div>
-                                            <img class="payment-card__contactless payment-card__contactless--back"
-                                                src="img/quote/radio-line.svg" alt="">
-                                            <p class="payment-card__number payment-card__number--back">
-                                                0000 · 0000 · 0000 · 0000
-                                            </p>
-                                            <div class="payment-card__details">
-                                                <div class="payment-card__detail">
-                                                    <p class="payment-card__detail-label">Expiry Date</p>
-                                                    <p class="payment-card__expiry">
-                                                        Exp. <span class="payment-card__expiry-value">00/00</span>
-                                                    </p>
-                                                </div>
-                                                <div class="payment-card__detail">
-                                                    <p class="payment-card__detail-label">CVV</p>
-                                                    <p class="payment-card__cvv">000</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <dl class="payment-receipt__details">
-                                    <div class="payment-receipt__row">
-                                        <dt class="payment-receipt__label">Company</dt>
-                                        <dd class="payment-receipt__value payment-receipt__value--company">-</dd>
-                                    </div>
-                                    <div class="payment-receipt__row">
-                                        <dt class="payment-receipt__label">Order Number</dt>
-                                        <dd class="payment-receipt__value payment-receipt__value--order">-</dd>
-                                    </div>
-                                    <div class="payment-receipt__row">
-                                        <dt class="payment-receipt__label">Insurance policy</dt>
-                                        <dd class="payment-receipt__value payment-receipt__value--policy">-</dd>
-                                    </div>
-                                </dl>
-
-                                <div class="payment-receipt__total">
-                                    <p class="payment-receipt__total-label">You have to Pay:</p>
-                                    <div class="payment-receipt__prices">
-                                        <p class="payment-receipt__price">$21<span class="payment-receipt__fraction">,75</span></p>
-                                        <del class="payment-receipt__old-price" hidden></del>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="quote-page__card" hidden>
+                    <!-- Шаг 2: выбор покрытия и типа поездки -->
+                    <div class="quote-page__card">
                         <h1 class="quote-page__title">
                             <img src="img/quote/info-1.svg" alt="">
                             Insurance coverage
@@ -3190,9 +2925,402 @@
                         <span>See full coverage</span>
                         <img src="img/quote/more-arrow.svg" alt="">
                     </button>
+
+                    <!-- Шаг 3: данные туристов -->
+                    <form class="tourists-form" novalidate hidden>
+                        <h1 class="tourists-form__title">Who's coming?</h1>
+                        <div class="tourists-form__list">
+                            <div class="tourist">
+                                <div class="tourist__fields">
+                                    <label class="tourist__field">
+                                        <span class="tourist__label">First name</span>
+                                        <input class="tourist__input" type="text" name="tourists[0][firstName]"
+                                            placeholder="Anna" autocomplete="given-name" required>
+                                        <span class="tourist__error" hidden>Enter your First name</span>
+                                    </label>
+
+                                    <label class="tourist__field">
+                                        <span class="tourist__label">Last name</span>
+                                        <input class="tourist__input" type="text" name="tourists[0][lastName]"
+                                            placeholder="Karol" autocomplete="family-name" required>
+                                        <span class="tourist__error" hidden>Enter your Last name</span>
+                                    </label>
+
+                                    <label class="tourist__field">
+                                        <span class="tourist__label">Passport Number</span>
+                                        <input class="tourist__input" type="text" name="tourists[0][passport]"
+                                            placeholder="AA123456" pattern="[A-Z]{2}[0-9]{6}"
+                                            autocapitalize="characters" spellcheck="false" required>
+                                        <span class="tourist__error" hidden>Enter a passport number: AA123456</span>
+                                    </label>
+
+                                    <fieldset class="tourist__birth">
+                                        <legend class="tourist__label">Date of birth</legend>
+
+                                        <div class="tourist__birth-inputs">
+                                            <input class="tourist__input" type="text" name="tourists[0][month]"
+                                                placeholder="MM" inputmode="numeric" maxlength="2"
+                                                autocomplete="bday-month" required>
+
+                                            <input class="tourist__input" type="text" name="tourists[0][day]"
+                                                placeholder="DD" inputmode="numeric" maxlength="2"
+                                                autocomplete="bday-day" required>
+
+                                            <input class="tourist__input" type="text" name="tourists[0][year]"
+                                                placeholder="YYYY" inputmode="numeric" maxlength="4"
+                                                autocomplete="bday-year" required>
+                                        </div>
+                                        <p class="tourist__error" hidden>Enter your Date of birth</p>
+                                    </fieldset>
+
+                                    <label class="tourist__field">
+                                        <span class="tourist__label">Your Email</span>
+                                        <input class="tourist__input" type="email" name="email"
+                                            placeholder="example@gmail.com" autocomplete="email"
+                                            autocapitalize="none" spellcheck="false" required>
+                                        <span class="tourist__error" hidden>Enter your Email</span>
+                                    </label>
+
+                                    <label class="tourist__field">
+                                        <span class="tourist__label">Your Phone</span>
+                                        <input class="tourist__input" type="tel" name="phone"
+                                            placeholder="+380 99 777 77 77" autocomplete="tel" inputmode="tel"
+                                            pattern="\+380 [0-9]{2} [0-9]{3} [0-9]{2} [0-9]{2}" required>
+                                        <span class="tourist__error" hidden>Enter a phone number: +380 99 777 77 77</span>
+                                    </label>
+                                </div>
+
+                                <p class="tourists-form__privacy">
+                                    We keep your data confidential
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="tourists-form__add" type="button">
+                            Add a tourist
+                            <span class="tourists-form__add-inner">
+                                <img class="tourists-form__add-icon" src="img/quote/plus.svg" alt="">
+                            </span>
+                        </button>
+
+                        <div class="tourists-form__footer">
+                            <button class="tourists-form__submit" type="submit">
+                                Get Covered
+                                <img class="tourists-form__submit-icon" src="img/form-btn-arrow.svg" alt="">
+                            </button>
+
+                            <label class="tourists-form__consent">
+                                <input class="tourists-form__checkbox" type="checkbox" name="consent" checked
+                                    data-error="tourists-consent-error" required>
+                                <span class="tourists-form__consent-text">
+                                    By continuing I agree to the <span class="tourists-form__policy">Terms &amp;
+                                        Conditions</span>
+                                    and <span class="tourists-form__policy">Privacy Policy</span>
+                                </span>
+                            </label>
+                            <p class="tourists-form__consent-error" id="tourists-consent-error" role="alert" hidden>
+                                Please agree to the Terms &amp; Conditions and Privacy Policy
+                            </p>
+                        </div>
+                    </form>
+
+                    <!-- Шаблон дополнительного туриста для добавления через JS -->
+                    <template class="tourist-template">
+                        <div class="tourist">
+                            <div class="tourist__header">
+                                <button class="tourist__remove" type="button" title="Remove tourist">
+                                    <img class="tourist__remove-icon" src="img/quote/remove-buttonsvg.svg"
+                                        alt="">
+                                </button>
+                                <h2 class="tourist__title">Tourist <span class="tourist__number">2</span></h2>
+                            </div>
+
+                            <div class="tourist__fields">
+                                <label class="tourist__field">
+                                    <span class="tourist__label">First name</span>
+                                    <input class="tourist__input" type="text" data-field="firstName"
+                                        placeholder="Anna" required>
+                                    <span class="tourist__error" hidden>Enter your First name</span>
+                                </label>
+
+                                <label class="tourist__field">
+                                    <span class="tourist__label">Last name</span>
+                                    <input class="tourist__input" type="text" data-field="lastName"
+                                        placeholder="Karol" required>
+                                    <span class="tourist__error" hidden>Enter your Last name</span>
+                                </label>
+
+                                <label class="tourist__field">
+                                    <span class="tourist__label">Passport Number</span>
+                                    <input class="tourist__input" type="text" data-field="passport"
+                                        placeholder="AA123456" pattern="[A-Z]{2}[0-9]{6}"
+                                        autocapitalize="characters" spellcheck="false" required>
+                                    <span class="tourist__error" hidden>Enter a passport number: AA123456</span>
+                                </label>
+
+                                <fieldset class="tourist__birth">
+                                    <legend class="tourist__label">Date of birth</legend>
+
+                                    <div class="tourist__birth-inputs">
+                                        <input class="tourist__input" type="text" data-field="month"
+                                            placeholder="MM" inputmode="numeric" maxlength="2" required>
+
+                                        <input class="tourist__input" type="text" data-field="day"
+                                            placeholder="DD" inputmode="numeric" maxlength="2" required>
+
+                                        <input class="tourist__input" type="text" data-field="year"
+                                            placeholder="YYYY" inputmode="numeric" maxlength="4" required>
+                                    </div>
+
+                                    <p class="tourist__error" hidden>Enter your Date of birth</p>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Шаг 4: оплата -->
+                    <div class="payment" hidden>
+                        <h1 class="payment__title">Payment of insurance</h1>
+
+                        <div class="payment__panel">
+                            <form class="payment-form" method="post" autocomplete="off" novalidate>
+                                <h2 class="payment-form__title">Enter your payment information</h2>
+
+                                <div class="payment-form__field">
+                                    <span class="payment-form__label" id="payment-type-label">Select the payment type</span>
+                                    <div class="payment-form__select-wrap">
+                                        <input class="payment-form__type-value" type="hidden" name="paymentType" value="card">
+                                        <button class="payment-form__select" type="button"
+                                            aria-haspopup="listbox" aria-expanded="false"
+                                            aria-controls="payment-type-options"
+                                            aria-labelledby="payment-type-label payment-type-value">
+                                            <img class="payment-form__type-icon" src="img/quote/famicons_card.svg" alt="">
+                                            <span class="payment-form__select-value" id="payment-type-value">Card</span>
+                                            <img class="payment-form__select-arrow" src="img/form-arrow.svg" alt="">
+                                        </button>
+                                        <ul class="payment-form__options" id="payment-type-options" role="listbox"
+                                            aria-labelledby="payment-type-label" hidden>
+                                            <li class="payment-form__option-item" role="presentation">
+                                                <button class="payment-form__option" type="button" role="option"
+                                                    data-value="card" aria-selected="true" tabindex="-1">
+                                                    <img class="payment-form__option-icon" src="img/quote/famicons_card.svg" alt="">
+                                                    <span class="payment-form__option-name">Card</span>
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <label class="payment-form__field">
+                                    <span class="payment-form__label">Card number</span>
+                                    <span class="payment-form__number-wrap">
+                                        <img class="payment-form__brand" src="img/quote/mastercard.svg"
+                                            alt="Mastercard">
+                                        <input class="payment-form__input payment-form__input--number" type="text"
+                                            inputmode="numeric" maxlength="23" placeholder="0000 · 0000 · 0000 · 0000"
+                                            required>
+                                        <span class="payment-form__valid" hidden></span>
+                                    </span>
+                                    <span class="payment-form__error" hidden>Please enter a valid card number.</span>
+                                </label>
+
+                                <fieldset class="payment-form__expiry">
+                                    <legend class="payment-form__label">Expiry Date</legend>
+                                    <div class="payment-form__row">
+                                        <span class="payment-form__hint">Enter card expiry</span>
+                                        <div class="payment-form__expiry-inputs">
+                                            <input class="payment-form__input payment-form__input--month" type="text"
+                                                inputmode="numeric" maxlength="2" placeholder="00" title="Expiry month"
+                                                required>
+                                            <span class="payment-form__expiry-divider">/</span>
+                                            <input class="payment-form__input payment-form__input--year" type="text"
+                                                inputmode="numeric" maxlength="2" placeholder="00" title="Expiry year"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <p class="payment-form__error" hidden>Please enter a valid date.</p>
+                                </fieldset>
+
+                                <label class="payment-form__field payment-form__field--cvv">
+                                    <span class="payment-form__label">CVV Number</span>
+                                    <span class="payment-form__row">
+                                        <span class="payment-form__hint">Please enter 3 digits</span>
+                                        <input class="payment-form__input payment-form__input--cvv" type="text"
+                                            inputmode="numeric" maxlength="3" placeholder="000" required>
+                                    </span>
+                                    <span class="payment-form__error" hidden>Please enter a valid CVV.</span>
+                                </label>
+
+                                <div class="payment-form__footer">
+                                    <p class="payment-form__privacy">
+                                        <img class="payment-form__lock" src="img/quote/lock.svg" alt="">
+                                        We keep your data confidential
+                                    </p>
+                                    <button class="payment-form__submit" type="button">
+                                        Pay Now
+                                        <img class="payment-form__submit-icon" src="img/form-btn-arrow.svg" alt="">
+                                    </button>
+                                </div>
+                            </form>
+
+                            <div class="payment-receipt">
+                                <div class="payment-card payment-card--dark">
+                                    <div class="payment-card__inner">
+                                        <div class="payment-card__front">
+                                            <img class="payment-card__background" src="img/quote/card-first.png" alt="">
+                                            <p class="payment-card__label">Your card</p>
+                                            <img class="payment-card__chip" src="img/quote/chip.svg" alt="">
+                                            <img class="payment-card__contactless" src="img/quote/radio-line-first.svg"
+                                                alt="">
+                                            <p class="payment-card__number">0000 · 0000 · 0000 · 0000</p>
+                                            <p class="payment-card__expiry">
+                                                Exp. <span class="payment-card__expiry-value">00/00</span>
+                                            </p>
+                                            <img class="payment-card__brand" src="img/quote/mastercard.svg"
+                                                alt="Mastercard" hidden>
+                                        </div>
+
+                                        <div class="payment-card__back">
+                                            <img class="payment-card__background" src="img/quote/card-second.png"
+                                                alt="">
+                                            <div class="payment-card__stripe">
+                                                <img class="payment-card__chip payment-card__chip--back"
+                                                    src="img/quote/chip.svg" alt="">
+                                            </div>
+                                            <img class="payment-card__contactless payment-card__contactless--back"
+                                                src="img/quote/radio-line.svg" alt="">
+                                            <p class="payment-card__number payment-card__number--back">
+                                                0000 · 0000 · 0000 · 0000
+                                            </p>
+                                            <div class="payment-card__details">
+                                                <div class="payment-card__detail">
+                                                    <p class="payment-card__detail-label">Expiry Date</p>
+                                                    <p class="payment-card__expiry">
+                                                        Exp. <span class="payment-card__expiry-value">00/00</span>
+                                                    </p>
+                                                </div>
+                                                <div class="payment-card__detail">
+                                                    <p class="payment-card__detail-label">CVV</p>
+                                                    <p class="payment-card__cvv">000</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <dl class="payment-receipt__details">
+                                    <div class="payment-receipt__row">
+                                        <dt class="payment-receipt__label">Company</dt>
+                                        <dd class="payment-receipt__value payment-receipt__value--company">-</dd>
+                                    </div>
+                                    <div class="payment-receipt__row">
+                                        <dt class="payment-receipt__label">Order Number</dt>
+                                        <dd class="payment-receipt__value payment-receipt__value--order">-</dd>
+                                    </div>
+                                    <div class="payment-receipt__row">
+                                        <dt class="payment-receipt__label">Insurance policy</dt>
+                                        <dd class="payment-receipt__value payment-receipt__value--policy">-</dd>
+                                    </div>
+                                </dl>
+
+                                <div class="payment-receipt__total">
+                                    <p class="payment-receipt__total-label">You have to Pay:</p>
+                                    <div class="payment-receipt__prices">
+                                        <p class="payment-receipt__price">$21<span
+                                                class="payment-receipt__fraction">,75</span></p>
+                                        <del class="payment-receipt__old-price" hidden></del>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Результаты тестовой оплаты, без платёжного сервиса -->
+                    <div class="payment-modal payment-modal--success" role="dialog" tabindex="-1"
+                        aria-labelledby="payment-success-title" aria-describedby="payment-success-text" hidden>
+                        <div class="payment-modal__content">
+                            <img class="payment-modal__icon" src="img/quote/modals/payment-success.svg" alt="">
+                            <h2 class="payment-modal__title" id="payment-success-title">
+                                Thank you,<br>payment was successful
+                            </h2>
+                            <p class="payment-modal__text" id="payment-success-text">
+                                The test payment scenario was completed successfully.
+                            </p>
+                        </div>
+                        <div class="payment-modal__footer">
+                            <a class="payment-modal__logo" href="index.html" aria-label="Go Schengen home">
+                                <img class="payment-modal__logo-icon" src="img/quote/modals/logo.svg" alt="">
+                                <span class="payment-modal__logo-text">GO SCHENGEN</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="payment-modal payment-modal--error" role="dialog" tabindex="-1"
+                        aria-labelledby="payment-error-title" aria-describedby="payment-error-text" hidden>
+                        <div class="payment-modal__content">
+                            <img class="payment-modal__icon" src="img/quote/modals/payment-error.svg" alt="">
+                            <h2 class="payment-modal__title" id="payment-error-title">Payment error</h2>
+                            <p class="payment-modal__text" id="payment-error-text">
+                                The payment could not be completed. Please check your details and try again.
+                            </p>
+                            <button class="payment-modal__retry" type="button">
+                                Try again
+                                <img class="payment-modal__retry-icon" src="img/form-btn-arrow.svg" alt="">
+                            </button>
+                        </div>
+                        <div class="payment-modal__footer">
+                            <a class="payment-modal__logo" href="index.html" aria-label="Go Schengen home">
+                                <img class="payment-modal__logo-icon" src="img/quote/modals/logo.svg" alt="">
+                                <span class="payment-modal__logo-text">GO SCHENGEN</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="payment-modal payment-modal--failed" role="dialog" tabindex="-1"
+                        aria-labelledby="payment-failed-title" aria-describedby="payment-failed-text" hidden>
+                        <div class="payment-modal__content">
+                            <img class="payment-modal__icon" src="img/quote/modals/payment-failed.svg" alt="">
+                            <h2 class="payment-modal__title" id="payment-failed-title">
+                                Your payment<br>was unsuccessful
+                            </h2>
+                            <p class="payment-modal__text" id="payment-failed-text">
+                                Write to our support team and we will help you find a solution to your problem.
+                            </p>
+                            <ul class="payment-modal__contacts">
+                                <li class="payment-modal__contact-item">
+                                    <button class="payment-modal__contact" type="button" data-channel="telegram"
+                                        aria-label="Contact support on Telegram">
+                                        <img class="payment-modal__contact-icon" src="img/quote/modals/telegram.svg" alt="">
+                                        <span class="payment-modal__contact-label">Telegram</span>
+                                    </button>
+                                </li>
+                                <li class="payment-modal__contact-item">
+                                    <button class="payment-modal__contact" type="button" data-channel="whatsapp"
+                                        aria-label="Contact support on WhatsApp">
+                                        <img class="payment-modal__contact-icon" src="img/quote/modals/whatsapp.svg" alt="">
+                                        <span class="payment-modal__contact-label">WhatsApp</span>
+                                    </button>
+                                </li>
+                                <li class="payment-modal__contact-item">
+                                    <button class="payment-modal__contact" type="button" data-channel="messenger"
+                                        aria-label="Contact support on Messenger">
+                                        <img class="payment-modal__contact-icon" src="img/quote/modals/messenger.svg" alt="">
+                                        <span class="payment-modal__contact-label">Messenger</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="payment-modal__footer">
+                            <a class="payment-modal__logo" href="index.html" aria-label="Go Schengen home">
+                                <img class="payment-modal__logo-icon" src="img/quote/modals/logo.svg" alt="">
+                                <span class="payment-modal__logo-text">GO SCHENGEN</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
+        <!-- Дополнительные экраны шага 2: допы и полная таблица покрытия -->
         <div class="quote-details" hidden>
             <section class="addons" tabindex="-1">
                 <div class="container">
@@ -3743,10 +3871,11 @@
                 <aside class="addons__summary order-summary">
                     <div class="container">
                         <div class="addons__trip">
-                            <div class="addons__trip-item addons__trip-item--country">
+                            <div class="addons__trip-item addons__trip-item--country" tabindex="0"
+                                aria-describedby="addons-country-tooltip">
                                 <img class="addons__trip-icon" src="img/quote/map.svg" alt="">
                                 <span class="addons__country">Germany</span>
-                                <span class="addons__country-tooltip" hidden></span>
+                                <span class="addons__country-tooltip" id="addons-country-tooltip" role="tooltip" hidden></span>
                             </div>
                             <div class="addons__trip-item addons__trip-item--dot"></div>
                             <div class="addons__trip-item">
@@ -3754,10 +3883,11 @@
                                 <span class="addons__days">4 days</span>
                             </div>
                             <div class="addons__trip-item addons__trip-item--dot"></div>
-                            <div class="addons__trip-item addons__trip-item--travelers">
+                            <div class="addons__trip-item addons__trip-item--travelers" tabindex="0"
+                                aria-describedby="addons-travelers-tooltip">
                                 <img class="addons__trip-icon" src="img/quote/people.svg" alt="">
                                 <span class="addons__travelers">1 traveler</span>
-                                <div class="addons__travelers-tooltip" hidden></div>
+                                <div class="addons__travelers-tooltip" id="addons-travelers-tooltip" role="tooltip" hidden></div>
                             </div>
                         </div>
                         <ul class="addons__benefits">
@@ -3804,9 +3934,11 @@
                     <div class="quote-coverage__bar-inner">
                         <div class="quote-coverage__trip">
                             <div class="quote-coverage__summary">
-                                <div class="quote-coverage__summary-item">
+                                <div class="quote-coverage__summary-item quote-coverage__summary-item--country" tabindex="0"
+                                    aria-describedby="coverage-country-tooltip">
                                     <img class="quote-coverage__summary-icon" src="img/quote/map.svg" alt="">
                                     <span class="quote-coverage__country">Germany</span>
+                                    <span class="quote-coverage__country-tooltip" id="coverage-country-tooltip" role="tooltip" hidden></span>
                                 </div>
                                 <div class="quote-coverage__summary-item">
                                     <img class="quote-coverage__summary-icon" src="img/quote/calendar.svg" alt="">

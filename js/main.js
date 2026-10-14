@@ -1,3 +1,37 @@
+function validateRequiredCheckbox(checkbox) {
+    let error = document.getElementById(checkbox.dataset.error);
+    let valid = checkbox.checked;
+
+    if (valid) {
+        checkbox.removeAttribute('aria-invalid');
+        checkbox.removeAttribute('aria-describedby');
+    } else {
+        checkbox.setAttribute('aria-invalid', 'true');
+        checkbox.setAttribute('aria-describedby', error.id);
+    }
+
+    error.hidden = valid;
+    return valid;
+}
+
+document.addEventListener('invalid', (event) => {
+    if (!event.target.matches('input[type="checkbox"][required][data-error]')) return;
+
+    event.preventDefault();
+    validateRequiredCheckbox(event.target);
+}, true);
+
+document.addEventListener('change', (event) => {
+    let checkbox = event.target;
+
+    if (
+        checkbox.matches('input[type="checkbox"][required][data-error]') &&
+        (checkbox.checked || checkbox.hasAttribute('aria-invalid'))
+    ) {
+        validateRequiredCheckbox(checkbox);
+    }
+});
+
 window.sharedMenusReady = (async () => {
     let header = document.querySelector('.header');
 
@@ -494,8 +528,8 @@ if (whyChoseSlider) {
 
 
 // Both layouts use the same countries, dates and traveler count.
-let mobileForm = document.querySelector('.hero-mobile-form');
-let mobileTripTabs = document.querySelectorAll('.hero-mobile-form__tab');
+let mobileForm = document.querySelector('.hero .hero-mobile-form');
+let mobileTripTabs = mobileForm?.querySelectorAll('.hero-mobile-form__tab') || [];
 let mobileCountry = mobileForm?.querySelector('.hero-mobile-form__country');
 let mobileCountryToggle = mobileForm?.querySelector('.hero-mobile-form__field--select');
 let mobileCountryValue = mobileForm?.querySelector('.hero-mobile-form__country-value');
@@ -1217,11 +1251,13 @@ document.querySelectorAll('[data-contact-select]').forEach((select) => {
     function closeContactSelect() {
         list.hidden = true;
         select.classList.remove('contact__select--open');
+        trigger.setAttribute('aria-expanded', 'false');
     }
 
     function openContactSelect() {
         list.hidden = false;
         select.classList.add('contact__select--open');
+        trigger.setAttribute('aria-expanded', 'true');
     }
 
     trigger.addEventListener('click', () => {
@@ -1243,6 +1279,8 @@ document.querySelectorAll('[data-contact-select]').forEach((select) => {
 
             option.classList.add('contact__select-option--selected');
             closeContactSelect();
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+            trigger.focus();
         });
     });
 
@@ -1256,7 +1294,52 @@ document.querySelectorAll('[data-contact-select]').forEach((select) => {
         closeContactSelect();
         trigger.focus();
     });
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.setAttribute('aria-label', 'Select type of question');
+    select.addEventListener('keydown', event => {
+        if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault(); openContactSelect();
+        let index = Array.from(options).indexOf(document.activeElement);
+        if (event.key === 'Home' || index < 0 && event.key === 'ArrowDown') index = 0;
+        else if (event.key === 'End' || index < 0 && event.key === 'ArrowUp') index = options.length - 1;
+        else index = (index + (event.key === 'ArrowDown' ? 1 : -1) + options.length) % options.length;
+        options[index]?.focus();
+    });
+    select.addEventListener('focusout', event => { if (!select.contains(event.relatedTarget)) closeContactSelect(); });
 });
+
+document.querySelectorAll('.contact__form').forEach((form, formIndex) => {
+    form.noValidate = true;
+    let controls = [form.querySelector('.contact__select-trigger'), ...form.querySelectorAll('.contact__input')];
+    let errors = controls.map((control, index) => {
+        let error = document.createElement('p'); error.className = 'contact__error'; error.id = `contact-${formIndex}-${index}-error`;
+        error.hidden = true; error.setAttribute('role', 'alert');
+        (control.closest('.contact__select') || control).after(error);
+        if (control.matches('input')) control.setAttribute('aria-label', control.placeholder);
+        return error;
+    });
+    let status = document.createElement('p'); status.className = 'contact__status'; status.hidden = true; status.setAttribute('role', 'status'); form.append(status);
+    function validateContact(showErrors) {
+        let values = [form.querySelector('.contact__select-input').value, ...controls.slice(1).map(input => input.value.trim())];
+        let valid = [!!values[0], /[a-z]/i.test(values[1]) && /^[a-z\s'-]+$/i.test(values[1]), /^\+?[\d\s()-]+$/.test(values[2]) && values[2].replace(/\D/g, '').length >= 7 && values[2].replace(/\D/g, '').length <= 15, /^[\x21-\x7E]+@[^\s@]+\.[^\s@]+$/.test(values[3]) && controls[3].validity.valid];
+        let messages = ['Please select a type of question', 'Please enter your name in Latin letters', 'Please enter a valid phone number', 'Please enter a valid email'];
+        controls.forEach((control, index) => {
+            if (!showErrors && control.getAttribute('aria-invalid') !== 'true') return;
+            errors[index].textContent = messages[index]; errors[index].hidden = valid[index];
+            control.setAttribute('aria-invalid', String(!valid[index]));
+            if (valid[index]) control.removeAttribute('aria-describedby'); else control.setAttribute('aria-describedby', errors[index].id);
+        });
+        return controls[valid.indexOf(false)];
+    }
+    form.addEventListener('submit', event => {
+        event.preventDefault(); status.hidden = true;
+        let invalid = validateContact(true);
+        if (invalid) { invalid.focus(); return; }
+        status.textContent = 'Demo form validated. No message was sent: a backend is not connected.'; status.hidden = false;
+    });
+    ['input', 'change'].forEach(type => form.addEventListener(type, () => { status.hidden = true; validateContact(false); }));
+});
+
 if (document.querySelector('.hero__form')) {
     let popularList = document.querySelector('.form-country__options--popular');
 
@@ -1641,7 +1724,9 @@ if (document.querySelector('.hero__form')) {
             startDate: startDate.getTime(),
             endDate: endDate === null ? null : endDate.getTime(),
             annual: annualCheckbox.checked,
-            travelers: travelersNumber
+            travelers: travelersNumber,
+            source: 'hero',
+            discountRate: 0
         };
         if (applicantAge !== undefined) tripData.applicantAge = applicantAge;
 
@@ -1652,6 +1737,8 @@ if (document.querySelector('.hero__form')) {
 
     quoteButton.addEventListener('click', (event) => {
         event.stopPropagation()
+        let consentValid = validateRequiredCheckbox(quoteConsent);
+
         if (selectedCountries.length === 0) {
             openCountryMenu();
             countrySearch.focus();
@@ -1669,10 +1756,15 @@ if (document.querySelector('.hero__form')) {
             travelersToggle.focus();
             return;
         }
-        if (!quoteConsent.reportValidity()) {
+        if (!consentValid) {
+            quoteConsent.focus();
             return;
         }
         openQuote();
+    });
+    document.querySelector('.hero__form').addEventListener('submit', event => {
+        event.preventDefault();
+        quoteButton.click();
     });
 
     let travelers = document.querySelector('.form-travelers');
@@ -1868,9 +1960,9 @@ if (document.querySelector('.hero__form')) {
 
     function validateMobileAge() {
         let age = mobileAge.value.trim();
-        let valid = /^\d+$/.test(age) && Number.isSafeInteger(Number(age));
+        let valid = /^\d+$/.test(age) && Number.isSafeInteger(Number(age)) && Number(age) >= 16 && Number(age) <= 90;
         if (valid) clearMobileError(mobileAge, 'mobile-age-error');
-        else showMobileError(mobileAge, 'mobile-age-error', 'Please enter your age as a whole number');
+        else showMobileError(mobileAge, 'mobile-age-error', 'Please enter your age between 16 and 90');
         return valid;
     }
 
@@ -2162,6 +2254,406 @@ document.querySelectorAll('.coverage__table-box').forEach((box, index) => {
     updateScrollbar();
 });
 
+// The same country source is used by header menus, visa checker and popup.
+window.sharedMenusReady.then(() => {
+    let countries = new Map();
+    document.querySelectorAll('.route-menu__country-btn, .menu-countries__link').forEach(link => {
+        let name = link.querySelector('span')?.textContent.trim();
+        if (name) countries.set(name, link.querySelector('img')?.getAttribute('src'));
+    });
+    let countryNames = Array.from(countries.keys()).sort((a, b) => a.localeCompare(b, 'en'));
+    let activeDialog = null;
+    let previousFocus;
+    let inertElements = [];
+
+    function closeDialog() {
+        if (!activeDialog) return;
+        activeDialog.hidden = true;
+        inertElements.forEach(([element, wasInert]) => element.inert = wasInert);
+        inertElements = [];
+        activeDialog = null;
+        let focus = previousFocus?.isConnected && previousFocus.getClientRects().length
+            ? previousFocus : document.querySelector('.header__burger');
+        focus?.focus({ preventScroll: true });
+    }
+
+    function openDialog(root, focus) {
+        closeDialog();
+        previousFocus = document.activeElement;
+        root.hidden = false;
+        activeDialog = root;
+        Array.from(document.body.children).forEach(element => {
+            if (element === root || ['SCRIPT', 'STYLE'].includes(element.tagName)) return;
+            inertElements.push([element, element.inert]);
+            element.inert = true;
+        });
+        focus.focus({ preventScroll: true });
+    }
+
+    document.addEventListener('keydown', event => {
+        if (!activeDialog || event.defaultPrevented) return;
+        if (event.key === 'Escape') { event.preventDefault(); closeDialog(); }
+        if (event.key !== 'Tab') return;
+        let focusable = Array.from(activeDialog.querySelectorAll('button, input, a[href], [tabindex="0"]'))
+            .filter(element => !element.disabled && element.getClientRects().length && !element.closest('[inert]'));
+        let first = focusable[0], last = focusable.at(-1);
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+        if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+    });
+
+    let languageMenu = document.querySelector('.language-menu');
+    if (languageMenu) {
+        let search = languageMenu.querySelector('.language-menu__input');
+        let list = languageMenu.querySelector('.language-menu__list');
+        let options = Array.from(list.querySelectorAll('.language-menu__option'));
+        let regions = languageMenu.querySelectorAll('.language-menu__region');
+        let region = '';
+        let languages = {
+            en: { label: 'Eng', country: 'United States', regions: ['america', 'europe', 'africa', 'asia', 'oceania'] },
+            de: { label: 'Deu', country: 'Germany', regions: ['europe'] },
+            fr: { label: 'Fra', country: 'France', regions: ['america', 'europe', 'africa', 'oceania'] }
+        };
+        let selected = 'en';
+        try { if (languages[localStorage.getItem('siteLanguage')]) selected = localStorage.getItem('siteLanguage'); } catch { /* Storage is optional. */ }
+        let empty = document.createElement('p');
+        empty.className = 'language-menu__empty';
+        empty.textContent = 'No languages found';
+        empty.hidden = true;
+        empty.setAttribute('role', 'status');
+        list.after(empty);
+        let close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'language-menu__close';
+        close.setAttribute('aria-label', 'Close language menu');
+        close.textContent = '×';
+        languageMenu.querySelector('.language-menu__panel').prepend(close);
+        languageMenu.querySelector('.language-menu__description').textContent = 'Choose a language. This demo does not translate the page.';
+        function syncLanguage() {
+            document.querySelectorAll('.header__language').forEach(button => {
+                button.querySelector('.header__language-value').textContent = languages[selected].label;
+                let flag = button.querySelector('.header__language-flag');
+                if (countries.get(languages[selected].country)) flag.src = countries.get(languages[selected].country);
+                button.setAttribute('aria-label', `Select language: ${selected}`);
+                button.setAttribute('aria-haspopup', 'dialog');
+            });
+            options.forEach(option => {
+                let active = option.dataset.language === selected;
+                option.classList.toggle('language-menu__option--selected', active);
+                option.setAttribute('aria-pressed', String(active));
+            });
+        }
+        function filterLanguages() {
+            let query = search.value.trim().toLowerCase();
+            list.hidden = !query && !region;
+            let found = 0;
+            options.forEach(option => {
+                let match = option.textContent.toLowerCase().includes(query) && (!region || languages[option.dataset.language].regions.includes(region));
+                option.closest('li').hidden = !match;
+                if (match) found++;
+            });
+            empty.hidden = list.hidden || found > 0;
+            regions.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.region === region)));
+        }
+        document.addEventListener('click', event => {
+            if (!event.target.closest('.header__language')) return;
+            search.value = ''; region = ''; filterLanguages();
+            openDialog(languageMenu, search);
+        });
+        search.addEventListener('input', filterLanguages);
+        regions.forEach(button => button.addEventListener('click', () => {
+            region = region === button.dataset.region ? '' : button.dataset.region;
+            filterLanguages();
+        }));
+        options.forEach(option => option.addEventListener('click', () => {
+            selected = option.dataset.language;
+            try { localStorage.setItem('siteLanguage', selected); } catch { /* Selection still works without storage. */ }
+            syncLanguage(); closeDialog();
+        }));
+        languageMenu.querySelector('.language-menu__submit').addEventListener('click', closeDialog);
+        close.addEventListener('click', closeDialog);
+        languageMenu.addEventListener('click', event => { if (event.target === languageMenu) closeDialog(); });
+        syncLanguage();
+    }
+
+    let popup = document.querySelector('.insurance-popup');
+    let popupForm = popup?.querySelector('form');
+    let openInsurancePopup;
+    if (popupForm) {
+        let selected = new Set();
+        let annual = false, start = null, end = null, confirmed = false;
+        let today = new Date(); today.setHours(0, 0, 0, 0);
+        let month = new Date(today.getFullYear(), today.getMonth(), 1);
+        let country = popupForm.querySelector('.hero-mobile-form__country');
+        let countryButton = country.querySelector('.hero-mobile-form__field--select');
+        let countryDropdown = country.querySelector('.hero-mobile-form__country-dropdown');
+        let countrySearch = country.querySelector('.hero-mobile-form__country-search');
+        let countryList = country.querySelector('.hero-mobile-form__country-options');
+        let date = popupForm.querySelector('.hero-mobile-form__date');
+        let dateButton = date.querySelector('.hero-mobile-form__field--date');
+        let calendar = date.querySelector('.calendar');
+        let travelers = popupForm.querySelector('.hero-mobile-form__passenger-value');
+        let age = popupForm.querySelector('.hero-mobile-form__age');
+        let minus = popupForm.querySelector('.hero-mobile-form__counter-btn--minus');
+        let formStatus = popupForm.querySelector('.hero-mobile-form__status');
+        const formatDate = value => value.toLocaleDateString('en-GB').replaceAll('/', '.');
+        function setError(control, key, valid, message) {
+            let error = popupForm.querySelector(`#popup-${key}-error`);
+            error.hidden = valid;
+            if (message) error.textContent = message;
+            control.setAttribute('aria-invalid', String(!valid));
+            return valid;
+        }
+        function closeCountry() {
+            countryDropdown.hidden = true;
+            country.classList.remove('hero-mobile-form__country--open');
+            countryButton.setAttribute('aria-expanded', 'false');
+        }
+        function closeCalendar() {
+            calendar.hidden = true;
+            date.classList.remove('hero-mobile-form__date--open');
+            dateButton.setAttribute('aria-expanded', 'false');
+        }
+        function syncCountries() {
+            let value = country.querySelector('.hero-mobile-form__country-value');
+            value.textContent = selected.size ? Array.from(selected).join(', ') : 'Select country';
+            countryButton.title = value.textContent;
+            countryButton.classList.toggle('hero-mobile-form__field--selected', selected.size > 0);
+            countryList.querySelectorAll('input').forEach(input => input.checked = selected.has(input.value));
+            if (selected.size) setError(countryButton, 'country', true);
+        }
+        countryNames.forEach(name => {
+            let item = document.createElement('li');
+            let label = document.createElement('label'); label.className = 'hero-mobile-form__country-option';
+            let input = document.createElement('input'); input.type = 'checkbox'; input.value = name;
+            label.append(input);
+            if (countries.get(name)) {
+                let flag = document.createElement('img'); flag.src = countries.get(name); flag.alt = ''; label.append(flag);
+            }
+            let text = document.createElement('span'); text.textContent = name; label.append(text);
+            item.dataset.name = name.toLowerCase(); item.append(label); countryList.append(item);
+        });
+        countryButton.addEventListener('click', () => {
+            if (!countryDropdown.hidden) { closeCountry(); return; }
+            closeCalendar(); countryDropdown.hidden = false;
+            country.classList.add('hero-mobile-form__country--open');
+            countryButton.setAttribute('aria-expanded', 'true'); countrySearch.focus();
+        });
+        countrySearch.addEventListener('input', () => {
+            let found = 0;
+            Array.from(countryList.children).forEach(item => {
+                item.hidden = !item.dataset.name.includes(countrySearch.value.trim().toLowerCase());
+                if (!item.hidden) found++;
+            });
+            country.querySelector('.hero-mobile-form__country-empty').hidden = found > 0;
+        });
+        countryList.addEventListener('change', event => {
+            let input = event.target;
+            if (input.checked) selected.add(input.value); else selected.delete(input.value);
+            syncCountries();
+        });
+        country.querySelector('.hero-mobile-form__country-done').addEventListener('click', () => { closeCountry(); countryButton.focus(); });
+        country.querySelectorAll('.hero-mobile-form__countries button').forEach(button => button.addEventListener('click', () => {
+            let name = button.textContent.trim();
+            if (selected.has(name)) selected.delete(name); else selected.add(name);
+            syncCountries();
+        }));
+        function renderCalendar() {
+            calendar.querySelector('.calendar__title').textContent = month.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            let days = calendar.querySelector('.calendar__days'); days.replaceChildren();
+            let offset = (month.getDay() + 6) % 7;
+            for (let index = 0; index < offset; index++) {
+                let blank = document.createElement('span'); blank.className = 'calendar__day calendar__day--empty'; days.append(blank);
+            }
+            let count = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+            for (let day = 1; day <= count; day++) {
+                let value = new Date(month.getFullYear(), month.getMonth(), day);
+                let button = document.createElement('button'); button.type = 'button'; button.className = 'calendar__day';
+                button.textContent = day; button.dataset.date = `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                button.setAttribute('aria-label', value.toLocaleDateString('en-US', { dateStyle: 'full' }));
+                button.disabled = value < today;
+                if (start && +value === +start) button.classList.add('calendar__day--start');
+                if (end && +value === +end) button.classList.add('calendar__day--end');
+                if (start && end && value > start && value < end) button.classList.add('calendar__day--in-range');
+                button.addEventListener('click', () => {
+                    if (annual || !start || end || value < start) { start = value; end = null; }
+                    else end = value;
+                    confirmed = false; renderCalendar();
+                    calendar.querySelector(`[data-date="${button.dataset.date}"]`)?.focus({ preventScroll: true });
+                });
+                days.append(button);
+            }
+            calendar.querySelector('.calendar__nav--prev').disabled = month <= new Date(today.getFullYear(), today.getMonth(), 1);
+            calendar.querySelector('.calendar__confirm').hidden = !start || !annual && !end;
+            date.querySelector('.hero-mobile-form__date-value').textContent = !start ? 'Select date'
+                : annual ? `From ${formatDate(start)}` : `${formatDate(start)} - ${end ? formatDate(end) : '…'}`;
+        }
+        popupForm.querySelectorAll('.hero-mobile-form__tab').forEach(button => button.addEventListener('click', () => {
+            annual = button.dataset.trip === 'annual'; start = end = null; confirmed = false;
+            popupForm.querySelectorAll('.hero-mobile-form__tab').forEach(tab => {
+                tab.classList.toggle('hero-mobile-form__tab--active', tab === button); tab.setAttribute('aria-pressed', String(tab === button));
+            });
+            renderCalendar();
+        }));
+        dateButton.addEventListener('click', () => {
+            if (!calendar.hidden) { closeCalendar(); return; }
+            closeCountry(); renderCalendar(); calendar.hidden = false;
+            date.classList.add('hero-mobile-form__date--open'); dateButton.setAttribute('aria-expanded', 'true');
+        });
+        calendar.querySelectorAll('.calendar__nav').forEach(button => button.addEventListener('click', () => {
+            month.setMonth(month.getMonth() + (button.classList.contains('calendar__nav--next') ? 1 : -1)); renderCalendar();
+        }));
+        calendar.querySelector('.calendar__confirm').addEventListener('click', () => {
+            confirmed = true; closeCalendar(); setError(dateButton, 'date', true); dateButton.focus();
+        });
+        function syncTravelers() { minus.disabled = Number(travelers.value) <= 1; }
+        popupForm.querySelectorAll('.hero-mobile-form__counter-btn').forEach(button => button.addEventListener('click', () => {
+            let count = Number(travelers.value);
+            travelers.value = Math.max(1, (Number.isSafeInteger(count) ? count : 1) + (button === minus ? -1 : 1));
+            syncTravelers(); setError(travelers, 'travelers', true);
+        }));
+        travelers.addEventListener('input', syncTravelers);
+        age.addEventListener('input', () => { age.value = age.value.replace(/\D/g, '').slice(0, 2); });
+        popupForm.addEventListener('keydown', event => {
+            if (event.key !== 'Escape') return;
+            if (!countryDropdown.hidden) { closeCountry(); countryButton.focus(); }
+            else if (!calendar.hidden) { closeCalendar(); dateButton.focus(); }
+            else return;
+            event.preventDefault(); event.stopPropagation();
+        });
+        document.addEventListener('click', event => {
+            // Rendering a month replaces the clicked day; its original event path
+            // still tells us that the click happened inside the calendar.
+            if (!event.composedPath().includes(country)) closeCountry();
+            if (!event.composedPath().includes(date)) closeCalendar();
+        });
+        popupForm.addEventListener('submit', event => {
+            event.preventDefault();
+            let checks = [
+                [countryButton, 'country', selected.size > 0],
+                [dateButton, 'date', confirmed && !!start && (annual || !!end)],
+                [travelers, 'travelers', Number.isSafeInteger(Number(travelers.value)) && Number(travelers.value) >= 1],
+                [age, 'age', /^\d+$/.test(age.value) && Number(age.value) >= 16 && Number(age.value) <= 90, 'Please enter your age between 16 and 90']
+            ];
+            checks.forEach(check => setError(...check));
+            let invalid = checks.find(check => !check[2]);
+            if (invalid) { invalid[0].focus(); return; }
+            sessionStorage.removeItem('insuranceQuote');
+            sessionStorage.setItem('insuranceTrip', JSON.stringify({
+                countries: Array.from(selected), startDate: start.getTime(), endDate: annual ? null : end.getTime(),
+                annual, travelers: Number(travelers.value), applicantAge: Number(age.value), source: 'visa-check', discountRate: 0.1
+            }));
+            window.location.href = 'quote.html';
+        });
+        popup.querySelector('.insurance-popup__close').addEventListener('click', () => { closeCountry(); closeCalendar(); closeDialog(); });
+        popup.querySelector('.insurance-popup__overlay').addEventListener('click', closeDialog);
+        openInsurancePopup = destination => {
+            if (!selected.size && destination) { selected.add(destination); syncCountries(); }
+            closeCountry(); closeCalendar(); formStatus.hidden = true;
+            openDialog(popup, countryButton);
+        };
+        renderCalendar();
+    }
+
+    let visaCheck = document.querySelector('.visa-check');
+    if (visaCheck) {
+        let schengen = new Set('Austria|Belgium|Bulgaria|Croatia|Czech Republic|Denmark|Estonia|Finland|France|Germany|Greece|Hungary|Iceland|Italy|Latvia|Liechtenstein|Lithuania|Luxembourg|Malta|Netherlands|Norway|Poland|Portugal|Romania|Slovakia|Slovenia|Spain|Sweden|Switzerland'.split('|'));
+        let visaFree = new Set('Albania|Andorra|Antigua and Barbuda|Argentina|Australia|Bahamas|Barbados|Bosnia and Herzegovina|Brazil|Brunei|Canada|Chile|Colombia|Costa Rica|Dominica|El Salvador|Georgia|Grenada|Guatemala|Honduras|Israel|Japan|Kiribati|Malaysia|Marshall Islands|Mauritius|Mexico|Micronesia|Moldova|Monaco|Montenegro|Nauru|New Zealand|Nicaragua|North Macedonia|Palau|Panama|Paraguay|Peru|Saint Kitts and Nevis|Saint Lucia|Saint Vincent and the Grenadines|Samoa|San Marino|Serbia|Seychelles|Singapore|Solomon Islands|South Korea|Timor-Leste|Tonga|Trinidad and Tobago|Tuvalu|Ukraine|United Arab Emirates|United Kingdom|United States|Uruguay|Vatican City|Venezuela|Kosovo'.split('|'));
+        let selects = Array.from(visaCheck.querySelectorAll('.visa-select'));
+        let start = visaCheck.querySelector('.visa-check__start');
+        let result = visaCheck.querySelector('.visa-check__result');
+        let resultTitle = result.querySelector('.visa-check__result-title'); resultTitle.tabIndex = -1;
+        let resultText = result.querySelector('.visa-check__result-text');
+        function closeSelect(root, focus = false) {
+            root.querySelector('.visa-select__dropdown').hidden = true;
+            let button = root.querySelector('.visa-select__trigger'); button.setAttribute('aria-expanded', 'false');
+            if (focus) button.focus();
+        }
+        selects.forEach(root => {
+            let button = root.querySelector('.visa-select__trigger');
+            let dropdown = root.querySelector('.visa-select__dropdown');
+            let search = root.querySelector('.visa-select__search');
+            let list = root.querySelector('.visa-select__list');
+            let input = root.querySelector('.visa-select__input');
+            let error = root.querySelector('.visa-select__error');
+            let names = root.dataset.field === 'destination' ? countryNames.filter(name => schengen.has(name)) : countryNames;
+            names.forEach(name => {
+                let item = document.createElement('li'); item.className = 'visa-select__item'; item.dataset.name = name.toLowerCase();
+                let option = document.createElement('button'); option.type = 'button'; option.className = 'visa-select__option'; option.dataset.country = name; option.setAttribute('aria-pressed', 'false');
+                if (countries.get(name)) { let flag = document.createElement('img'); flag.className = 'visa-select__flag'; flag.src = countries.get(name); flag.alt = ''; option.append(flag); }
+                let text = document.createElement('span'); text.className = 'visa-select__name'; text.textContent = name; option.append(text);
+                item.append(option); list.append(item);
+                option.addEventListener('click', () => {
+                    input.value = name; root.querySelector('.visa-select__value').textContent = name;
+                    button.setAttribute('aria-invalid', 'false'); error.hidden = true;
+                    list.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === option)));
+                    closeSelect(root, true);
+                });
+            });
+            button.addEventListener('click', () => {
+                let open = dropdown.hidden; selects.forEach(select => closeSelect(select));
+                dropdown.hidden = !open; button.setAttribute('aria-expanded', String(open));
+                if (open) search.focus();
+            });
+            search.addEventListener('input', () => {
+                let found = 0;
+                Array.from(list.children).forEach(item => { item.hidden = !item.dataset.name.includes(search.value.trim().toLowerCase()); if (!item.hidden) found++; });
+                root.querySelector('.visa-select__empty').hidden = found > 0;
+            });
+            root.addEventListener('keydown', event => {
+                if (event.key === 'Escape' && !dropdown.hidden) { event.preventDefault(); closeSelect(root, true); }
+                if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+                event.preventDefault(); dropdown.hidden = false; button.setAttribute('aria-expanded', 'true');
+                let options = Array.from(list.querySelectorAll('li:not([hidden]) button'));
+                let index = options.indexOf(document.activeElement);
+                if (event.key === 'Home' || index < 0 && event.key === 'ArrowDown') index = 0;
+                else if (event.key === 'End' || index < 0 && event.key === 'ArrowUp') index = options.length - 1;
+                else index = (index + (event.key === 'ArrowDown' ? 1 : -1) + options.length) % options.length;
+                options[index]?.focus();
+            });
+            root.addEventListener('focusout', event => { if (!root.contains(event.relatedTarget)) closeSelect(root); });
+            document.addEventListener('click', event => { if (!root.contains(event.target)) closeSelect(root); });
+        });
+        function checkVisa(event) {
+            event.preventDefault();
+            let invalid = selects.filter(root => {
+                let valid = !!root.querySelector('.visa-select__input').value;
+                root.querySelector('.visa-select__error').hidden = valid;
+                root.querySelector('.visa-select__trigger').setAttribute('aria-invalid', String(!valid));
+                return !valid;
+            });
+            if (invalid.length) { invalid[0].querySelector('.visa-select__trigger').focus(); return; }
+            let countryAliases = {
+                'Great Britain': 'United Kingdom', 'USA': 'United States', 'United States of America': 'United States',
+                'East Timor': 'Timor-Leste', 'Macedonia': 'North Macedonia', 'Ivory Coast': 'Côte d’Ivoire',
+                "Côte d'Ivoire": 'Côte d’Ivoire', 'Türkiye': 'Turkey', 'Sao Tome and Principe': 'São Tomé and Príncipe',
+                'Holy See (Vatican City)': 'Vatican City', 'DR Congo': 'Democratic Republic of the Congo',
+                'Republic of the Congo': 'Congo', 'Eswatini (Swaziland)': 'Eswatini', 'St. Vincent': 'Saint Vincent and the Grenadines'
+            };
+            let selectedCountry = selects[0].querySelector('input').value;
+            let citizenship = countryAliases[selectedCountry] || selectedCountry;
+            let euCitizen = schengen.has(citizenship) || ['Cyprus', 'Ireland'].includes(citizenship);
+            let free = euCitizen || visaFree.has(citizenship);
+            resultTitle.textContent = free
+                ? 'No, you don’t need a Schengen visa'
+                : 'Yes, you need a Schengen visa!';
+            let text = free
+                ? 'However, we still recommend getting travel insurance for the Schengen area. Purchase it now with a '
+                : 'To apply for a Schengen visa from your country, travel insurance covering the Schengen area is mandatory — get it now with a ';
+            let discount = document.createElement('span'); discount.className = 'visa-check__discount'; discount.textContent = '10% discount!';
+            resultText.replaceChildren(text, discount);
+            selects.forEach(root => closeSelect(root)); start.hidden = true; result.hidden = false; resultTitle.focus({ preventScroll: true });
+        }
+        visaCheck.querySelector('.visa-check__form').addEventListener('submit', checkVisa);
+        start.querySelector('.visa-check__btn').addEventListener('click', checkVisa);
+        result.querySelector('.visa-check__apply').addEventListener('click', () => openInsurancePopup?.(selects[1].querySelector('input').value));
+    }
+}).catch(error => {
+    // Keep the rest of the page usable if the shared country menus cannot load.
+    document.querySelectorAll('.visa-check__btn').forEach(button => {
+        button.disabled = true; button.title = 'Country list unavailable. Reload the page.';
+    });
+});
+
 let quotePage = document.querySelector('.quote-page');
 
 if (quotePage) {
@@ -2172,6 +2664,14 @@ if (quotePage) {
     } catch {
         tripData = null
     }
+
+    if (tripData && (
+        !Array.isArray(tripData.countries) || !tripData.countries.length ||
+        !tripData.countries.every(country => typeof country === 'string') ||
+        !Number.isFinite(tripData.startDate) || !Number.isFinite(new Date(tripData.startDate).getTime()) ||
+        !Number.isSafeInteger(tripData.travelers) || tripData.travelers < 1 ||
+        !tripData.annual && (!Number.isFinite(tripData.endDate) || tripData.endDate < tripData.startDate)
+    )) tripData = null;
 
 
     let savedQuote = null
@@ -2207,6 +2707,11 @@ if (quotePage) {
         topCountryTooltip.hidden = tripData.countries.length < 2;
 
         document.querySelector('.quote-page__summary-item__country').removeAttribute('title');
+
+        let coverageCountryTooltip = document.querySelector('.quote-coverage__country-tooltip');
+        coverageCountryTooltip.textContent = tripData.countries.join(', ');
+        coverageCountryTooltip.hidden = tripData.countries.length < 2;
+        document.querySelector('.quote-coverage__country').removeAttribute('title');
 
         if (tripData.annual) {
             dateText = `From ${tripStart.toLocaleDateString('en-US', {
@@ -2489,16 +2994,18 @@ if (quotePage) {
             addonsTotal += Number(button.dataset.price);
         });
 
-        let total = (
-            price
-            * coverageRates[selectedCoverage]
-            * tripRates[selectedTrip]
-            + addonsTotal
-        ) * tripData.travelers;
+        let baseTotal = price * coverageRates[selectedCoverage] * tripRates[selectedTrip];
+        let discount = tripData.source === 'visa-check' && tripData.discountRate === 0.1 ? 0.1 : 0;
+        let total = (baseTotal * (1 - discount) + addonsTotal) * tripData.travelers;
+        let oldPrice = document.querySelector('.payment-receipt__old-price');
+        oldPrice.hidden = !discount;
+        oldPrice.textContent = discount
+            ? `$${((baseTotal + addonsTotal) * tripData.travelers).toFixed(2).replace('.', ',')}`
+            : '';
         let [whole, fraction] = total.toFixed(2).split('.');
 
         document.querySelectorAll(
-            '.quote-page__price, .addons__total-price, .quote-coverage__price'
+            '.quote-page__price, .addons__total-price, .quote-coverage__price, .payment-receipt__price'
         ).forEach((element) => {
             element.firstChild.textContent = `$${whole}`;
             element.querySelector('span').textContent = `,${fraction}`;
@@ -2698,6 +3205,10 @@ if (quotePage) {
     let coverageSection = document.querySelector('.quote-coverage');
 
     backButton.addEventListener('click', () => {
+        if (checkoutStep > 2) {
+            showCheckoutStep(checkoutStep - 1);
+            return;
+        }
         window.location.href = 'index.html#hero';
     });
 
@@ -2706,6 +3217,404 @@ if (quotePage) {
     });
 
     let quoteMain = document.querySelector('.quote-main');
+    let quoteCard = document.querySelector('.quote-page__card');
+    let quoteSummary = document.querySelector('.quote-page__summary');
+    let touristsForm = document.querySelector('.tourists-form');
+    let touristConsent = touristsForm.querySelector('.tourists-form__checkbox');
+    let payment = document.querySelector('.payment');
+    let cardNumberInput = payment.querySelector('.payment-form__input--number');
+    let cardNumberPreviews = payment.querySelectorAll('.payment-card__number');
+    let paymentTypeMenu = payment.querySelector('.payment-form__select-wrap');
+    let paymentTypeButton = paymentTypeMenu.querySelector('.payment-form__select');
+    let paymentTypeOptions = paymentTypeMenu.querySelector('.payment-form__options');
+    let paymentTypeValue = paymentTypeMenu.querySelector('.payment-form__type-value');
+
+    function formatCardNumber(value) {
+        let digits = value.replace(/\D/g, '').slice(0, 16);
+
+        return digits.match(/.{1,4}/g)?.join(' · ') || '';
+    }
+
+    function createCardDigits(value, length, field, padStart = false) {
+        let fragment = document.createDocumentFragment();
+        let placeholder = '0'.repeat(Math.max(0, length - value.length));
+
+        if (padStart) fragment.append(placeholder);
+
+        if (value) {
+            let digits = document.createElement('span');
+            digits.className = `payment-card__digits payment-card__digits--${field}`;
+            digits.textContent = value;
+            fragment.append(digits);
+        }
+
+        if (!padStart) fragment.append(placeholder);
+
+        return fragment;
+    }
+
+    function updateCardNumber() {
+        let digits = cardNumberInput.value.replace(/\D/g, '').slice(0, 16);
+
+        cardNumberPreviews.forEach((element) => {
+            let fragment = document.createDocumentFragment();
+
+            for (let offset = 0; offset < 16; offset += 4) {
+                if (offset) fragment.append(' · ');
+                fragment.append(createCardDigits(digits.slice(offset, offset + 4), 4, 'number'));
+            }
+
+            element.replaceChildren(fragment);
+        });
+    }
+
+    cardNumberInput.maxLength = 25;
+
+    cardNumberInput.addEventListener('input', () => {
+        let value = cardNumberInput.value;
+        let cursor = cardNumberInput.selectionStart;
+        let formatted = formatCardNumber(value);
+
+        if (formatted !== value) {
+            cardNumberInput.value = formatted;
+
+            let position = Math.min(
+                formatCardNumber(value.slice(0, cursor)).length,
+                formatted.length
+            );
+
+            cardNumberInput.setSelectionRange(position, position);
+        }
+
+        updateCardNumber();
+    });
+    let expiryMonthInput = payment.querySelector(
+        '.payment-form__input--month'
+    );
+
+    let expiryYearInput = payment.querySelector(
+        '.payment-form__input--year'
+    );
+
+    let cardExpiryPreviews = payment.querySelectorAll(
+        '.payment-card__expiry-value'
+    );
+
+    function updateCardExpiry() {
+        cardExpiryPreviews.forEach((element) => {
+            element.replaceChildren(
+                createCardDigits(expiryMonthInput.value, 2, 'month', true),
+                '/',
+                createCardDigits(expiryYearInput.value, 2, 'year', true)
+            );
+        });
+    }
+
+    [expiryMonthInput, expiryYearInput].forEach((input) => {
+        input.addEventListener('input', () => {
+            let value = input.value.replace(/\D/g, '').slice(0, 2);
+
+            if (input === expiryMonthInput && Number(value) > 12) {
+                value = '12';
+            }
+
+            if (input.value !== value) {
+                input.value = value;
+            }
+
+            updateCardExpiry();
+        });
+    });
+
+    let paymentCard = payment.querySelector('.payment-card');
+    let cvvInput = payment.querySelector('.payment-form__input--cvv');
+    let cardCvvPreview = payment.querySelector('.payment-card__cvv');
+
+    cvvInput.addEventListener('focus', () => {
+        paymentCard.classList.add('payment-card--flipped');
+    });
+
+    cvvInput.addEventListener('blur', () => {
+        paymentCard.classList.remove('payment-card--flipped');
+    });
+
+    cvvInput.addEventListener('input', () => {
+        let value = cvvInput.value.replace(/\D/g, '').slice(0, 3);
+
+        if (cvvInput.value !== value) {
+            cvvInput.value = value;
+        }
+
+        cardCvvPreview.replaceChildren(createCardDigits(value, 3, 'cvv'));
+    });
+
+    let paymentInputs = [cardNumberInput, expiryMonthInput, expiryYearInput, cvvInput];
+    let paymentFocusComplete = new WeakMap();
+    let payNowButton = payment.querySelector('.payment-form__submit');
+
+    // Local demo only: these numbers never leave the browser or enter storage.
+    let demoCards = {
+        '4242424242424242': 'success',
+        '5555555555554444': 'success',
+        '4000000000000119': 'error',
+        '4000000000000002': 'failed'
+    };
+    let paymentForm = payment.querySelector('.payment-form');
+    let paymentModals = document.querySelectorAll('.payment-modal');
+    let paymentAttempt = 0;
+    let paymentTimer;
+    let stepText = document.querySelector('.quote-page__step-text');
+    let normalStepText = Array.from(stepText.childNodes);
+    paymentForm.noValidate = true;
+    let demoNote = document.createElement('details');
+    demoNote.className = 'payment-form__demo';
+    demoNote.innerHTML = '<summary>Demo payment — no real charge</summary><p>Use any made-up 16-digit number for success; do not enter real card details. Processing error: 4000 0000 0000 0119. Declined: 4000 0000 0000 0002. Use any future expiry and 3-digit CVV. No policy or email is issued.</p>';
+    paymentForm.querySelector('.payment-form__footer').before(demoNote);
+
+    function hasValidCardNumber() {
+        let digits = cardNumberInput.value.replace(/\D/g, '');
+        return /^\d{16}$/.test(digits);
+    }
+
+    function validatePayment(showErrors = true) {
+        let numberValid = hasValidCardNumber();
+        let groups = [
+            { inputs: [cardNumberInput], valid: numberValid, field: cardNumberInput.closest('.payment-form__field') },
+            { inputs: [expiryMonthInput, expiryYearInput], valid: isPaymentInputComplete(expiryYearInput), field: expiryMonthInput.closest('fieldset') },
+            { inputs: [cvvInput], valid: isPaymentInputComplete(cvvInput), field: cvvInput.closest('.payment-form__field') }
+        ];
+        let firstInvalid;
+        groups.forEach(({ inputs, valid, field }, index) => {
+            let error = field.querySelector('.payment-form__error');
+            error.id = `payment-error-${index}`;
+            error.setAttribute('role', 'alert');
+            if (index === 0) error.textContent = 'Please enter a 16-digit card number.';
+            let reveal = showErrors || inputs.some(input => input.getAttribute('aria-invalid') === 'true');
+            if (reveal) {
+                error.hidden = valid;
+                inputs.forEach(input => {
+                    input.classList.toggle('payment-form__input--error', !valid);
+                    input.setAttribute('aria-invalid', String(!valid));
+                    if (valid) input.removeAttribute('aria-describedby');
+                    else input.setAttribute('aria-describedby', error.id);
+                });
+            }
+            if (!valid && !firstInvalid) firstInvalid = inputs[0];
+        });
+        payment.querySelector('.payment-form__valid').hidden = !numberValid;
+        let mastercard = /^5[1-5]/.test(cardNumberInput.value);
+        payment.querySelector('.payment-card__brand').hidden = !mastercard || !numberValid;
+        let brand = payment.querySelector('.payment-form__brand');
+        brand.src = mastercard ? 'img/quote/mastercard.svg' : 'img/quote/famicons_card.svg';
+        brand.alt = mastercard ? 'Mastercard' : 'Card';
+        return firstInvalid;
+    }
+
+    paymentInputs.forEach(input => input.addEventListener('input', () => validatePayment(false)));
+
+    function cancelDemoPayment() {
+        paymentAttempt++;
+        clearTimeout(paymentTimer);
+        paymentForm.inert = false;
+        paymentForm.removeAttribute('aria-busy');
+        payNowButton.disabled = false;
+        payNowButton.firstChild.textContent = 'Pay Now ';
+    }
+
+    function showPaymentResult(state) {
+        cancelDemoPayment();
+        payment.hidden = true;
+        quoteNavigation.hidden = true;
+        document.querySelector('.quote-page__back').hidden = state === 'success';
+        stepText.textContent = state === 'success' ? 'Demo completed' : 'Something went wrong';
+        progressSteps.forEach((element, index) => element.classList.toggle('quote-page__step--active', index < (state === 'success' ? 4 : 3)));
+        paymentModals.forEach(modal => modal.hidden = !modal.classList.contains(`payment-modal--${state}`));
+        let activeModal = document.querySelector(`.payment-modal--${state}`);
+        activeModal.focus();
+        cvvInput.value = '';
+        cardCvvPreview.replaceChildren(createCardDigits('', 3, 'cvv'));
+        paymentCard.classList.remove('payment-card--flipped');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    function submitDemoPayment(event) {
+        event.preventDefault();
+        if (payNowButton.disabled || checkoutStep !== 4) return;
+        let invalid = validatePayment();
+        if (invalid) { invalid.focus(); return; }
+        let result = demoCards[cardNumberInput.value.replace(/\D/g, '')] || 'success';
+        let attempt = ++paymentAttempt;
+        payNowButton.disabled = true;
+        payNowButton.firstChild.textContent = 'Processing… ';
+        paymentForm.setAttribute('aria-busy', 'true');
+        paymentForm.inert = true;
+        paymentTimer = setTimeout(() => {
+            if (attempt === paymentAttempt && checkoutStep === 4) showPaymentResult(result);
+        }, 650);
+    }
+    payNowButton.addEventListener('click', submitDemoPayment);
+    paymentForm.addEventListener('submit', submitDemoPayment);
+    paymentModals.forEach(modal => {
+        let notice = document.createElement('p');
+        notice.className = 'payment-modal__demo';
+        notice.textContent = 'Demo only. No money charged, policy issued or email sent.';
+        modal.querySelector('.payment-modal__content').append(notice);
+    });
+    document.querySelector('.payment-modal--success .payment-modal__text').textContent = 'The test payment scenario was completed successfully.';
+    document.querySelectorAll('.payment-modal__retry').forEach(button => button.addEventListener('click', () => {
+        showCheckoutStep(4);
+        cardNumberInput.focus();
+    }));
+    document.querySelectorAll('.payment-modal__contact').forEach(button => button.addEventListener('click', () => {
+        let notice = button.closest('.payment-modal').querySelector('.payment-modal__demo');
+        notice.setAttribute('role', 'status');
+        notice.textContent = 'Support links are not connected in this demo. Use Back to retry the test payment.';
+    }));
+
+    function isPaymentInputComplete(input) {
+        if (input === cardNumberInput) {
+            return /^\d{16}$/.test(input.value.replace(/\D/g, ''));
+        }
+
+        if (input === expiryMonthInput) {
+            return /^\d{2}$/.test(input.value) && Number(input.value) >= 1 && Number(input.value) <= 12;
+        }
+
+        if (input === expiryYearInput) {
+            if (!/^\d{2}$/.test(input.value) || !isPaymentInputComplete(expiryMonthInput)) return false;
+
+            let today = new Date();
+            let year = 2000 + Number(input.value);
+
+            return year > today.getFullYear() ||
+                (year === today.getFullYear() && Number(expiryMonthInput.value) >= today.getMonth() + 1);
+        }
+
+        return /^\d{3}$/.test(input.value);
+    }
+
+    function movePaymentFocus(input, direction = 1) {
+        let index = paymentInputs.indexOf(input);
+        let next = paymentInputs[index + direction];
+
+        if (!next && direction > 0) next = payNowButton;
+        if (!next) return;
+
+        next.focus();
+
+        if (next.matches('input')) {
+            next.setSelectionRange(next.value.length, next.value.length);
+        }
+    }
+
+    payment.addEventListener('focusin', (event) => {
+        if (paymentInputs.includes(event.target)) {
+            paymentFocusComplete.set(event.target, isPaymentInputComplete(event.target));
+        }
+    });
+
+    payment.addEventListener('input', (event) => {
+        let input = event.target;
+
+        if (
+            paymentInputs.includes(input) && document.activeElement === input &&
+            !paymentFocusComplete.get(input) && !event.isComposing &&
+            !event.inputType?.startsWith('delete') && isPaymentInputComplete(input) &&
+            input.selectionStart === input.value.length && input.selectionEnd === input.value.length
+        ) {
+            movePaymentFocus(input);
+        }
+    });
+
+    payment.addEventListener('keydown', (event) => {
+        let input = event.target;
+
+        if (!paymentInputs.includes(input) || event.isComposing || event.ctrlKey || event.altKey || event.metaKey) return;
+
+        if (event.key === 'Enter') {
+            event.preventDefault();
+
+            if (isPaymentInputComplete(input)) movePaymentFocus(input);
+        }
+
+        if (event.key === 'Backspace' && !input.value && paymentInputs.indexOf(input) > 0) {
+            event.preventDefault();
+            movePaymentFocus(input, -1);
+        }
+    });
+
+    function closePaymentTypeMenu(returnFocus = false) {
+        paymentTypeOptions.hidden = true;
+        paymentTypeButton.setAttribute('aria-expanded', 'false');
+
+        if (returnFocus) paymentTypeButton.focus();
+    }
+
+    function openPaymentTypeMenu() {
+        paymentTypeOptions.hidden = false;
+        paymentTypeButton.setAttribute('aria-expanded', 'true');
+    }
+
+    paymentTypeButton.addEventListener('click', () => {
+        if (paymentTypeOptions.hidden) {
+            openPaymentTypeMenu();
+        } else {
+            closePaymentTypeMenu();
+        }
+    });
+
+    paymentTypeOptions.addEventListener('click', (event) => {
+        let option = event.target.closest('.payment-form__option');
+
+        if (!option) return;
+
+        paymentTypeValue.value = option.dataset.value;
+        paymentTypeButton.querySelector('.payment-form__select-value').textContent =
+            option.querySelector('.payment-form__option-name').textContent.trim();
+
+        paymentTypeOptions.querySelectorAll('.payment-form__option').forEach((element) => {
+            element.setAttribute('aria-selected', String(element === option));
+        });
+
+        closePaymentTypeMenu(true);
+    });
+
+    paymentTypeMenu.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !paymentTypeOptions.hidden) {
+            event.preventDefault();
+            event.stopPropagation();
+            closePaymentTypeMenu(true);
+            return;
+        }
+
+        if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+
+        event.preventDefault();
+        let options = Array.from(paymentTypeOptions.querySelectorAll('.payment-form__option'));
+        let index = options.indexOf(document.activeElement);
+
+        openPaymentTypeMenu();
+
+        if (event.key === 'Home' || (index < 0 && event.key === 'ArrowDown')) index = 0;
+        else if (event.key === 'End' || (index < 0 && event.key === 'ArrowUp')) index = options.length - 1;
+        else index = (index + (event.key === 'ArrowDown' ? 1 : -1) + options.length) % options.length;
+
+        options[index]?.focus();
+    });
+
+    paymentTypeMenu.addEventListener('focusout', (event) => {
+        if (!paymentTypeMenu.contains(event.relatedTarget)) closePaymentTypeMenu();
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!paymentTypeMenu.contains(event.target)) closePaymentTypeMenu();
+    });
+
+    let progressSteps = document.querySelectorAll('.quote-page__step');
+    let stepNumber = document.querySelector('.quote-page__step-text-swap');
+    let getCoveredButtons = document.querySelectorAll(
+        '.quote-page__submit, .addons__submit, .quote-coverage__submit'
+    );
     let quoteDetails = document.querySelector('.quote-details');
     let addonsSection = document.querySelector('.addons');
     let priceBar = document.querySelector('.quote-coverage__bar');
@@ -2714,6 +3623,15 @@ if (quotePage) {
     let orderSummary = document.querySelector('.order-summary');
     let addonsSummarySlot = document.querySelector('.order-summary-slot--addons');
     let coverageSummarySlot = document.querySelector('.order-summary-slot--coverage');
+    let touristsList = touristsForm.querySelector('.tourists-form__list');
+    let touristTemplate = document.querySelector('.tourist-template');
+    let addTouristButton = touristsForm.querySelector('.tourists-form__add');
+    let quoteNavigation = quoteMain.querySelector('.quote-navigation');
+    let quoteNavigationButtons = quoteNavigation.querySelectorAll('.quote-navigation__button');
+    let quoteSummaryTooltipTriggers = quoteMain.querySelectorAll(
+        '.quote-page__summary-item--country, .addons__trip-item--country, .addons__trip-item--travelers, .quote-coverage__summary-item--country'
+    );
+    let checkoutStep = 2;
     let quoteScreens = [quotePage, addonsSection, coverageSection];
     let screenNames = ['quote', 'addons', 'coverage'];
     let currentScreen = 0;
@@ -2721,6 +3639,480 @@ if (quotePage) {
     let lastWheelTime = -Infinity;
     history.scrollRestoration = 'manual';
 
+    let quoteInfoTriggers = quoteMain.querySelectorAll('.quote-page__info, .addons__info');
+    let quoteInfoPointerFocus = new WeakSet();
+
+    function closeQuoteInfoTooltips(except = null) {
+        quoteInfoTriggers.forEach(trigger => {
+            if (trigger !== except) trigger.setAttribute('aria-expanded', 'false');
+        });
+    }
+
+    quoteInfoTriggers.forEach((trigger, index) => {
+        let tooltip = trigger.nextElementSibling;
+        if (!tooltip?.matches('.quote-page__tooltip, .addons__tooltip')) return;
+        tooltip.id = `quote-info-tooltip-${index}`;
+        tooltip.setAttribute('role', 'tooltip');
+        trigger.setAttribute('aria-controls', tooltip.id);
+        trigger.setAttribute('aria-expanded', 'false');
+        if (!trigger.hasAttribute('aria-label')) {
+            let name = trigger.closest('.addons__heading')?.querySelector('.addons__name')
+                || trigger.closest('.quote-page__item')?.querySelector('.quote-page__name');
+            trigger.setAttribute('aria-label', `More about ${name?.textContent.trim() || 'this coverage'}`);
+        }
+        trigger.addEventListener('pointerdown', () => quoteInfoPointerFocus.add(trigger));
+        trigger.addEventListener('focus', () => {
+            if (quoteInfoPointerFocus.has(trigger)) return;
+            closeQuoteInfoTooltips(trigger);
+            trigger.setAttribute('aria-expanded', 'true');
+        });
+        trigger.addEventListener('click', event => {
+            event.preventDefault();
+            let open = trigger.getAttribute('aria-expanded') !== 'true';
+            quoteInfoPointerFocus.delete(trigger);
+            closeQuoteInfoTooltips(trigger);
+            trigger.setAttribute('aria-expanded', String(open));
+        });
+        trigger.addEventListener('blur', () => {
+            quoteInfoPointerFocus.delete(trigger);
+            trigger.setAttribute('aria-expanded', 'false');
+        });
+        trigger.addEventListener('keydown', event => {
+            if (event.key !== 'Escape') return;
+            event.preventDefault();
+            event.stopPropagation();
+            trigger.setAttribute('aria-expanded', 'false');
+            trigger.blur();
+        });
+    });
+
+    document.addEventListener('pointerdown', event => {
+        if (!event.target.closest('.quote-page__info, .addons__info, .quote-page__tooltip, .addons__tooltip')) closeQuoteInfoTooltips();
+    });
+
+    function syncQuoteNavigation() {
+        quoteNavigation.hidden = checkoutStep !== 2;
+        quoteNavigationButtons.forEach((button) => {
+            let active = Number(button.dataset.quoteScreen) === currentScreen;
+            button.classList.toggle('quote-navigation__button--active', active);
+            if (active) button.setAttribute('aria-current', 'page');
+            else button.removeAttribute('aria-current');
+        });
+    }
+
+    quoteNavigationButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            if (checkoutStep !== 2) return;
+            let index = Number(button.dataset.quoteScreen);
+            showQuoteScreen(index, index < currentScreen ? -1 : 1, true, true);
+        });
+    });
+
+    function closeQuoteSummaryTooltip(trigger, blur = false) {
+        trigger.classList.remove('quote-summary-tooltip--open');
+        if (blur && trigger.contains(document.activeElement)) document.activeElement.blur();
+    }
+
+    quoteSummaryTooltipTriggers.forEach((trigger) => {
+        trigger.addEventListener('click', (event) => {
+            if (event.target.closest('button, a, input, select, textarea')) return;
+            let tooltip = trigger.querySelector('[role="tooltip"]');
+            if (!tooltip || tooltip.hidden || !tooltip.textContent.trim()) return;
+            let open = !trigger.classList.contains('quote-summary-tooltip--open');
+            quoteSummaryTooltipTriggers.forEach((other) => {
+                if (other !== trigger) closeQuoteSummaryTooltip(other, true);
+            });
+            trigger.classList.toggle('quote-summary-tooltip--open', open);
+            if (open) trigger.focus({ preventScroll: true });
+            else closeQuoteSummaryTooltip(trigger, true);
+        });
+        trigger.addEventListener('focusout', (event) => {
+            if (!trigger.contains(event.relatedTarget)) closeQuoteSummaryTooltip(trigger);
+        });
+        trigger.addEventListener('keydown', (event) => {
+            if (event.key !== 'Escape') return;
+            event.preventDefault();
+            closeQuoteSummaryTooltip(trigger, true);
+        });
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+        quoteSummaryTooltipTriggers.forEach((trigger) => {
+            if (!trigger.contains(event.target)) closeQuoteSummaryTooltip(trigger, true);
+        });
+    });
+
+    function updateTouristsCount() {
+        if (!tripData) return;
+
+        let count = touristsList.children.length;
+
+        tripData.travelers = count;
+
+        sessionStorage.setItem('insuranceTrip', JSON.stringify(tripData));
+
+        document.querySelectorAll(
+            '.quote-page__summary-item__traveler, .addons__travelers, .quote-coverage__travelers'
+        ).forEach((element) => {
+            element.textContent = `${count} ${count === 1 ? 'traveler' : 'travelers'}`;
+        });
+
+        updatePrice();
+    }
+
+    function isValidBirth(field, minAge = 0, maxAge = 90) {
+        let inputs = field.querySelectorAll('.tourist__input');
+        let [monthText, dayText, yearText] = Array.from(
+            inputs, (input) => input.value.trim()
+        );
+
+        if (
+            !/^\d{1,2}$/.test(monthText) ||
+            !/^\d{1,2}$/.test(dayText) ||
+            !/^\d{4}$/.test(yearText)
+        ) {
+            return false;
+        }
+
+        let month = Number(monthText);
+        let day = Number(dayText);
+        let year = Number(yearText);
+
+        let date = new Date();
+        date.setHours(0, 0, 0, 0);
+        date.setFullYear(year, month - 1, day);
+
+        let today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        let age = today.getFullYear() - year;
+
+        if (
+            today.getMonth() < month - 1 ||
+            (today.getMonth() === month - 1 && today.getDate() < day)
+        ) {
+            age--;
+        }
+
+        return year > 0 &&
+            date.getFullYear() === year &&
+            date.getMonth() === month - 1 &&
+            date.getDate() === day &&
+            date <= today &&
+            age >= minAge &&
+            age <= maxAge;
+    }
+
+    function setTouristError(field, hasError) {
+        let error = field.querySelector('.tourist__error');
+
+        field.querySelectorAll('.tourist__input').forEach((input) => {
+            input.classList.toggle('tourist__input--error', hasError);
+
+            if (hasError) {
+                input.setAttribute('aria-invalid', 'true');
+            } else {
+                input.removeAttribute('aria-invalid');
+            }
+        });
+
+        error.hidden = !hasError
+    }
+
+    function getTouristInvalidInput(field) {
+        let inputs = Array.from(field.querySelectorAll('.tourist__input'));
+        let invalidInput = inputs.find((input) => {
+            let value = input.value.trim();
+
+            if (!value || !input.validity.valid) return true;
+
+            if (input.matches('[name$="[firstName]"], [name$="[lastName]"]')) {
+                return !/^[A-Za-z]+(?:[ '-][A-Za-z]+)*$/.test(value);
+            }
+
+            return input.name === 'email' && /[^\x21-\x7E]/.test(value);
+        });
+
+        if (field.classList.contains('tourist__birth')) {
+            let error = field.querySelector('.tourist__error');
+            let isPrimary = field.closest('.tourist') === touristsList.firstElementChild;
+
+            error.textContent = 'Enter a valid date of birth';
+
+            if (!invalidInput && !isValidBirth(field, 0, Infinity)) {
+                invalidInput = inputs[0];
+            } else if (!invalidInput && !isValidBirth(field)) {
+                invalidInput = inputs[2];
+                error.textContent = 'Tourists must be no older than 90 years';
+            } else if (!invalidInput && isPrimary && !isValidBirth(field, 16)) {
+                invalidInput = inputs[2];
+                error.textContent = 'The main tourist must be at least 16 years old';
+            }
+        }
+
+        return invalidInput;
+    }
+
+    function createTourist() {
+        let index = touristsList.children.length;
+        let tourist = touristTemplate.content.firstElementChild.cloneNode(true);
+
+        tourist.querySelector('.tourist__number').textContent = index + 1;
+
+        tourist.querySelectorAll('[data-field]').forEach((input) => {
+            input.name = `tourists[${index}][${input.dataset.field}]`;
+        });
+        touristsList.append(tourist);
+    }
+
+    let initialTourists = Number(tripData?.travelers);
+
+    if (!Number.isSafeInteger(initialTourists) || initialTourists < 1) {
+        initialTourists = 1;
+    }
+    for (let i = 1; i < initialTourists; i++) {
+        createTourist()
+    }
+    addTouristButton.addEventListener('click', () => {
+        createTourist()
+        updateTouristsCount();
+    });
+    touristsList.addEventListener('click', (event) => {
+        let removeButton = event.target.closest('.tourist__remove');
+
+        if (!removeButton) return;
+
+        removeButton.closest('.tourist').remove();
+
+        Array.from(touristsList.children).forEach((tourist, index) => {
+            let number = tourist.querySelector('.tourist__number');
+
+            if (number) {
+                number.textContent = index + 1;
+            }
+            tourist.querySelectorAll('[data-field]').forEach((input) => {
+                input.name = `tourists[${index}][${input.dataset.field}]`;
+            })
+        });
+        updateTouristsCount();
+    });
+
+    touristsForm.noValidate = true;
+
+    let touristFocusComplete = new WeakMap();
+
+    function isTouristInputComplete(input) {
+        let value = input.value.trim();
+        let birth = input.closest('.tourist__birth');
+
+        if (!birth) return !getTouristInvalidInput(input.closest('.tourist__field'));
+
+        if (input.name.endsWith('[month]')) {
+            return /^\d{2}$/.test(value) && Number(value) >= 1 && Number(value) <= 12;
+        }
+
+        if (input.name.endsWith('[day]')) {
+            let month = Number(birth.querySelector('[name$="[month]"]').value);
+            let year = Number(birth.querySelector('[name$="[year]"]').value) || 2000;
+            let maxDay = month >= 1 && month <= 12 ? new Date(year, month, 0).getDate() : 31;
+
+            return /^\d{2}$/.test(value) && Number(value) >= 1 && Number(value) <= maxDay;
+        }
+
+        return !getTouristInvalidInput(birth);
+    }
+
+    function updateTouristFieldState(input) {
+        let field = input.closest('.tourist__field, .tourist__birth');
+
+        field.querySelectorAll('.tourist__input').forEach((element) => {
+            element.classList.toggle('tourist__input--filled', isTouristInputComplete(element));
+        });
+
+        if (!field.querySelector('.tourist__error').hidden) {
+            setTouristError(field, Boolean(getTouristInvalidInput(field)));
+        }
+    }
+
+    function moveTouristFocus(input, direction) {
+        let inputs = Array.from(touristsList.querySelectorAll('.tourist__input'));
+        let next = inputs[inputs.indexOf(input) + direction];
+
+        if (!next) return false;
+
+        next.focus();
+
+        if (next.selectionStart !== null) {
+            next.setSelectionRange(next.value.length, next.value.length);
+        } else if (next.type === 'email') {
+            let value = next.value;
+            next.value = '';
+            next.value = value;
+        }
+
+        return true;
+    }
+
+    touristsList.addEventListener('focusin', (event) => {
+        let input = event.target;
+
+        if (!input.matches('.tourist__input')) return;
+
+        touristFocusComplete.set(input, isTouristInputComplete(input));
+        updateTouristFieldState(input);
+    });
+
+    touristsList.addEventListener('focusout', (event) => {
+        if (event.target.matches('.tourist__input')) updateTouristFieldState(event.target);
+    });
+
+    touristsList.addEventListener('keydown', (event) => {
+        let input = event.target;
+
+        if (!input.matches('.tourist__input') || event.isComposing || event.ctrlKey || event.altKey || event.metaKey) return;
+
+        if (event.key === 'Enter') {
+            event.preventDefault();
+
+            if (isTouristInputComplete(input)) {
+                moveTouristFocus(input, 1);
+            } else {
+                let field = input.closest('.tourist__field, .tourist__birth');
+                getTouristInvalidInput(field);
+                setTouristError(field, true);
+            }
+        }
+
+        if (
+            event.key === 'Backspace' &&
+            (!input.value || (input.name === 'phone' && /^\+380\s*$/.test(input.value))) &&
+            moveTouristFocus(input, -1)
+        ) {
+            event.preventDefault();
+        }
+    });
+
+    function formatTouristPassport(value) {
+        let series = value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 2);
+        let number = value.replace(/\D/g, '').slice(0, 6);
+
+        return series + (series.length === 2 ? number : '');
+    }
+
+    function formatTouristPhone(value) {
+        let digits = value.replace(/\D/g, '');
+
+        if (!digits) return '';
+
+        if (digits.startsWith('380')) {
+            digits = digits.slice(3);
+        } else if (digits.startsWith('0')) {
+            digits = digits.slice(1);
+        }
+
+        digits = digits.slice(0, 9);
+
+        return [
+            '+380', digits.slice(0, 2), digits.slice(2, 5),
+            digits.slice(5, 7), digits.slice(7, 9)
+        ].filter(Boolean).join(' ');
+    }
+
+    touristsList.addEventListener('beforeinput', (event) => {
+        let input = event.target;
+
+        if (
+            input.name === 'phone' && input.value.startsWith('+380') &&
+            event.inputType.startsWith('delete') &&
+            input.selectionStart === input.selectionEnd && input.selectionStart <= 4
+        ) {
+            event.preventDefault();
+        }
+    });
+
+    touristsList.addEventListener('input', (event) => {
+        let input = event.target;
+        let format;
+
+        if (input.matches('.tourist__birth .tourist__input')) {
+            format = (value) => {
+                let digits = value.replace(/\D/g, '').slice(0, input.maxLength);
+
+                if (input.name.endsWith('[month]') && Number(digits) > 12) return '12';
+                if (input.name.endsWith('[day]') && Number(digits) > 31) return '31';
+
+                return digits;
+            };
+        } else if (input.matches('[name$="[firstName]"], [name$="[lastName]"]')) {
+            format = (value) => value.replace(/[^a-z '-]/gi, '');
+        } else if (input.name.endsWith('[passport]')) {
+            format = formatTouristPassport;
+        } else if (input.name === 'phone') {
+            format = formatTouristPhone;
+        } else if (input.name === 'email') {
+            format = (value) => value.replace(/[^\x21-\x7E]/g, '');
+        }
+
+        if (!format) return;
+
+        let value = input.value;
+        let cursor = input.selectionStart;
+        let formatted = format(value);
+
+        if (formatted !== value) {
+            input.value = formatted;
+
+            if (cursor !== null) {
+                let position = Math.min(format(value.slice(0, cursor)).length, formatted.length);
+                input.setSelectionRange(position, position);
+            }
+        }
+
+        updateTouristFieldState(input);
+
+        let fixedLength = input.closest('.tourist__birth') ||
+            input.name.endsWith('[passport]') || input.name === 'phone';
+
+        if (
+            fixedLength && document.activeElement === input &&
+            !touristFocusComplete.get(input) && !event.isComposing &&
+            !event.inputType?.startsWith('delete') && isTouristInputComplete(input) &&
+            input.selectionStart === input.value.length && input.selectionEnd === input.value.length
+        ) {
+            moveTouristFocus(input, 1);
+        }
+    });
+
+    touristsForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        let firstInvalidInput = null;
+
+        touristsList.querySelectorAll(
+            '.tourist__field, .tourist__birth'
+        ).forEach((field) => {
+            let invalidInput = getTouristInvalidInput(field);
+            setTouristError(field, Boolean(invalidInput));
+
+            if (invalidInput && !firstInvalidInput) {
+                firstInvalidInput = invalidInput;
+            }
+        });
+
+        let consentValid = validateRequiredCheckbox(touristConsent);
+
+        if (firstInvalidInput) {
+            firstInvalidInput.focus();
+            return;
+        }
+
+        if (!consentValid) {
+            touristConsent.focus();
+            return;
+        }
+
+        showCheckoutStep(4);
+    });
     function updateQuoteSizes() {
         quoteMain.style.setProperty('--quote-header-height', `${quoteHeader.offsetHeight}px`);
 
@@ -2743,12 +4135,15 @@ if (quotePage) {
         }
     }
 
-    function showQuoteScreen(index, direction = 1, animate = true) {
+    function showQuoteScreen(index, direction = 1, animate = true, startAtTop = false) {
         if (screenChanging || index < 0 || index >= quoteScreens.length) return;
         if (animate && index === currentScreen) return;
 
         let reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         let moveFocus = quoteScreens[currentScreen].contains(document.activeElement);
+        let restoreNavigationFocus = quoteNavigation.contains(document.activeElement);
+        closeQuoteInfoTooltips();
+        quoteSummaryTooltipTriggers.forEach((trigger) => closeQuoteSummaryTooltip(trigger));
         screenChanging = true;
         quoteMain.inert = true;
         quoteMain.style.setProperty('--quote-transition-offset', `${-direction * 12}px`);
@@ -2756,6 +4151,7 @@ if (quotePage) {
 
         function applyScreen() {
             currentScreen = index;
+            syncQuoteNavigation();
             quoteMain.dataset.screen = screenNames[index];
             quotePage.hidden = index !== 0;
             quoteDetails.hidden = index === 0;
@@ -2775,7 +4171,7 @@ if (quotePage) {
             closeTripMenu();
             updateQuoteSizes();
             window.scrollTo({
-                top: direction < 0 ? document.documentElement.scrollHeight : 0,
+                top: direction < 0 && !startAtTop ? document.documentElement.scrollHeight : 0,
                 behavior: 'instant'
             });
             quoteMain.style.setProperty('--quote-transition-offset', `${direction * 12}px`);
@@ -2785,7 +4181,11 @@ if (quotePage) {
                 quoteMain.classList.remove('quote-main--switching');
                 revealPriceBar();
 
-                if (moveFocus) quoteScreens[index].focus({ preventScroll: true });
+                if (restoreNavigationFocus && !quoteNavigation.hidden) {
+                    quoteNavigationButtons[index].focus({ preventScroll: true });
+                } else if (moveFocus) {
+                    quoteScreens[index].focus({ preventScroll: true });
+                }
 
                 if (animate && !reducedMotion) {
                     setTimeout(() => { screenChanging = false; }, 200);
@@ -2808,6 +4208,44 @@ if (quotePage) {
         }
     }
 
+    function showCheckoutStep(step) {
+        if (screenChanging) return;
+
+        cancelDemoPayment();
+        paymentModals.forEach(modal => modal.hidden = true);
+        stepText.replaceChildren(...normalStepText);
+        document.querySelector('.quote-page__back').hidden = false;
+        closePaymentTypeMenu();
+        showQuoteScreen(0, 1, false);
+        checkoutStep = step;
+        syncQuoteNavigation();
+
+        quoteCard.hidden = step !== 2;
+        fullCoverageButton.hidden = step !== 2;
+        touristsForm.hidden = step !== 3;
+        payment.hidden = step !== 4;
+        quoteSummary.hidden = step === 4;
+
+        stepNumber.textContent = step;
+
+        progressSteps.forEach((element, index) => {
+            element.classList.toggle(
+                'quote-page__step--active',
+                index < step
+            );
+        });
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'instant'
+        });
+    }
+    getCoveredButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            if (!tripData) { window.location.href = 'index.html#hero'; return; }
+            showCheckoutStep(3)
+        });
+    });
     function quoteScrollBoundary(direction) {
         if (direction < 0) return window.scrollY <= 2;
 
@@ -2831,6 +4269,7 @@ if (quotePage) {
     }
 
     window.addEventListener('wheel', (event) => {
+        if (checkoutStep !== 2) return;
         if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY) || !event.deltaY) return;
 
         let direction = Math.sign(event.deltaY);
@@ -2855,6 +4294,7 @@ if (quotePage) {
     }, { passive: false });
 
     document.addEventListener('keydown', (event) => {
+        if (checkoutStep !== 2) return;
         if (event.defaultPrevented || event.ctrlKey || event.altKey || event.metaKey || quoteMenuOpen()) return;
         if (event.target.closest('input, textarea, select, button, a, [contenteditable="true"]')) return;
 

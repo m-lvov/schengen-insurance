@@ -249,29 +249,93 @@
         <section class="visa-check" id="visa-check">
             <div class="container">
                 <div class="visa-check__inner">
-                    <h2 class="title visa-check__title">
-                        <span class="visa-check__title-desktop">Find out if you need a Schengen Visa?</span>
-                        <span class="visa-check__title-mobile">Find out if you need a visa?</span>
-                    </h2>
-                    <form class="visa-check__form">
-                        <div class="visa-select">
-                            <button class="visa-select__trigger" type="button">
-                                <span class="visa-select__value">Citizenship</span>
-                                <img class="visa-select__arrow" src="img/visa-form-arrow.svg" alt="">
+
+                    <div class="visa-check__start">
+                        <h2 class="title visa-check__title">
+                            <span class="visa-check__title-desktop">
+                                Find out if you need a Schengen Visa?
+                            </span>
+                            <span class="visa-check__title-mobile">
+                                Find out if you need a visa?
+                            </span>
+                        </h2>
+
+                        <form class="visa-check__form">
+                            <div class="visa-select" data-field="citizenship">
+                                <input class="visa-select__input" type="hidden" name="citizenship">
+
+                                <button class="visa-select__trigger" type="button"
+                                    aria-label="Select citizenship" aria-expanded="false"
+                                    aria-controls="visa-citizenship-dropdown"
+                                    aria-describedby="visa-citizenship-error">
+                                    <span class="visa-select__value">Citizenship</span>
+                                    <img class="visa-select__arrow" src="img/visa-form-arrow.svg" alt="">
+                                </button>
+
+                                <div class="visa-select__dropdown" id="visa-citizenship-dropdown" hidden>
+                                    <input class="visa-select__search" type="search"
+                                        placeholder="Search country" aria-label="Search citizenship country"
+                                        autocomplete="off">
+                                    <ul class="visa-select__list" aria-label="Citizenship countries"></ul>
+                                    <p class="visa-select__empty" hidden>No countries found</p>
+                                </div>
+
+                                <p class="visa-select__error" id="visa-citizenship-error" hidden>
+                                    Please select your citizenship
+                                </p>
+                            </div>
+
+                            <div class="visa-select" data-field="destination">
+                                <input class="visa-select__input" type="hidden" name="destination">
+
+                                <button class="visa-select__trigger" type="button"
+                                    aria-label="Select destination" aria-expanded="false"
+                                    aria-controls="visa-destination-dropdown"
+                                    aria-describedby="visa-destination-error">
+                                    <span class="visa-select__value">Destination</span>
+                                    <img class="visa-select__arrow" src="img/visa-form-arrow.svg" alt="">
+                                </button>
+
+                                <div class="visa-select__dropdown" id="visa-destination-dropdown" hidden>
+                                    <input class="visa-select__search" type="search"
+                                        placeholder="Search country" aria-label="Search destination country"
+                                        autocomplete="off">
+                                    <ul class="visa-select__list" aria-label="Destination countries"></ul>
+                                    <p class="visa-select__empty" hidden>No countries found</p>
+                                </div>
+
+                                <p class="visa-select__error" id="visa-destination-error" hidden>
+                                    Please select your destination
+                                </p>
+                            </div>
+
+                            <button class="visa-check__btn" type="button">
+                                <span class="visa-check__value">Check</span>
+                                <img class="visa-check__img" src="img/visa-check-arrow.svg" alt="">
                             </button>
-                        </div>
-                        <div class="visa-select">
-                            <button class="visa-select__trigger" type="button">
-                                <span class="visa-select__value">Destination</span>
-                                <img class="visa-select__arrow" src="img/visa-form-arrow.svg" alt="">
-                            </button>
-                        </div>
-                        <button class="visa-check__btn" type="button">
-                            <span class="visa-check__value">Check</span>
+                        </form>
+                    </div>
+
+                    <div class="visa-check__result" hidden>
+                        <h2 class="title visa-check__title visa-check__result-title">
+                            Yes, you need a Schengen visa!
+                        </h2>
+
+                        <p class="visa-check__result-text">
+                            To apply for a Schengen visa from your country,
+                            travel insurance covering the Schengen area is mandatory —
+                            get it now with a
+                            <span class="visa-check__discount">10% discount!</span>
+                        </p>
+
+                        <button class="visa-check__btn visa-check__apply" type="button">
+                            <span class="visa-check__value">Apply now</span>
                             <img class="visa-check__img" src="img/visa-check-arrow.svg" alt="">
                         </button>
-                    </form>
-                    <img class="visa-check__map" src="img/visa-check-bg.png" alt="">
+                    </div>
+
+                    <img class="visa-check__map" src="img/mobile/form-bg.svg" alt="">
+
                 </div>
             </div>
         </section>
@@ -468,7 +532,7 @@
                 <h2 class="title contact__title">Any questions left?</h2>
                 <p class="section-note contact__note">If you have any questions or are interested in a partnership,
                     please fill out the form below</p>
-                <form class="contact__form">
+                <form class="contact__form" novalidate>
                     <div class="contact__select" data-contact-select>
                         <button class="contact__select-trigger" type="button">
                             <span class="contact__select-value">
@@ -672,6 +736,110 @@
                     Choose language
                     <span class="language-menu__submit-arrow" aria-hidden="true"></span>
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="insurance-popup" hidden>
+        <div class="insurance-popup__overlay"></div>
+
+        <div class="insurance-popup__panel" role="dialog" aria-modal="true" aria-labelledby="insurance-popup-title">
+
+            <button class="insurance-popup__close" type="button" aria-label="Close popup">
+                <img src="img/close-form.svg" alt="">
+            </button>
+
+            <h2 class="insurance-popup__title" id="insurance-popup-title">
+                Get insurance now
+            </h2>
+
+            <div class="insurance-popup__form">
+                <form class="hero-mobile-form" action="" novalidate>
+                    <div class="hero-mobile-form__tabs" role="group" aria-label="Trip type">
+                        <button class="hero-mobile-form__tab hero-mobile-form__tab--active" type="button"
+                            data-trip="single" aria-pressed="true">Single
+                            trip</button>
+                        <button class="hero-mobile-form__tab" type="button" data-trip="annual"
+                            aria-pressed="false">Annual</button>
+                    </div>
+                    <div class="hero-mobile-form__field-inner hero-mobile-form__country">
+                        <button class="hero-mobile-form__field hero-mobile-form__field--select" type="button"
+                            aria-label="Select countries" aria-expanded="false" aria-controls="popup-country-dropdown"
+                            aria-describedby="popup-country-error"><span class="hero-mobile-form__country-value">Select
+                                country</span>
+                            <img src="img/mobile/mobile-form-mark.svg" alt="">
+                        </button>
+                        <div class="hero-mobile-form__country-dropdown" id="popup-country-dropdown" hidden>
+                            <input class="hero-mobile-form__field hero-mobile-form__country-search" type="search"
+                                placeholder="Search country" aria-label="Search countries" autocomplete="off">
+                            <ul class="hero-mobile-form__country-options"></ul>
+                            <p class="hero-mobile-form__country-empty" hidden>No countries found</p>
+                            <button class="hero-mobile-form__country-done" type="button">Done</button>
+                        </div>
+                        <p class="hero-mobile-form__error" id="popup-country-error" hidden>Please select a country</p>
+                        <ul class="hero-mobile-form__countries">
+                            <li><button type="button">Germany</button></li>
+                            <li><button type="button">France</button></li>
+                            <li><button type="button">Spain</button></li>
+                            <li><button type="button">Italy</button></li>
+                            <li><button type="button">Greece</button></li>
+                        </ul>
+                    </div>
+                    <div class="hero-mobile-form__date">
+                        <button class="hero-mobile-form__field hero-mobile-form__field--date" type="button"
+                            aria-label="Select trip dates" aria-expanded="false" aria-controls="popup-trip-calendar"
+                            aria-describedby="popup-date-error">
+                            <span class="hero-mobile-form__date-value">Select date</span>
+                            <img src="img/mobile/mobile-form-calendar.svg" alt="">
+                        </button>
+                        <p class="hero-mobile-form__error" id="popup-date-error" hidden>Please select your trip dates
+                        </p>
+                        <div class="calendar hero-mobile-form__calendar" id="popup-trip-calendar" role="group"
+                            aria-label="Select trip dates" hidden>
+                            <section class="calendar__month" aria-labelledby="popup-calendar-title">
+                                <div class="calendar__header">
+                                    <button class="calendar__nav calendar__nav--prev" type="button"
+                                        aria-label="Previous month"></button>
+                                    <h3 class="calendar__title" id="popup-calendar-title" aria-live="polite"></h3>
+                                    <button class="calendar__nav calendar__nav--next" type="button"
+                                        aria-label="Next month"></button>
+                                </div>
+                                <div class="calendar__weekdays" aria-hidden="true">
+                                    <span>MON</span><span>TUE</span><span>WED</span><span>THU</span>
+                                    <span>FRI</span><span>SAT</span><span>SUN</span>
+                                </div>
+                                <div class="calendar__days"></div>
+                            </section>
+                            <button class="calendar__confirm" type="button" hidden>
+                                <span>Confirm</span>
+                                <img class="calendar__confirm-arrow" src="img/form-btn-arrow.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-mobile-form__travelers">
+                        <input class="hero-mobile-form__field hero-mobile-form__passenger-value" type="number"
+                            name="travelers" min="1" step="1" value="1" inputmode="numeric"
+                            aria-label="Number of travelers" aria-describedby="popup-travelers-error">
+                        <div class="hero-mobile-form__counter">
+                            <button class="hero-mobile-form__counter-btn hero-mobile-form__counter-btn--plus"
+                                type="button" aria-label="Add passenger"></button>
+                            <button class="hero-mobile-form__counter-btn hero-mobile-form__counter-btn--minus"
+                                type="button" aria-label="Remove passenger" disabled></button>
+                        </div>
+                    </div>
+                    <p class="hero-mobile-form__error" id="popup-travelers-error" hidden>Please enter at least one
+                        traveler</p>
+                    <label class="hero-mobile-form__age-label">
+                        <input class="hero-mobile-form__field hero-mobile-form__age" type="text" inputmode="numeric"
+                            name="applicantAge" placeholder="Your age" aria-label="Your age"
+                            aria-describedby="popup-age-error">
+                    </label>
+                    <p class="hero-mobile-form__error" id="popup-age-error" hidden>Please enter your age as a whole
+                        number</p>
+                    <button class="hero-mobile-form__submit" type="submit">Passenger details <img
+                            src="img/mobile/mobile-form-arrow.svg" alt=""></button>
+                    <p class="hero-mobile-form__status" role="status" hidden></p>
+                </form>
             </div>
         </div>
     </div>
