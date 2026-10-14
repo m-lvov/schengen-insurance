@@ -2281,6 +2281,7 @@ window.sharedMenusReady.then(() => {
         closeDialog();
         previousFocus = document.activeElement;
         root.hidden = false;
+        root.scrollTop = 0;
         activeDialog = root;
         Array.from(document.body.children).forEach(element => {
             if (element === root || ['SCRIPT', 'STYLE'].includes(element.tagName)) return;
@@ -2308,6 +2309,7 @@ window.sharedMenusReady.then(() => {
         let options = Array.from(list.querySelectorAll('.language-menu__option'));
         let regions = languageMenu.querySelectorAll('.language-menu__region');
         let region = '';
+        let listOpened = false;
         let languages = {
             en: { label: 'Eng', country: 'United States', regions: ['america', 'europe', 'africa', 'asia', 'oceania'] },
             de: { label: 'Deu', country: 'Germany', regions: ['europe'] },
@@ -2344,7 +2346,7 @@ window.sharedMenusReady.then(() => {
         }
         function filterLanguages() {
             let query = search.value.trim().toLowerCase();
-            list.hidden = !query && !region;
+            list.hidden = !listOpened && !query && !region;
             let found = 0;
             options.forEach(option => {
                 let match = option.textContent.toLowerCase().includes(query) && (!region || languages[option.dataset.language].regions.includes(region));
@@ -2354,13 +2356,20 @@ window.sharedMenusReady.then(() => {
             empty.hidden = list.hidden || found > 0;
             regions.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.region === region)));
         }
+        function showLanguages() {
+            listOpened = true;
+            filterLanguages();
+        }
         document.addEventListener('click', event => {
             if (!event.target.closest('.header__language')) return;
-            search.value = ''; region = ''; filterLanguages();
-            openDialog(languageMenu, search);
+            search.value = ''; region = ''; listOpened = false; filterLanguages();
+            openDialog(languageMenu, close);
         });
+        search.addEventListener('focus', showLanguages);
+        search.addEventListener('click', showLanguages);
         search.addEventListener('input', filterLanguages);
         regions.forEach(button => button.addEventListener('click', () => {
+            listOpened = true;
             region = region === button.dataset.region ? '' : button.dataset.region;
             filterLanguages();
         }));
@@ -2369,7 +2378,10 @@ window.sharedMenusReady.then(() => {
             try { localStorage.setItem('siteLanguage', selected); } catch { /* Selection still works without storage. */ }
             syncLanguage(); closeDialog();
         }));
-        languageMenu.querySelector('.language-menu__submit').addEventListener('click', closeDialog);
+        languageMenu.querySelector('.language-menu__submit').addEventListener('click', () => {
+            showLanguages();
+            search.focus({ preventScroll: true });
+        });
         close.addEventListener('click', closeDialog);
         languageMenu.addEventListener('click', event => { if (event.target === languageMenu) closeDialog(); });
         syncLanguage();
@@ -2521,8 +2533,6 @@ window.sharedMenusReady.then(() => {
             event.preventDefault(); event.stopPropagation();
         });
         document.addEventListener('click', event => {
-            // Rendering a month replaces the clicked day; its original event path
-            // still tells us that the click happened inside the calendar.
             if (!event.composedPath().includes(country)) closeCountry();
             if (!event.composedPath().includes(date)) closeCalendar();
         });
@@ -2601,6 +2611,7 @@ window.sharedMenusReady.then(() => {
             });
             root.addEventListener('keydown', event => {
                 if (event.key === 'Escape' && !dropdown.hidden) { event.preventDefault(); closeSelect(root, true); }
+                if (event.target === search && ['Home', 'End'].includes(event.key)) return;
                 if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
                 event.preventDefault(); dropdown.hidden = false; button.setAttribute('aria-expanded', 'true');
                 let options = Array.from(list.querySelectorAll('li:not([hidden]) button'));
@@ -2610,7 +2621,9 @@ window.sharedMenusReady.then(() => {
                 else index = (index + (event.key === 'ArrowDown' ? 1 : -1) + options.length) % options.length;
                 options[index]?.focus();
             });
-            root.addEventListener('focusout', event => { if (!root.contains(event.relatedTarget)) closeSelect(root); });
+            root.addEventListener('focusout', event => {
+                if (event.relatedTarget && !root.contains(event.relatedTarget)) closeSelect(root);
+            });
             document.addEventListener('click', event => { if (!root.contains(event.target)) closeSelect(root); });
         });
         function checkVisa(event) {
