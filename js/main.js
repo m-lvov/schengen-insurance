@@ -1,3 +1,4 @@
+// Checkbox
 function validateRequiredCheckbox(checkbox) {
     let error = document.getElementById(checkbox.dataset.error);
     let valid = checkbox.checked;
@@ -14,12 +15,16 @@ function validateRequiredCheckbox(checkbox) {
     return valid;
 }
 
-document.addEventListener('invalid', (event) => {
-    if (!event.target.matches('input[type="checkbox"][required][data-error]')) return;
+document.addEventListener(
+    'invalid',
+    (event) => {
+        if (!event.target.matches('input[type="checkbox"][required][data-error]')) return;
 
-    event.preventDefault();
-    validateRequiredCheckbox(event.target);
-}, true);
+        event.preventDefault();
+        validateRequiredCheckbox(event.target);
+    },
+    true
+);
 
 document.addEventListener('change', (event) => {
     let checkbox = event.target;
@@ -32,6 +37,7 @@ document.addEventListener('change', (event) => {
     }
 });
 
+// Menu
 window.sharedMenusReady = (async () => {
     let header = document.querySelector('.header');
 
@@ -147,10 +153,9 @@ function initHeaderMenus() {
     }
 
     function syncMenuScrollLock() {
-        let hasOpenSheet = sheetMenuMedia.matches && (
-            (burgerMenu && !burgerMenu.hidden) ||
-            (routeMenu && !routeMenu.hidden)
-        );
+        let hasOpenSheet =
+            sheetMenuMedia.matches &&
+            ((burgerMenu && !burgerMenu.hidden) || (routeMenu && !routeMenu.hidden));
 
         document.body.classList.toggle('menu-sheet-open', Boolean(hasOpenSheet));
     }
@@ -388,7 +393,8 @@ function initHeaderMenus() {
             if (
                 isInsideColumn(routeSubregionsColumn, event.relatedTarget) ||
                 isInsideColumn(routeCountriesColumn, event.relatedTarget)
-            ) return;
+            )
+                return;
 
             resetRegionLevel();
         });
@@ -443,25 +449,17 @@ function initHeaderMenus() {
     let burgerTabsList = document.querySelector('.burger-menu__tabs');
     let burgerPanels = document.querySelectorAll('.burger-menu__panel');
 
-
     function updateMenuPanelHeight(activeTab, activePanel) {
         let panelHeight = activeTab.offsetTop + activeTab.offsetHeight;
 
-        activePanel.style.setProperty(
-            '--panel-min-height',
-            `${panelHeight}px`
-        );
+        activePanel.style.setProperty('--panel-min-height', `${panelHeight}px`);
     }
-
 
     function activateBurgerTab(activeTab) {
         let activePanelName = activeTab.dataset.menuTab;
 
         burgerTabs.forEach((tab) => {
-            tab.classList.toggle(
-                'burger-menu__tab--active',
-                tab === activeTab
-            );
+            tab.classList.toggle('burger-menu__tab--active', tab === activeTab);
         });
 
         burgerPanels.forEach((panel) => {
@@ -481,25 +479,18 @@ function initHeaderMenus() {
         });
         tab.addEventListener('click', () => activateBurgerTab(tab));
     });
-
 }
 
 if (window.sharedMenusReady) {
-    window.sharedMenusReady
-        .then(initHeaderMenus)
-        .catch((error) => {
-            console.error(error);
-            initHeaderMenus();
-        });
+    window.sharedMenusReady.then(initHeaderMenus).catch((error) => {
+        console.error(error);
+        initHeaderMenus();
+    });
 } else {
     initHeaderMenus();
 }
 
-
-
-
-
-
+// Sliders
 let whyChoseSlider = document.querySelector('.why-chose__slider');
 let whyChoseSwiper = null;
 let whyChoseMedia = window.matchMedia('(max-width: 648px)');
@@ -511,7 +502,7 @@ function setWhyChoseSlider() {
             spaceBetween: 8,
             loop: true,
             speed: 500,
-            grabCursor: true,
+            grabCursor: true
         });
     }
 
@@ -526,8 +517,7 @@ if (whyChoseSlider) {
     whyChoseMedia.addEventListener('change', setWhyChoseSlider);
 }
 
-
-// Both layouts use the same countries, dates and traveler count.
+// Mobile form
 let mobileForm = document.querySelector('.hero .hero-mobile-form');
 let mobileTripTabs = mobileForm?.querySelectorAll('.hero-mobile-form__tab') || [];
 let mobileCountry = mobileForm?.querySelector('.hero-mobile-form__country');
@@ -548,7 +538,6 @@ let mobileAge = mobileForm?.querySelector('.hero-mobile-form__age');
 let mobileStatus = mobileForm?.querySelector('.hero-mobile-form__status');
 let mobileFormSubmitted = false;
 
-
 let insuranceSlider = document.querySelector('.insurance__slider');
 let insuranceSwiper = null;
 let insuranceMedia = window.matchMedia('(max-width: 648px)');
@@ -562,8 +551,8 @@ function setInsuranceSlider() {
 
             pagination: {
                 el: '.insurance__pagination',
-                clickable: true,
-            },
+                clickable: true
+            }
         });
     }
     if (!insuranceMedia.matches && insuranceSwiper) {
@@ -575,7 +564,6 @@ if (insuranceSlider) {
     setInsuranceSlider();
     insuranceMedia.addEventListener('change', setInsuranceSlider);
 }
-
 
 let countriesSlider = document.querySelector('.countries__slider');
 let countriesSwiper = null;
@@ -590,8 +578,8 @@ function setCountriesSlider() {
 
             pagination: {
                 el: '.countries__pagination',
-                clickable: true,
-            },
+                clickable: true
+            }
         });
     }
 
@@ -606,7 +594,6 @@ if (countriesSlider) {
     countriesMedia.addEventListener('change', setCountriesSlider);
 }
 
-
 let stepsSlider = document.querySelector('.steps__slider');
 let stepsSwiper = null;
 let stepsMedia = window.matchMedia('(max-width: 648px)');
@@ -620,8 +607,8 @@ function setStepsSlider() {
 
             pagination: {
                 el: '.steps__pagination',
-                clickable: true,
-            },
+                clickable: true
+            }
         });
     }
 
@@ -636,7 +623,6 @@ if (stepsSlider) {
     stepsMedia.addEventListener('change', setStepsSlider);
 }
 
-
 let benefitsSlider = document.querySelector('.benefits__slider');
 let benefitsSwiper = null;
 let benefitsMedia = window.matchMedia('(max-width: 648px)');
@@ -650,8 +636,8 @@ function setBenefitsSlider() {
 
             pagination: {
                 el: '.benefits__pagination',
-                clickable: true,
-            },
+                clickable: true
+            }
         });
     }
 
@@ -666,7 +652,6 @@ if (benefitsSlider) {
     benefitsMedia.addEventListener('change', setBenefitsSlider);
 }
 
-
 let insuranceTermsSlider = document.querySelector('.insurance-terms__slider');
 let insuranceTermsSwiper = null;
 let insuranceTermsMedia = window.matchMedia('(max-width: 648px)');
@@ -680,8 +665,8 @@ function setInsuranceTermsSlider() {
 
             pagination: {
                 el: '.insurance-terms__pagination',
-                clickable: true,
-            },
+                clickable: true
+            }
         });
     }
 
@@ -695,7 +680,6 @@ if (insuranceTermsSlider) {
     setInsuranceTermsSlider();
     insuranceTermsMedia.addEventListener('change', setInsuranceTermsSlider);
 }
-
 
 function animateDisclosure(element, button, changeState, isClosing = false) {
     if (!element || !button || button.disabled) return;
@@ -714,20 +698,15 @@ function animateDisclosure(element, button, changeState, isClosing = false) {
     let endHeight = element.getBoundingClientRect().height;
     element.style.height = `${startHeight}px`;
 
-    let reducedMotion = window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-    ).matches;
+    let reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     button.disabled = true;
 
     let animation = element.animate(
-        [
-            { height: `${startHeight}px` },
-            { height: `${endHeight}px` },
-        ],
+        [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
         {
             duration: reducedMotion ? 0 : 700,
-            easing: 'ease-in-out',
+            easing: 'ease-in-out'
         }
     );
 
@@ -741,7 +720,7 @@ function animateDisclosure(element, button, changeState, isClosing = false) {
 
             window.scrollTo({
                 top: startScroll + (sectionTop - startScroll) * progress,
-                behavior: 'instant',
+                behavior: 'instant'
             });
 
             if (animation.playState !== 'finished') {
@@ -759,7 +738,6 @@ function animateDisclosure(element, button, changeState, isClosing = false) {
     };
 }
 
-
 let expertReadMore = document.querySelector('.expert__read-more');
 let expertText = document.querySelector('.expert__text');
 
@@ -769,11 +747,15 @@ expertReadMore?.addEventListener('click', () => {
     expertReadMore.textContent = isOpen ? 'Show less' : 'Read more';
     expertReadMore.setAttribute('aria-expanded', String(isOpen));
 
-    animateDisclosure(expertText, expertReadMore, () => {
-        expertText.classList.toggle('expert__text--open', isOpen);
-    }, !isOpen);
+    animateDisclosure(
+        expertText,
+        expertReadMore,
+        () => {
+            expertText.classList.toggle('expert__text--open', isOpen);
+        },
+        !isOpen
+    );
 });
-
 
 let schengenCountriesGrid = document.querySelector('.shengen-contries__grid');
 let schengenCountriesMore = document.querySelector('.shengen-contries__more');
@@ -784,11 +766,15 @@ schengenCountriesMore?.addEventListener('click', () => {
     schengenCountriesMore.textContent = isOpen ? 'Show less' : 'Read more';
     schengenCountriesMore.setAttribute('aria-expanded', String(isOpen));
 
-    animateDisclosure(schengenCountriesGrid, schengenCountriesMore, () => {
-        schengenCountriesGrid.classList.toggle('shengen-contries__grid--open', isOpen);
-    }, !isOpen);
+    animateDisclosure(
+        schengenCountriesGrid,
+        schengenCountriesMore,
+        () => {
+            schengenCountriesGrid.classList.toggle('shengen-contries__grid--open', isOpen);
+        },
+        !isOpen
+    );
 });
-
 
 let reviewsSection = document.querySelector('.reviews');
 let reviewsBtn = document.querySelector('.reviews__btn');
@@ -809,14 +795,9 @@ function setReviewsSliderReserve() {
 
     reviewsSlider.style.removeProperty('--reviews-card-height');
 
-    let maxCardHeight = Math.max(
-        ...reviewsMobileCards.map((card) => card.scrollHeight)
-    );
+    let maxCardHeight = Math.max(...reviewsMobileCards.map((card) => card.scrollHeight));
 
-    reviewsSlider.style.setProperty(
-        '--reviews-card-height',
-        `${Math.ceil(maxCardHeight)}px`
-    );
+    reviewsSlider.style.setProperty('--reviews-card-height', `${Math.ceil(maxCardHeight)}px`);
 }
 
 function setReviewsSlider() {
@@ -844,8 +825,8 @@ function setReviewsSlider() {
 
             pagination: {
                 el: '.reviews__pagination',
-                clickable: true,
-            },
+                clickable: true
+            }
         });
     }
 
@@ -896,7 +877,6 @@ reviewsBtn?.addEventListener('click', () => {
 
     reviewsItem.forEach((item) => {
         item.hidden = !reviewsExpendet;
-
     });
 
     let endHeight = reviewsList.getBoundingClientRect().height;
@@ -909,20 +889,15 @@ reviewsBtn?.addEventListener('click', () => {
 
     reviewsBtn.disabled = true;
 
-    let reducedMotion = window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-    ).matches;
+    let reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-
-    let animation = reviewsList.animate([
-
-        { height: `${startHeight}px` },
-        { height: `${endHeight}px` },
-    ],
+    let animation = reviewsList.animate(
+        [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
         {
             duration: reducedMotion ? 0 : 700,
             easing: 'ease-in-out'
-        });
+        }
+    );
 
     reviewsSection.style.minHeight = '';
 
@@ -951,15 +926,11 @@ reviewsBtn?.addEventListener('click', () => {
             item.hidden = !reviewsExpendet;
         });
 
-        reviewsBtn.textContent = reviewsExpendet
-            ? 'Close all reviews'
-            : 'See all reviews';
+        reviewsBtn.textContent = reviewsExpendet ? 'Close all reviews' : 'See all reviews';
 
         reviewsBtn.disabled = false;
     };
-
 });
-
 
 let rulesSlider = document.querySelector('.rules__slider');
 let rulesSwiper = null;
@@ -976,8 +947,8 @@ function setRulesSlider() {
 
             pagination: {
                 el: '.rules__pagination',
-                clickable: true,
-            },
+                clickable: true
+            }
         });
     }
 
@@ -991,7 +962,6 @@ if (rulesSlider) {
     setRulesSlider();
     rulesMedia.addEventListener('change', setRulesSlider);
 }
-
 
 let policySlider = document.querySelector('.policy__slider');
 let policySwiper = null;
@@ -1008,21 +978,21 @@ function setPolicySlider() {
             grabCursor: true,
             navigation: {
                 prevEl: '.policy__button-prev',
-                nextEl: '.policy__button-next',
+                nextEl: '.policy__button-next'
             },
             pagination: {
                 el: '.policy__pagination',
-                clickable: true,
+                clickable: true
             },
             breakpoints: {
                 649: {
-                    slidesPerView: 2,
+                    slidesPerView: 2
                 },
                 1301: {
                     slidesPerView: 3,
-                    spaceBetween: 24,
-                },
-            },
+                    spaceBetween: 24
+                }
+            }
         });
     }
 }
@@ -1030,7 +1000,6 @@ function setPolicySlider() {
 if (policySlider) {
     setPolicySlider();
 }
-
 
 let powersSlider = document.querySelector('.powers__slider');
 let powersSwiper = null;
@@ -1048,8 +1017,8 @@ function setPowersSlider() {
             grabCursor: true,
             pagination: {
                 el: '.powers__pagination',
-                clickable: true,
-            },
+                clickable: true
+            }
         });
     }
 
@@ -1063,7 +1032,6 @@ if (powersSlider) {
     setPowersSlider();
     powersMedia.addEventListener('change', setPowersSlider);
 }
-
 
 let teamSlider = document.querySelector('.team__slider');
 let teamSwiper = null;
@@ -1081,8 +1049,8 @@ function setTeamSlider() {
             grabCursor: true,
             pagination: {
                 el: '.team__pagination',
-                clickable: true,
-            },
+                clickable: true
+            }
         });
     }
 
@@ -1097,13 +1065,17 @@ if (teamSlider) {
     teamMedia.addEventListener('change', setTeamSlider);
 }
 
-
 let trustedCompaniesSlider = document.querySelector('.trusted-companies__slider');
 let trustedCompaniesSwiper = null;
 let trustedCompaniesMedia = window.matchMedia('(max-width: 648px)');
 
 function setTrustedCompaniesSlider() {
-    if (trustedCompaniesMedia.matches && !trustedCompaniesSwiper && trustedCompaniesSlider && typeof Swiper !== 'undefined') {
+    if (
+        trustedCompaniesMedia.matches &&
+        !trustedCompaniesSwiper &&
+        trustedCompaniesSlider &&
+        typeof Swiper !== 'undefined'
+    ) {
         trustedCompaniesSwiper = new Swiper(trustedCompaniesSlider, {
             wrapperClass: 'trusted-companies__list',
             slideClass: 'trusted-companies__item',
@@ -1116,8 +1088,8 @@ function setTrustedCompaniesSlider() {
                 el: '.trusted-companies__pagination',
                 clickable: true,
                 dynamicBullets: true,
-                dynamicMainBullets: 3,
-            },
+                dynamicMainBullets: 3
+            }
         });
     }
 
@@ -1132,7 +1104,7 @@ if (trustedCompaniesSlider) {
     trustedCompaniesMedia.addEventListener('change', setTrustedCompaniesSlider);
 }
 
-
+// FAQ
 let faqItems = document.querySelectorAll('.faq__item');
 let faqMedia = window.matchMedia('(max-width: 648px)');
 let faqIsAnimating = false;
@@ -1142,9 +1114,7 @@ function animateFaqItem(item, isOpen) {
     let answer = item.querySelector('.faq__answer');
     let startHeight = item.getBoundingClientRect().height;
     let startPadding = getComputedStyle(question).padding;
-    let reducedMotion = window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-    ).matches;
+    let reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (isOpen) {
         answer.hidden = false;
@@ -1167,29 +1137,20 @@ function animateFaqItem(item, isOpen) {
 
     let options = {
         duration: reducedMotion ? 0 : 550,
-        easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
     };
 
     let heightAnimation = item.animate(
-        [
-            { height: `${startHeight}px` },
-            { height: `${endHeight}px` },
-        ],
+        [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
         options
     );
 
     let paddingAnimation = question.animate(
-        [
-            { padding: startPadding },
-            { padding: endPadding },
-        ],
+        [{ padding: startPadding }, { padding: endPadding }],
         options
     );
 
-    return Promise.all([
-        heightAnimation.finished,
-        paddingAnimation.finished,
-    ]).finally(() => {
+    return Promise.all([heightAnimation.finished, paddingAnimation.finished]).finally(() => {
         answer.hidden = !isOpen;
         item.style.height = '';
         item.style.overflow = '';
@@ -1240,7 +1201,7 @@ document.querySelectorAll('.faq__question').forEach((question) => {
     });
 });
 
-
+// Contact
 document.querySelectorAll('[data-contact-select]').forEach((select) => {
     let trigger = select.querySelector('.contact__select-trigger');
     let list = select.querySelector('.contact__select-list');
@@ -1296,66 +1257,112 @@ document.querySelectorAll('[data-contact-select]').forEach((select) => {
     });
     trigger.setAttribute('aria-expanded', 'false');
     trigger.setAttribute('aria-label', 'Select type of question');
-    select.addEventListener('keydown', event => {
+    select.addEventListener('keydown', (event) => {
         if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
-        event.preventDefault(); openContactSelect();
+        event.preventDefault();
+        openContactSelect();
         let index = Array.from(options).indexOf(document.activeElement);
-        if (event.key === 'Home' || index < 0 && event.key === 'ArrowDown') index = 0;
-        else if (event.key === 'End' || index < 0 && event.key === 'ArrowUp') index = options.length - 1;
-        else index = (index + (event.key === 'ArrowDown' ? 1 : -1) + options.length) % options.length;
+        if (event.key === 'Home' || (index < 0 && event.key === 'ArrowDown')) index = 0;
+        else if (event.key === 'End' || (index < 0 && event.key === 'ArrowUp'))
+            index = options.length - 1;
+        else
+            index =
+                (index + (event.key === 'ArrowDown' ? 1 : -1) + options.length) % options.length;
         options[index]?.focus();
     });
-    select.addEventListener('focusout', event => { if (!select.contains(event.relatedTarget)) closeContactSelect(); });
+    select.addEventListener('focusout', (event) => {
+        if (!select.contains(event.relatedTarget)) closeContactSelect();
+    });
 });
 
 document.querySelectorAll('.contact__form').forEach((form, formIndex) => {
     form.noValidate = true;
-    let controls = [form.querySelector('.contact__select-trigger'), ...form.querySelectorAll('.contact__input')];
+    let controls = [
+        form.querySelector('.contact__select-trigger'),
+        ...form.querySelectorAll('.contact__input')
+    ];
     let errors = controls.map((control, index) => {
-        let error = document.createElement('p'); error.className = 'contact__error'; error.id = `contact-${formIndex}-${index}-error`;
-        error.hidden = true; error.setAttribute('role', 'alert');
+        let error = document.createElement('p');
+        error.className = 'contact__error';
+        error.id = `contact-${formIndex}-${index}-error`;
+        error.hidden = true;
+        error.setAttribute('role', 'alert');
         (control.closest('.contact__select') || control).after(error);
         if (control.matches('input')) control.setAttribute('aria-label', control.placeholder);
         return error;
     });
-    let status = document.createElement('p'); status.className = 'contact__status'; status.hidden = true; status.setAttribute('role', 'status'); form.append(status);
+    let status = document.createElement('p');
+    status.className = 'contact__status';
+    status.hidden = true;
+    status.setAttribute('role', 'status');
+    form.append(status);
     function validateContact(showErrors) {
-        let values = [form.querySelector('.contact__select-input').value, ...controls.slice(1).map(input => input.value.trim())];
-        let valid = [!!values[0], /[a-z]/i.test(values[1]) && /^[a-z\s'-]+$/i.test(values[1]), /^\+?[\d\s()-]+$/.test(values[2]) && values[2].replace(/\D/g, '').length >= 7 && values[2].replace(/\D/g, '').length <= 15, /^[\x21-\x7E]+@[^\s@]+\.[^\s@]+$/.test(values[3]) && controls[3].validity.valid];
-        let messages = ['Please select a type of question', 'Please enter your name in Latin letters', 'Please enter a valid phone number', 'Please enter a valid email'];
+        let values = [
+            form.querySelector('.contact__select-input').value,
+            ...controls.slice(1).map((input) => input.value.trim())
+        ];
+        let valid = [
+            !!values[0],
+            /[a-z]/i.test(values[1]) && /^[a-z\s'-]+$/i.test(values[1]),
+            /^\+?[\d\s()-]+$/.test(values[2]) &&
+            values[2].replace(/\D/g, '').length >= 7 &&
+            values[2].replace(/\D/g, '').length <= 15,
+            /^[\x21-\x7E]+@[^\s@]+\.[^\s@]+$/.test(values[3]) && controls[3].validity.valid
+        ];
+        let messages = [
+            'Please select a type of question',
+            'Please enter your name in Latin letters',
+            'Please enter a valid phone number',
+            'Please enter a valid email'
+        ];
         controls.forEach((control, index) => {
             if (!showErrors && control.getAttribute('aria-invalid') !== 'true') return;
-            errors[index].textContent = messages[index]; errors[index].hidden = valid[index];
+            errors[index].textContent = messages[index];
+            errors[index].hidden = valid[index];
             control.setAttribute('aria-invalid', String(!valid[index]));
-            if (valid[index]) control.removeAttribute('aria-describedby'); else control.setAttribute('aria-describedby', errors[index].id);
+            if (valid[index]) control.removeAttribute('aria-describedby');
+            else control.setAttribute('aria-describedby', errors[index].id);
         });
         return controls[valid.indexOf(false)];
     }
-    form.addEventListener('submit', event => {
-        event.preventDefault(); status.hidden = true;
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        status.hidden = true;
         let invalid = validateContact(true);
-        if (invalid) { invalid.focus(); return; }
-        status.textContent = 'Demo form validated. No message was sent: a backend is not connected.'; status.hidden = false;
+        if (invalid) {
+            invalid.focus();
+            return;
+        }
+        status.textContent =
+            'Demo form validated. No message was sent: a backend is not connected.';
+        status.hidden = false;
     });
-    ['input', 'change'].forEach(type => form.addEventListener(type, () => { status.hidden = true; validateContact(false); }));
+    ['input', 'change'].forEach((type) =>
+        form.addEventListener(type, () => {
+            status.hidden = true;
+            validateContact(false);
+        })
+    );
 });
 
+// Form
 if (document.querySelector('.hero__form')) {
     let popularList = document.querySelector('.form-country__options--popular');
 
-
     let allList = document.querySelector('.form-country__options--all');
 
-    let popularCountries = ['Germany', 'France', 'Spain', 'Italy', 'Greece',];
+    let popularCountries = ['Germany', 'France', 'Spain', 'Italy', 'Greece'];
     let allCountries = [];
 
-    document.querySelectorAll('.route-menu__country-btn span, .menu-countries__link span').forEach((item) => {
-        let name = item.textContent.trim();
+    document
+        .querySelectorAll('.route-menu__country-btn span, .menu-countries__link span')
+        .forEach((item) => {
+            let name = item.textContent.trim();
 
-        if (name && !allCountries.includes(name)) {
-            allCountries.push(name);
-        }
-    });
+            if (name && !allCountries.includes(name)) {
+                allCountries.push(name);
+            }
+        });
 
     allCountries.sort((a, b) => a.localeCompare(b, 'en'));
 
@@ -1364,7 +1371,7 @@ if (document.querySelector('.hero__form')) {
 
         countries.forEach((name) => {
             let item = document.createElement('li');
-            item.className = 'form-country__item'
+            item.className = 'form-country__item';
 
             item.innerHTML = `
         <label class="form-country__option">
@@ -1506,7 +1513,10 @@ if (document.querySelector('.hero__form')) {
     });
 
     document.addEventListener('click', (event) => {
-        if (!event.composedPath().includes(country) && country.classList.contains('form-country--open')) {
+        if (
+            !event.composedPath().includes(country) &&
+            country.classList.contains('form-country--open')
+        ) {
             closeCountryMenu();
         }
     });
@@ -1530,6 +1540,7 @@ if (document.querySelector('.hero__form')) {
     updateCountrySelection();
     closeCountryMenu();
 
+    // Calendar
     let dateField = document.querySelector('.form-date');
     let dateButton = document.querySelector('.form-field__btn-date');
     let calendar = document.querySelector('.calendar');
@@ -1556,7 +1567,6 @@ if (document.querySelector('.hero__form')) {
     let datesConfirmed = false;
     quoteConsent.required = true;
 
-
     function renderMonth(year, month, monthElement) {
         let monthTitle = monthElement.querySelector('.calendar__title');
         let firstDay = new Date(year, month, 1);
@@ -1580,9 +1590,15 @@ if (document.querySelector('.hero__form')) {
             dayButton.textContent = day;
             let dayDate = new Date(year, month, day);
             dayButton.dataset.date = `${dayDate.getFullYear()}-${String(dayDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-            dayButton.setAttribute('aria-label', dayDate.toLocaleDateString('en', {
-                weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
-            }));
+            dayButton.setAttribute(
+                'aria-label',
+                dayDate.toLocaleDateString('en', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                })
+            );
             dayButton.disabled = dayDate < today;
             if (startDate !== null && dayDate.getTime() === startDate.getTime()) {
                 dayButton.classList.add('calendar__day--start');
@@ -1590,11 +1606,19 @@ if (document.querySelector('.hero__form')) {
             if (endDate !== null && dayDate.getTime() === endDate.getTime()) {
                 dayButton.classList.add('calendar__day--end');
             }
-            dayButton.setAttribute('aria-pressed', String(
-                (startDate !== null && dayDate.getTime() === startDate.getTime()) ||
-                (endDate !== null && dayDate.getTime() === endDate.getTime())
-            ));
-            if (startDate !== null && endDate !== null && dayDate >= startDate && dayDate <= endDate) {
+            dayButton.setAttribute(
+                'aria-pressed',
+                String(
+                    (startDate !== null && dayDate.getTime() === startDate.getTime()) ||
+                    (endDate !== null && dayDate.getTime() === endDate.getTime())
+                )
+            );
+            if (
+                startDate !== null &&
+                endDate !== null &&
+                dayDate >= startDate &&
+                dayDate <= endDate
+            ) {
                 dayButton.classList.add('calendar__day--in-range');
             }
 
@@ -1614,7 +1638,9 @@ if (document.querySelector('.hero__form')) {
                     }
                 }
                 renderCalendar();
-                monthElement.querySelector(`[data-date="${dayButton.dataset.date}"]`)?.focus({ preventScroll: true });
+                monthElement
+                    .querySelector(`[data-date="${dayButton.dataset.date}"]`)
+                    ?.focus({ preventScroll: true });
             });
             dayList.append(dayButton);
         }
@@ -1630,13 +1656,12 @@ if (document.querySelector('.hero__form')) {
         annualValue.hidden = !annualCheckbox.checked;
         if (annualCheckbox.checked) {
             confirmButton.hidden = startDate === null;
-            annualCaption.textContent = startDate === null
-                ? 'Choose your annual policy start date'
-                : 'Annual policy start date: ';
+            annualCaption.textContent =
+                startDate === null
+                    ? 'Choose your annual policy start date'
+                    : 'Annual policy start date: ';
 
-            annualDate.textContent = startDate === null
-                ? ''
-                : formatDate(startDate);
+            annualDate.textContent = startDate === null ? '' : formatDate(startDate);
         } else {
             confirmButton.hidden = startDate === null || endDate === null;
         }
@@ -1652,7 +1677,7 @@ if (document.querySelector('.hero__form')) {
                 dateError.hidden = true;
                 dateField.classList.remove('form-date--error');
             } else {
-                endValue.textContent = '00.00.0000'
+                endValue.textContent = '00.00.0000';
             }
         }
         renderMobileCalendar();
@@ -1684,7 +1709,6 @@ if (document.querySelector('.hero__form')) {
         dateField.classList.add('form-date--open');
         calendar.hidden = false;
         dateButton.setAttribute('aria-expanded', 'true');
-
     });
 
     nextButton.addEventListener('click', () => {
@@ -1698,7 +1722,7 @@ if (document.querySelector('.hero__form')) {
 
     confirmButton.addEventListener('click', () => {
         datesConfirmed = true;
-        closeCalendar()
+        closeCalendar();
         dateButton.focus();
     });
     document.addEventListener('click', (event) => {
@@ -1707,7 +1731,7 @@ if (document.querySelector('.hero__form')) {
                 dateError.hidden = false;
                 dateField.classList.add('form-date--error');
             } else {
-                closeCalendar()
+                closeCalendar();
             }
         }
     });
@@ -1715,8 +1739,6 @@ if (document.querySelector('.hero__form')) {
     annualCheckbox.addEventListener('change', () => {
         setTripType(annualCheckbox.checked);
     });
-
-
 
     function openQuote(applicantAge) {
         let tripData = {
@@ -1736,7 +1758,7 @@ if (document.querySelector('.hero__form')) {
     }
 
     quoteButton.addEventListener('click', (event) => {
-        event.stopPropagation()
+        event.stopPropagation();
         let consentValid = validateRequiredCheckbox(quoteConsent);
 
         if (selectedCountries.length === 0) {
@@ -1762,7 +1784,7 @@ if (document.querySelector('.hero__form')) {
         }
         openQuote();
     });
-    document.querySelector('.hero__form').addEventListener('submit', event => {
+    document.querySelector('.hero__form').addEventListener('submit', (event) => {
         event.preventDefault();
         quoteButton.click();
     });
@@ -1777,7 +1799,6 @@ if (document.querySelector('.hero__form')) {
     let travelersValue = travelers.querySelector('.form-travelers__value');
     let travelersNumber = 1;
 
-
     function closeTravelers() {
         travelers.classList.remove('form-travelers--open');
         travelersDropdown.hidden = true;
@@ -1786,9 +1807,8 @@ if (document.querySelector('.hero__form')) {
 
     function updateTravelers() {
         travelersCount.textContent = travelersNumber;
-        travelersValue.textContent = travelersNumber === 1
-            ? '1 person'
-            : `${travelersNumber} persons`;
+        travelersValue.textContent =
+            travelersNumber === 1 ? '1 person' : `${travelersNumber} persons`;
         travelersMinus.disabled = travelersNumber <= 1;
         if (passengerValue) {
             passengerValue.value = travelersNumber;
@@ -1825,15 +1845,14 @@ if (document.querySelector('.hero__form')) {
 
     travelersPlus.addEventListener('click', () => {
         travelersNumber++;
-        updateTravelers()
+        updateTravelers();
     });
     travelersMinus.addEventListener('click', () => {
         if (travelersNumber <= 1) return;
         travelersNumber--;
         travelersCount.textContent = travelersNumber;
-        updateTravelers()
+        updateTravelers();
     });
-
 
     function clearMobileStatus() {
         if (mobileStatus) mobileStatus.hidden = true;
@@ -1870,7 +1889,10 @@ if (document.querySelector('.hero__form')) {
         if (!mobileCountry) return;
         mobileCountryValue.textContent = selectedCountries.join(', ') || 'Select country';
         mobileCountryToggle.title = selectedCountries.join(', ');
-        mobileCountryToggle.classList.toggle('hero-mobile-form__field--selected', selectedCountries.length > 0);
+        mobileCountryToggle.classList.toggle(
+            'hero-mobile-form__field--selected',
+            selectedCountries.length > 0
+        );
         mobileCountryOptions.querySelectorAll('input').forEach((checkbox) => {
             checkbox.checked = selectedCountries.includes(checkbox.value);
         });
@@ -1907,13 +1929,18 @@ if (document.querySelector('.hero__form')) {
         if (!mobileCalendar) return;
         renderMonth(currentYear, currentMonth, mobileMonth);
         mobileCalendar.querySelector('.calendar__nav--prev').disabled =
-            new Date(currentYear, currentMonth, 1) <= new Date(today.getFullYear(), today.getMonth(), 1);
+            new Date(currentYear, currentMonth, 1) <=
+            new Date(today.getFullYear(), today.getMonth(), 1);
         let complete = startDate !== null && (annualCheckbox.checked || endDate !== null);
         mobileCalendar.querySelector('.calendar__confirm').hidden = !complete;
-        mobileDateValue.textContent = startDate === null
-            ? (annualCheckbox.checked ? 'Choose your annual policy start date' : 'Select date')
-            : annualCheckbox.checked ? `Annual policy start date: ${formatDate(startDate)}`
-                : `${formatDate(startDate)} - ${endDate === null ? '00.00.0000' : formatDate(endDate)}`;
+        mobileDateValue.textContent =
+            startDate === null
+                ? annualCheckbox.checked
+                    ? 'Choose your annual policy start date'
+                    : 'Select date'
+                : annualCheckbox.checked
+                    ? `Annual policy start date: ${formatDate(startDate)}`
+                    : `${formatDate(startDate)} - ${endDate === null ? '00.00.0000' : formatDate(endDate)}`;
         mobileDateButton.classList.toggle('hero-mobile-form__field--selected', startDate !== null);
         mobileDateButton.title = mobileDateValue.textContent;
         if (annualCheckbox.checked && startDate !== null) {
@@ -1960,19 +1987,30 @@ if (document.querySelector('.hero__form')) {
 
     function validateMobileAge() {
         let age = mobileAge.value.trim();
-        let valid = /^\d+$/.test(age) && Number.isSafeInteger(Number(age)) && Number(age) >= 16 && Number(age) <= 90;
+        let valid =
+            /^\d+$/.test(age) &&
+            Number.isSafeInteger(Number(age)) &&
+            Number(age) >= 16 &&
+            Number(age) <= 90;
         if (valid) clearMobileError(mobileAge, 'mobile-age-error');
-        else showMobileError(mobileAge, 'mobile-age-error', 'Please enter your age between 16 and 90');
+        else
+            showMobileError(
+                mobileAge,
+                'mobile-age-error',
+                'Please enter your age between 16 and 90'
+            );
         return valid;
     }
 
     if (mobileForm) {
         let countryFlags = new Map();
-        document.querySelectorAll('.route-menu__country-btn, .menu-countries__link').forEach((link) => {
-            let name = link.querySelector('span')?.textContent.trim();
-            let image = link.querySelector('img');
-            if (name && image) countryFlags.set(name, image.getAttribute('src'));
-        });
+        document
+            .querySelectorAll('.route-menu__country-btn, .menu-countries__link')
+            .forEach((link) => {
+                let name = link.querySelector('span')?.textContent.trim();
+                let image = link.querySelector('img');
+                if (name && image) countryFlags.set(name, image.getAttribute('src'));
+            });
         allCountries.forEach((name) => {
             let item = document.createElement('li');
             item.dataset.name = name.toLowerCase();
@@ -2005,15 +2043,19 @@ if (document.querySelector('.hero__form')) {
         mobileCountryOptions.addEventListener('change', (event) => {
             let checkbox = event.target;
             if (!checkbox.matches('input[type="checkbox"]')) return;
-            if (checkbox.checked && !selectedCountries.includes(checkbox.value)) selectedCountries.push(checkbox.value);
-            if (!checkbox.checked) selectedCountries = selectedCountries.filter((name) => name !== checkbox.value);
+            if (checkbox.checked && !selectedCountries.includes(checkbox.value))
+                selectedCountries.push(checkbox.value);
+            if (!checkbox.checked)
+                selectedCountries = selectedCountries.filter((name) => name !== checkbox.value);
             updateCountrySelection();
             closeCountryMenu();
         });
-        mobileCountry.querySelector('.hero-mobile-form__country-done').addEventListener('click', () => {
-            closeMobileCountry();
-            mobileCountryToggle.focus();
-        });
+        mobileCountry
+            .querySelector('.hero-mobile-form__country-done')
+            .addEventListener('click', () => {
+                closeMobileCountry();
+                mobileCountryToggle.focus();
+            });
         mobileForm.querySelectorAll('.hero-mobile-form__countries button').forEach((button) => {
             button.addEventListener('click', () => {
                 let name = button.textContent.trim();
@@ -2023,10 +2065,12 @@ if (document.querySelector('.hero__form')) {
                 closeMobileCountry();
             });
         });
-        mobileTripTabs.forEach((tab) => tab.addEventListener('click', () => {
-            let annual = tab.dataset.trip === 'annual';
-            if (annual !== annualCheckbox.checked) setTripType(annual);
-        }));
+        mobileTripTabs.forEach((tab) =>
+            tab.addEventListener('click', () => {
+                let annual = tab.dataset.trip === 'annual';
+                if (annual !== annualCheckbox.checked) setTripType(annual);
+            })
+        );
         mobileDateButton.addEventListener('click', () => {
             if (mobileCalendar.hidden) openMobileCalendar();
             else closeMobileCalendar();
@@ -2044,10 +2088,12 @@ if (document.querySelector('.hero__form')) {
             closeMobileCalendar();
             mobileDateButton.focus();
         });
-        mobileForm.querySelector('.hero-mobile-form__counter-btn--plus').addEventListener('click', () => {
-            travelersNumber++;
-            updateTravelers();
-        });
+        mobileForm
+            .querySelector('.hero-mobile-form__counter-btn--plus')
+            .addEventListener('click', () => {
+                travelersNumber++;
+                updateTravelers();
+            });
         mobileMinus.addEventListener('click', () => {
             if (travelersNumber <= 1) return;
             travelersNumber--;
@@ -2081,11 +2127,20 @@ if (document.querySelector('.hero__form')) {
                 invalid.push(mobileCountryToggle);
             }
             if (startDate === null || (!annualCheckbox.checked && endDate === null)) {
-                showMobileError(mobileDateButton, 'mobile-date-error', startDate !== null
-                    ? 'Please select the end date of your trip' : 'Please select your trip dates');
+                showMobileError(
+                    mobileDateButton,
+                    'mobile-date-error',
+                    startDate !== null
+                        ? 'Please select the end date of your trip'
+                        : 'Please select your trip dates'
+                );
                 invalid.push(mobileDateButton);
             } else if (!datesConfirmed) {
-                showMobileError(mobileDateButton, 'mobile-date-error', 'Please confirm your trip dates');
+                showMobileError(
+                    mobileDateButton,
+                    'mobile-date-error',
+                    'Please confirm your trip dates'
+                );
                 invalid.push(mobileDateButton);
             }
             let count = Number(passengerValue.value);
@@ -2101,7 +2156,6 @@ if (document.querySelector('.hero__form')) {
             closeMobileCountry();
             closeMobileCalendar();
 
-
             openQuote(Number(mobileAge.value.trim()));
         });
         document.addEventListener('click', (event) => {
@@ -2109,7 +2163,11 @@ if (document.querySelector('.hero__form')) {
             if (!path.includes(mobileCountry)) closeMobileCountry();
             if (!path.includes(mobileDate) && !mobileCalendar.hidden) {
                 if (!annualCheckbox.checked && startDate !== null && endDate === null) {
-                    showMobileError(mobileDateButton, 'mobile-date-error', 'Please select the end date of your trip');
+                    showMobileError(
+                        mobileDateButton,
+                        'mobile-date-error',
+                        'Please select the end date of your trip'
+                    );
                 } else closeMobileCalendar();
             }
         });
@@ -2137,13 +2195,17 @@ if (document.querySelector('.hero__form')) {
             closeMobileCalendar();
         });
 
-
         let heroSection = mobileForm.closest('.hero');
         let followingSection = document.querySelector('.why-chose');
         function updateMobileFormClearance() {
             if (!window.matchMedia('(max-width: 648px)').matches) return;
-            let overlap = mobileForm.getBoundingClientRect().bottom - heroSection.getBoundingClientRect().bottom;
-            followingSection.style.setProperty('--hero-form-clearance', `${Math.ceil(Math.max(0, overlap) + 32)}px`);
+            let overlap =
+                mobileForm.getBoundingClientRect().bottom -
+                heroSection.getBoundingClientRect().bottom;
+            followingSection.style.setProperty(
+                '--hero-form-clearance',
+                `${Math.ceil(Math.max(0, overlap) + 32)}px`
+            );
         }
         let formResizeObserver = new ResizeObserver(updateMobileFormClearance);
         formResizeObserver.observe(mobileForm);
@@ -2153,7 +2215,7 @@ if (document.querySelector('.hero__form')) {
     }
 }
 
-
+// Scrollbar
 document.querySelectorAll('.coverage__table-box').forEach((box, index) => {
     let viewport = box.querySelector('.coverage__table-wrapper');
     let table = box.querySelector('.coverage__table');
@@ -2181,8 +2243,9 @@ document.querySelectorAll('.coverage__table-box').forEach((box, index) => {
     let maxScroll = 0;
     let drag = null;
     function updateScrollbar() {
-        let active = getComputedStyle(viewport).overflowY === 'auto'
-            && viewport.scrollHeight > viewport.clientHeight + 1;
+        let active =
+            getComputedStyle(viewport).overflowY === 'auto' &&
+            viewport.scrollHeight > viewport.clientHeight + 1;
         box.classList.toggle('coverage__table-box--custom-scroll', active);
         scrollbar.hidden = !active;
         if (!active) return;
@@ -2210,7 +2273,11 @@ document.querySelectorAll('.coverage__table-box').forEach((box, index) => {
         event.preventDefault();
         scrollbar.focus({ preventScroll: true });
         if (event.target !== thumb) {
-            let offset = event.clientY - scrollbar.getBoundingClientRect().top - inset - thumb.clientHeight / 2;
+            let offset =
+                event.clientY -
+                scrollbar.getBoundingClientRect().top -
+                inset -
+                thumb.clientHeight / 2;
             viewport.scrollTop = Math.max(0, Math.min(1, offset / travel)) * maxScroll;
         }
         drag = { pointerId: event.pointerId, y: event.clientY, scrollTop: viewport.scrollTop };
@@ -2219,24 +2286,30 @@ document.querySelectorAll('.coverage__table-box').forEach((box, index) => {
     });
     scrollbar.addEventListener('pointermove', (event) => {
         if (!drag || event.pointerId !== drag.pointerId || travel === 0) return;
-        viewport.scrollTop = drag.scrollTop + (event.clientY - drag.y) / travel * maxScroll;
+        viewport.scrollTop = drag.scrollTop + ((event.clientY - drag.y) / travel) * maxScroll;
     });
     function endDrag(event) {
         if (!drag || event.pointerId !== drag.pointerId) return;
         drag = null;
         scrollbar.classList.remove('coverage__scrollbar--dragging');
-        if (scrollbar.hasPointerCapture(event.pointerId)) scrollbar.releasePointerCapture(event.pointerId);
+        if (scrollbar.hasPointerCapture(event.pointerId))
+            scrollbar.releasePointerCapture(event.pointerId);
     }
     scrollbar.addEventListener('pointerup', endDrag);
     scrollbar.addEventListener('pointercancel', endDrag);
     scrollbar.addEventListener('lostpointercapture', endDrag);
 
-    scrollbar.addEventListener('wheel', (event) => {
-        let previous = viewport.scrollTop;
-        let scale = event.deltaMode === 1 ? 20 : event.deltaMode === 2 ? viewport.clientHeight : 1;
-        viewport.scrollTop += event.deltaY * scale;
-        if (viewport.scrollTop !== previous) event.preventDefault();
-    }, { passive: false });
+    scrollbar.addEventListener(
+        'wheel',
+        (event) => {
+            let previous = viewport.scrollTop;
+            let scale =
+                event.deltaMode === 1 ? 20 : event.deltaMode === 2 ? viewport.clientHeight : 1;
+            viewport.scrollTop += event.deltaY * scale;
+            if (viewport.scrollTop !== previous) event.preventDefault();
+        },
+        { passive: false }
+    );
     scrollbar.addEventListener('keydown', (event) => {
         let pageSize = viewport.clientHeight - (table.tHead?.offsetHeight || 0);
         let actions = {
@@ -2254,419 +2327,824 @@ document.querySelectorAll('.coverage__table-box').forEach((box, index) => {
     updateScrollbar();
 });
 
-// The same country source is used by header menus, visa checker and popup.
-window.sharedMenusReady.then(() => {
-    let countries = new Map();
-    document.querySelectorAll('.route-menu__country-btn, .menu-countries__link').forEach(link => {
-        let name = link.querySelector('span')?.textContent.trim();
-        if (name) countries.set(name, link.querySelector('img')?.getAttribute('src'));
-    });
-    let countryNames = Array.from(countries.keys()).sort((a, b) => a.localeCompare(b, 'en'));
-    let activeDialog = null;
-    let previousFocus;
-    let inertElements = [];
-
-    function closeDialog() {
-        if (!activeDialog) return;
-        activeDialog.hidden = true;
-        inertElements.forEach(([element, wasInert]) => element.inert = wasInert);
-        inertElements = [];
-        activeDialog = null;
-        let focus = previousFocus?.isConnected && previousFocus.getClientRects().length
-            ? previousFocus : document.querySelector('.header__burger');
-        focus?.focus({ preventScroll: true });
-    }
-
-    function openDialog(root, focus) {
-        closeDialog();
-        previousFocus = document.activeElement;
-        root.hidden = false;
-        root.scrollTop = 0;
-        activeDialog = root;
-        Array.from(document.body.children).forEach(element => {
-            if (element === root || ['SCRIPT', 'STYLE'].includes(element.tagName)) return;
-            inertElements.push([element, element.inert]);
-            element.inert = true;
-        });
-        focus.focus({ preventScroll: true });
-    }
-
-    document.addEventListener('keydown', event => {
-        if (!activeDialog || event.defaultPrevented) return;
-        if (event.key === 'Escape') { event.preventDefault(); closeDialog(); }
-        if (event.key !== 'Tab') return;
-        let focusable = Array.from(activeDialog.querySelectorAll('button, input, a[href], [tabindex="0"]'))
-            .filter(element => !element.disabled && element.getClientRects().length && !element.closest('[inert]'));
-        let first = focusable[0], last = focusable.at(-1);
-        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
-        if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
-    });
-
-    let languageMenu = document.querySelector('.language-menu');
-    if (languageMenu) {
-        let search = languageMenu.querySelector('.language-menu__input');
-        let list = languageMenu.querySelector('.language-menu__list');
-        let options = Array.from(list.querySelectorAll('.language-menu__option'));
-        let regions = languageMenu.querySelectorAll('.language-menu__region');
-        let region = '';
-        let listOpened = false;
-        let languages = {
-            en: { label: 'Eng', country: 'United States', regions: ['america', 'europe', 'africa', 'asia', 'oceania'] },
-            de: { label: 'Deu', country: 'Germany', regions: ['europe'] },
-            fr: { label: 'Fra', country: 'France', regions: ['america', 'europe', 'africa', 'oceania'] }
-        };
-        let selected = 'en';
-        try { if (languages[localStorage.getItem('siteLanguage')]) selected = localStorage.getItem('siteLanguage'); } catch { /* Storage is optional. */ }
-        let empty = document.createElement('p');
-        empty.className = 'language-menu__empty';
-        empty.textContent = 'No languages found';
-        empty.hidden = true;
-        empty.setAttribute('role', 'status');
-        list.after(empty);
-        let close = document.createElement('button');
-        close.type = 'button';
-        close.className = 'language-menu__close';
-        close.setAttribute('aria-label', 'Close language menu');
-        close.textContent = '×';
-        languageMenu.querySelector('.language-menu__panel').prepend(close);
-        languageMenu.querySelector('.language-menu__description').textContent = 'Choose a language. This demo does not translate the page.';
-        function syncLanguage() {
-            document.querySelectorAll('.header__language').forEach(button => {
-                button.querySelector('.header__language-value').textContent = languages[selected].label;
-                let flag = button.querySelector('.header__language-flag');
-                if (countries.get(languages[selected].country)) flag.src = countries.get(languages[selected].country);
-                button.setAttribute('aria-label', `Select language: ${selected}`);
-                button.setAttribute('aria-haspopup', 'dialog');
+// Countries
+window.sharedMenusReady
+    .then(() => {
+        let countries = new Map();
+        document
+            .querySelectorAll('.route-menu__country-btn, .menu-countries__link')
+            .forEach((link) => {
+                let name = link.querySelector('span')?.textContent.trim();
+                if (name) countries.set(name, link.querySelector('img')?.getAttribute('src'));
             });
-            options.forEach(option => {
-                let active = option.dataset.language === selected;
-                option.classList.toggle('language-menu__option--selected', active);
-                option.setAttribute('aria-pressed', String(active));
-            });
-        }
-        function filterLanguages() {
-            let query = search.value.trim().toLowerCase();
-            list.hidden = !listOpened && !query && !region;
-            let found = 0;
-            options.forEach(option => {
-                let match = option.textContent.toLowerCase().includes(query) && (!region || languages[option.dataset.language].regions.includes(region));
-                option.closest('li').hidden = !match;
-                if (match) found++;
-            });
-            empty.hidden = list.hidden || found > 0;
-            regions.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.region === region)));
-        }
-        function showLanguages() {
-            listOpened = true;
-            filterLanguages();
-        }
-        document.addEventListener('click', event => {
-            if (!event.target.closest('.header__language')) return;
-            search.value = ''; region = ''; listOpened = false; filterLanguages();
-            openDialog(languageMenu, close);
-        });
-        search.addEventListener('focus', showLanguages);
-        search.addEventListener('click', showLanguages);
-        search.addEventListener('input', filterLanguages);
-        regions.forEach(button => button.addEventListener('click', () => {
-            listOpened = true;
-            region = region === button.dataset.region ? '' : button.dataset.region;
-            filterLanguages();
-        }));
-        options.forEach(option => option.addEventListener('click', () => {
-            selected = option.dataset.language;
-            try { localStorage.setItem('siteLanguage', selected); } catch { /* Selection still works without storage. */ }
-            syncLanguage(); closeDialog();
-        }));
-        languageMenu.querySelector('.language-menu__submit').addEventListener('click', () => {
-            showLanguages();
-            search.focus({ preventScroll: true });
-        });
-        close.addEventListener('click', closeDialog);
-        languageMenu.addEventListener('click', event => { if (event.target === languageMenu) closeDialog(); });
-        syncLanguage();
-    }
+        let countryNames = Array.from(countries.keys()).sort((a, b) => a.localeCompare(b, 'en'));
+        let activeDialog = null;
+        let previousFocus;
+        let inertElements = [];
 
-    let popup = document.querySelector('.insurance-popup');
-    let popupForm = popup?.querySelector('form');
-    let openInsurancePopup;
-    if (popupForm) {
-        let selected = new Set();
-        let annual = false, start = null, end = null, confirmed = false;
-        let today = new Date(); today.setHours(0, 0, 0, 0);
-        let month = new Date(today.getFullYear(), today.getMonth(), 1);
-        let country = popupForm.querySelector('.hero-mobile-form__country');
-        let countryButton = country.querySelector('.hero-mobile-form__field--select');
-        let countryDropdown = country.querySelector('.hero-mobile-form__country-dropdown');
-        let countrySearch = country.querySelector('.hero-mobile-form__country-search');
-        let countryList = country.querySelector('.hero-mobile-form__country-options');
-        let date = popupForm.querySelector('.hero-mobile-form__date');
-        let dateButton = date.querySelector('.hero-mobile-form__field--date');
-        let calendar = date.querySelector('.calendar');
-        let travelers = popupForm.querySelector('.hero-mobile-form__passenger-value');
-        let age = popupForm.querySelector('.hero-mobile-form__age');
-        let minus = popupForm.querySelector('.hero-mobile-form__counter-btn--minus');
-        let formStatus = popupForm.querySelector('.hero-mobile-form__status');
-        const formatDate = value => value.toLocaleDateString('en-GB').replaceAll('/', '.');
-        function setError(control, key, valid, message) {
-            let error = popupForm.querySelector(`#popup-${key}-error`);
-            error.hidden = valid;
-            if (message) error.textContent = message;
-            control.setAttribute('aria-invalid', String(!valid));
-            return valid;
+        function closeDialog() {
+            if (!activeDialog) return;
+            activeDialog.hidden = true;
+            inertElements.forEach(([element, wasInert]) => (element.inert = wasInert));
+            inertElements = [];
+            activeDialog = null;
+            let focus =
+                previousFocus?.isConnected && previousFocus.getClientRects().length
+                    ? previousFocus
+                    : document.querySelector('.header__burger');
+            focus?.focus({ preventScroll: true });
         }
-        function closeCountry() {
-            countryDropdown.hidden = true;
-            country.classList.remove('hero-mobile-form__country--open');
-            countryButton.setAttribute('aria-expanded', 'false');
+
+        function openDialog(root, focus) {
+            closeDialog();
+            previousFocus = document.activeElement;
+            root.hidden = false;
+            root.scrollTop = 0;
+            activeDialog = root;
+            Array.from(document.body.children).forEach((element) => {
+                if (element === root || ['SCRIPT', 'STYLE'].includes(element.tagName)) return;
+                inertElements.push([element, element.inert]);
+                element.inert = true;
+            });
+            focus.focus({ preventScroll: true });
         }
-        function closeCalendar() {
-            calendar.hidden = true;
-            date.classList.remove('hero-mobile-form__date--open');
-            dateButton.setAttribute('aria-expanded', 'false');
-        }
-        function syncCountries() {
-            let value = country.querySelector('.hero-mobile-form__country-value');
-            value.textContent = selected.size ? Array.from(selected).join(', ') : 'Select country';
-            countryButton.title = value.textContent;
-            countryButton.classList.toggle('hero-mobile-form__field--selected', selected.size > 0);
-            countryList.querySelectorAll('input').forEach(input => input.checked = selected.has(input.value));
-            if (selected.size) setError(countryButton, 'country', true);
-        }
-        countryNames.forEach(name => {
-            let item = document.createElement('li');
-            let label = document.createElement('label'); label.className = 'hero-mobile-form__country-option';
-            let input = document.createElement('input'); input.type = 'checkbox'; input.value = name;
-            label.append(input);
-            if (countries.get(name)) {
-                let flag = document.createElement('img'); flag.src = countries.get(name); flag.alt = ''; label.append(flag);
+
+        document.addEventListener('keydown', (event) => {
+            if (!activeDialog || event.defaultPrevented) return;
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                closeDialog();
             }
-            let text = document.createElement('span'); text.textContent = name; label.append(text);
-            item.dataset.name = name.toLowerCase(); item.append(label); countryList.append(item);
-        });
-        countryButton.addEventListener('click', () => {
-            if (!countryDropdown.hidden) { closeCountry(); return; }
-            closeCalendar(); countryDropdown.hidden = false;
-            country.classList.add('hero-mobile-form__country--open');
-            countryButton.setAttribute('aria-expanded', 'true'); countrySearch.focus();
-        });
-        countrySearch.addEventListener('input', () => {
-            let found = 0;
-            Array.from(countryList.children).forEach(item => {
-                item.hidden = !item.dataset.name.includes(countrySearch.value.trim().toLowerCase());
-                if (!item.hidden) found++;
-            });
-            country.querySelector('.hero-mobile-form__country-empty').hidden = found > 0;
-        });
-        countryList.addEventListener('change', event => {
-            let input = event.target;
-            if (input.checked) selected.add(input.value); else selected.delete(input.value);
-            syncCountries();
-        });
-        country.querySelector('.hero-mobile-form__country-done').addEventListener('click', () => { closeCountry(); countryButton.focus(); });
-        country.querySelectorAll('.hero-mobile-form__countries button').forEach(button => button.addEventListener('click', () => {
-            let name = button.textContent.trim();
-            if (selected.has(name)) selected.delete(name); else selected.add(name);
-            syncCountries();
-        }));
-        function renderCalendar() {
-            calendar.querySelector('.calendar__title').textContent = month.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-            let days = calendar.querySelector('.calendar__days'); days.replaceChildren();
-            let offset = (month.getDay() + 6) % 7;
-            for (let index = 0; index < offset; index++) {
-                let blank = document.createElement('span'); blank.className = 'calendar__day calendar__day--empty'; days.append(blank);
+            if (event.key !== 'Tab') return;
+            let focusable = Array.from(
+                activeDialog.querySelectorAll('button, input, a[href], [tabindex="0"]')
+            ).filter(
+                (element) =>
+                    !element.disabled &&
+                    element.getClientRects().length &&
+                    !element.closest('[inert]')
+            );
+            let first = focusable[0],
+                last = focusable.at(-1);
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last?.focus();
             }
-            let count = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
-            for (let day = 1; day <= count; day++) {
-                let value = new Date(month.getFullYear(), month.getMonth(), day);
-                let button = document.createElement('button'); button.type = 'button'; button.className = 'calendar__day';
-                button.textContent = day; button.dataset.date = `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                button.setAttribute('aria-label', value.toLocaleDateString('en-US', { dateStyle: 'full' }));
-                button.disabled = value < today;
-                if (start && +value === +start) button.classList.add('calendar__day--start');
-                if (end && +value === +end) button.classList.add('calendar__day--end');
-                if (start && end && value > start && value < end) button.classList.add('calendar__day--in-range');
-                button.addEventListener('click', () => {
-                    if (annual || !start || end || value < start) { start = value; end = null; }
-                    else end = value;
-                    confirmed = false; renderCalendar();
-                    calendar.querySelector(`[data-date="${button.dataset.date}"]`)?.focus({ preventScroll: true });
-                });
-                days.append(button);
+            if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first?.focus();
             }
-            calendar.querySelector('.calendar__nav--prev').disabled = month <= new Date(today.getFullYear(), today.getMonth(), 1);
-            calendar.querySelector('.calendar__confirm').hidden = !start || !annual && !end;
-            date.querySelector('.hero-mobile-form__date-value').textContent = !start ? 'Select date'
-                : annual ? `From ${formatDate(start)}` : `${formatDate(start)} - ${end ? formatDate(end) : '…'}`;
-        }
-        popupForm.querySelectorAll('.hero-mobile-form__tab').forEach(button => button.addEventListener('click', () => {
-            annual = button.dataset.trip === 'annual'; start = end = null; confirmed = false;
-            popupForm.querySelectorAll('.hero-mobile-form__tab').forEach(tab => {
-                tab.classList.toggle('hero-mobile-form__tab--active', tab === button); tab.setAttribute('aria-pressed', String(tab === button));
-            });
-            renderCalendar();
-        }));
-        dateButton.addEventListener('click', () => {
-            if (!calendar.hidden) { closeCalendar(); return; }
-            closeCountry(); renderCalendar(); calendar.hidden = false;
-            date.classList.add('hero-mobile-form__date--open'); dateButton.setAttribute('aria-expanded', 'true');
         });
-        calendar.querySelectorAll('.calendar__nav').forEach(button => button.addEventListener('click', () => {
-            month.setMonth(month.getMonth() + (button.classList.contains('calendar__nav--next') ? 1 : -1)); renderCalendar();
-        }));
-        calendar.querySelector('.calendar__confirm').addEventListener('click', () => {
-            confirmed = true; closeCalendar(); setError(dateButton, 'date', true); dateButton.focus();
-        });
-        function syncTravelers() { minus.disabled = Number(travelers.value) <= 1; }
-        popupForm.querySelectorAll('.hero-mobile-form__counter-btn').forEach(button => button.addEventListener('click', () => {
-            let count = Number(travelers.value);
-            travelers.value = Math.max(1, (Number.isSafeInteger(count) ? count : 1) + (button === minus ? -1 : 1));
-            syncTravelers(); setError(travelers, 'travelers', true);
-        }));
-        travelers.addEventListener('input', syncTravelers);
-        age.addEventListener('input', () => { age.value = age.value.replace(/\D/g, '').slice(0, 2); });
-        popupForm.addEventListener('keydown', event => {
-            if (event.key !== 'Escape') return;
-            if (!countryDropdown.hidden) { closeCountry(); countryButton.focus(); }
-            else if (!calendar.hidden) { closeCalendar(); dateButton.focus(); }
-            else return;
-            event.preventDefault(); event.stopPropagation();
-        });
-        document.addEventListener('click', event => {
-            if (!event.composedPath().includes(country)) closeCountry();
-            if (!event.composedPath().includes(date)) closeCalendar();
-        });
-        popupForm.addEventListener('submit', event => {
-            event.preventDefault();
-            let checks = [
-                [countryButton, 'country', selected.size > 0],
-                [dateButton, 'date', confirmed && !!start && (annual || !!end)],
-                [travelers, 'travelers', Number.isSafeInteger(Number(travelers.value)) && Number(travelers.value) >= 1],
-                [age, 'age', /^\d+$/.test(age.value) && Number(age.value) >= 16 && Number(age.value) <= 90, 'Please enter your age between 16 and 90']
-            ];
-            checks.forEach(check => setError(...check));
-            let invalid = checks.find(check => !check[2]);
-            if (invalid) { invalid[0].focus(); return; }
-            sessionStorage.removeItem('insuranceQuote');
-            sessionStorage.setItem('insuranceTrip', JSON.stringify({
-                countries: Array.from(selected), startDate: start.getTime(), endDate: annual ? null : end.getTime(),
-                annual, travelers: Number(travelers.value), applicantAge: Number(age.value), source: 'visa-check', discountRate: 0.1
-            }));
-            window.location.href = 'quote.html';
-        });
-        popup.querySelector('.insurance-popup__close').addEventListener('click', () => { closeCountry(); closeCalendar(); closeDialog(); });
-        popup.querySelector('.insurance-popup__overlay').addEventListener('click', closeDialog);
-        openInsurancePopup = destination => {
-            if (!selected.size && destination) { selected.add(destination); syncCountries(); }
-            closeCountry(); closeCalendar(); formStatus.hidden = true;
-            openDialog(popup, countryButton);
-        };
-        renderCalendar();
-    }
 
-    let visaCheck = document.querySelector('.visa-check');
-    if (visaCheck) {
-        let schengen = new Set('Austria|Belgium|Bulgaria|Croatia|Czech Republic|Denmark|Estonia|Finland|France|Germany|Greece|Hungary|Iceland|Italy|Latvia|Liechtenstein|Lithuania|Luxembourg|Malta|Netherlands|Norway|Poland|Portugal|Romania|Slovakia|Slovenia|Spain|Sweden|Switzerland'.split('|'));
-        let visaFree = new Set('Albania|Andorra|Antigua and Barbuda|Argentina|Australia|Bahamas|Barbados|Bosnia and Herzegovina|Brazil|Brunei|Canada|Chile|Colombia|Costa Rica|Dominica|El Salvador|Georgia|Grenada|Guatemala|Honduras|Israel|Japan|Kiribati|Malaysia|Marshall Islands|Mauritius|Mexico|Micronesia|Moldova|Monaco|Montenegro|Nauru|New Zealand|Nicaragua|North Macedonia|Palau|Panama|Paraguay|Peru|Saint Kitts and Nevis|Saint Lucia|Saint Vincent and the Grenadines|Samoa|San Marino|Serbia|Seychelles|Singapore|Solomon Islands|South Korea|Timor-Leste|Tonga|Trinidad and Tobago|Tuvalu|Ukraine|United Arab Emirates|United Kingdom|United States|Uruguay|Vatican City|Venezuela|Kosovo'.split('|'));
-        let selects = Array.from(visaCheck.querySelectorAll('.visa-select'));
-        let start = visaCheck.querySelector('.visa-check__start');
-        let result = visaCheck.querySelector('.visa-check__result');
-        let resultTitle = result.querySelector('.visa-check__result-title'); resultTitle.tabIndex = -1;
-        let resultText = result.querySelector('.visa-check__result-text');
-        function closeSelect(root, focus = false) {
-            root.querySelector('.visa-select__dropdown').hidden = true;
-            let button = root.querySelector('.visa-select__trigger'); button.setAttribute('aria-expanded', 'false');
-            if (focus) button.focus();
-        }
-        selects.forEach(root => {
-            let button = root.querySelector('.visa-select__trigger');
-            let dropdown = root.querySelector('.visa-select__dropdown');
-            let search = root.querySelector('.visa-select__search');
-            let list = root.querySelector('.visa-select__list');
-            let input = root.querySelector('.visa-select__input');
-            let error = root.querySelector('.visa-select__error');
-            let names = root.dataset.field === 'destination' ? countryNames.filter(name => schengen.has(name)) : countryNames;
-            names.forEach(name => {
-                let item = document.createElement('li'); item.className = 'visa-select__item'; item.dataset.name = name.toLowerCase();
-                let option = document.createElement('button'); option.type = 'button'; option.className = 'visa-select__option'; option.dataset.country = name; option.setAttribute('aria-pressed', 'false');
-                if (countries.get(name)) { let flag = document.createElement('img'); flag.className = 'visa-select__flag'; flag.src = countries.get(name); flag.alt = ''; option.append(flag); }
-                let text = document.createElement('span'); text.className = 'visa-select__name'; text.textContent = name; option.append(text);
-                item.append(option); list.append(item);
-                option.addEventListener('click', () => {
-                    input.value = name; root.querySelector('.visa-select__value').textContent = name;
-                    button.setAttribute('aria-invalid', 'false'); error.hidden = true;
-                    list.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === option)));
-                    closeSelect(root, true);
-                });
-            });
-            button.addEventListener('click', () => {
-                let open = dropdown.hidden; selects.forEach(select => closeSelect(select));
-                dropdown.hidden = !open; button.setAttribute('aria-expanded', String(open));
-                if (open) search.focus();
-            });
-            search.addEventListener('input', () => {
-                let found = 0;
-                Array.from(list.children).forEach(item => { item.hidden = !item.dataset.name.includes(search.value.trim().toLowerCase()); if (!item.hidden) found++; });
-                root.querySelector('.visa-select__empty').hidden = found > 0;
-            });
-            root.addEventListener('keydown', event => {
-                if (event.key === 'Escape' && !dropdown.hidden) { event.preventDefault(); closeSelect(root, true); }
-                if (event.target === search && ['Home', 'End'].includes(event.key)) return;
-                if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
-                event.preventDefault(); dropdown.hidden = false; button.setAttribute('aria-expanded', 'true');
-                let options = Array.from(list.querySelectorAll('li:not([hidden]) button'));
-                let index = options.indexOf(document.activeElement);
-                if (event.key === 'Home' || index < 0 && event.key === 'ArrowDown') index = 0;
-                else if (event.key === 'End' || index < 0 && event.key === 'ArrowUp') index = options.length - 1;
-                else index = (index + (event.key === 'ArrowDown' ? 1 : -1) + options.length) % options.length;
-                options[index]?.focus();
-            });
-            root.addEventListener('focusout', event => {
-                if (event.relatedTarget && !root.contains(event.relatedTarget)) closeSelect(root);
-            });
-            document.addEventListener('click', event => { if (!root.contains(event.target)) closeSelect(root); });
-        });
-        function checkVisa(event) {
-            event.preventDefault();
-            let invalid = selects.filter(root => {
-                let valid = !!root.querySelector('.visa-select__input').value;
-                root.querySelector('.visa-select__error').hidden = valid;
-                root.querySelector('.visa-select__trigger').setAttribute('aria-invalid', String(!valid));
-                return !valid;
-            });
-            if (invalid.length) { invalid[0].querySelector('.visa-select__trigger').focus(); return; }
-            let countryAliases = {
-                'Great Britain': 'United Kingdom', 'USA': 'United States', 'United States of America': 'United States',
-                'East Timor': 'Timor-Leste', 'Macedonia': 'North Macedonia', 'Ivory Coast': 'Côte d’Ivoire',
-                "Côte d'Ivoire": 'Côte d’Ivoire', 'Türkiye': 'Turkey', 'Sao Tome and Principe': 'São Tomé and Príncipe',
-                'Holy See (Vatican City)': 'Vatican City', 'DR Congo': 'Democratic Republic of the Congo',
-                'Republic of the Congo': 'Congo', 'Eswatini (Swaziland)': 'Eswatini', 'St. Vincent': 'Saint Vincent and the Grenadines'
+        // Language
+        let languageMenu = document.querySelector('.language-menu');
+        if (languageMenu) {
+            let search = languageMenu.querySelector('.language-menu__input');
+            let list = languageMenu.querySelector('.language-menu__list');
+            let options = Array.from(list.querySelectorAll('.language-menu__option'));
+            let regions = languageMenu.querySelectorAll('.language-menu__region');
+            let region = '';
+            let listOpened = false;
+            let languages = {
+                en: {
+                    label: 'Eng',
+                    country: 'United States',
+                    regions: ['america', 'europe', 'africa', 'asia', 'oceania']
+                },
+                de: { label: 'Deu', country: 'Germany', regions: ['europe'] },
+                fr: {
+                    label: 'Fra',
+                    country: 'France',
+                    regions: ['america', 'europe', 'africa', 'oceania']
+                }
             };
-            let selectedCountry = selects[0].querySelector('input').value;
-            let citizenship = countryAliases[selectedCountry] || selectedCountry;
-            let euCitizen = schengen.has(citizenship) || ['Cyprus', 'Ireland'].includes(citizenship);
-            let free = euCitizen || visaFree.has(citizenship);
-            resultTitle.textContent = free
-                ? 'No, you don’t need a Schengen visa'
-                : 'Yes, you need a Schengen visa!';
-            let text = free
-                ? 'However, we still recommend getting travel insurance for the Schengen area. Purchase it now with a '
-                : 'To apply for a Schengen visa from your country, travel insurance covering the Schengen area is mandatory — get it now with a ';
-            let discount = document.createElement('span'); discount.className = 'visa-check__discount'; discount.textContent = '10% discount!';
-            resultText.replaceChildren(text, discount);
-            selects.forEach(root => closeSelect(root)); start.hidden = true; result.hidden = false; resultTitle.focus({ preventScroll: true });
+            let selected = 'en';
+            try {
+                if (languages[localStorage.getItem('siteLanguage')])
+                    selected = localStorage.getItem('siteLanguage');
+            } catch {
+                /* Storage */
+            }
+            let empty = document.createElement('p');
+            empty.className = 'language-menu__empty';
+            empty.textContent = 'No languages found';
+            empty.hidden = true;
+            empty.setAttribute('role', 'status');
+            list.after(empty);
+            let close = document.createElement('button');
+            close.type = 'button';
+            close.className = 'language-menu__close';
+            close.setAttribute('aria-label', 'Close language menu');
+            close.textContent = '×';
+            languageMenu.querySelector('.language-menu__panel').prepend(close);
+            languageMenu.querySelector('.language-menu__description').textContent =
+                'Choose a language. This demo does not translate the page.';
+            function syncLanguage() {
+                document.querySelectorAll('.header__language').forEach((button) => {
+                    button.querySelector('.header__language-value').textContent =
+                        languages[selected].label;
+                    let flag = button.querySelector('.header__language-flag');
+                    if (countries.get(languages[selected].country))
+                        flag.src = countries.get(languages[selected].country);
+                    button.setAttribute('aria-label', `Select language: ${selected}`);
+                    button.setAttribute('aria-haspopup', 'dialog');
+                });
+                options.forEach((option) => {
+                    let active = option.dataset.language === selected;
+                    option.classList.toggle('language-menu__option--selected', active);
+                    option.setAttribute('aria-pressed', String(active));
+                });
+            }
+            function filterLanguages() {
+                let query = search.value.trim().toLowerCase();
+                list.hidden = !listOpened && !query && !region;
+                let found = 0;
+                options.forEach((option) => {
+                    let match =
+                        option.textContent.toLowerCase().includes(query) &&
+                        (!region || languages[option.dataset.language].regions.includes(region));
+                    option.closest('li').hidden = !match;
+                    if (match) found++;
+                });
+                empty.hidden = list.hidden || found > 0;
+                regions.forEach((button) =>
+                    button.setAttribute('aria-pressed', String(button.dataset.region === region))
+                );
+            }
+            function showLanguages() {
+                listOpened = true;
+                filterLanguages();
+            }
+            document.addEventListener('click', (event) => {
+                if (!event.target.closest('.header__language')) return;
+                search.value = '';
+                region = '';
+                listOpened = false;
+                filterLanguages();
+                openDialog(languageMenu, close);
+            });
+            search.addEventListener('focus', showLanguages);
+            search.addEventListener('click', showLanguages);
+            search.addEventListener('input', filterLanguages);
+            regions.forEach((button) =>
+                button.addEventListener('click', () => {
+                    listOpened = true;
+                    region = region === button.dataset.region ? '' : button.dataset.region;
+                    filterLanguages();
+                })
+            );
+            options.forEach((option) =>
+                option.addEventListener('click', () => {
+                    selected = option.dataset.language;
+                    try {
+                        localStorage.setItem('siteLanguage', selected);
+                    } catch {
+                        /* Storage */
+                    }
+                    syncLanguage();
+                    closeDialog();
+                })
+            );
+            languageMenu.querySelector('.language-menu__submit').addEventListener('click', () => {
+                showLanguages();
+                search.focus({ preventScroll: true });
+            });
+            close.addEventListener('click', closeDialog);
+            languageMenu.addEventListener('click', (event) => {
+                if (event.target === languageMenu) closeDialog();
+            });
+            syncLanguage();
         }
-        visaCheck.querySelector('.visa-check__form').addEventListener('submit', checkVisa);
-        start.querySelector('.visa-check__btn').addEventListener('click', checkVisa);
-        result.querySelector('.visa-check__apply').addEventListener('click', () => openInsurancePopup?.(selects[1].querySelector('input').value));
-    }
-}).catch(error => {
-    // Keep the rest of the page usable if the shared country menus cannot load.
-    document.querySelectorAll('.visa-check__btn').forEach(button => {
-        button.disabled = true; button.title = 'Country list unavailable. Reload the page.';
-    });
-});
 
+        // Popup
+        let popup = document.querySelector('.insurance-popup');
+        let popupForm = popup?.querySelector('form');
+        let openInsurancePopup;
+        if (popupForm) {
+            let selected = new Set();
+            let annual = false,
+                start = null,
+                end = null,
+                confirmed = false;
+            let today = new Date();
+            today.setHours(0, 0, 0, 0);
+            let month = new Date(today.getFullYear(), today.getMonth(), 1);
+            let country = popupForm.querySelector('.hero-mobile-form__country');
+            let countryButton = country.querySelector('.hero-mobile-form__field--select');
+            let countryDropdown = country.querySelector('.hero-mobile-form__country-dropdown');
+            let countrySearch = country.querySelector('.hero-mobile-form__country-search');
+            let countryList = country.querySelector('.hero-mobile-form__country-options');
+            let date = popupForm.querySelector('.hero-mobile-form__date');
+            let dateButton = date.querySelector('.hero-mobile-form__field--date');
+            let calendar = date.querySelector('.calendar');
+            let travelers = popupForm.querySelector('.hero-mobile-form__passenger-value');
+            let age = popupForm.querySelector('.hero-mobile-form__age');
+            let minus = popupForm.querySelector('.hero-mobile-form__counter-btn--minus');
+            let formStatus = popupForm.querySelector('.hero-mobile-form__status');
+            const formatDate = (value) => value.toLocaleDateString('en-GB').replaceAll('/', '.');
+            function setError(control, key, valid, message) {
+                let error = popupForm.querySelector(`#popup-${key}-error`);
+                error.hidden = valid;
+                if (message) error.textContent = message;
+                control.setAttribute('aria-invalid', String(!valid));
+                return valid;
+            }
+            function closeCountry() {
+                countryDropdown.hidden = true;
+                country.classList.remove('hero-mobile-form__country--open');
+                countryButton.setAttribute('aria-expanded', 'false');
+            }
+            function closeCalendar() {
+                calendar.hidden = true;
+                date.classList.remove('hero-mobile-form__date--open');
+                dateButton.setAttribute('aria-expanded', 'false');
+            }
+            function syncCountries() {
+                let value = country.querySelector('.hero-mobile-form__country-value');
+                value.textContent = selected.size
+                    ? Array.from(selected).join(', ')
+                    : 'Select country';
+                countryButton.title = value.textContent;
+                countryButton.classList.toggle(
+                    'hero-mobile-form__field--selected',
+                    selected.size > 0
+                );
+                countryList
+                    .querySelectorAll('input')
+                    .forEach((input) => (input.checked = selected.has(input.value)));
+                if (selected.size) setError(countryButton, 'country', true);
+            }
+            countryNames.forEach((name) => {
+                let item = document.createElement('li');
+                let label = document.createElement('label');
+                label.className = 'hero-mobile-form__country-option';
+                let input = document.createElement('input');
+                input.type = 'checkbox';
+                input.value = name;
+                label.append(input);
+                if (countries.get(name)) {
+                    let flag = document.createElement('img');
+                    flag.src = countries.get(name);
+                    flag.alt = '';
+                    label.append(flag);
+                }
+                let text = document.createElement('span');
+                text.textContent = name;
+                label.append(text);
+                item.dataset.name = name.toLowerCase();
+                item.append(label);
+                countryList.append(item);
+            });
+            countryButton.addEventListener('click', () => {
+                if (!countryDropdown.hidden) {
+                    closeCountry();
+                    return;
+                }
+                closeCalendar();
+                countryDropdown.hidden = false;
+                country.classList.add('hero-mobile-form__country--open');
+                countryButton.setAttribute('aria-expanded', 'true');
+                countrySearch.focus();
+            });
+            countrySearch.addEventListener('input', () => {
+                let found = 0;
+                Array.from(countryList.children).forEach((item) => {
+                    item.hidden = !item.dataset.name.includes(
+                        countrySearch.value.trim().toLowerCase()
+                    );
+                    if (!item.hidden) found++;
+                });
+                country.querySelector('.hero-mobile-form__country-empty').hidden = found > 0;
+            });
+            countryList.addEventListener('change', (event) => {
+                let input = event.target;
+                if (input.checked) selected.add(input.value);
+                else selected.delete(input.value);
+                syncCountries();
+            });
+            country
+                .querySelector('.hero-mobile-form__country-done')
+                .addEventListener('click', () => {
+                    closeCountry();
+                    countryButton.focus();
+                });
+            country.querySelectorAll('.hero-mobile-form__countries button').forEach((button) =>
+                button.addEventListener('click', () => {
+                    let name = button.textContent.trim();
+                    if (selected.has(name)) selected.delete(name);
+                    else selected.add(name);
+                    syncCountries();
+                })
+            );
+            // Calendar
+            function renderCalendar() {
+                calendar.querySelector('.calendar__title').textContent = month.toLocaleDateString(
+                    'en-US',
+                    { month: 'long', year: 'numeric' }
+                );
+                let days = calendar.querySelector('.calendar__days');
+                days.replaceChildren();
+                let offset = (month.getDay() + 6) % 7;
+                for (let index = 0; index < offset; index++) {
+                    let blank = document.createElement('span');
+                    blank.className = 'calendar__day calendar__day--empty';
+                    days.append(blank);
+                }
+                let count = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+                for (let day = 1; day <= count; day++) {
+                    let value = new Date(month.getFullYear(), month.getMonth(), day);
+                    let button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'calendar__day';
+                    button.textContent = day;
+                    button.dataset.date = `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    button.setAttribute(
+                        'aria-label',
+                        value.toLocaleDateString('en-US', { dateStyle: 'full' })
+                    );
+                    button.disabled = value < today;
+                    if (start && +value === +start) button.classList.add('calendar__day--start');
+                    if (end && +value === +end) button.classList.add('calendar__day--end');
+                    if (start && end && value > start && value < end)
+                        button.classList.add('calendar__day--in-range');
+                    button.addEventListener('click', () => {
+                        if (annual || !start || end || value < start) {
+                            start = value;
+                            end = null;
+                        } else end = value;
+                        confirmed = false;
+                        renderCalendar();
+                        calendar
+                            .querySelector(`[data-date="${button.dataset.date}"]`)
+                            ?.focus({ preventScroll: true });
+                    });
+                    days.append(button);
+                }
+                calendar.querySelector('.calendar__nav--prev').disabled =
+                    month <= new Date(today.getFullYear(), today.getMonth(), 1);
+                calendar.querySelector('.calendar__confirm').hidden = !start || (!annual && !end);
+                date.querySelector('.hero-mobile-form__date-value').textContent = !start
+                    ? 'Select date'
+                    : annual
+                        ? `From ${formatDate(start)}`
+                        : `${formatDate(start)} - ${end ? formatDate(end) : '…'}`;
+            }
+            popupForm.querySelectorAll('.hero-mobile-form__tab').forEach((button) =>
+                button.addEventListener('click', () => {
+                    annual = button.dataset.trip === 'annual';
+                    start = end = null;
+                    confirmed = false;
+                    popupForm.querySelectorAll('.hero-mobile-form__tab').forEach((tab) => {
+                        tab.classList.toggle('hero-mobile-form__tab--active', tab === button);
+                        tab.setAttribute('aria-pressed', String(tab === button));
+                    });
+                    renderCalendar();
+                })
+            );
+            dateButton.addEventListener('click', () => {
+                if (!calendar.hidden) {
+                    closeCalendar();
+                    return;
+                }
+                closeCountry();
+                renderCalendar();
+                calendar.hidden = false;
+                date.classList.add('hero-mobile-form__date--open');
+                dateButton.setAttribute('aria-expanded', 'true');
+            });
+            calendar.querySelectorAll('.calendar__nav').forEach((button) =>
+                button.addEventListener('click', () => {
+                    month.setMonth(
+                        month.getMonth() +
+                        (button.classList.contains('calendar__nav--next') ? 1 : -1)
+                    );
+                    renderCalendar();
+                })
+            );
+            calendar.querySelector('.calendar__confirm').addEventListener('click', () => {
+                confirmed = true;
+                closeCalendar();
+                setError(dateButton, 'date', true);
+                dateButton.focus();
+            });
+            function syncTravelers() {
+                minus.disabled = Number(travelers.value) <= 1;
+            }
+            popupForm.querySelectorAll('.hero-mobile-form__counter-btn').forEach((button) =>
+                button.addEventListener('click', () => {
+                    let count = Number(travelers.value);
+                    travelers.value = Math.max(
+                        1,
+                        (Number.isSafeInteger(count) ? count : 1) + (button === minus ? -1 : 1)
+                    );
+                    syncTravelers();
+                    setError(travelers, 'travelers', true);
+                })
+            );
+            travelers.addEventListener('input', syncTravelers);
+            age.addEventListener('input', () => {
+                age.value = age.value.replace(/\D/g, '').slice(0, 2);
+            });
+            popupForm.addEventListener('keydown', (event) => {
+                if (event.key !== 'Escape') return;
+                if (!countryDropdown.hidden) {
+                    closeCountry();
+                    countryButton.focus();
+                } else if (!calendar.hidden) {
+                    closeCalendar();
+                    dateButton.focus();
+                } else return;
+                event.preventDefault();
+                event.stopPropagation();
+            });
+            document.addEventListener('click', (event) => {
+                if (!event.composedPath().includes(country)) closeCountry();
+                if (!event.composedPath().includes(date)) closeCalendar();
+            });
+            popupForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                let checks = [
+                    [countryButton, 'country', selected.size > 0],
+                    [dateButton, 'date', confirmed && !!start && (annual || !!end)],
+                    [
+                        travelers,
+                        'travelers',
+                        Number.isSafeInteger(Number(travelers.value)) &&
+                        Number(travelers.value) >= 1
+                    ],
+                    [
+                        age,
+                        'age',
+                        /^\d+$/.test(age.value) &&
+                        Number(age.value) >= 16 &&
+                        Number(age.value) <= 90,
+                        'Please enter your age between 16 and 90'
+                    ]
+                ];
+                checks.forEach((check) => setError(...check));
+                let invalid = checks.find((check) => !check[2]);
+                if (invalid) {
+                    invalid[0].focus();
+                    return;
+                }
+                sessionStorage.removeItem('insuranceQuote');
+                sessionStorage.setItem(
+                    'insuranceTrip',
+                    JSON.stringify({
+                        countries: Array.from(selected),
+                        startDate: start.getTime(),
+                        endDate: annual ? null : end.getTime(),
+                        annual,
+                        travelers: Number(travelers.value),
+                        applicantAge: Number(age.value),
+                        source: 'visa-check',
+                        discountRate: 0.1
+                    })
+                );
+                window.location.href = 'quote.html';
+            });
+            popup.querySelector('.insurance-popup__close').addEventListener('click', () => {
+                closeCountry();
+                closeCalendar();
+                closeDialog();
+            });
+            popup.querySelector('.insurance-popup__overlay').addEventListener('click', closeDialog);
+            openInsurancePopup = (destination) => {
+                if (!selected.size && destination) {
+                    selected.add(destination);
+                    syncCountries();
+                }
+                closeCountry();
+                closeCalendar();
+                formStatus.hidden = true;
+                openDialog(popup, countryButton);
+            };
+            renderCalendar();
+        }
+
+        // Visa check
+        let visaCheck = document.querySelector('.visa-check');
+        if (visaCheck) {
+            let schengen = new Set([
+                'Austria',
+                'Belgium',
+                'Bulgaria',
+                'Croatia',
+                'Czech Republic',
+                'Denmark',
+                'Estonia',
+                'Finland',
+                'France',
+                'Germany',
+                'Greece',
+                'Hungary',
+                'Iceland',
+                'Italy',
+                'Latvia',
+                'Liechtenstein',
+                'Lithuania',
+                'Luxembourg',
+                'Malta',
+                'Netherlands',
+                'Norway',
+                'Poland',
+                'Portugal',
+                'Romania',
+                'Slovakia',
+                'Slovenia',
+                'Spain',
+                'Sweden',
+                'Switzerland'
+            ]);
+            let visaFree = new Set([
+                'Albania',
+                'Andorra',
+                'Antigua and Barbuda',
+                'Argentina',
+                'Australia',
+                'Bahamas',
+                'Barbados',
+                'Bosnia and Herzegovina',
+                'Brazil',
+                'Brunei',
+                'Canada',
+                'Chile',
+                'Colombia',
+                'Costa Rica',
+                'Dominica',
+                'El Salvador',
+                'Georgia',
+                'Grenada',
+                'Guatemala',
+                'Honduras',
+                'Israel',
+                'Japan',
+                'Kiribati',
+                'Malaysia',
+                'Marshall Islands',
+                'Mauritius',
+                'Mexico',
+                'Micronesia',
+                'Moldova',
+                'Monaco',
+                'Montenegro',
+                'Nauru',
+                'New Zealand',
+                'Nicaragua',
+                'North Macedonia',
+                'Palau',
+                'Panama',
+                'Paraguay',
+                'Peru',
+                'Saint Kitts and Nevis',
+                'Saint Lucia',
+                'Saint Vincent and the Grenadines',
+                'Samoa',
+                'San Marino',
+                'Serbia',
+                'Seychelles',
+                'Singapore',
+                'Solomon Islands',
+                'South Korea',
+                'Timor-Leste',
+                'Tonga',
+                'Trinidad and Tobago',
+                'Tuvalu',
+                'Ukraine',
+                'United Arab Emirates',
+                'United Kingdom',
+                'United States',
+                'Uruguay',
+                'Vatican City',
+                'Venezuela',
+                'Kosovo'
+            ]);
+            let selects = Array.from(visaCheck.querySelectorAll('.visa-select'));
+            let start = visaCheck.querySelector('.visa-check__start');
+            let result = visaCheck.querySelector('.visa-check__result');
+            let resultTitle = result.querySelector('.visa-check__result-title');
+            resultTitle.tabIndex = -1;
+            let resultText = result.querySelector('.visa-check__result-text');
+            function closeSelect(root, focus = false) {
+                root.querySelector('.visa-select__dropdown').hidden = true;
+                let button = root.querySelector('.visa-select__trigger');
+                button.setAttribute('aria-expanded', 'false');
+                if (focus) button.focus();
+            }
+            selects.forEach((root) => {
+                let button = root.querySelector('.visa-select__trigger');
+                let dropdown = root.querySelector('.visa-select__dropdown');
+                let search = root.querySelector('.visa-select__search');
+                let list = root.querySelector('.visa-select__list');
+                let input = root.querySelector('.visa-select__input');
+                let error = root.querySelector('.visa-select__error');
+                let touchPoint = null;
+                dropdown.addEventListener(
+                    'touchstart',
+                    (event) => {
+                        let touch = event.touches.length === 1 ? event.touches[0] : null;
+                        touchPoint = touch
+                            ? { startX: touch.clientX, startY: touch.clientY, y: touch.clientY }
+                            : null;
+                    },
+                    { passive: true }
+                );
+                dropdown.addEventListener(
+                    'touchmove',
+                    (event) => {
+                        if (!touchPoint || event.touches.length !== 1) return;
+                        let touch = event.touches[0];
+                        let deltaY = touchPoint.y - touch.clientY;
+                        touchPoint.y = touch.clientY;
+                        if (
+                            Math.abs(touch.clientX - touchPoint.startX) >
+                            Math.abs(touch.clientY - touchPoint.startY)
+                        )
+                            return;
+                        let scrollList = event.target.closest('.visa-select__list');
+                        let maxScroll = scrollList
+                            ? Math.max(0, scrollList.scrollHeight - scrollList.clientHeight)
+                            : 0;
+                        let nextScroll = scrollList ? scrollList.scrollTop + deltaY : 0;
+                        if (
+                            !scrollList ||
+                            maxScroll === 0 ||
+                            nextScroll <= 0 ||
+                            nextScroll >= maxScroll
+                        ) {
+                            if (event.cancelable) event.preventDefault();
+                            if (scrollList)
+                                scrollList.scrollTop = Math.max(0, Math.min(maxScroll, nextScroll));
+                        }
+                    },
+                    { passive: false }
+                );
+                dropdown.addEventListener(
+                    'touchend',
+                    () => {
+                        touchPoint = null;
+                    },
+                    { passive: true }
+                );
+                dropdown.addEventListener(
+                    'touchcancel',
+                    () => {
+                        touchPoint = null;
+                    },
+                    { passive: true }
+                );
+                let names =
+                    root.dataset.field === 'destination'
+                        ? countryNames.filter((name) => schengen.has(name))
+                        : countryNames;
+                names.forEach((name) => {
+                    let item = document.createElement('li');
+                    item.className = 'visa-select__item';
+                    item.dataset.name = name.toLowerCase();
+                    let option = document.createElement('button');
+                    option.type = 'button';
+                    option.className = 'visa-select__option';
+                    option.dataset.country = name;
+                    option.setAttribute('aria-pressed', 'false');
+                    if (countries.get(name)) {
+                        let flag = document.createElement('img');
+                        flag.className = 'visa-select__flag';
+                        flag.src = countries.get(name);
+                        flag.alt = '';
+                        option.append(flag);
+                    }
+                    let text = document.createElement('span');
+                    text.className = 'visa-select__name';
+                    text.textContent = name;
+                    option.append(text);
+                    item.append(option);
+                    list.append(item);
+                    option.addEventListener('click', () => {
+                        input.value = name;
+                        root.querySelector('.visa-select__value').textContent = name;
+                        button.setAttribute('aria-invalid', 'false');
+                        error.hidden = true;
+                        list.querySelectorAll('button').forEach((item) =>
+                            item.setAttribute('aria-pressed', String(item === option))
+                        );
+                        closeSelect(root, true);
+                    });
+                });
+                button.addEventListener('click', () => {
+                    let open = dropdown.hidden;
+                    selects.forEach((select) => closeSelect(select));
+                    dropdown.hidden = !open;
+                    button.setAttribute('aria-expanded', String(open));
+                    if (open) search.focus();
+                });
+                search.addEventListener('input', () => {
+                    let found = 0;
+                    Array.from(list.children).forEach((item) => {
+                        item.hidden = !item.dataset.name.includes(
+                            search.value.trim().toLowerCase()
+                        );
+                        if (!item.hidden) found++;
+                    });
+                    root.querySelector('.visa-select__empty').hidden = found > 0;
+                });
+                root.addEventListener('keydown', (event) => {
+                    if (event.key === 'Escape' && !dropdown.hidden) {
+                        event.preventDefault();
+                        closeSelect(root, true);
+                    }
+                    if (event.target === search && ['Home', 'End'].includes(event.key)) return;
+                    if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+                    event.preventDefault();
+                    dropdown.hidden = false;
+                    button.setAttribute('aria-expanded', 'true');
+                    let options = Array.from(list.querySelectorAll('li:not([hidden]) button'));
+                    let index = options.indexOf(document.activeElement);
+                    if (event.key === 'Home' || (index < 0 && event.key === 'ArrowDown')) index = 0;
+                    else if (event.key === 'End' || (index < 0 && event.key === 'ArrowUp'))
+                        index = options.length - 1;
+                    else
+                        index =
+                            (index + (event.key === 'ArrowDown' ? 1 : -1) + options.length) %
+                            options.length;
+                    options[index]?.focus();
+                });
+                root.addEventListener('focusout', (event) => {
+                    if (event.relatedTarget && !root.contains(event.relatedTarget))
+                        closeSelect(root);
+                });
+                document.addEventListener('click', (event) => {
+                    if (!root.contains(event.target)) closeSelect(root);
+                });
+            });
+            function checkVisa(event) {
+                event.preventDefault();
+                let invalid = selects.filter((root) => {
+                    let valid = !!root.querySelector('.visa-select__input').value;
+                    root.querySelector('.visa-select__error').hidden = valid;
+                    root.querySelector('.visa-select__trigger').setAttribute(
+                        'aria-invalid',
+                        String(!valid)
+                    );
+                    return !valid;
+                });
+                if (invalid.length) {
+                    invalid[0].querySelector('.visa-select__trigger').focus();
+                    return;
+                }
+                let countryAliases = {
+                    'Great Britain': 'United Kingdom',
+                    'USA': 'United States',
+                    'United States of America': 'United States',
+                    'East Timor': 'Timor-Leste',
+                    'Macedonia': 'North Macedonia',
+                    'Ivory Coast': 'Côte d’Ivoire',
+                    "Côte d'Ivoire": 'Côte d’Ivoire',
+                    'Türkiye': 'Turkey',
+                    'Sao Tome and Principe': 'São Tomé and Príncipe',
+                    'Holy See (Vatican City)': 'Vatican City',
+                    'DR Congo': 'Democratic Republic of the Congo',
+                    'Republic of the Congo': 'Congo',
+                    'Eswatini (Swaziland)': 'Eswatini',
+                    'St. Vincent': 'Saint Vincent and the Grenadines'
+                };
+                let selectedCountry = selects[0].querySelector('input').value;
+                let citizenship = countryAliases[selectedCountry] || selectedCountry;
+                let euCitizen =
+                    schengen.has(citizenship) || ['Cyprus', 'Ireland'].includes(citizenship);
+                let free = euCitizen || visaFree.has(citizenship);
+                resultTitle.textContent = free
+                    ? 'No, you don’t need a Schengen visa'
+                    : 'Yes, you need a Schengen visa!';
+                let text = free
+                    ? 'However, we still recommend getting travel insurance for the Schengen area. Purchase it now with a '
+                    : 'To apply for a Schengen visa from your country, travel insurance covering the Schengen area is mandatory — get it now with a ';
+                let discount = document.createElement('span');
+                discount.className = 'visa-check__discount';
+                discount.textContent = '10% discount!';
+                resultText.replaceChildren(text, discount);
+                selects.forEach((root) => closeSelect(root));
+                start.hidden = true;
+                result.hidden = false;
+                resultTitle.focus({ preventScroll: true });
+            }
+            visaCheck.querySelector('.visa-check__form').addEventListener('submit', checkVisa);
+            start.querySelector('.visa-check__btn').addEventListener('click', checkVisa);
+            result
+                .querySelector('.visa-check__apply')
+                .addEventListener('click', () =>
+                    openInsurancePopup?.(selects[1].querySelector('input').value)
+                );
+        }
+    })
+    .catch((error) => {
+        // Countries fallback
+        document.querySelectorAll('.visa-check__btn').forEach((button) => {
+            button.disabled = true;
+            button.title = 'Country list unavailable. Reload the page.';
+        });
+    });
+
+// Checkout
 let quotePage = document.querySelector('.quote-page');
 
 if (quotePage) {
@@ -2675,19 +3153,24 @@ if (quotePage) {
     try {
         tripData = JSON.parse(sessionStorage.getItem('insuranceTrip'));
     } catch {
-        tripData = null
+        tripData = null;
     }
 
-    if (tripData && (
-        !Array.isArray(tripData.countries) || !tripData.countries.length ||
-        !tripData.countries.every(country => typeof country === 'string') ||
-        !Number.isFinite(tripData.startDate) || !Number.isFinite(new Date(tripData.startDate).getTime()) ||
-        !Number.isSafeInteger(tripData.travelers) || tripData.travelers < 1 ||
-        !tripData.annual && (!Number.isFinite(tripData.endDate) || tripData.endDate < tripData.startDate)
-    )) tripData = null;
+    if (
+        tripData &&
+        (!Array.isArray(tripData.countries) ||
+            !tripData.countries.length ||
+            !tripData.countries.every((country) => typeof country === 'string') ||
+            !Number.isFinite(tripData.startDate) ||
+            !Number.isFinite(new Date(tripData.startDate).getTime()) ||
+            !Number.isSafeInteger(tripData.travelers) ||
+            tripData.travelers < 1 ||
+            (!tripData.annual &&
+                (!Number.isFinite(tripData.endDate) || tripData.endDate < tripData.startDate)))
+    )
+        tripData = null;
 
-
-    let savedQuote = null
+    let savedQuote = null;
 
     try {
         savedQuote = JSON.parse(sessionStorage.getItem('insuranceQuote'));
@@ -2696,16 +3179,17 @@ if (quotePage) {
     }
 
     if (tripData) {
-        let countryText = tripData.countries.length === 1
-            ? tripData.countries[0]
-            : 'Several directions';
+        let countryText =
+            tripData.countries.length === 1 ? tripData.countries[0] : 'Several directions';
 
-        document.querySelectorAll(
-            '.quote-page__summary-item__country, .addons__country, .quote-coverage__country'
-        ).forEach((element) => {
-            element.textContent = countryText;
-            element.title = tripData.countries.join(', ')
-        });
+        document
+            .querySelectorAll(
+                '.quote-page__summary-item__country, .addons__country, .quote-coverage__country'
+            )
+            .forEach((element) => {
+                element.textContent = countryText;
+                element.title = tripData.countries.join(', ');
+            });
         let tripStart = new Date(tripData.startDate);
         let dateText;
         let countryTooltip = document.querySelector('.addons__country-tooltip');
@@ -2749,35 +3233,37 @@ if (quotePage) {
             dateText = `${startText} - ${endText}`;
         }
 
-        document.querySelectorAll(
-            '.quote-page__summary-item__date, .quote-coverage__date'
-        ).forEach((element) => {
-            element.textContent = dateText;
-        });
+        document
+            .querySelectorAll('.quote-page__summary-item__date, .quote-coverage__date')
+            .forEach((element) => {
+                element.textContent = dateText;
+            });
         let daysText = 'Annual insurance';
 
         if (!tripData.annual) {
-            let days = Math.round(
-                (tripData.endDate - tripData.startDate) / 86400000
-            ) + 1;
+            let days = Math.round((tripData.endDate - tripData.startDate) / 86400000) + 1;
 
             daysText = `${days} ${days === 1 ? 'day' : 'days'}`;
         }
 
-        document.querySelectorAll(
-            '.quote-page__summary-item__days, .addons__days, .quote-coverage__days'
-        ).forEach((element) => {
-            element.textContent = daysText;
-        });
+        document
+            .querySelectorAll(
+                '.quote-page__summary-item__days, .addons__days, .quote-coverage__days'
+            )
+            .forEach((element) => {
+                element.textContent = daysText;
+            });
 
         let travelersText = `${tripData.travelers} ${tripData.travelers === 1 ? 'traveler' : 'travelers'
             }`;
 
-        document.querySelectorAll(
-            '.quote-page__summary-item__traveler, .addons__travelers, .quote-coverage__travelers'
-        ).forEach((element) => {
-            element.textContent = travelersText;
-        });
+        document
+            .querySelectorAll(
+                '.quote-page__summary-item__traveler, .addons__travelers, .quote-coverage__travelers'
+            )
+            .forEach((element) => {
+                element.textContent = travelersText;
+            });
     }
     let basePrice = 21.75;
     let annualPrice = 200;
@@ -2802,7 +3288,7 @@ if (quotePage) {
     let tripButton = tripMenu.querySelector('.quote-page__select');
     let tripOptions = tripMenu.querySelector('.quote-page__options');
     let tripRadios = tripMenu.querySelectorAll('.quote-page__radio');
-    let tripValue = tripMenu.querySelector('.quote-page__select-value')
+    let tripValue = tripMenu.querySelector('.quote-page__select-value');
     let selectedTrip = tripMenu.querySelector('.quote-page__radio:checked').value;
     let coverageBody = document.querySelector('.quote-coverage__body');
 
@@ -2830,8 +3316,10 @@ if (quotePage) {
             selectedTrip = savedTripRadio.value;
             savedTripRadio.checked = true;
 
-            tripValue.textContent = savedTripRadio.closest('.quote-page__option')
-                .querySelector('.quote-page__name').textContent.trim();
+            tripValue.textContent = savedTripRadio
+                .closest('.quote-page__option')
+                .querySelector('.quote-page__name')
+                .textContent.trim();
         }
     }
 
@@ -2882,9 +3370,11 @@ if (quotePage) {
     });
 
     cruiseBasicRows[0].name = 'Medical assistance';
-    cruiseBasicRows[0].detail = "Schengen medical travel insurance for cruise covers emergency medical assistance, treatment due to injury, medication provision, calling a doctor, doctor's consultation (examination), emergency dental care, exacerbation of chronic diseases, acute respiratory and viral infections, outpatient treatment and inpatient treatment.";
+    cruiseBasicRows[0].detail =
+        "Schengen medical travel insurance for cruise covers emergency medical assistance, treatment due to injury, medication provision, calling a doctor, doctor's consultation (examination), emergency dental care, exacerbation of chronic diseases, acute respiratory and viral infections, outpatient treatment and inpatient treatment.";
 
-    cruiseBasicRows[1].detail = 'Schengen insurance for cruise includes medical transportation services, emergency ambulance call, independent taxi call to the hospital in the event of an insured event, as well as medical air transportation.';
+    cruiseBasicRows[1].detail =
+        'Schengen insurance for cruise includes medical transportation services, emergency ambulance call, independent taxi call to the hospital in the event of an insured event, as well as medical air transportation.';
 
     cruiseBasicRows.find((item) => item.name === 'Deductible').detail =
         'Schengen medical insurance for cruise has a deductible of 0 EUR.';
@@ -2953,8 +3443,9 @@ if (quotePage) {
     ];
 
     function renderCoverageTable(rows) {
-        coverageBody.innerHTML = rows.map((item) => {
-            return `
+        coverageBody.innerHTML = rows
+            .map((item) => {
+                return `
             <tr class="quote-coverage__row">
                 <td class="quote-coverage__cell quote-coverage__cell--name">
                     ${item.name}
@@ -2964,43 +3455,35 @@ if (quotePage) {
                 </td>
             </tr>
         `;
-        }).join('');
+            })
+            .join('');
     }
 
     function updateCoverageTable() {
         let rows = standardCoverageRows;
-
-
 
         if (selectedTrip === 'studying-abroad' || selectedTrip === 'working-abroad') {
             rows = abroadCoverageRows.map((item) => {
                 return { ...item };
             });
 
-            rows[0].name = selectedCoverage === 35000
-                ? 'Medical assistance'
-                : 'Medical coverage';
+            rows[0].name = selectedCoverage === 35000 ? 'Medical assistance' : 'Medical coverage';
         }
         if (selectedTrip === 'cruise') {
-            rows = selectedCoverage === 35000
-                ? cruiseBasicRows
-                : cruiseCoverageRows;
+            rows = selectedCoverage === 35000 ? cruiseBasicRows : cruiseCoverageRows;
         }
 
-        renderCoverageTable(rows)
+        renderCoverageTable(rows);
     }
 
+    // Price
     function updatePrice() {
         if (!tripData) return;
 
         let days = tripData.annual
             ? 1
-            : Math.round(
-                (tripData.endDate - tripData.startDate) / 86400000
-            ) + 1;
-        let price = tripData.annual
-            ? annualPrice
-            : basePrice * days;
+            : Math.round((tripData.endDate - tripData.startDate) / 86400000) + 1;
+        let price = tripData.annual ? annualPrice : basePrice * days;
         let addonsTotal = 0;
 
         document.querySelectorAll('.addons__button--added').forEach((button) => {
@@ -3017,26 +3500,28 @@ if (quotePage) {
             : '';
         let [whole, fraction] = total.toFixed(2).split('.');
 
-        document.querySelectorAll(
-            '.quote-page__price, .addons__total-price, .quote-coverage__price, .payment-receipt__price'
-        ).forEach((element) => {
-            element.firstChild.textContent = `$${whole}`;
-            element.querySelector('span').textContent = `,${fraction}`;
-        });
+        document
+            .querySelectorAll(
+                '.quote-page__price, .addons__total-price, .quote-coverage__price, .payment-receipt__price'
+            )
+            .forEach((element) => {
+                element.firstChild.textContent = `$${whole}`;
+                element.querySelector('span').textContent = `,${fraction}`;
+            });
     }
 
     function updateCoverage() {
         coverageValue.textContent = `€ ${selectedCoverage.toLocaleString('en-US')}`;
 
         coverageMinus.disabled = selectedCoverage === Number(coverageButtons[0].dataset.coverage);
-        coveragePlus.disabled = selectedCoverage === Number(coverageButtons[coverageButtons.length - 1].dataset.coverage);
+        coveragePlus.disabled =
+            selectedCoverage ===
+            Number(coverageButtons[coverageButtons.length - 1].dataset.coverage);
         updateCoverageTable();
         updatePrice();
     }
 
     updateCoverage();
-
-
 
     coverageButtons.forEach((button) => {
         button.addEventListener('click', () => {
@@ -3051,7 +3536,7 @@ if (quotePage) {
     });
 
     tripButton.addEventListener('click', () => {
-        let isOpen = tripMenu.classList.toggle('quote-page__trip--open')
+        let isOpen = tripMenu.classList.toggle('quote-page__trip--open');
 
         tripOptions.hidden = !isOpen;
     });
@@ -3082,7 +3567,7 @@ if (quotePage) {
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && tripMenu.classList.contains('quote-page__trip--open')) {
             closeTripMenu();
-            tripButton.focus()
+            tripButton.focus();
         }
     });
 
@@ -3106,21 +3591,23 @@ if (quotePage) {
     let hiddenAddons = document.querySelectorAll('.addons__item[hidden]');
     let addonsList = document.querySelector('.addons__list');
     let addonsButtons = addonsList.querySelectorAll('.addons__button');
-    let addonsSelected = document.querySelector('.addons__selected')
+    let addonsSelected = document.querySelector('.addons__selected');
 
     function saveQuoteSelection() {
-        let addons = Array.from(
-            addonsList.querySelectorAll('.addons__button--added'),
-            (button) => {
-                return button.closest('.addons__item')
-                    .querySelector('.addons__name').textContent.trim()
-            }
+        let addons = Array.from(addonsList.querySelectorAll('.addons__button--added'), (button) => {
+            return button
+                .closest('.addons__item')
+                .querySelector('.addons__name')
+                .textContent.trim();
+        });
+        sessionStorage.setItem(
+            'insuranceQuote',
+            JSON.stringify({
+                coverage: selectedCoverage,
+                tripType: selectedTrip,
+                addons: addons
+            })
         );
-        sessionStorage.setItem('insuranceQuote', JSON.stringify({
-            coverage: selectedCoverage,
-            tripType: selectedTrip,
-            addons: addons
-        }));
     }
 
     addonsFullButton.addEventListener('click', () => {
@@ -3128,24 +3615,18 @@ if (quotePage) {
         hiddenAddons.forEach((item) => {
             item.hidden = false;
 
-            item.animate(
-                [{ opacity: 0 }, { opacity: 1 }],
-                { duration: 350, easing: 'ease-out' }
-            );
+            item.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 350, easing: 'ease-out' });
         });
         let endHeight = addonsList.getBoundingClientRect().height;
 
         addonsList.style.overflow = 'hidden';
         let animation = addonsList.animate(
-            [
-                { height: `${startHeight}px` },
-                { height: `${endHeight}px` }
-            ],
+            [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
             { duration: 350, easing: 'ease-out' }
         );
 
         animation.onfinish = () => {
-            addonsList.style.removeProperty('overflow')
+            addonsList.style.removeProperty('overflow');
         };
         addonsFullButton.hidden = true;
     });
@@ -3157,7 +3638,7 @@ if (quotePage) {
 
         selectedButtons.forEach((button) => {
             let addon = button.closest('.addons__item');
-            let name = addon.querySelector('.addons__name').textContent.trim()
+            let name = addon.querySelector('.addons__name').textContent.trim();
             let item = document.createElement('li');
 
             item.className = 'addons__selected-item';
@@ -3168,7 +3649,6 @@ if (quotePage) {
 
         addonsSelected.hidden = selectedButtons.length === 0;
         updatePrice();
-
     }
 
     addonsButtons.forEach((button) => {
@@ -3192,10 +3672,8 @@ if (quotePage) {
             let isAdded = savedQuote.addons.includes(name);
 
             button.classList.toggle('addons__button--added', isAdded);
-            button.querySelector('.addons__button-text').textContent =
-                isAdded ? 'Added' : 'Add';
-            button.querySelector('.addons__button-icon').textContent =
-                isAdded ? '✓' : '+';
+            button.querySelector('.addons__button-text').textContent = isAdded ? 'Added' : 'Add';
+            button.querySelector('.addons__button-icon').textContent = isAdded ? '✓' : '+';
         });
 
         let hasSelectedHiddenAddon = Array.from(hiddenAddons).some((item) => {
@@ -3234,6 +3712,7 @@ if (quotePage) {
     let quoteSummary = document.querySelector('.quote-page__summary');
     let touristsForm = document.querySelector('.tourists-form');
     let touristConsent = touristsForm.querySelector('.tourists-form__checkbox');
+    // Payment
     let payment = document.querySelector('.payment');
     let cardNumberInput = payment.querySelector('.payment-form__input--number');
     let cardNumberPreviews = payment.querySelectorAll('.payment-card__number');
@@ -3301,17 +3780,11 @@ if (quotePage) {
 
         updateCardNumber();
     });
-    let expiryMonthInput = payment.querySelector(
-        '.payment-form__input--month'
-    );
+    let expiryMonthInput = payment.querySelector('.payment-form__input--month');
 
-    let expiryYearInput = payment.querySelector(
-        '.payment-form__input--year'
-    );
+    let expiryYearInput = payment.querySelector('.payment-form__input--year');
 
-    let cardExpiryPreviews = payment.querySelectorAll(
-        '.payment-card__expiry-value'
-    );
+    let cardExpiryPreviews = payment.querySelectorAll('.payment-card__expiry-value');
 
     function updateCardExpiry() {
         cardExpiryPreviews.forEach((element) => {
@@ -3365,7 +3838,7 @@ if (quotePage) {
     let paymentFocusComplete = new WeakMap();
     let payNowButton = payment.querySelector('.payment-form__submit');
 
-    // Local demo only: these numbers never leave the browser or enter storage.
+    // Demo payment
     let demoCards = {
         '4242424242424242': 'success',
         '5555555555554444': 'success',
@@ -3381,7 +3854,8 @@ if (quotePage) {
     paymentForm.noValidate = true;
     let demoNote = document.createElement('details');
     demoNote.className = 'payment-form__demo';
-    demoNote.innerHTML = '<summary>Demo payment — no real charge</summary><p>Use any made-up 16-digit number for success; do not enter real card details. Processing error: 4000 0000 0000 0119. Declined: 4000 0000 0000 0002. Use any future expiry and 3-digit CVV. No policy or email is issued.</p>';
+    demoNote.innerHTML =
+        '<summary>Demo payment — no real charge</summary><p>Use any made-up 16-digit number for success; do not enter real card details. Processing error: 4000 0000 0000 0119. Declined: 4000 0000 0000 0002. Use any future expiry and 3-digit CVV. No policy or email is issued.</p>';
     paymentForm.querySelector('.payment-form__footer').before(demoNote);
 
     function hasValidCardNumber() {
@@ -3392,9 +3866,21 @@ if (quotePage) {
     function validatePayment(showErrors = true) {
         let numberValid = hasValidCardNumber();
         let groups = [
-            { inputs: [cardNumberInput], valid: numberValid, field: cardNumberInput.closest('.payment-form__field') },
-            { inputs: [expiryMonthInput, expiryYearInput], valid: isPaymentInputComplete(expiryYearInput), field: expiryMonthInput.closest('fieldset') },
-            { inputs: [cvvInput], valid: isPaymentInputComplete(cvvInput), field: cvvInput.closest('.payment-form__field') }
+            {
+                inputs: [cardNumberInput],
+                valid: numberValid,
+                field: cardNumberInput.closest('.payment-form__field')
+            },
+            {
+                inputs: [expiryMonthInput, expiryYearInput],
+                valid: isPaymentInputComplete(expiryYearInput),
+                field: expiryMonthInput.closest('fieldset')
+            },
+            {
+                inputs: [cvvInput],
+                valid: isPaymentInputComplete(cvvInput),
+                field: cvvInput.closest('.payment-form__field')
+            }
         ];
         let firstInvalid;
         groups.forEach(({ inputs, valid, field }, index) => {
@@ -3402,10 +3888,11 @@ if (quotePage) {
             error.id = `payment-error-${index}`;
             error.setAttribute('role', 'alert');
             if (index === 0) error.textContent = 'Please enter a 16-digit card number.';
-            let reveal = showErrors || inputs.some(input => input.getAttribute('aria-invalid') === 'true');
+            let reveal =
+                showErrors || inputs.some((input) => input.getAttribute('aria-invalid') === 'true');
             if (reveal) {
                 error.hidden = valid;
-                inputs.forEach(input => {
+                inputs.forEach((input) => {
                     input.classList.toggle('payment-form__input--error', !valid);
                     input.setAttribute('aria-invalid', String(!valid));
                     if (valid) input.removeAttribute('aria-describedby');
@@ -3423,7 +3910,7 @@ if (quotePage) {
         return firstInvalid;
     }
 
-    paymentInputs.forEach(input => input.addEventListener('input', () => validatePayment(false)));
+    paymentInputs.forEach((input) => input.addEventListener('input', () => validatePayment(false)));
 
     function cancelDemoPayment() {
         paymentAttempt++;
@@ -3440,8 +3927,15 @@ if (quotePage) {
         quoteNavigation.hidden = true;
         document.querySelector('.quote-page__back').hidden = state === 'success';
         stepText.textContent = state === 'success' ? 'Demo completed' : 'Something went wrong';
-        progressSteps.forEach((element, index) => element.classList.toggle('quote-page__step--active', index < (state === 'success' ? 4 : 3)));
-        paymentModals.forEach(modal => modal.hidden = !modal.classList.contains(`payment-modal--${state}`));
+        progressSteps.forEach((element, index) =>
+            element.classList.toggle(
+                'quote-page__step--active',
+                index < (state === 'success' ? 4 : 3)
+            )
+        );
+        paymentModals.forEach(
+            (modal) => (modal.hidden = !modal.classList.contains(`payment-modal--${state}`))
+        );
         let activeModal = document.querySelector(`.payment-modal--${state}`);
         activeModal.focus();
         cvvInput.value = '';
@@ -3454,7 +3948,10 @@ if (quotePage) {
         event.preventDefault();
         if (payNowButton.disabled || checkoutStep !== 4) return;
         let invalid = validatePayment();
-        if (invalid) { invalid.focus(); return; }
+        if (invalid) {
+            invalid.focus();
+            return;
+        }
         let result = demoCards[cardNumberInput.value.replace(/\D/g, '')] || 'success';
         let attempt = ++paymentAttempt;
         payNowButton.disabled = true;
@@ -3467,22 +3964,28 @@ if (quotePage) {
     }
     payNowButton.addEventListener('click', submitDemoPayment);
     paymentForm.addEventListener('submit', submitDemoPayment);
-    paymentModals.forEach(modal => {
+    paymentModals.forEach((modal) => {
         let notice = document.createElement('p');
         notice.className = 'payment-modal__demo';
         notice.textContent = 'Demo only. No money charged, policy issued or email sent.';
         modal.querySelector('.payment-modal__content').append(notice);
     });
-    document.querySelector('.payment-modal--success .payment-modal__text').textContent = 'The test payment scenario was completed successfully.';
-    document.querySelectorAll('.payment-modal__retry').forEach(button => button.addEventListener('click', () => {
-        showCheckoutStep(4);
-        cardNumberInput.focus();
-    }));
-    document.querySelectorAll('.payment-modal__contact').forEach(button => button.addEventListener('click', () => {
-        let notice = button.closest('.payment-modal').querySelector('.payment-modal__demo');
-        notice.setAttribute('role', 'status');
-        notice.textContent = 'Support links are not connected in this demo. Use Back to retry the test payment.';
-    }));
+    document.querySelector('.payment-modal--success .payment-modal__text').textContent =
+        'The test payment scenario was completed successfully.';
+    document.querySelectorAll('.payment-modal__retry').forEach((button) =>
+        button.addEventListener('click', () => {
+            showCheckoutStep(4);
+            cardNumberInput.focus();
+        })
+    );
+    document.querySelectorAll('.payment-modal__contact').forEach((button) =>
+        button.addEventListener('click', () => {
+            let notice = button.closest('.payment-modal').querySelector('.payment-modal__demo');
+            notice.setAttribute('role', 'status');
+            notice.textContent =
+                'Support links are not connected in this demo. Use Back to retry the test payment.';
+        })
+    );
 
     function isPaymentInputComplete(input) {
         if (input === cardNumberInput) {
@@ -3490,17 +3993,23 @@ if (quotePage) {
         }
 
         if (input === expiryMonthInput) {
-            return /^\d{2}$/.test(input.value) && Number(input.value) >= 1 && Number(input.value) <= 12;
+            return (
+                /^\d{2}$/.test(input.value) && Number(input.value) >= 1 && Number(input.value) <= 12
+            );
         }
 
         if (input === expiryYearInput) {
-            if (!/^\d{2}$/.test(input.value) || !isPaymentInputComplete(expiryMonthInput)) return false;
+            if (!/^\d{2}$/.test(input.value) || !isPaymentInputComplete(expiryMonthInput))
+                return false;
 
             let today = new Date();
             let year = 2000 + Number(input.value);
 
-            return year > today.getFullYear() ||
-                (year === today.getFullYear() && Number(expiryMonthInput.value) >= today.getMonth() + 1);
+            return (
+                year > today.getFullYear() ||
+                (year === today.getFullYear() &&
+                    Number(expiryMonthInput.value) >= today.getMonth() + 1)
+            );
         }
 
         return /^\d{3}$/.test(input.value);
@@ -3530,10 +4039,14 @@ if (quotePage) {
         let input = event.target;
 
         if (
-            paymentInputs.includes(input) && document.activeElement === input &&
-            !paymentFocusComplete.get(input) && !event.isComposing &&
-            !event.inputType?.startsWith('delete') && isPaymentInputComplete(input) &&
-            input.selectionStart === input.value.length && input.selectionEnd === input.value.length
+            paymentInputs.includes(input) &&
+            document.activeElement === input &&
+            !paymentFocusComplete.get(input) &&
+            !event.isComposing &&
+            !event.inputType?.startsWith('delete') &&
+            isPaymentInputComplete(input) &&
+            input.selectionStart === input.value.length &&
+            input.selectionEnd === input.value.length
         ) {
             movePaymentFocus(input);
         }
@@ -3542,7 +4055,14 @@ if (quotePage) {
     payment.addEventListener('keydown', (event) => {
         let input = event.target;
 
-        if (!paymentInputs.includes(input) || event.isComposing || event.ctrlKey || event.altKey || event.metaKey) return;
+        if (
+            !paymentInputs.includes(input) ||
+            event.isComposing ||
+            event.ctrlKey ||
+            event.altKey ||
+            event.metaKey
+        )
+            return;
 
         if (event.key === 'Enter') {
             event.preventDefault();
@@ -3582,8 +4102,9 @@ if (quotePage) {
         if (!option) return;
 
         paymentTypeValue.value = option.dataset.value;
-        paymentTypeButton.querySelector('.payment-form__select-value').textContent =
-            option.querySelector('.payment-form__option-name').textContent.trim();
+        paymentTypeButton.querySelector('.payment-form__select-value').textContent = option
+            .querySelector('.payment-form__option-name')
+            .textContent.trim();
 
         paymentTypeOptions.querySelectorAll('.payment-form__option').forEach((element) => {
             element.setAttribute('aria-selected', String(element === option));
@@ -3609,8 +4130,11 @@ if (quotePage) {
         openPaymentTypeMenu();
 
         if (event.key === 'Home' || (index < 0 && event.key === 'ArrowDown')) index = 0;
-        else if (event.key === 'End' || (index < 0 && event.key === 'ArrowUp')) index = options.length - 1;
-        else index = (index + (event.key === 'ArrowDown' ? 1 : -1) + options.length) % options.length;
+        else if (event.key === 'End' || (index < 0 && event.key === 'ArrowUp'))
+            index = options.length - 1;
+        else
+            index =
+                (index + (event.key === 'ArrowDown' ? 1 : -1) + options.length) % options.length;
 
         options[index]?.focus();
     });
@@ -3636,13 +4160,14 @@ if (quotePage) {
     let orderSummary = document.querySelector('.order-summary');
     let addonsSummarySlot = document.querySelector('.order-summary-slot--addons');
     let coverageSummarySlot = document.querySelector('.order-summary-slot--coverage');
+    // Tourists
     let touristsList = touristsForm.querySelector('.tourists-form__list');
     let touristTemplate = document.querySelector('.tourist-template');
     let addTouristButton = touristsForm.querySelector('.tourists-form__add');
     let quoteNavigation = quoteMain.querySelector('.quote-navigation');
     let quoteNavigationButtons = quoteNavigation.querySelectorAll('.quote-navigation__button');
     let quoteSummaryTooltipTriggers = quoteMain.querySelectorAll(
-        '.quote-page__summary-item--country, .addons__trip-item--country, .addons__trip-item--travelers, .quote-coverage__summary-item--country'
+        '.quote-page__summary-item--country, .addons__trip-item--country, .quote-coverage__summary-item--country'
     );
     let checkoutStep = 2;
     let quoteScreens = [quotePage, addonsSection, coverageSection];
@@ -3656,7 +4181,7 @@ if (quotePage) {
     let quoteInfoPointerFocus = new WeakSet();
 
     function closeQuoteInfoTooltips(except = null) {
-        quoteInfoTriggers.forEach(trigger => {
+        quoteInfoTriggers.forEach((trigger) => {
             if (trigger !== except) trigger.setAttribute('aria-expanded', 'false');
         });
     }
@@ -3669,9 +4194,13 @@ if (quotePage) {
         trigger.setAttribute('aria-controls', tooltip.id);
         trigger.setAttribute('aria-expanded', 'false');
         if (!trigger.hasAttribute('aria-label')) {
-            let name = trigger.closest('.addons__heading')?.querySelector('.addons__name')
-                || trigger.closest('.quote-page__item')?.querySelector('.quote-page__name');
-            trigger.setAttribute('aria-label', `More about ${name?.textContent.trim() || 'this coverage'}`);
+            let name =
+                trigger.closest('.addons__heading')?.querySelector('.addons__name') ||
+                trigger.closest('.quote-page__item')?.querySelector('.quote-page__name');
+            trigger.setAttribute(
+                'aria-label',
+                `More about ${name?.textContent.trim() || 'this coverage'}`
+            );
         }
         trigger.addEventListener('pointerdown', () => quoteInfoPointerFocus.add(trigger));
         trigger.addEventListener('focus', () => {
@@ -3679,7 +4208,7 @@ if (quotePage) {
             closeQuoteInfoTooltips(trigger);
             trigger.setAttribute('aria-expanded', 'true');
         });
-        trigger.addEventListener('click', event => {
+        trigger.addEventListener('click', (event) => {
             event.preventDefault();
             let open = trigger.getAttribute('aria-expanded') !== 'true';
             quoteInfoPointerFocus.delete(trigger);
@@ -3690,7 +4219,7 @@ if (quotePage) {
             quoteInfoPointerFocus.delete(trigger);
             trigger.setAttribute('aria-expanded', 'false');
         });
-        trigger.addEventListener('keydown', event => {
+        trigger.addEventListener('keydown', (event) => {
             if (event.key !== 'Escape') return;
             event.preventDefault();
             event.stopPropagation();
@@ -3699,8 +4228,13 @@ if (quotePage) {
         });
     });
 
-    document.addEventListener('pointerdown', event => {
-        if (!event.target.closest('.quote-page__info, .addons__info, .quote-page__tooltip, .addons__tooltip')) closeQuoteInfoTooltips();
+    document.addEventListener('pointerdown', (event) => {
+        if (
+            !event.target.closest(
+                '.quote-page__info, .addons__info, .quote-page__tooltip, .addons__tooltip'
+            )
+        )
+            closeQuoteInfoTooltips();
     });
 
     function syncQuoteNavigation() {
@@ -3764,20 +4298,20 @@ if (quotePage) {
 
         sessionStorage.setItem('insuranceTrip', JSON.stringify(tripData));
 
-        document.querySelectorAll(
-            '.quote-page__summary-item__traveler, .addons__travelers, .quote-coverage__travelers'
-        ).forEach((element) => {
-            element.textContent = `${count} ${count === 1 ? 'traveler' : 'travelers'}`;
-        });
+        document
+            .querySelectorAll(
+                '.quote-page__summary-item__traveler, .addons__travelers, .quote-coverage__travelers'
+            )
+            .forEach((element) => {
+                element.textContent = `${count} ${count === 1 ? 'traveler' : 'travelers'}`;
+            });
 
         updatePrice();
     }
 
     function isValidBirth(field, minAge = 0, maxAge = 90) {
         let inputs = field.querySelectorAll('.tourist__input');
-        let [monthText, dayText, yearText] = Array.from(
-            inputs, (input) => input.value.trim()
-        );
+        let [monthText, dayText, yearText] = Array.from(inputs, (input) => input.value.trim());
 
         if (
             !/^\d{1,2}$/.test(monthText) ||
@@ -3807,13 +4341,15 @@ if (quotePage) {
             age--;
         }
 
-        return year > 0 &&
+        return (
+            year > 0 &&
             date.getFullYear() === year &&
             date.getMonth() === month - 1 &&
             date.getDate() === day &&
             date <= today &&
             age >= minAge &&
-            age <= maxAge;
+            age <= maxAge
+        );
     }
 
     function setTouristError(field, hasError) {
@@ -3829,7 +4365,7 @@ if (quotePage) {
             }
         });
 
-        error.hidden = !hasError
+        error.hidden = !hasError;
     }
 
     function getTouristInvalidInput(field) {
@@ -3884,10 +4420,10 @@ if (quotePage) {
         initialTourists = 1;
     }
     for (let i = 1; i < initialTourists; i++) {
-        createTourist()
+        createTourist();
     }
     addTouristButton.addEventListener('click', () => {
-        createTourist()
+        createTourist();
         updateTouristsCount();
     });
     touristsList.addEventListener('click', (event) => {
@@ -3905,7 +4441,7 @@ if (quotePage) {
             }
             tourist.querySelectorAll('[data-field]').forEach((input) => {
                 input.name = `tourists[${index}][${input.dataset.field}]`;
-            })
+            });
         });
         updateTouristsCount();
     });
@@ -3982,7 +4518,14 @@ if (quotePage) {
     touristsList.addEventListener('keydown', (event) => {
         let input = event.target;
 
-        if (!input.matches('.tourist__input') || event.isComposing || event.ctrlKey || event.altKey || event.metaKey) return;
+        if (
+            !input.matches('.tourist__input') ||
+            event.isComposing ||
+            event.ctrlKey ||
+            event.altKey ||
+            event.metaKey
+        )
+            return;
 
         if (event.key === 'Enter') {
             event.preventDefault();
@@ -4006,7 +4549,10 @@ if (quotePage) {
     });
 
     function formatTouristPassport(value) {
-        let series = value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 2);
+        let series = value
+            .toUpperCase()
+            .replace(/[^A-Z]/g, '')
+            .slice(0, 2);
         let number = value.replace(/\D/g, '').slice(0, 6);
 
         return series + (series.length === 2 ? number : '');
@@ -4026,18 +4572,25 @@ if (quotePage) {
         digits = digits.slice(0, 9);
 
         return [
-            '+380', digits.slice(0, 2), digits.slice(2, 5),
-            digits.slice(5, 7), digits.slice(7, 9)
-        ].filter(Boolean).join(' ');
+            '+380',
+            digits.slice(0, 2),
+            digits.slice(2, 5),
+            digits.slice(5, 7),
+            digits.slice(7, 9)
+        ]
+            .filter(Boolean)
+            .join(' ');
     }
 
     touristsList.addEventListener('beforeinput', (event) => {
         let input = event.target;
 
         if (
-            input.name === 'phone' && input.value.startsWith('+380') &&
+            input.name === 'phone' &&
+            input.value.startsWith('+380') &&
             event.inputType.startsWith('delete') &&
-            input.selectionStart === input.selectionEnd && input.selectionStart <= 4
+            input.selectionStart === input.selectionEnd &&
+            input.selectionStart <= 4
         ) {
             event.preventDefault();
         }
@@ -4083,14 +4636,20 @@ if (quotePage) {
 
         updateTouristFieldState(input);
 
-        let fixedLength = input.closest('.tourist__birth') ||
-            input.name.endsWith('[passport]') || input.name === 'phone';
+        let fixedLength =
+            input.closest('.tourist__birth') ||
+            input.name.endsWith('[passport]') ||
+            input.name === 'phone';
 
         if (
-            fixedLength && document.activeElement === input &&
-            !touristFocusComplete.get(input) && !event.isComposing &&
-            !event.inputType?.startsWith('delete') && isTouristInputComplete(input) &&
-            input.selectionStart === input.value.length && input.selectionEnd === input.value.length
+            fixedLength &&
+            document.activeElement === input &&
+            !touristFocusComplete.get(input) &&
+            !event.isComposing &&
+            !event.inputType?.startsWith('delete') &&
+            isTouristInputComplete(input) &&
+            input.selectionStart === input.value.length &&
+            input.selectionEnd === input.value.length
         ) {
             moveTouristFocus(input, 1);
         }
@@ -4101,9 +4660,7 @@ if (quotePage) {
 
         let firstInvalidInput = null;
 
-        touristsList.querySelectorAll(
-            '.tourist__field, .tourist__birth'
-        ).forEach((field) => {
+        touristsList.querySelectorAll('.tourist__field, .tourist__birth').forEach((field) => {
             let invalidInput = getTouristInvalidInput(field);
             setTouristError(field, Boolean(invalidInput));
 
@@ -4201,7 +4758,9 @@ if (quotePage) {
                 }
 
                 if (animate && !reducedMotion) {
-                    setTimeout(() => { screenChanging = false; }, 200);
+                    setTimeout(() => {
+                        screenChanging = false;
+                    }, 200);
                 } else {
                     screenChanging = false;
                 }
@@ -4225,7 +4784,7 @@ if (quotePage) {
         if (screenChanging) return;
 
         cancelDemoPayment();
-        paymentModals.forEach(modal => modal.hidden = true);
+        paymentModals.forEach((modal) => (modal.hidden = true));
         stepText.replaceChildren(...normalStepText);
         document.querySelector('.quote-page__back').hidden = false;
         closePaymentTypeMenu();
@@ -4242,10 +4801,7 @@ if (quotePage) {
         stepNumber.textContent = step;
 
         progressSteps.forEach((element, index) => {
-            element.classList.toggle(
-                'quote-page__step--active',
-                index < step
-            );
+            element.classList.toggle('quote-page__step--active', index < step);
         });
 
         window.scrollTo({
@@ -4255,8 +4811,11 @@ if (quotePage) {
     }
     getCoveredButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            if (!tripData) { window.location.href = 'index.html#hero'; return; }
-            showCheckoutStep(3)
+            if (!tripData) {
+                window.location.href = 'index.html#hero';
+                return;
+            }
+            showCheckoutStep(3);
         });
     });
     function quoteScrollBoundary(direction) {
@@ -4266,55 +4825,88 @@ if (quotePage) {
     }
 
     function quoteHasLocalScroll(target, direction) {
-        for (let element = target; element && element !== document.body; element = element.parentElement) {
+        for (
+            let element = target;
+            element && element !== document.body;
+            element = element.parentElement
+        ) {
             let overflow = getComputedStyle(element).overflowY;
 
             if (!['auto', 'scroll'].includes(overflow)) continue;
             if (direction < 0 && element.scrollTop > 0) return true;
-            if (direction > 0 && element.scrollTop + element.clientHeight < element.scrollHeight - 1) return true;
+            if (
+                direction > 0 &&
+                element.scrollTop + element.clientHeight < element.scrollHeight - 1
+            )
+                return true;
         }
 
         return false;
     }
 
     function quoteMenuOpen() {
-        return document.querySelector('.burger-menu:not([hidden]), .route-menu:not([hidden])') !== null;
+        return (
+            document.querySelector('.burger-menu:not([hidden]), .route-menu:not([hidden])') !== null
+        );
     }
 
-    window.addEventListener('wheel', (event) => {
-        if (checkoutStep !== 2) return;
-        if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY) || !event.deltaY) return;
+    window.addEventListener(
+        'wheel',
+        (event) => {
+            if (checkoutStep !== 2) return;
+            if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY) || !event.deltaY)
+                return;
 
-        let direction = Math.sign(event.deltaY);
-        let now = performance.now();
-        let newGesture = now - lastWheelTime > 240;
-        lastWheelTime = now;
+            let direction = Math.sign(event.deltaY);
+            let now = performance.now();
+            let newGesture = now - lastWheelTime > 240;
+            lastWheelTime = now;
 
-        if (quoteMenuOpen() || quoteHasLocalScroll(event.target, direction)) return;
+            if (quoteMenuOpen() || quoteHasLocalScroll(event.target, direction)) return;
 
-        if (screenChanging) {
+            if (screenChanging) {
+                event.preventDefault();
+                return;
+            }
+
+            let next = currentScreen + direction;
+
+            if (next < 0 || next >= quoteScreens.length || !quoteScrollBoundary(direction)) return;
+
             event.preventDefault();
-            return;
-        }
 
-        let next = currentScreen + direction;
-
-        if (next < 0 || next >= quoteScreens.length || !quoteScrollBoundary(direction)) return;
-
-        event.preventDefault();
-
-        if (newGesture) showQuoteScreen(next, direction);
-    }, { passive: false });
+            if (newGesture) showQuoteScreen(next, direction);
+        },
+        { passive: false }
+    );
 
     document.addEventListener('keydown', (event) => {
         if (checkoutStep !== 2) return;
-        if (event.defaultPrevented || event.ctrlKey || event.altKey || event.metaKey || quoteMenuOpen()) return;
-        if (event.target.closest('input, textarea, select, button, a, [contenteditable="true"]')) return;
+        if (
+            event.defaultPrevented ||
+            event.ctrlKey ||
+            event.altKey ||
+            event.metaKey ||
+            quoteMenuOpen()
+        )
+            return;
+        if (event.target.closest('input, textarea, select, button, a, [contenteditable="true"]'))
+            return;
 
         let direction;
 
-        if (event.key === 'ArrowDown' || event.key === 'PageDown' || (event.key === ' ' && !event.shiftKey)) direction = 1;
-        if (event.key === 'ArrowUp' || event.key === 'PageUp' || (event.key === ' ' && event.shiftKey)) direction = -1;
+        if (
+            event.key === 'ArrowDown' ||
+            event.key === 'PageDown' ||
+            (event.key === ' ' && !event.shiftKey)
+        )
+            direction = 1;
+        if (
+            event.key === 'ArrowUp' ||
+            event.key === 'PageUp' ||
+            (event.key === ' ' && event.shiftKey)
+        )
+            direction = -1;
         if (!direction) return;
 
         if (screenChanging) {
@@ -4342,4 +4934,3 @@ if (quotePage) {
 
     showQuoteScreen(window.location.hash === '#coverage' ? 2 : 0, 1, false);
 }
-
